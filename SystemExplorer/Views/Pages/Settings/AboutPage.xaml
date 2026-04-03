@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.AboutPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <StackPanel>
+            <TextBlock FontSize="26" Margin="0 10 0 0" Text="About application"/>
+            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
+                <xtc:SettingsCard Header="SystemExplorer" Description="Version 1.0.0">
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE946;" />
+                    </xtc:SettingsCard.HeaderIcon>
+
+                    <Button Content="Copy" Width="100" />
+                </xtc:SettingsCard>
+
+                <xtc:SettingsCard IsClickEnabled="True">
+                    <xtc:SettingsCard.Header>
+                        <TextBlock Text="Support us on GitHub"
+                           FontFamily="Segoe UI Variable Text"
+                           FontSize="15"
+                           FontWeight="SemiBold" />
+                    </xtc:SettingsCard.Header>
+
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xEB51;" />
+                    </xtc:SettingsCard.HeaderIcon>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Help and support">
+                <xtc:SettingsCard Header="Documentation"
+                          Description="Learn how to use the app"
+                          IsClickEnabled="True">
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xF7DB;" />
+                    </xtc:SettingsCard.HeaderIcon>
+                </xtc:SettingsCard>
+
+                <xtc:SettingsCard Header="Questions and issues"
+                          Description="Find solutions and report problems"
+                          IsClickEnabled="True">
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE8F2;" />
+                    </xtc:SettingsCard.HeaderIcon>
+                </xtc:SettingsCard>
+
+                <xtc:SettingsCard Header="Open logs"
+                          Description="View application logs"
+                          IsClickEnabled="True">
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE838;" />
+                    </xtc:SettingsCard.HeaderIcon>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Open source">
+                <xtc:SettingsExpander Header="Third-party libraries" Description="View application dependencies">
+                    <xtc:SettingsExpander.HeaderIcon>
+                        <FontIcon Glyph="&#xE90F;" />
+                    </xtc:SettingsExpander.HeaderIcon>
+
+                    <xtc:SettingsExpander.Items>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <StackPanel Spacing="5">
+                                    <TextBlock>
+                                        <Hyperlink UnderlineStyle="None" NavigateUri="https://github.com/HO-COOH/WinUIEssentials">
+                                            WinUIEssentials
+                                        </Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock>
+                                         <Hyperlink UnderlineStyle="None" NavigateUri="https://github.com/lgztx96/CommunityToolkit.WinUI">
+                                             XamlToolkit
+                                         </Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock>
+                                         <Hyperlink UnderlineStyle="None" NavigateUri="https://github.com/microsoft/wil">
+                                             Microsoft Wil
+                                         </Hyperlink>
+                                    </TextBlock>
+                                    <TextBlock>
+                                         <Hyperlink UnderlineStyle="None" NavigateUri="https://github.com/winsiderss/phnt">
+                                             Phnt
+                                         </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
+                
+                <xtc:SettingsCard Header="Repository on GitHub"
+                          Description="Source code is available on GitHub"
+                          IsClickEnabled="True">
+                    <xtc:SettingsCard.HeaderIcon>
+                        <FontIcon Glyph="&#xE774;" />
+                    </xtc:SettingsCard.HeaderIcon>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="50" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+        </StackPanel>
+    </Grid>
+</Page>

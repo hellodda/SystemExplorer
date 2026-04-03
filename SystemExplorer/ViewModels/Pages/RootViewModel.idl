@@ -1,0 +1,9 @@
+namespace SystemExplorer.ViewModels.Pages
+{
+    [bindable]
+    [default_interface]
+    runtimeclass RootViewModel 
+    {
+        RootViewModel();
+    }
+}

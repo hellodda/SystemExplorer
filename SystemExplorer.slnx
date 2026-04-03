@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="Selib/Selib.vcxproj" Id="f86f4c66-c526-400d-8080-3e2b1819bb69">
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
+    <Deploy />
+  </Project>
+  <Project Path="Tests/Tests.vcxproj" Id="0768550d-4404-46f6-813c-729bff25f942">
+    <Deploy />
+  </Project>
+  <Project Path="Xaml/Xaml.vcxproj" Id="7389541c-a0b0-495d-8ae6-388b1761c371" />
+</Solution>

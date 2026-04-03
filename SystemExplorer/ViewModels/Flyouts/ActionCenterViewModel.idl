@@ -1,0 +1,13 @@
+import "Models/ActionItem.idl";
+
+namespace SystemExplorer.ViewModels.Flyouts
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ActionCenterViewModel 
+    {
+        ActionCenterViewModel();
+
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.ActionItem> Actions { get; };
+    }
+}

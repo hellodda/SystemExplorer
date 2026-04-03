@@ -1,0 +1,19 @@
+namespace SystemExplorer.Models
+{
+    enum ActionStatus
+    {
+        Success,
+        Failure,
+        Warning,
+        None
+    };
+
+    [bindable]
+    [default_interface]
+    runtimeclass ActionItem 
+    {
+        ActionItem();
+        ActionStatus Status;
+        String Message;
+    }
+}
