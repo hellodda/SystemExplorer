@@ -1,8 +1,12 @@
+import "ViewModels/Pages/Settings/AboutViewModel.idl";
+
 namespace SystemExplorer.Views.Pages.Settings
 {
     [default_interface]
     runtimeclass AboutPage : Microsoft.UI.Xaml.Controls.Page
     {
         AboutPage();
+
+        SystemExplorer.ViewModels.Pages.Settings.AboutViewModel ViewModel { get; };
     }
 }

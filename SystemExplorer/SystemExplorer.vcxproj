@@ -126,6 +126,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Helpers\AsyncRelayCommand.h" />
     <ClInclude Include="Converters\ActionStatusToBrushConverter.h">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -141,6 +142,10 @@
     </ClInclude>
     <ClInclude Include="ViewModels\Flyouts\ActionCenterViewModel.h">
       <DependentUpon>ViewModels\Flyouts\ActionCenterViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ViewModels\Pages\Settings\AboutViewModel.h">
+      <DependentUpon>ViewModels\Pages\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\ViewModelBase.h" />
@@ -187,6 +192,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Helpers\AsyncRelayCommand.cpp" />
     <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -204,6 +210,10 @@
     </ClCompile>
     <ClCompile Include="ViewModels\Flyouts\ActionCenterViewModel.cpp">
       <DependentUpon>ViewModels\Flyouts\ActionCenterViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ViewModels\Pages\Settings\AboutViewModel.cpp">
+      <DependentUpon>ViewModels\Pages\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Flyouts\ActionsCenterFlyout.xaml.cpp">
@@ -239,6 +249,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\Flyouts\ActionCenterViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ViewModels\Pages\Settings\AboutViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Views\Flyouts\ActionsCenterFlyout.idl">

@@ -15,15 +15,18 @@
     <Midl Include="ViewModels\Flyouts\ActionCenterViewModel.idl" />
     <Midl Include="Models\ActionItem.idl" />
     <Midl Include="Converters\ActionStatusToBrushConverter.idl" />
+    <Midl Include="ViewModels\Pages\Settings\AboutViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
+    <ClCompile Include="Helpers\AsyncRelayCommand.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
     <ClInclude Include="ViewModels\ViewModelBase.h" />
+    <ClInclude Include="Helpers\AsyncRelayCommand.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

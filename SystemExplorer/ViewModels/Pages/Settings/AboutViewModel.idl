@@ -1,0 +1,11 @@
+namespace SystemExplorer.ViewModels.Pages.Settings
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AboutViewModel 
+    {
+        AboutViewModel();
+
+        Microsoft.UI.Xaml.Input.ICommand LaunchUriCommand { get; };
+    }
+}

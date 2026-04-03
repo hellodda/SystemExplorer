@@ -22,7 +22,9 @@
                     <Button Content="Copy" Width="100" />
                 </xtc:SettingsCard>
 
-                <xtc:SettingsCard IsClickEnabled="True">
+                <xtc:SettingsCard IsClickEnabled="True"
+                                  Command="{x:Bind ViewModel.LaunchUriCommand}"
+                                  CommandParameter="https://github.com/hellodda/SystemExplorer">
                     <xtc:SettingsCard.Header>
                         <TextBlock Text="Support us on GitHub"
                            FontFamily="Segoe UI Variable Text"
@@ -47,7 +49,9 @@
 
                 <xtc:SettingsCard Header="Questions and issues"
                           Description="Find solutions and report problems"
-                          IsClickEnabled="True">
+                          IsClickEnabled="True"
+                          Command="{x:Bind ViewModel.LaunchUriCommand}"
+                          CommandParameter="https://github.com/hellodda/SystemExplorer/iusses">
                     <xtc:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE8F2;" />
                     </xtc:SettingsCard.HeaderIcon>
@@ -100,7 +104,9 @@
                 
                 <xtc:SettingsCard Header="Repository on GitHub"
                           Description="Source code is available on GitHub"
-                          IsClickEnabled="True">
+                          IsClickEnabled="True"
+                          Command="{x:Bind ViewModel.LaunchUriCommand}"
+                          CommandParameter="https://github.com/hellodda/SystemExplorer">
                     <xtc:SettingsCard.HeaderIcon>
                         <FontIcon Glyph="&#xE774;" />
                     </xtc:SettingsCard.HeaderIcon>

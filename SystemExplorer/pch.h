@@ -30,4 +30,6 @@
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <wil/cppwinrt_helpers.h>
+#include <wil/result.h>
 #include <SystemExplorer.Core.h>
+#include <winrt/SystemExplorer.Xaml.h>
