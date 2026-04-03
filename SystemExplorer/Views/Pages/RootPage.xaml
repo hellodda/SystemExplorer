@@ -57,8 +57,8 @@
 
         <NavigationView x:Name="NavView"
                  SelectionChanged="NavViewSelectionChanged"
-                 OpenPaneLength="200"
                  IsSettingsVisible="True"
+                 Style="{StaticResource NavigationViewStoreStyle}"
                  Grid.Row="1">
             <NavigationView.MenuItems>
                 <NavigationViewItem

@@ -30,10 +30,14 @@
   <ItemGroup>
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
+    <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl" />
+    <Midl Include="Common\Attach\VisualAttach.idl" />
+    <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
     <Page Include="Themes\Generic.xaml" />
     <Page Include="Styles\Animations.xaml" />
+    <Page Include="Styles\NavigationView.xaml" />
   </ItemGroup>
 </Project>

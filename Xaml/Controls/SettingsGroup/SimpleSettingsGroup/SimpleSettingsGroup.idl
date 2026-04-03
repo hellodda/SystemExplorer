@@ -1,6 +1,5 @@
 namespace SystemExplorer.Xaml.Controls
 {
-    [bindable]
     [default_interface]
     runtimeclass SimpleSettingsGroup : Microsoft.UI.Xaml.Controls.ItemsControl
     {
