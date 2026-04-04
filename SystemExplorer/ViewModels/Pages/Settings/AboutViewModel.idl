@@ -6,6 +6,6 @@ namespace SystemExplorer.ViewModels.Pages.Settings
     {
         AboutViewModel();
 
-        Microsoft.UI.Xaml.Input.ICommand LaunchUriCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand LaunchUriCommand { get; };
     }
 }

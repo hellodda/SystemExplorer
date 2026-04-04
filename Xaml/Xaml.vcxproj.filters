@@ -33,6 +33,8 @@
     <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl" />
     <Midl Include="Common\Attach\VisualAttach.idl" />
     <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl" />
+    <Midl Include="Mvvm\Input\RelayCommand.idl" />
+    <Midl Include="Mvvm\Input\AsyncRelayCommand.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />

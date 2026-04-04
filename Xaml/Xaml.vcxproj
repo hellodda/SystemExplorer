@@ -139,6 +139,14 @@
       <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Mvvm\Input\AsyncRelayCommand.h">
+      <DependentUpon>Mvvm\Input\AsyncRelayCommand.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Mvvm\Input\RelayCommand.h">
+      <DependentUpon>Mvvm\Input\RelayCommand.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
@@ -160,6 +168,14 @@
     </ClCompile>
     <ClCompile Include="Helpers\ImplicitOffsetAnimationHelper.cpp">
       <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Mvvm\Input\AsyncRelayCommand.cpp">
+      <DependentUpon>Mvvm\Input\AsyncRelayCommand.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Mvvm\Input\RelayCommand.cpp">
+      <DependentUpon>Mvvm\Input\RelayCommand.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -190,6 +206,12 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Mvvm\Input\AsyncRelayCommand.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Mvvm\Input\RelayCommand.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

@@ -126,7 +126,6 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Helpers\AsyncRelayCommand.h" />
     <ClInclude Include="Converters\ActionStatusToBrushConverter.h">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -192,7 +191,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Helpers\AsyncRelayCommand.cpp" />
     <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
