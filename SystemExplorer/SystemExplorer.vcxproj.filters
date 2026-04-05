@@ -9,6 +9,7 @@
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml" />
     <Page Include="Views\Pages\Settings\AboutPage.xaml" />
     <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml" />
+    <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -73,5 +74,9 @@
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
   </ItemGroup>
 </Project>

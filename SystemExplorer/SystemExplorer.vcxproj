@@ -162,6 +162,10 @@
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\AppearancePage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Windows\MainWindow.xaml.h">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClInclude>
@@ -185,6 +189,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Settings\AboutPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Settings\AppearancePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Windows\MainWindow.xaml" />
@@ -229,6 +236,10 @@
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\AppearancePage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClCompile>
@@ -265,6 +276,10 @@
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Settings\AppearancePage.idl">
+      <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Windows\MainWindow.idl">
