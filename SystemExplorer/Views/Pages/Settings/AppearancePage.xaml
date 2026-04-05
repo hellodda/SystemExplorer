@@ -8,9 +8,77 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:essential="using:WinUI3Package"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:converters="using:SystemExplorer.Converters"
+    xmlns:items="using:SystemExplorer.Models.Items"
     NavigationCacheMode="Required">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <essential:NegateBoolConverter x:Key="BoolNegationConverter" />
+            <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+
+            <DataTemplate x:Key="AppThemeResourcesItemTemplate" x:DataType="items:AppThemeResourceItem">
+                <Grid
+					Width="120"
+					AutomationProperties.Name="{x:Bind Name, Mode=OneWay}"
+					BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+					BorderThickness="1"
+					CornerRadius="6"
+					ToolTipService.ToolTip="{x:Bind Name, Mode=OneWay}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="16" />
+                        <RowDefinition Height="50" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                 
+                    <Border
+						Grid.RowSpan="2"
+						Height="66"
+						Background="{x:Bind BackgroundColor, Converter={StaticResource StringToBrushConverter}, Mode=OneWay}"
+						CornerRadius="4,4,0,0" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border
+							Width="4"
+							Height="1"
+							VerticalAlignment="Bottom"
+							Background="{ThemeResource ControlElevationBorderBrush}" />
+                        <Border
+							Width="32"
+							Height="12"
+							VerticalAlignment="Bottom"
+							Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+							BorderThickness="1,1,1,0"
+							CornerRadius="4,4,0,0" />
+                        <Border
+							Width="86"
+							Height="1"
+							VerticalAlignment="Bottom"
+							Background="{ThemeResource ControlElevationBorderBrush}" />
+                    </StackPanel>
+
+                    <Border
+						Grid.Row="1"
+						Height="50"
+						VerticalAlignment="Bottom"
+						Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource ControlElevationBorderBrush}"
+						BorderThickness="0,0,0,.5" />
+
+                    <TextBlock
+						Grid.Row="2"
+						Padding="4"
+						HorizontalAlignment="Center"
+						Text="{x:Bind Name, Mode=OneWay}"
+						TextTrimming="CharacterEllipsis" />
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid Padding="20">
         <StackPanel>
@@ -49,19 +117,101 @@
                     <ComboBox Width="200">
                         <ComboBoxItem Content="Static"/>
                         <ComboBoxItem Content="Acrylic"/>
-                        <ComboBoxItem Content="Thin acrylic"/>
-                        <ComboBoxItem Content="Flexible acrylic"/>
+                        <ComboBoxItem Content="Thin Acrylic"/>
+                        <ComboBoxItem Content="Flexible Acrylic"/>
                         <ComboBoxItem Content="Mica"/>
                         <ComboBoxItem Content="Mica Alt"/>
-                        <ComboBoxItem Content="Flexible mica"/>
+                        <ComboBoxItem Content="Flexible Mica"/>
                     </ComboBox>
                 </xtc:SettingsCard>
                 <xtc:SettingsExpander
                     Header="Background color"
-                    HeaderIcon="{toolkit:FontIcon Glyph=&#xE771;}">
+                    HeaderIcon="{toolkit:FontIcon Glyph=&#xE771;}"
+                    IsExpanded="True">
+                    <Button Padding="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Border
+							Width="24"
+							Height="24"
+							Margin="4"
+							Background="Gray"
+							CornerRadius="4">
+                                <Grid>
+                                    <PathIcon Data="M0 6 L0 0 L6 0 L6 6 L12 6 L12 0 L18 0 L18 6 L12 6 L12 12 L18 12 L18 6 L24 6 L24 12 L18 12 L18 18 L24 18 L24 24 L6 24 L6 18 L0 18 L0 12 L6 12 L6 18 L12 18 L12 24 L18 24 L18 18 L12 18 L12 12 L6 12 L6 6 Z" Foreground="LightGray" />
+                                    <Rectangle Fill="Aqua" />
+                                </Grid>
+                            </Border>
+                            <FontIcon
+							Margin="8,4,10,4"
+							FontSize="12"
+							Glyph="&#xE70D;" />
+                        </StackPanel>
+                        <Button.Flyout>
+                            <Flyout>
+                                <xtc:ColorPicker
+								IsAlphaEnabled="True"
+								IsColorSpectrumVisible="False"
+								/>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <xtc:SettingsExpander.ItemsHeader>
+                        <GridView
+						Padding="8"
+						HorizontalAlignment="Stretch"
+						Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+						ItemTemplate="{StaticResource AppThemeResourcesItemTemplate}"
+                        ItemsSource="{x:Bind ViewModel.AppThemeResources, Mode=OneWay}"/>
+                    </xtc:SettingsExpander.ItemsHeader>
+                </xtc:SettingsExpander>
+                <xtc:SettingsExpander Header="Background image"
+                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE91B;}">
+
+                    <SplitButton
+					x:Name="SelectImageButton"
+					Content="Review"
+					>
+                        <SplitButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <MenuFlyoutItem
+								x:Name="RemoveImageMenuItem"
+								Text="Remove" />
+                            </MenuFlyout>
+                        </SplitButton.Flyout>
+                    </SplitButton>
+
                     <xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard>
-                            
+                        <xtc:SettingsCard Header="Opacity">
+                            <Slider
+							Width="140"
+							HorizontalAlignment="Right"
+							IsThumbToolTipEnabled="False"
+							Maximum="1"
+							Minimum=".1"
+							StepFrequency=".1"
+                               
+							 />
+                        </xtc:SettingsCard>
+
+                        <!--  Image Fit  -->
+                        <xtc:SettingsCard Header="Image Fit">
+                            <ComboBox
+							MinWidth="140"
+							 />
+                        </xtc:SettingsCard>
+
+                        <!--  VerticalAlignment  -->
+                        <xtc:SettingsCard Header="Vertical Alignment">
+                            <ComboBox
+							MinWidth="140"
+							/>
+                        </xtc:SettingsCard>
+
+                        <!--  HorizontalAlignment  -->
+                        <xtc:SettingsCard Header="Horizontal Alignment">
+                            <ComboBox
+							MinWidth="140"
+						     />
                         </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>

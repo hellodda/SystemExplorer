@@ -17,11 +17,18 @@
     <Midl Include="Models\ActionItem.idl" />
     <Midl Include="Converters\ActionStatusToBrushConverter.idl" />
     <Midl Include="ViewModels\AboutViewModel.idl" />
+    <Midl Include="Converters\StringToBrushConverter.idl" />
+    <Midl Include="Models\Items\AppThemeResourceItem.idl" />
+    <Midl Include="ViewModels\AppearanceViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
+    <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
+    <ClCompile Include="Services\GeneralSettingsService.cpp" />
+    <ClCompile Include="Services\AppearanceSettingsService.cpp" />
+    <ClCompile Include="Services\UserSettingsService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -30,6 +37,10 @@
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Scripting.h" />
+    <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
+    <ClInclude Include="Services\GeneralSettingsService.h" />
+    <ClInclude Include="Services\AppearanceSettingsService.h" />
+    <ClInclude Include="Services\UserSettingsService.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

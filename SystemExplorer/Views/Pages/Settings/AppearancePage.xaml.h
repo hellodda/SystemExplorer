@@ -1,5 +1,6 @@
 #pragma once
 #include "Views/Pages/Settings/AppearancePage.g.h"
+#include <Services/UserSettingsService.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
@@ -7,8 +8,9 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     {
         AppearancePage()
         {
+            
         }
-        
+        wil::single_threaded_property<ViewModels::AppearanceViewModel> ViewModel;
     };
 }
 

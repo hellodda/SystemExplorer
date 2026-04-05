@@ -1,0 +1,13 @@
+namespace SystemExplorer.Models.Items
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppThemeResourceItem 
+    {
+        AppThemeResourceItem();
+        AppThemeResourceItem(String name, String backgroundColor);
+        
+        String Name;
+        String BackgroundColor;
+    }
+}

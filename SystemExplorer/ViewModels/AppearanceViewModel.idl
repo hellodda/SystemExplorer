@@ -1,0 +1,13 @@
+import "Models/Items/AppThemeResourceItem.idl";
+
+namespace SystemExplorer.ViewModels
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppearanceViewModel 
+    {
+        AppearanceViewModel();
+
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.Items.AppThemeResourceItem> AppThemeResources { get; };
+    }
+}

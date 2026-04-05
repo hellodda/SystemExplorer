@@ -30,29 +30,6 @@
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
             </TitleBar.IconSource>
-            <TitleBar.RightHeader>
-                <StackPanel Orientation="Horizontal" Spacing="5">
-                    <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
-                        <Button.Content>
-                            <FontIcon FontSize="16" Glyph="&#xF4A5;" />
-                        </Button.Content>
-                    </Button>
-                    <Button Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
-                        <Button.Content>
-                            <FontIcon FontSize="16" Glyph="&#xE793;" />
-                        </Button.Content>
-                    </Button>
-                    <Button ToolTipService.ToolTip="Center of action" Background="Transparent" BorderBrush="Transparent" HorizontalAlignment="Right">
-                        <Button.Content>
-                            <FontIcon Glyph="&#xE9A4;" />
-                        </Button.Content>
-
-                        <Button.Flyout>
-                            <flyouts:ActionsCenterFlyout/>
-                        </Button.Flyout>
-                    </Button>
-                </StackPanel>
-            </TitleBar.RightHeader>
         </TitleBar>
 
         <NavigationView x:Name="NavView"

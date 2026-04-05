@@ -1,0 +1,7 @@
+namespace SystemExplorer.Converters
+{
+    runtimeclass StringToBrushConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        StringToBrushConverter();
+    }
+}

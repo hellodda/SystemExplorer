@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Converters/ActionStatusToBrushConverter.g.h"
+#include "Converters/StringToBrushConverter.g.h"
 
 namespace winrt::SystemExplorer::Converters::implementation
 {
@@ -9,10 +9,10 @@ namespace winrt::SystemExplorer::Converters::implementation
     using namespace winrt::Microsoft::UI::Xaml::Data;
     using namespace winrt::Microsoft::UI::Xaml;
 
-    struct ActionStatusToBrushConverter : ActionStatusToBrushConverterT<ActionStatusToBrushConverter>
+    struct StringToBrushConverter : StringToBrushConverterT<StringToBrushConverter>
     {
-        ActionStatusToBrushConverter() = default;
-
+        StringToBrushConverter() = default;
+        
         [[nodiscard]] IInspectable Convert(
             IInspectable const& value,
             TypeName const&,
@@ -31,7 +31,7 @@ namespace winrt::SystemExplorer::Converters::implementation
 
 namespace winrt::SystemExplorer::Converters::factory_implementation
 {
-    struct ActionStatusToBrushConverter : ActionStatusToBrushConverterT<ActionStatusToBrushConverter, implementation::ActionStatusToBrushConverter>
+    struct StringToBrushConverter : StringToBrushConverterT<StringToBrushConverter, implementation::StringToBrushConverter>
     {
     };
 }
