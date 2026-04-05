@@ -11,6 +11,7 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
     struct AsyncRelayCommand : AsyncRelayCommandT<AsyncRelayCommand>, wil::notify_property_changed_base<AsyncRelayCommand>
     {
         AsyncRelayCommand(AsyncExecuteHandler const& execute);
+        AsyncRelayCommand(AsyncExecuteHandler const& execute, AsyncRelayCommandOptions options);
         AsyncRelayCommand(AsyncExecuteHandler const& execute, CanExecuteHandler const& canExecute);
         AsyncRelayCommand(AsyncExecuteHandler const& execute, CanExecuteHandler const& canExecute, AsyncRelayCommandOptions options);
 

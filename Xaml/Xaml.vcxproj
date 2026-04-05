@@ -89,6 +89,9 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup />
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnabled>false</VcpkgEnabled>
+  </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -147,6 +150,10 @@
       <DependentUpon>Mvvm\Input\AsyncRelayCommand.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Mvvm\Input\AsyncRelayCommandFactory.h">
+      <DependentUpon>Mvvm\Input\AsyncRelayCommandFactory.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Mvvm\Input\RelayCommand.h">
       <DependentUpon>Mvvm\Input\RelayCommand.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -176,6 +183,10 @@
     </ClCompile>
     <ClCompile Include="Mvvm\Input\AsyncRelayCommand.cpp">
       <DependentUpon>Mvvm\Input\AsyncRelayCommand.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Mvvm\Input\AsyncRelayCommandFactory.cpp">
+      <DependentUpon>Mvvm\Input\AsyncRelayCommandFactory.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Mvvm\Input\RelayCommand.cpp">
@@ -213,6 +224,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Mvvm\Input\AsyncRelayCommand.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Mvvm\Input\AsyncRelayCommandFactory.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Mvvm\Input\RelayCommand.idl">

@@ -35,6 +35,7 @@
     <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl" />
     <Midl Include="Mvvm\Input\RelayCommand.idl" />
     <Midl Include="Mvvm\Input\AsyncRelayCommand.idl" />
+    <Midl Include="Mvvm\Input\AsyncRelayCommandFactory.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />

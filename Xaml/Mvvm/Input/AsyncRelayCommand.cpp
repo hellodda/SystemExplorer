@@ -10,6 +10,9 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
     AsyncRelayCommand::AsyncRelayCommand(AsyncExecuteHandler const& execute)
         : execute_(execute) {}
 
+    AsyncRelayCommand::AsyncRelayCommand(AsyncExecuteHandler const& execute, AsyncRelayCommandOptions options)
+        : execute_(execute), options_(options) {}
+
     AsyncRelayCommand::AsyncRelayCommand(AsyncExecuteHandler const& execute, CanExecuteHandler const& canExecute)
         : execute_(execute), canExecute_(canExecute) {}
 

@@ -6,14 +6,14 @@ namespace winrt::SystemExplorer::Core::Diagnostics
 {
 	struct ActionsCenterLogger
 	{
-		static void LogInformation(std::wstring const& message)
-		{
+		//static void LogInformation(std::wstring const& message)
+		//{
 
-		}
-		static void LogError(std::wstring const& message)
-		{
+		//}
+		//static void LogError(std::wstring const& message)
+		//{
 
-		}
+		//}
 	private:
 		//SystemExplorer::ViewModels::Flyouts::ActionCenterViewModel viewModel_;
 	};
@@ -24,7 +24,7 @@ namespace winrt::SystemExplorer::Core::Diagnostics
 		message[0] = L'\0';
 		wil::GetFailureLogString(message, ARRAYSIZE(message), failure);
 
-		ActionsCenterLogger::LogInformation(message);
+		//ActionsCenterLogger::LogInformation(message);
 	}
 }
 

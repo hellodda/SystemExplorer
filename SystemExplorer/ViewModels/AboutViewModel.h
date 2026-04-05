@@ -4,6 +4,7 @@
 #include <wil/cppwinrt_authoring.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Windows.System.h>
+#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
@@ -15,7 +16,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     {
         AboutViewModel() = default;
 
-        wil::single_threaded_property<SystemExplorer::Xaml::Mvvm::Input::IAsyncRelayCommand> LaunchUriCommand = SystemExplorer::Xaml::Mvvm::Input::AsyncRelayCommand([](IInspectable const& parameter) -> IAsyncAction {
+        wil::single_threaded_property<SystemExplorer::Xaml::Mvvm::Input::IAsyncRelayCommand> LaunchUriCommand = SystemExplorer::Xaml::Mvvm::Input::AsyncRelayCommandFactory::Make([](IInspectable const& parameter) -> IAsyncAction {
             co_await Launcher::LaunchUriAsync(Uri{ parameter.try_as<hstring>().value() });
         });
     };

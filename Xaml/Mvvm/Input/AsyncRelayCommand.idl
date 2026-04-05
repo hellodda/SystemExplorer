@@ -31,20 +31,11 @@ namespace SystemExplorer.Xaml.Mvvm.Input
 
     runtimeclass AsyncRelayCommand : [default] IAsyncRelayCommand
     {
+        //Due to ABI limitations, it is better to use a factory
+
         AsyncRelayCommand(AsyncExecuteHandler execute);
         //AsyncRelayCommand(AsyncExecuteHandler execute, AsyncRelayCommandOptions options);
         AsyncRelayCommand(AsyncExecuteHandler execute, CanExecuteHandler canExecute);        
         AsyncRelayCommand(AsyncExecuteHandler execute, CanExecuteHandler canExecute, AsyncRelayCommandOptions options);
-
-        void NotifyCanExecuteChanged();
     }
-
-    //[default_interface]
-    //runtimeclass AsyncRelayCommandFactory
-    //{
-        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute);
-        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, AsyncRelayCommandOptions options);
-        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute);
-        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute, AsyncRelayCommandOptions options);
-    //}
 }

@@ -1,0 +1,16 @@
+import "Mvvm/Input/AsyncRelayCommand.idl";
+
+namespace SystemExplorer.Xaml.Mvvm.Input
+{
+    [default_interface]
+    runtimeclass AsyncRelayCommandFactory
+    {
+        AsyncRelayCommandFactory();
+
+        static IAsyncRelayCommand Make(AsyncExecuteHandler execute);
+        [default_overload]
+        static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute);
+        static IAsyncRelayCommand Make(AsyncExecuteHandler execute, AsyncRelayCommandOptions options);
+        static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute, AsyncRelayCommandOptions options);
+    }
+}
