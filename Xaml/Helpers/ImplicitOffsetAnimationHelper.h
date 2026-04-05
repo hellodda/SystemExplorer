@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Helpers.ImplicitOffsetAnimationHelper.g.h"
+#include "Helpers/ImplicitOffsetAnimationHelper.g.h"
 
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>

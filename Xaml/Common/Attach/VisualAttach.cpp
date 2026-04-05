@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "VisualAttach.h"
-#if __has_include("Common.VisualAttach.g.cpp")
-#include "Common.VisualAttach.g.cpp"
+#if __has_include("Common/VisualAttach.g.cpp")
+#include "Common/VisualAttach.g.cpp"
 #endif
 #include <winrt/Windows.Foundation.Numerics.h>
 

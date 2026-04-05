@@ -1,4 +1,4 @@
-namespace SystemExplorer.Xaml
+namespace SystemExplorer.Xaml.Mvvm.Input
 {
     delegate void ExecuteHandler(Object parameter);
     delegate Boolean CanExecuteHandler(Object parameter);

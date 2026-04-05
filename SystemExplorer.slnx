@@ -4,9 +4,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Selib/Selib.vcxproj" Id="f86f4c66-c526-400d-8080-3e2b1819bb69">
-    <Platform Solution="*|ARM64" Project="x64" />
-  </Project>
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
   </Project>

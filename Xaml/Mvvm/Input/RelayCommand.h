@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "RelayCommand.g.h"
+#include "Mvvm/Input/RelayCommand.g.h"
 
-namespace winrt::SystemExplorer::Xaml::implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml::Input;
@@ -15,7 +15,7 @@ namespace winrt::SystemExplorer::Xaml::implementation
             : execute_(execute), canExecute_(canExecute) {};
 
         void Execute(IInspectable const& parameter) const;
-        bool CanExecute(IInspectable const& parameter) const;
+        [[nodiscard]] bool CanExecute(IInspectable const& parameter) const;
 
         void NotifyCanExecuteChanged();
 
@@ -30,7 +30,7 @@ namespace winrt::SystemExplorer::Xaml::implementation
     };
 }
 
-namespace winrt::SystemExplorer::Xaml::factory_implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::factory_implementation
 {
     struct RelayCommand : RelayCommandT<RelayCommand, implementation::RelayCommand>
     {

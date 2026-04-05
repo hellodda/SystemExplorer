@@ -1,9 +1,8 @@
 ﻿#pragma once
-#include "AsyncRelayCommand.g.h"
+#include "Mvvm/Input/AsyncRelayCommand.g.h"
 #include <wil/cppwinrt_authoring.h>
 
-
-namespace winrt::SystemExplorer::Xaml::implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml::Input;
@@ -36,7 +35,7 @@ namespace winrt::SystemExplorer::Xaml::implementation
     private:
         AsyncExecuteHandler execute_{ nullptr };
         CanExecuteHandler canExecute_{ nullptr };
-        AsyncRelayCommandOptions options_{ Xaml::AsyncRelayCommandOptions::None };
+        AsyncRelayCommandOptions options_{ AsyncRelayCommandOptions::None };
 
         winrt::event<EventHandler<IInspectable>> canExecuteChanged_;
 
@@ -44,7 +43,7 @@ namespace winrt::SystemExplorer::Xaml::implementation
     };
 }
 
-namespace winrt::SystemExplorer::Xaml::factory_implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::factory_implementation
 {
     struct AsyncRelayCommand : AsyncRelayCommandT<AsyncRelayCommand, implementation::AsyncRelayCommand>
     {};

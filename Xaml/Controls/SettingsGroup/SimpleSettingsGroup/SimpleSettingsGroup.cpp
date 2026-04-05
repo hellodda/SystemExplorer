@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "SimpleSettingsGroup.h"
-#if __has_include("Controls.SimpleSettingsGroup.g.cpp")
-#include "Controls.SimpleSettingsGroup.g.cpp"
+#if __has_include("Controls/SimpleSettingsGroup.g.cpp")
+#include "Controls/SimpleSettingsGroup.g.cpp"
 #endif
 #include "SimpleSettingsGroupAutomationPeer.h"
 

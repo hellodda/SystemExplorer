@@ -1,7 +1,6 @@
 #pragma once
 #include <windows.h>
 #include <wil/result.h>
-#include <ViewModels/Flyouts/ActionCenterViewModel.h>
 
 namespace winrt::SystemExplorer::Core::Diagnostics
 {
@@ -16,7 +15,7 @@ namespace winrt::SystemExplorer::Core::Diagnostics
 
 		}
 	private:
-		SystemExplorer::ViewModels::Flyouts::ActionCenterViewModel viewModel_;
+		//SystemExplorer::ViewModels::Flyouts::ActionCenterViewModel viewModel_;
 	};
 
 	void __stdcall WilFailureCallback(wil::FailureInfo const& failure) noexcept

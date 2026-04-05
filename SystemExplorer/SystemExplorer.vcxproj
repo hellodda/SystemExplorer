@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props')" />
   <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.1.8.260317003\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.1.8.260317003\build\native\Microsoft.WindowsAppSDK.props')" />
@@ -12,7 +13,6 @@
   <Import Project="..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props')" />
-  <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
@@ -105,8 +105,12 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)Selib\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+      </AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -131,6 +135,9 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
+    <ClInclude Include="Core\Scripting.h" />
+    <ClInclude Include="Core\System\Management.h" />
+    <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Models\ActionItem.h">
       <DependentUpon>Models\ActionItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -139,12 +146,12 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="ViewModels\Flyouts\ActionCenterViewModel.h">
-      <DependentUpon>ViewModels\Flyouts\ActionCenterViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\ActionCenterViewModel.h">
+      <DependentUpon>ViewModels\ActionCenterViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ViewModels\Pages\Settings\AboutViewModel.h">
-      <DependentUpon>ViewModels\Pages\Settings\AboutViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\AboutViewModel.h">
+      <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\ViewModelBase.h" />
@@ -159,8 +166,8 @@
     <ClInclude Include="Views\Windows\MainWindow.xaml.h">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="ViewModels\Pages\RootViewModel.h">
-      <DependentUpon>ViewModels\Pages\RootViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\RootViewModel.h">
+      <DependentUpon>ViewModels\RootViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Views\Pages\RootPage.xaml.h">
@@ -196,6 +203,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
+    <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Models\ActionItem.cpp">
       <DependentUpon>Models\ActionItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -206,12 +214,12 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="ViewModels\Flyouts\ActionCenterViewModel.cpp">
-      <DependentUpon>ViewModels\Flyouts\ActionCenterViewModel.idl</DependentUpon>
+    <ClCompile Include="ViewModels\ActionCenterViewModel.cpp">
+      <DependentUpon>ViewModels\ActionCenterViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ViewModels\Pages\Settings\AboutViewModel.cpp">
-      <DependentUpon>ViewModels\Pages\Settings\AboutViewModel.idl</DependentUpon>
+    <ClCompile Include="ViewModels\AboutViewModel.cpp">
+      <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Flyouts\ActionsCenterFlyout.xaml.cpp">
@@ -225,8 +233,8 @@
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="ViewModels\Pages\RootViewModel.cpp">
-      <DependentUpon>ViewModels\Pages\RootViewModel.idl</DependentUpon>
+    <ClCompile Include="ViewModels\RootViewModel.cpp">
+      <DependentUpon>ViewModels\RootViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\RootPage.xaml.cpp">
@@ -246,10 +254,10 @@
     <Midl Include="Models\ActionItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ViewModels\Flyouts\ActionCenterViewModel.idl">
+    <Midl Include="ViewModels\ActionCenterViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ViewModels\Pages\Settings\AboutViewModel.idl">
+    <Midl Include="ViewModels\AboutViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Views\Flyouts\ActionsCenterFlyout.idl">
@@ -264,7 +272,7 @@
       <SubType>Code</SubType>
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </Midl>
-    <Midl Include="ViewModels\Pages\RootViewModel.idl">
+    <Midl Include="ViewModels\RootViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Views\Pages\RootPage.idl">
@@ -308,9 +316,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Selib\Selib.vcxproj">
-      <Project>{f86f4c66-c526-400d-8080-3e2b1819bb69}</Project>
-    </ProjectReference>
     <ProjectReference Include="..\Xaml\Xaml.vcxproj">
       <Project>{7389541c-a0b0-495d-8ae6-388b1761c371}</Project>
     </ProjectReference>
@@ -324,8 +329,6 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3179.45\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3179.45\build\native\Microsoft.Web.WebView2.targets')" />
-    <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.InteractiveExperiences.1.8.260125001\build\native\Microsoft.WindowsAppSDK.InteractiveExperiences.targets')" />
@@ -342,20 +345,19 @@
     <Import Project="..\packages\XamlToolkit.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Helpers.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Helpers.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Converters.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Converters.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets')" />
-    <Import Project="..\packages\Microsoft.Graphics.Win2D.1.3.2\build\native\Microsoft.Graphics.Win2D.targets" Condition="Exists('..\packages\Microsoft.Graphics.Win2D.1.3.2\build\native\Microsoft.Graphics.Win2D.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Media.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Controls.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Controls.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.Labs.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets')" />
-    <Import Project="..\packages\WinUIEssential.WinUI3.1.6.2\build\native\WinUIEssential.WinUI3.targets" Condition="Exists('..\packages\WinUIEssential.WinUI3.1.6.2\build\native\WinUIEssential.WinUI3.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" />
+    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" />
+    <Import Project="..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets" Condition="Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" />
+    <Import Project="..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets" Condition="Exists('..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.3179.45\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.3179.45\build\native\Microsoft.Web.WebView2.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.20250829.1\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.Base.1.8.251216001\build\native\Microsoft.WindowsAppSDK.Base.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.DWrite.1.8.25122902\build\Microsoft.WindowsAppSDK.DWrite.props'))" />
@@ -384,11 +386,14 @@
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Helpers.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Helpers.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Converters.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Converters.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Graphics.Win2D.1.3.2\build\native\Microsoft.Graphics.Win2D.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Graphics.Win2D.1.3.2\build\native\Microsoft.Graphics.Win2D.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Media.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Controls.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Controls.Native.0.3.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.Labs.WinUI.Native.0.3.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\WinUIEssential.WinUI3.1.6.2\build\native\WinUIEssential.WinUI3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinUIEssential.WinUI3.1.6.2\build\native\WinUIEssential.WinUI3.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets'))" />
+    <Error Condition="!Exists('..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets'))" />
   </Target>
 </Project>

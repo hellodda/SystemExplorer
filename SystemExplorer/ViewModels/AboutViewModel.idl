@@ -1,0 +1,11 @@
+namespace SystemExplorer.ViewModels
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AboutViewModel 
+    {
+        AboutViewModel();
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand LaunchUriCommand { get; };
+    }
+}

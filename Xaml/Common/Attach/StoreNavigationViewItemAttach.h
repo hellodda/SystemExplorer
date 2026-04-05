@@ -1,7 +1,6 @@
 ﻿#pragma once
 
-#include "Common.StoreNavigationViewItemAttach.g.h"
-
+#include "Common/StoreNavigationViewItemAttach.g.h"
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
 

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Controls.SimpleSettingsGroup.g.h"
+#include "Controls/SimpleSettingsGroup.g.h"
 #include <wil/result.h>
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>

@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "StoreNavigationViewItemAttach.h"
-#if __has_include("Common.StoreNavigationViewItemAttach.g.cpp")
-#include "Common.StoreNavigationViewItemAttach.g.cpp"
+#if __has_include("Common/StoreNavigationViewItemAttach.g.cpp")
+#include "Common/StoreNavigationViewItemAttach.g.cpp"
 #endif
 
 namespace winrt::SystemExplorer::Xaml::Common::implementation

@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Controls.SimpleSettingsGroupAutomationPeer.g.h"
+#include "Controls/SimpleSettingsGroupAutomationPeer.g.h"
 
 namespace winrt::SystemExplorer::Xaml::Controls::implementation
 {

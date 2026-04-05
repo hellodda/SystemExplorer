@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-#include "Common.VisualAttach.g.h"
+#include "Common/VisualAttach.g.h"
 
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Windows.UI.Composition.h>

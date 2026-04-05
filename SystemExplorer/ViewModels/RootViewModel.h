@@ -1,8 +1,8 @@
 ﻿#pragma once
 
-#include "ViewModels/Pages/RootViewModel.g.h"
+#include "ViewModels/RootViewModel.g.h"
 
-namespace winrt::SystemExplorer::ViewModels::Pages::implementation
+namespace winrt::SystemExplorer::ViewModels::implementation
 {
     struct RootViewModel : RootViewModelT<RootViewModel>
     {
@@ -10,7 +10,7 @@ namespace winrt::SystemExplorer::ViewModels::Pages::implementation
     };
 }
 
-namespace winrt::SystemExplorer::ViewModels::Pages::factory_implementation
+namespace winrt::SystemExplorer::ViewModels::factory_implementation
 {
     struct RootViewModel : RootViewModelT<RootViewModel, implementation::RootViewModel>
     {

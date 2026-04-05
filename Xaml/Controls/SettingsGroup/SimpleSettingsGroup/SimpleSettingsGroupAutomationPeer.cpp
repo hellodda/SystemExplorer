@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "SimpleSettingsGroupAutomationPeer.h"
-#if __has_include("Controls.SimpleSettingsGroupAutomationPeer.g.cpp")
-#include "Controls.SimpleSettingsGroupAutomationPeer.g.cpp"
+#if __has_include("Controls/SimpleSettingsGroupAutomationPeer.g.cpp")
+#include "Controls/SimpleSettingsGroupAutomationPeer.g.cpp"
 #endif
 
 namespace winrt::SystemExplorer::Xaml::Controls::implementation

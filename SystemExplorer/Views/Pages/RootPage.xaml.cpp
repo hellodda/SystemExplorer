@@ -3,7 +3,6 @@
 #if __has_include("Views/Pages/RootPage.g.cpp")
 #include "Views/Pages/RootPage.g.cpp"
 #endif
-#include <App.xaml.h>
  
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;

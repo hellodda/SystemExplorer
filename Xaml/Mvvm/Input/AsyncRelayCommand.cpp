@@ -1,11 +1,11 @@
 ﻿#include "pch.h"
 #include "AsyncRelayCommand.h"
 
-#if __has_include("AsyncRelayCommand.g.cpp")
-#include "AsyncRelayCommand.g.cpp"
+#if __has_include("Mvvm/Input/AsyncRelayCommand.g.cpp")
+#include "Mvvm/Input/AsyncRelayCommand.g.cpp"
 #endif
 
-namespace winrt::SystemExplorer::Xaml::implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 {
     AsyncRelayCommand::AsyncRelayCommand(AsyncExecuteHandler const& execute)
         : execute_(execute) {}

@@ -6,7 +6,6 @@
 
 #undef GetCurrentTime
 #include <winrt/SystemExplorer.h>
-#include <winrt/SystemExplorer.Views.h>
 #include <winrt/XamlToolkit.WinUI.h>
 #include <winrt/XamlToolkit.Labs.WinUI.h>
 #include <winrt/XamlToolkit.WinUI.Controls.h>
@@ -31,5 +30,9 @@
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <wil/cppwinrt_helpers.h>
 #include <wil/result.h>
-#include <SystemExplorer.Core.h>
+#include <wil/win32_helpers.h>
+#include <wil/cppwinrt_authoring.h>
 #include <winrt/SystemExplorer.Xaml.h>
+#include <ppl.h>
+#include <pplawait.h>
+#include <pplcancellation_token.h>

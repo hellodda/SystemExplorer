@@ -4,9 +4,6 @@
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="MainWindow.idl" />
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="IntegrationTests\ManagementTests.cpp" />

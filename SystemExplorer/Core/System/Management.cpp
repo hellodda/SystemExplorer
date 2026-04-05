@@ -1,7 +1,7 @@
 #include "pch.h"
 #include "Management.h"
 
-namespace winrt::SystemExplorer::Core::Management
+namespace winrt::SystemExplorer::Core::System::Management
 {
 	std::vector<std::pair<winrt::hstring, _variant_t>> ManagementClassObject::GetProperties() const
 	{
@@ -30,7 +30,7 @@ namespace winrt::SystemExplorer::Core::Management
 		return properties;
 	}
 
-	std::pair<winrt::hstring, _variant_t> ManagementClassObject::GetProperty(_In_ winrt::hstring const& name) const
+	std::pair<winrt::hstring, _variant_t> ManagementClassObject::GetProperty(winrt::hstring const& name) const
 	{
 		_variant_t variant;
 
@@ -111,6 +111,12 @@ namespace winrt::SystemExplorer::Core::Management
 		_In_opt_ IWbemClassObject* pObjParam
 	)
 	{
+		UNREFERENCED_PARAMETER(lFlags);
+		UNREFERENCED_PARAMETER(hResult);
+		UNREFERENCED_PARAMETER(strParam);
+		UNREFERENCED_PARAMETER(pObjParam);
+		// stub
+
 		queryCompletedEvent_.set(std::move(results_));
 		return S_OK;
 	}

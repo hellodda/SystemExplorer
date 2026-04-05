@@ -1,12 +1,10 @@
 ﻿#pragma once
 
-#include "ViewModels/Flyouts/ActionCenterViewModel.g.h"
-#include <Models/ActionItem.h>
+#include "ViewModels/ActionCenterViewModel.g.h"
 #include <wil/cppwinrt_authoring.h>
+#include "ViewModelBase.h"
 
-#include <ViewModels/ViewModelBase.h>
-
-namespace winrt::SystemExplorer::ViewModels::Flyouts::implementation
+namespace winrt::SystemExplorer::ViewModels::implementation
 {
     using namespace winrt::Windows::Foundation::Collections;
 
@@ -14,11 +12,11 @@ namespace winrt::SystemExplorer::ViewModels::Flyouts::implementation
     {
         ActionCenterViewModel() = default;
 
-		wil::single_threaded_property<IObservableVector<Models::ActionItem>> Actions{ winrt::single_threaded_observable_vector<Models::ActionItem>() };
+		wil::single_threaded_property<IObservableVector<Models::ActionItem>> Actions{ };
     };
 }
 
-namespace winrt::SystemExplorer::ViewModels::Flyouts::factory_implementation
+namespace winrt::SystemExplorer::ViewModels::factory_implementation
 {
     struct ActionCenterViewModel : ActionCenterViewModelT<ActionCenterViewModel, implementation::ActionCenterViewModel>
     {

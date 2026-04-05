@@ -2,11 +2,10 @@
 
 #include "Views/Pages/Settings/AboutPage.g.h"
 #include <wil/cppwinrt_authoring.h>
-#include <ViewModels/Pages/Settings/AboutViewModel.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
-	using namespace winrt::SystemExplorer::ViewModels::Pages::Settings;
+	using namespace winrt::SystemExplorer::ViewModels;
 
     struct AboutPage : AboutPageT<AboutPage>
     {
@@ -14,7 +13,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         {
     
         }
-        wil::single_threaded_property<implementation::AboutViewModel> ViewModel{};
+        wil::single_threaded_property<ViewModels::AboutViewModel> ViewModel{};
     };
 }
 

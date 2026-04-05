@@ -7,7 +7,7 @@ namespace winrt::SystemExplorer::ViewModels
 	struct ViewModelBase
 	{
 	protected:
-		DispatcherQueue dispatcherQueue_ = DispatcherQueue::GetForCurrentThread();
+		//DispatcherQueue dispatcherQueue_ = DispatcherQueue::GetForCurrentThread();
 	};
 
 	template<typename TViewModel>

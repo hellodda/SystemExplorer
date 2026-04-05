@@ -1,6 +1,6 @@
 import "Models/ActionItem.idl";
 
-namespace SystemExplorer.ViewModels.Flyouts
+namespace SystemExplorer.ViewModels
 {
     [bindable]
     [default_interface]

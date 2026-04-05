@@ -1,6 +1,6 @@
 import "Mvvm/Input/RelayCommand.idl";
 
-namespace SystemExplorer.Xaml
+namespace SystemExplorer.Xaml.Mvvm.Input
 {
     delegate Windows.Foundation.IAsyncAction AsyncExecuteHandler(Object parameter);
 
@@ -38,4 +38,13 @@ namespace SystemExplorer.Xaml
 
         void NotifyCanExecuteChanged();
     }
+
+    //[default_interface]
+    //runtimeclass AsyncRelayCommandFactory
+    //{
+        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute);
+        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, AsyncRelayCommandOptions options);
+        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute);
+        //static IAsyncRelayCommand Make(AsyncExecuteHandler execute, CanExecuteHandler canExecute, AsyncRelayCommandOptions options);
+    //}
 }

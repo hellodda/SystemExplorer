@@ -3,7 +3,7 @@
 #if __has_include("Converters/ActionStatusToBrushConverter.g.cpp")
 #include "Converters/ActionStatusToBrushConverter.g.cpp"
 #endif
-#include <Models/ActionItem.h>
+#include "../Models/ActionItem.h"
 
 namespace winrt::SystemExplorer::Converters::implementation
 {

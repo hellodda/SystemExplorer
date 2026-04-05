@@ -1,10 +1,10 @@
 ﻿#include "pch.h"
 #include "RelayCommand.h"
-#if __has_include("RelayCommand.g.cpp")
-#include "RelayCommand.g.cpp"
+#if __has_include("Mvvm/Input/RelayCommand.g.cpp")
+#include "Mvvm/Input/RelayCommand.g.cpp"
 #endif
 
-namespace winrt::SystemExplorer::Xaml::implementation
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 {
 	void RelayCommand::Execute(IInspectable const& parameter) const
 	{

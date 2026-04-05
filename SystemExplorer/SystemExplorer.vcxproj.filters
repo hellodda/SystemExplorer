@@ -11,20 +11,24 @@
     <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ViewModels\Pages\RootViewModel.idl" />
-    <Midl Include="ViewModels\Flyouts\ActionCenterViewModel.idl" />
+    <Midl Include="ViewModels\RootViewModel.idl" />
+    <Midl Include="ViewModels\ActionCenterViewModel.idl" />
     <Midl Include="Models\ActionItem.idl" />
     <Midl Include="Converters\ActionStatusToBrushConverter.idl" />
-    <Midl Include="ViewModels\Pages\Settings\AboutViewModel.idl" />
+    <Midl Include="ViewModels\AboutViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
+    <ClCompile Include="Core\System\Management.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
     <ClInclude Include="ViewModels\ViewModelBase.h" />
+    <ClInclude Include="Core\System\Management.h" />
+    <ClInclude Include="Core\System\System.h" />
+    <ClInclude Include="Core\Scripting.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

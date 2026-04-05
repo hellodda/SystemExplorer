@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "ImplicitOffsetAnimationHelper.h"
-#if __has_include("Helpers.ImplicitOffsetAnimationHelper.g.cpp")
-#include "Helpers.ImplicitOffsetAnimationHelper.g.cpp"
+#if __has_include("Helpers/ImplicitOffsetAnimationHelper.g.cpp")
+#include "Helpers/ImplicitOffsetAnimationHelper.g.cpp"
 #endif
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 

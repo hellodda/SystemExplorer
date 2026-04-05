@@ -1,6 +1,9 @@
 #pragma once
+#include <WbemIdl.h>
+#include <comutil.h>
+#include <WMIUtils.h>
 
-namespace winrt::SystemExplorer::Core::Management
+namespace winrt::SystemExplorer::Core::System::Management
 {
 	struct ManagementClassObject
 	{
@@ -8,7 +11,7 @@ namespace winrt::SystemExplorer::Core::Management
 		ManagementClassObject(_In_ IWbemClassObject* object) { object_.copy_from(object); }
 
 		[[nodiscard]] std::vector<std::pair<winrt::hstring, _variant_t>> GetProperties() const;
-		[[nodiscard]] std::pair<winrt::hstring, _variant_t> GetProperty(_In_ winrt::hstring const& name) const;
+		[[nodiscard]] std::pair<winrt::hstring, _variant_t> GetProperty(winrt::hstring const& name) const;
 
 	private:
 		winrt::com_ptr<IWbemClassObject> object_{ nullptr };
@@ -16,18 +19,18 @@ namespace winrt::SystemExplorer::Core::Management
 
 	struct ManagementConnection
 	{
-		ManagementConnection(_In_ winrt::hstring const& connectionNamespace)
+		ManagementConnection(winrt::hstring const& connectionNamespace)
 			: connectionNamespace_(connectionNamespace) { initialize(); }
 
 		ManagementConnection(
-			_In_ winrt::hstring const& connectionNamespace,
-			_In_ winrt::hstring const& user,
-			_In_ winrt::hstring const& password
+			winrt::hstring const& connectionNamespace,
+			winrt::hstring const& user,
+			winrt::hstring const& password
 		)
 			: connectionNamespace_(connectionNamespace),
 			user_(user), password_(password) { initialize(); }
 
-		[[nodiscard]] concurrency::task<std::vector<ManagementClassObject>> ExecuteQueryAsync(_In_ winrt::hstring const& query);
+		[[nodiscard]] concurrency::task<std::vector<ManagementClassObject>> ExecuteQueryAsync(winrt::hstring const& query);
 
 	private:
 		void initialize();
