@@ -1,0 +1,13 @@
+namespace SystemExplorer.Core.Serialization
+{
+
+    [default_interface]
+    unsealed runtimeclass SettingsBase 
+    {
+        SettingsBase();
+
+        Windows.Foundation.Collections.IPropertySet Values { get; };
+
+        event Microsoft.UI.Xaml.Data.PropertyChangedEventHandler PropertyChanged;
+    }
+}

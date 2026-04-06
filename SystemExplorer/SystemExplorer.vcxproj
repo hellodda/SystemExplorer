@@ -129,16 +129,16 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Serialization\JsonSettingsDatabase.h">
-      <DependentUpon>Core\Serialization\JsonSettingsDatabase.idl</DependentUpon>
+    <ClInclude Include="Core\Serialization\SettingsBase.h">
+      <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Serialization\JsonSettingsSerializer.h">
-      <DependentUpon>Core\Serialization\JsonSettingsSerializer.idl</DependentUpon>
+    <ClInclude Include="Core\Settings\AdvancedSettings.h">
+      <DependentUpon>Core\Settings\AdvancedSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Serialization\SettingsSerializer.h">
-      <DependentUpon>Core\Serialization\SettingsSerializer.idl</DependentUpon>
+    <ClInclude Include="Core\Settings\AppearanceSettings.h">
+      <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
@@ -166,13 +166,16 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="ViewModels\ActionCenterViewModel.h">
       <DependentUpon>ViewModels\ActionCenterViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\AboutViewModel.h">
       <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ViewModels\AdvancedViewModel.h">
+      <DependentUpon>ViewModels\AdvancedViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\AppearanceViewModel.h">
@@ -238,19 +241,19 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Serialization\SettingsBase.cpp">
+      <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Settings\AdvancedSettings.cpp">
+      <DependentUpon>Core\Settings\AdvancedSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Settings\AppearanceSettings.cpp">
+      <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Core\Serialization\JsonSettingsDatabase.cpp">
-      <DependentUpon>Core\Serialization\JsonSettingsDatabase.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Serialization\JsonSettingsSerializer.cpp">
-      <DependentUpon>Core\Serialization\JsonSettingsSerializer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Serialization\SettingsSerializer.cpp">
-      <DependentUpon>Core\Serialization\SettingsSerializer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
@@ -282,6 +285,10 @@
     </ClCompile>
     <ClCompile Include="ViewModels\AboutViewModel.cpp">
       <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ViewModels\AdvancedViewModel.cpp">
+      <DependentUpon>ViewModels\AdvancedViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ViewModels\AppearanceViewModel.cpp">
@@ -329,13 +336,13 @@
     <Midl Include="Converters\StringToBrushConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Serialization\JsonSettingsDatabase.idl">
+    <Midl Include="Core\Serialization\SettingsBase.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Serialization\JsonSettingsSerializer.idl">
+    <Midl Include="Core\Settings\AdvancedSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Serialization\SettingsSerializer.idl">
+    <Midl Include="Core\Settings\AppearanceSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\ActionItem.idl">
@@ -348,6 +355,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\AboutViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ViewModels\AdvancedViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\AppearanceViewModel.idl">

@@ -31,7 +31,8 @@
                 <xtc:SettingsCard Header="Edit the settings file"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE8DA;}"
                       IsClickEnabled="True"
-                      IsActionIconVisible="False">
+                      IsActionIconVisible="False"
+                      Command="{x:Bind ViewModel.OpenSettingsFileCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard Header="Add System Explorer to Windows startup"
@@ -47,7 +48,7 @@
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False">
-                    <ToggleSwitch/>
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 

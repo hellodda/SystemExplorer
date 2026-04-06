@@ -1,0 +1,12 @@
+import "Core/Serialization/SettingsBase.idl";
+
+namespace SystemExplorer.Core.Settings
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppearanceSettings : SystemExplorer.Core.Serialization.SettingsBase
+    {
+        AppearanceSettings();
+        Int32 TestProp;
+    }
+}

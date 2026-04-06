@@ -17,10 +17,6 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 
         void Execute(IInspectable const& parameter);
         bool CanExecute(IInspectable const& parameter);
-
-        [[nodiscard]] winrt::event_token CanExecuteChanged(EventHandler<IInspectable> const& handler);
-        void CanExecuteChanged(winrt::event_token const& token) noexcept;
-
         IAsyncAction ExecuteAsync(IInspectable const& parameter);
         void Cancel();
 
@@ -32,13 +28,12 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
         WIL_NOTIFYING_PROPERTY(bool, IsCancellationRequested, false);
 
         void NotifyCanExecuteChanged();
+        wil::untyped_event<IInspectable> CanExecuteChanged;
 
     private:
         AsyncExecuteHandler execute_{ nullptr };
         CanExecuteHandler canExecute_{ nullptr };
         AsyncRelayCommandOptions options_{ AsyncRelayCommandOptions::None };
-
-        winrt::event<EventHandler<IInspectable>> canExecuteChanged_;
 
         winrt::fire_and_forget AwaitAndThrowIfFailed(IAsyncAction task);
     };

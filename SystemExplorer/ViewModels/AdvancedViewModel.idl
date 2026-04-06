@@ -1,0 +1,15 @@
+import "Core/Settings/AdvancedSettings.idl";
+
+namespace SystemExplorer.ViewModels
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AdvancedViewModel 
+    {
+        AdvancedViewModel();
+        
+        SystemExplorer.Core.Settings.AdvancedSettings Settings { get; };
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenSettingsFileCommand { get; };
+    }
+}

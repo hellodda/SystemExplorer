@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Views/Pages/Settings/AdvancedPage.g.h"
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
@@ -10,6 +11,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         {
         
         }
+        wil::single_threaded_property<ViewModels::AdvancedViewModel> ViewModel;
     };
 }
 

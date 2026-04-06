@@ -102,16 +102,6 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 
     void AsyncRelayCommand::NotifyCanExecuteChanged()
     {
-        canExecuteChanged_(*this, nullptr);
-    }
-
-    winrt::event_token AsyncRelayCommand::CanExecuteChanged(EventHandler<IInspectable> const& handler)
-    {
-        return canExecuteChanged_.add(handler);
-    }
-
-    void AsyncRelayCommand::CanExecuteChanged(winrt::event_token const& token) noexcept
-    {
-        canExecuteChanged_.remove(token);
+        CanExecuteChanged.invoke(*this, nullptr);
     }
 }
