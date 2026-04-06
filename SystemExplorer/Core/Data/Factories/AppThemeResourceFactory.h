@@ -1,7 +1,7 @@
 #pragma once
 #include <Models/Items/AppThemeResourceItem.h>
 
-namespace winrt::SystemExplorer::Data::Factories
+namespace winrt::SystemExplorer::Core::Data::Factories
 {
 	using namespace winrt::Windows::Foundation::Collections;
 

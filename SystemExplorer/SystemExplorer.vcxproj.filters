@@ -11,6 +11,7 @@
     <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml" />
     <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
     <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
+    <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -30,7 +31,7 @@
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
-    <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
+    <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Serialization\JsonHelper.cpp" />
@@ -42,7 +43,7 @@
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Scripting.h" />
-    <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
+    <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Core\Serialization\JsonHelper.h" />
   </ItemGroup>

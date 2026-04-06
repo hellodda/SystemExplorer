@@ -141,7 +141,7 @@
       <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
+    <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Converters\ActionStatusToBrushConverter.h">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -203,6 +203,10 @@
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\GeneralPage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Windows\MainWindow.xaml.h">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClInclude>
@@ -235,6 +239,9 @@
     <Page Include="Views\Pages\Settings\AppearancePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Settings\GeneralPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Windows\MainWindow.xaml" />
     <Page Include="Views\Pages\RootPage.xaml">
       <SubType>Designer</SubType>
@@ -262,7 +269,7 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
+    <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
       <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -317,6 +324,10 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AppearancePage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\GeneralPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
@@ -385,6 +396,10 @@
     </Midl>
     <Midl Include="Views\Pages\Settings\AppearancePage.idl">
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Settings\GeneralPage.idl">
+      <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Windows\MainWindow.idl">

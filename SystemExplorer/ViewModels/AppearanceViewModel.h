@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "ViewModels/AppearanceViewModel.g.h"
-#include <Data/Factories/AppThemeResourceFactory.h>
+#include <Core/Data/Factories/AppThemeResourceFactory.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
@@ -12,7 +12,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
         AppearanceViewModel() = default;
 
         wil::single_threaded_property<IObservableVector<SystemExplorer::Models::Items::AppThemeResourceItem>> AppThemeResources =
-            Data::Factories::AppThemeResourceFactory::AppThemeResources();
+            Core::Data::Factories::AppThemeResourceFactory::AppThemeResources();
 
     private:
         void selectBackgroundImage() {};

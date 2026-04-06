@@ -11,6 +11,9 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
 
         bool AdvancedAiAgent() { return Get<bool>(L"AdvancedAiAgent", false); }
         void AdvancedAiAgent(bool value) { Set(L"AdvancedAiAgent", value); }
+
+        bool InStartup() { return Get<bool>(L"InStartup", false); }
+        void InStartup(bool value) { Set(L"InStartup", value); }
     };
 }
 

@@ -7,7 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:XamlToolkit.WinUI.Controls"
-    xmlns:flyouts="using:SystemExplorer.Views.Flyouts"
+    xmlns:toolkit="using:XamlToolkit.WinUI"
     mc:Ignorable="d">
 
     <Grid>
@@ -16,53 +16,35 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <TitleBar
-             x:Name="AppTitleBar"
-             Title="System Explorer"
-             Subtitle="InDev"
-             Grid.Row="0"
-             Height="45"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Top"
-     
-             IsTabStop="True">
-
-            <TitleBar.IconSource>
-                <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
-            </TitleBar.IconSource>
-        </TitleBar>
-
         <NavigationView x:Name="NavView"
                  SelectionChanged="NavViewSelectionChanged"
                  IsSettingsVisible="True"
                  Style="{StaticResource NavigationViewStoreStyle}"
                  Grid.Row="1">
+            
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     x:Uid="Nav.Root.Home"
-                    Content="Home" Icon="Home"
-                    
+                    Content="Home"
+                    Icon="Home"
                     />
+                
                 <NavigationViewItem
                     x:Uid="Nav.Root.System"
                     Content="System"
                     Tag="SystemExplorer.MainSystemInformationPage"
-                    >
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE770;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                    Icon="{toolkit:FontIcon Glyph=&#xE770;}"
+                    />
 
                 <NavigationViewItem
                     x:Uid="Nav.Root.Monitoring"
                     Content="Monitoring"
-                    Tag="SystemExplorer.SystemMonitoringRootPage">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xF120;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                    Tag="SystemExplorer.SystemMonitoringRootPage"
+                    Icon="{toolkit:FontIcon Glyph=&#xE770;}"
+                    />
 
             </NavigationView.MenuItems>
+            
             <NavigationView.FooterMenuItems>
                 <NavigationViewItem IsEnabled="False" SelectsOnInvoked="False" />
             </NavigationView.FooterMenuItems>

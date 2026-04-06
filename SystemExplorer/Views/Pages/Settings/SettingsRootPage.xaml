@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
+    xmlns:tookit="using:XamlToolkit.WinUI"
     NavigationCacheMode="Required"
     >
 
@@ -20,24 +21,24 @@
         </Grid.ColumnDefinitions>
 
         <NavigationView
-        x:Name="SettingsNavView"
-        Grid.Row="0"
-        Grid.Column="0"
-        Grid.ColumnSpan="3"
-        CompactPaneLength="70"
-        IsBackButtonVisible="Collapsed"
-        IsSettingsVisible="False"
-        OpenPaneLength="200"
-        PaneDisplayMode="Left"
-        SelectionChanged="SettingsNavViewSelectionChanged">
+            x:Name="SettingsNavView"
+            Grid.Row="0"
+            Grid.Column="0"
+            Grid.ColumnSpan="3"
+            CompactPaneLength="70"
+            IsBackButtonVisible="Collapsed"
+            IsSettingsVisible="False"
+            OpenPaneLength="200"
+            PaneDisplayMode="Left"
+            SelectionChanged="SettingsNavViewSelectionChanged">
 
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
                     Content="General"
                     Icon="Setting"
-                    Tag="SystemExplorer.SettingsPage">
-
+                    Tag="SystemExplorer.Views.Pages.Settings.GeneralPage"
+                    >
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge />
                     </NavigationViewItem.InfoBadge>
@@ -45,25 +46,23 @@
 
                 <NavigationViewItemSeparator />
 
-                <NavigationViewItem Content="Appearance" Tag="SystemExplorer.Views.Pages.Settings.AppearancePage">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE790;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Content="Appearance"
+                                    Tag="SystemExplorer.Views.Pages.Settings.AppearancePage"
+                                    Icon="{tookit:FontIcon Glyph=&#xE790;}"
+                                    />
 
-                <NavigationViewItem Content="Advanced" Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xF1AD;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Content="Advanced"
+                                    Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage"
+                                    Icon="{tookit:FontIcon Glyph=&#xF1AD;}"
+                                    />
 
                 <NavigationViewItemSeparator />
 
-                <NavigationViewItem Content="About" Tag="SystemExplorer.Views.Pages.Settings.AboutPage">
-                    <NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE946;" />
-                    </NavigationViewItem.Icon>
-                </NavigationViewItem>
+                <NavigationViewItem Content="About"
+                                    Tag="SystemExplorer.Views.Pages.Settings.AboutPage"
+                                    Icon="{tookit:FontIcon Glyph=&#xE946;}"
+                                    />
+
             </NavigationView.MenuItems>
 
             <ScrollView>

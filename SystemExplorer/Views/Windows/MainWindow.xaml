@@ -20,7 +20,29 @@
         <Grid.Resources>
             <essential:ModernStandardWindowContextMenu x:Name="Menu" Window="{x:Bind}" />
         </Grid.Resources>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-        <pages:RootPage/>
+        <TitleBar
+            x:Name="AppTitleBar"
+            Title="System Explorer"
+            Subtitle="InDev"
+            Grid.Row="0"
+            Height="45"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            IsTabStop="True"
+            >
+
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
+            </TitleBar.IconSource>
+        </TitleBar>
+
+
+        <pages:RootPage Grid.Row="1"/>
     </Grid>
 </essential:WindowEx>

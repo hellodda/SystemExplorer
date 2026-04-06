@@ -1,9 +1,9 @@
 #include "pch.h"
 #include "AppThemeResourceFactory.h"
 
-namespace winrt::SystemExplorer::Data::Factories
+namespace winrt::SystemExplorer::Core::Data::Factories
 {
-	IObservableVector<SystemExplorer::Models::Items::AppThemeResourceItem> winrt::SystemExplorer::Data::Factories::AppThemeResourceFactory::AppThemeResources()
+	IObservableVector<SystemExplorer::Models::Items::AppThemeResourceItem> AppThemeResourceFactory::AppThemeResources()
 	{
         auto resources = single_threaded_observable_vector<SystemExplorer::Models::Items::AppThemeResourceItem>();
 

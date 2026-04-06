@@ -9,5 +9,6 @@ namespace SystemExplorer.Core.Settings
         AdvancedSettings();
 
         Boolean AdvancedAiAgent;
+        Boolean InStartup;
     }
 }

@@ -37,7 +37,7 @@
                 </xtc:SettingsCard>
                 <xtc:SettingsCard Header="Add System Explorer to Windows startup"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE7E8;}">
-                    <ToggleSwitch/>
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
@@ -46,7 +46,7 @@
                       Header="Advanced AI assistant"
                       Description="More access to system information"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}"
-                      IsClickEnabled="True"
+                      IsClickEnabled="False"
                       IsActionIconVisible="False">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
