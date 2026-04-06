@@ -50,7 +50,13 @@
                         <FontIcon Glyph="&#xE790;" />
                     </NavigationViewItem.Icon>
                 </NavigationViewItem>
-                
+
+                <NavigationViewItem Content="Advanced" Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage">
+                    <NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xF1AD;" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+
                 <NavigationViewItemSeparator />
 
                 <NavigationViewItem Content="About" Tag="SystemExplorer.Views.Pages.Settings.AboutPage">

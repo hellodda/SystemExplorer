@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Serialization
+{
+    [default_interface]
+    runtimeclass JsonSettingsSerializer 
+    {
+        JsonSettingsSerializer();
+
+        String SerializeToJson(Object obj);
+        Object DeserializeFromJson(String json);
+    }
+}

@@ -1,4 +1,5 @@
 #pragma once
+
 #include <windows.h>
 #include <unknwn.h>
 #include <restrictederrorinfo.h>
@@ -36,3 +37,4 @@
 #include <ppl.h>
 #include <pplawait.h>
 #include <pplcancellation_token.h>
+#undef CreateFile

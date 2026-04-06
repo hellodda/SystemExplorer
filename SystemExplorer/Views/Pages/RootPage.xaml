@@ -41,7 +41,7 @@
                 <NavigationViewItem
                     x:Uid="Nav.Root.Home"
                     Content="Home" Icon="Home"
-                    Tag="SystemExplorer.HomePage"
+                    
                     />
                 <NavigationViewItem
                     x:Uid="Nav.Root.System"

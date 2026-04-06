@@ -1,0 +1,12 @@
+namespace SystemExplorer.Core.Serialization
+{
+    [default_interface]
+    runtimeclass SettingsSerializer 
+    {
+        SettingsSerializer();
+
+        Boolean CreateFile(String path);
+        String ReadFromFile();
+        Boolean WriteToFile(String text);
+    }
+}

@@ -30,7 +30,6 @@ namespace winrt::SystemExplorer::implementation
 
     void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
     {
-
         window_ = make<Views::Windows::implementation::MainWindow>();
         window_.Activate();
     }

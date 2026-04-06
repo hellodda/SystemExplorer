@@ -1,0 +1,18 @@
+namespace SystemExplorer.Core.Serialization
+{
+    [default_interface]
+    runtimeclass JsonSettingsDatabase 
+    {
+        JsonSettingsDatabase();
+
+        Object GetValue(String key, Object defaultValue);
+        
+        Boolean SetValue(String key, Object newValue);
+
+        Boolean RemoveKey(String key);
+
+        Boolean ImportSettings(Object settings);
+
+        Object ExportSettings();
+    }
+}

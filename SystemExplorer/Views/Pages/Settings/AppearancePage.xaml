@@ -216,6 +216,13 @@
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
+
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="50" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
         </StackPanel>
     </Grid>
 </Page>

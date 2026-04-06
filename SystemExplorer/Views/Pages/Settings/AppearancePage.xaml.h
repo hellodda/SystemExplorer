@@ -1,6 +1,5 @@
 #pragma once
 #include "Views/Pages/Settings/AppearancePage.g.h"
-#include <Services/UserSettingsService.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {

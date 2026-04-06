@@ -10,6 +10,7 @@
     <Page Include="Views\Pages\Settings\AboutPage.xaml" />
     <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml" />
     <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
+    <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -20,15 +21,17 @@
     <Midl Include="Converters\StringToBrushConverter.idl" />
     <Midl Include="Models\Items\AppThemeResourceItem.idl" />
     <Midl Include="ViewModels\AppearanceViewModel.idl" />
+    <Midl Include="Core\Serialization\JsonSettingsSerializer.idl" />
+    <Midl Include="Core\Serialization\JsonSettingsDatabase.idl" />
+    <Midl Include="Core\Serialization\SettingsSerializer.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
-    <ClCompile Include="Services\GeneralSettingsService.cpp" />
-    <ClCompile Include="Services\AppearanceSettingsService.cpp" />
-    <ClCompile Include="Services\UserSettingsService.cpp" />
+    <ClCompile Include="Helpers\Win32Helper.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -38,9 +41,8 @@
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
-    <ClInclude Include="Services\GeneralSettingsService.h" />
-    <ClInclude Include="Services\AppearanceSettingsService.h" />
-    <ClInclude Include="Services\UserSettingsService.h" />
+    <ClInclude Include="Helpers\Win32Helper.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

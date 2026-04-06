@@ -13,45 +13,26 @@ namespace winrt::SystemExplorer::Xaml::Common::implementation
     {
         StoreNavigationViewItemAttach() = default;
 
-        static inline const wil::single_threaded_property<DependencyProperty> SelectedIconProperty = DependencyProperty::RegisterAttached(
-            L"SelectedIcon",
-            xaml_typename<IInspectable>(),
-            xaml_typename<class_type>(),
-            nullptr
-        );
+        static winrt::Microsoft::UI::Xaml::DependencyProperty SelectedIconProperty();
+        static winrt::Microsoft::UI::Xaml::DependencyProperty ShowNotificationDotProperty();
+        static winrt::Microsoft::UI::Xaml::DependencyProperty UnselectedIconProperty();
+        static winrt::Microsoft::UI::Xaml::DependencyProperty StaticIconVisibilityProperty();
 
-        static inline const wil::single_threaded_property<DependencyProperty> ShowNotificationDotProperty = DependencyProperty::RegisterAttached(
-            L"ShowNotificationDot",
-            xaml_typename<bool>(),
-            xaml_typename<class_type>(),
-            nullptr
-        );
+        // 获取和设置附加属性的方法
+        static winrt::Windows::Foundation::IInspectable GetSelectedIcon(winrt::Microsoft::UI::Xaml::DependencyObject const& obj);
+        static void SetSelectedIcon(winrt::Microsoft::UI::Xaml::DependencyObject const& obj, winrt::Windows::Foundation::IInspectable const& value);
+        static bool GetShowNotificationDot(winrt::Microsoft::UI::Xaml::DependencyObject const& obj);
+        static void SetShowNotificationDot(winrt::Microsoft::UI::Xaml::DependencyObject const& obj, bool value);
+        static winrt::Windows::Foundation::IInspectable GetUnselectedIcon(winrt::Microsoft::UI::Xaml::DependencyObject const& obj);
+        static void SetUnselectedIcon(winrt::Microsoft::UI::Xaml::DependencyObject const& obj, winrt::Windows::Foundation::IInspectable const& value);
+        static winrt::Microsoft::UI::Xaml::Visibility GetStaticIconVisibility(winrt::Microsoft::UI::Xaml::DependencyObject const& obj);
+        static void SetStaticIconVisibility(winrt::Microsoft::UI::Xaml::DependencyObject const& obj, winrt::Microsoft::UI::Xaml::Visibility const& value);
 
-        static inline const wil::single_threaded_property<DependencyProperty> UnselectedIconProperty = DependencyProperty::RegisterAttached(
-            L"UnselectedIcon",
-            xaml_typename<IInspectable>(),
-            xaml_typename<class_type>(),
-            nullptr
-        );
-
-        static inline const wil::single_threaded_property<DependencyProperty> StaticIconVisibilityProperty = DependencyProperty::RegisterAttached(
-            L"StaticIconVisibility",
-            xaml_typename<Visibility>(),
-            xaml_typename<class_type>(),
-            nullptr
-        );
-
-        static IInspectable GetSelectedIcon(DependencyObject const& obj) noexcept;
-        static void SetSelectedIcon(DependencyObject const& obj, IInspectable const& value);
-
-        static IInspectable GetUnselectedIcon(DependencyObject const& obj) noexcept;
-        static void SetUnselectedIcon(DependencyObject const& obj, IInspectable const& value);
-
-        static bool GetShowNotificationDot(DependencyObject const& obj) noexcept;
-        static void SetShowNotificationDot(DependencyObject const& obj, bool value);
-
-        static Visibility GetStaticIconVisibility(DependencyObject const& obj) noexcept;
-        static void SetStaticIconVisibility(DependencyObject const& obj, Visibility const& value);
+    private:
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_selectedIconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_showNotificationDotProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_unselectedIconProperty;
+        static winrt::Microsoft::UI::Xaml::DependencyProperty s_staticIconVisibilityProperty;
     };
 }
 
