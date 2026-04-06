@@ -33,6 +33,7 @@
     <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Core\Serialization\JsonHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -43,6 +44,7 @@
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Helpers\Win32Helper.h" />
+    <ClInclude Include="Core\Serialization\JsonHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

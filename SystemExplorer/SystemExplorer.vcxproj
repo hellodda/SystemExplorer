@@ -154,6 +154,10 @@
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
+    <ClInclude Include="Core\Serialization\JsonHelper.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+    </ClInclude>
     <ClInclude Include="Models\ActionItem.h">
       <DependentUpon>Models\ActionItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -252,6 +256,10 @@
     <ClCompile Include="Core\Settings\AppearanceSettings.cpp">
       <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
       <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Serialization\JsonHelper.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Data\Factories\AppThemeResourceFactory.cpp" />

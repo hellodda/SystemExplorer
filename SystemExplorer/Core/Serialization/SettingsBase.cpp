@@ -11,10 +11,11 @@ namespace winrt::SystemExplorer::Core::Serialization::implementation
 		Values = values;
 
 		Values.MapChanged([weak = get_weak()](auto&&, auto&& args) {
-			if (auto self = weak.get())
-			{
-				self->RaisePropertyChanged(args.Key());
-			}
+            if (auto self = weak.get())
+            {
+                auto key = args ? args.Key() : hstring{};
+                self->RaisePropertyChanged(key);
+            }
 		});
 	}
 }
