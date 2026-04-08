@@ -2,7 +2,9 @@
 #include "App.xaml.h"
 #include "Helpers/Win32Helper.h"
 
-LONG WINAPI PlatformExceptionFilter(_In_ PEXCEPTION_POINTERS pExceptionInfo)
+LONG WINAPI PlatformExceptionFilter(
+    _In_ PEXCEPTION_POINTERS pExceptionInfo
+)
 {
     const auto record = pExceptionInfo->ExceptionRecord;
 

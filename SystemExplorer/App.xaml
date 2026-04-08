@@ -3,13 +3,35 @@
     x:Class="SystemExplorer.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:SystemExplorer">
+    xmlns:local="using:SystemExplorer"
+    RequestedTheme="Light">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
                 <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="App.Theme.BackgroundBrush" Color="Transparent" />
+                    <Color x:Key="App.Theme.FillColorAttention">#0070CB</Color>
+                    <SolidColorBrush x:Key="App.Theme.FillColorAttentionBrush" Color="{StaticResource App.Theme.FillColorAttention}" />
+                    <SolidColorBrush x:Key="App.Theme.CardBackgroundFillColorTertiaryBrush" Color="#FFFFFFFF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="App.Theme.BackgroundBrush" Color="Transparent" />
+                    <Color x:Key="App.Theme.FillColorAttention">#50C0FF</Color>
+                    <SolidColorBrush x:Key="App.Theme.FillColorAttentionBrush" Color="{StaticResource App.Theme.FillColorAttention}" />
+                    <SolidColorBrush x:Key="App.Theme.CardBackgroundFillColorTertiaryBrush" Color="#12FFFFFF" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="HighContrast">
+                    <SolidColorBrush x:Key="App.Theme.BackgroundBrush" Color="Transparent" />
+                    <Color x:Key="App.Theme.FillColorAttention">#50C0FF</Color>
+                    <SolidColorBrush x:Key="App.Theme.FillColorAttentionBrush" Color="{StaticResource App.Theme.FillColorAttention}" />
+                    <SolidColorBrush x:Key="App.Theme.CardBackgroundFillColorTertiaryBrush" Color="{StaticResource SystemColorWindowColor}" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

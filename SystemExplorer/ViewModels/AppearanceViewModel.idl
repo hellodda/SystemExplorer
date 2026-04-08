@@ -9,5 +9,9 @@ namespace SystemExplorer.ViewModels
         AppearanceViewModel();
 
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.Items.AppThemeResourceItem> AppThemeResources { get; };
+
+        SystemExplorer.Models.Items.AppThemeResourceItem SelectedAppThemeResources;
+
+        String AppThemeBackgroundColor;
     }
 }

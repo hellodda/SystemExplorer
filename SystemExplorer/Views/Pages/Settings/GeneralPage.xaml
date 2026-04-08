@@ -6,6 +6,9 @@
     xmlns:local="using:SystemExplorer.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     >
@@ -13,6 +16,44 @@
     <Grid Padding="20">
         <StackPanel>
             <TextBlock FontSize="26" Margin="0 10 0 0" Text="General"/>
+
+            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
+                <xtc:SettingsCard
+                  Header="Real-time update speed"
+                  Description="Select the update frequency for system resource usage reports"
+                  HeaderIcon="{toolkit:FontIcon Glyph=&#xEC49;}">
+
+                    <ComboBox>
+                        <ComboBoxItem Content="High"/>
+                        <ComboBoxItem Content="Default"/>
+                        <ComboBoxItem Content="Low"/>
+                        <ComboBoxItem Content="Suspended"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard
+                    Header="Default start page"
+                    Description="Specify which page to display when System Explorer starts"
+                    HeaderIcon="{toolkit:FontIcon Glyph=&#xEB3B;}">
+
+                    <ComboBox>
+                        <ComboBoxItem Content="Processes"/>
+                        <ComboBoxItem Content="Services"/>
+                        <ComboBoxItem Content="System"/>
+                        <ComboBoxItem Content="Users"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+            <xaml:SimpleSettingsGroup
+                Header="Reset settings">
+                <Button Content="Restore all settings to default"/>
+            </xaml:SimpleSettingsGroup>
+
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="50" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
         </StackPanel>
     </Grid>
 </Page>

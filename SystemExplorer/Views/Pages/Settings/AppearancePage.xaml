@@ -19,6 +19,7 @@
         <ResourceDictionary>
             <essential:NegateBoolConverter x:Key="BoolNegationConverter" />
             <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+            <converters:HexToColorConverter x:Key="HexToColorConverter" />
 
             <DataTemplate x:Key="AppThemeResourcesItemTemplate" x:DataType="items:AppThemeResourceItem">
                 <Grid
@@ -110,18 +111,16 @@
                     </ComboBox>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard 
-                    Header="Background"
-                    Description="Select the background type to display"
+                    Header="Backdrop"
+                    Description="Select the backdrop material to display"
                     HeaderIcon="{toolkit:FontIcon Glyph=&#xEF1F;}">
 
                     <ComboBox Width="200">
                         <ComboBoxItem Content="Static"/>
                         <ComboBoxItem Content="Acrylic"/>
                         <ComboBoxItem Content="Thin Acrylic"/>
-                        <ComboBoxItem Content="Flexible Acrylic"/>
                         <ComboBoxItem Content="Mica"/>
                         <ComboBoxItem Content="Mica Alt"/>
-                        <ComboBoxItem Content="Flexible Mica"/>
                     </ComboBox>
                 </xtc:SettingsCard>
                 <xtc:SettingsExpander
@@ -138,7 +137,7 @@
 							CornerRadius="4">
                                 <Grid>
                                     <PathIcon Data="M0 6 L0 0 L6 0 L6 6 L12 6 L12 0 L18 0 L18 6 L12 6 L12 12 L18 12 L18 6 L24 6 L24 12 L18 12 L18 18 L24 18 L24 24 L6 24 L6 18 L0 18 L0 12 L6 12 L6 18 L12 18 L12 24 L18 24 L18 18 L12 18 L12 12 L6 12 L6 6 Z" Foreground="LightGray" />
-                                    <Rectangle Fill="Aqua" />
+                                    <Rectangle Fill="{ThemeResource App.Theme.BackgroundBrush}" />
                                 </Grid>
                             </Border>
                             <FontIcon
@@ -151,6 +150,7 @@
                                 <xtc:ColorPicker
 								IsAlphaEnabled="True"
 								IsColorSpectrumVisible="False"
+                                Color="{x:Bind ViewModel.AppThemeBackgroundColor, Mode=TwoWay, Converter={StaticResource HexToColorConverter}}"
 								/>
                             </Flyout>
                         </Button.Flyout>
@@ -161,16 +161,16 @@
 						HorizontalAlignment="Stretch"
 						Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
 						ItemTemplate="{StaticResource AppThemeResourcesItemTemplate}"
-                        ItemsSource="{x:Bind ViewModel.AppThemeResources, Mode=OneWay}"/>
+                        ItemsSource="{x:Bind ViewModel.AppThemeResources, Mode=OneWay}"
+                        SelectedItem="{x:Bind ViewModel.SelectedAppThemeResources, Mode=TwoWay}"/>
                     </xtc:SettingsExpander.ItemsHeader>
                 </xtc:SettingsExpander>
                 <xtc:SettingsExpander Header="Background image"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE91B;}">
-
                     <SplitButton
-					x:Name="SelectImageButton"
-					Content="Review"
-					>
+					    x:Name="SelectImageButton"
+					    Content="Review"
+					    >
                         <SplitButton.Flyout>
                             <MenuFlyout Placement="Bottom">
                                 <MenuFlyoutItem

@@ -1,13 +1,16 @@
+import "Core/Data/EventArguments/SettingChangedEventArgs.idl";
+
 namespace SystemExplorer.Core.Serialization
 {
-
     [default_interface]
     unsealed runtimeclass SettingsBase 
     {
         SettingsBase();
 
+        void Save();
+
         Windows.Foundation.Collections.IPropertySet Values { get; };
 
-        event Microsoft.UI.Xaml.Data.PropertyChangedEventHandler PropertyChanged;
+        event Windows.Foundation.TypedEventHandler<Object, SystemExplorer.Core.Data.EventArguments.SettingChangedEventArgs> SettingChanged;
     }
 }

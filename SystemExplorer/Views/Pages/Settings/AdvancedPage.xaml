@@ -50,6 +50,15 @@
                       IsActionIconVisible="False">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
+                <xtc:SettingsCard 
+                      Header="Use driver as data source"
+                      Description="Requires a secure connection"
+                      HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
+                      IsClickEnabled="False"
+                      IsActionIconVisible="False"
+                      IsEnabled="False">
+                    <ToggleSwitch IsOn="False"/>
+                </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
             <StackPanel.ChildrenTransitions>

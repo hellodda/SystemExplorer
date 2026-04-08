@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Mvvm/Input/RelayCommand.g.h"
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
 {
@@ -18,15 +19,10 @@ namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
         [[nodiscard]] bool CanExecute(IInspectable const& parameter) const;
 
         void NotifyCanExecuteChanged();
-
-        [[nodiscard]] event_token CanExecuteChanged(EventHandler<IInspectable> const& handler);
-        void CanExecuteChanged(event_token const& token) noexcept;
-
+        wil::untyped_event<IInspectable> CanExecuteChanged;
     private:
         ExecuteHandler execute_{ nullptr };
 		CanExecuteHandler canExecute_{ nullptr };
-
-        event<EventHandler<IInspectable>> canExecuteChanged_;
     };
 }
 

@@ -5,7 +5,7 @@
 #  include "module.g.cpp"
 #endif
 #include "Views/Windows/MainWindow.xaml.h"
-#include "Core/Settings/AppearanceSettings.h"
+#include "Core/Settings/UserSettings.h"
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;

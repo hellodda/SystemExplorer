@@ -36,8 +36,8 @@
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
                     Content="General"
-                    Icon="Setting"
                     Tag="SystemExplorer.Views.Pages.Settings.GeneralPage"
+                    Icon="{tookit:FontIcon Glyph=&#xE9E9;}"
                     >
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge />

@@ -4,18 +4,34 @@
 #include "Core/Serialization/SettingsBase.g.cpp"
 #endif
 
+using namespace winrt::Windows::Foundation;
+
 namespace winrt::SystemExplorer::Core::Serialization::implementation
 {
-	void SettingsBase::Initialize(IPropertySet const& values)
-	{
-		Values = values;
+    void SettingsBase::Save()
+    {
+        if (!Values || dirtyKeys_.empty()) return;
 
-		Values.MapChanged([weak = get_weak()](auto&&, auto&& args) {
-            if (auto self = weak.get())
-            {
-                auto key = args ? args.Key() : hstring{};
-                self->RaisePropertyChanged(key);
-            }
-		});
-	}
+        for (auto const& key : dirtyKeys_)
+        {
+            Values.Insert(key, cache_[key]);
+        }
+        dirtyKeys_.clear();
+    }
+    IInspectable SettingsBase::Get(hstring const& key)
+    {
+        return GetCached(key);
+    }
+    IInspectable SettingsBase::GetCached(hstring const& key)
+    {
+        if (auto it = cache_.find(key); it != cache_.end())
+            return it->second;
+
+        if (!Values)
+            return nullptr;
+
+        auto value = Values.TryLookup(key);
+        cache_[key] = value;
+        return value;
+    }
 }

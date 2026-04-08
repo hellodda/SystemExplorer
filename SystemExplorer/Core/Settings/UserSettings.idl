@@ -1,0 +1,15 @@
+import "Core/Settings/AdvancedSettings.idl";
+import "Core/Settings/AppearanceSettings.idl";
+
+namespace SystemExplorer.Core.Settings
+{
+    [bindable]
+    [default_interface]
+    runtimeclass UserSettings 
+    {
+        static UserSettings Instance{ get; };
+
+        SystemExplorer.Core.Settings.AppearanceSettings AppearanceSettings { get; };
+        SystemExplorer.Core.Settings.AdvancedSettings AdvancedSettings { get; };
+    }
+}

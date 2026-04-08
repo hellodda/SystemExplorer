@@ -26,6 +26,9 @@
     <Midl Include="Core\Settings\AppearanceSettings.idl" />
     <Midl Include="ViewModels\AdvancedViewModel.idl" />
     <Midl Include="Core\Settings\AdvancedSettings.idl" />
+    <Midl Include="Core\Settings\UserSettings.idl" />
+    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl" />
+    <Midl Include="Converters\HexToColorConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -35,6 +38,7 @@
     <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Serialization\JsonHelper.cpp" />
+    <ClCompile Include="Core\Services\AppResourcesService.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -46,6 +50,8 @@
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Core\Serialization\JsonHelper.h" />
+    <ClInclude Include="Core\Services\AppResourcesService.h" />
+    <ClInclude Include="Core\Services\ISingletonService.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

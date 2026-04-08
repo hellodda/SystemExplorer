@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
+    Background="{ThemeResource App.Theme.BackgroundBrush}"
     mc:Ignorable="d">
 
     <Grid>
@@ -16,19 +17,30 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <TitleBar
+            x:Name="AppTitleBar"
+            Title="System Explorer"
+            Subtitle="InDev"
+            Grid.Row="0"
+            Height="45"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            IsTabStop="True"
+            >
+
+            <TitleBar.IconSource>
+                <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
+            </TitleBar.IconSource>
+        </TitleBar>
+
         <NavigationView x:Name="NavView"
                  SelectionChanged="NavViewSelectionChanged"
                  IsSettingsVisible="True"
                  Style="{StaticResource NavigationViewStoreStyle}"
                  Grid.Row="1">
-            
+
             <NavigationView.MenuItems>
-                <NavigationViewItem
-                    x:Uid="Nav.Root.Home"
-                    Content="Home"
-                    Icon="Home"
-                    />
-                
+
                 <NavigationViewItem
                     x:Uid="Nav.Root.System"
                     Content="System"
@@ -37,10 +49,10 @@
                     />
 
                 <NavigationViewItem
-                    x:Uid="Nav.Root.Monitoring"
-                    Content="Monitoring"
+                    x:Uid="Nav.Root.Performance"
+                    Content="Performance"
                     Tag="SystemExplorer.SystemMonitoringRootPage"
-                    Icon="{toolkit:FontIcon Glyph=&#xE770;}"
+                    Icon="{toolkit:FontIcon Glyph=&#xF120;}"
                     />
 
             </NavigationView.MenuItems>

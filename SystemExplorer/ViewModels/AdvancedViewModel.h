@@ -32,7 +32,12 @@ namespace winrt::SystemExplorer::ViewModels::implementation
             }
         });
 
-        wil::single_threaded_property<Core::Settings::AdvancedSettings> Settings;
+        Core::Settings::AdvancedSettings Settings()
+        {
+            return Core::Settings::UserSettings::Instance().AdvancedSettings();
+        }
+
+        //wil::single_threaded_property<Core::Settings::AdvancedSettings> Settings;
     };
 }
 

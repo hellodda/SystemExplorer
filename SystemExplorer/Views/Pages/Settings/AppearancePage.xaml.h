@@ -1,8 +1,12 @@
 #pragma once
 #include "Views/Pages/Settings/AppearancePage.g.h"
+#include <Core/Settings/UserSettings.h>
+#include <winrt/Windows.UI.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
+    using namespace winrt::Microsoft::UI::Xaml::Media;
+
     struct AppearancePage : AppearancePageT<AppearancePage>
     {
         AppearancePage()

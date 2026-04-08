@@ -129,10 +129,20 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Services\AppResourcesService.h" />
+    <ClInclude Include="Converters\HexToColorConverter.h">
+      <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core\Data\EventArguments\SettingChangedEventArgs.h">
+      <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Serialization\SettingsBase.h">
       <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Services\ISingletonService.h" />
     <ClInclude Include="Core\Settings\AdvancedSettings.h">
       <DependentUpon>Core\Settings\AdvancedSettings.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -152,6 +162,10 @@
     </ClInclude>
     <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
     <ClInclude Include="Core\Scripting.h" />
+    <ClInclude Include="Core\Settings\UserSettings.h">
+      <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Serialization\JsonHelper.h">
@@ -252,6 +266,15 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Services\AppResourcesService.cpp" />
+    <ClCompile Include="Converters\HexToColorConverter.cpp">
+      <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\EventArguments\SettingChangedEventArgs.cpp">
+      <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Serialization\SettingsBase.cpp">
       <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -267,6 +290,10 @@
     <ClCompile Include="Core\Serialization\JsonHelper.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
+    </ClCompile>
+    <ClCompile Include="Core\Settings\UserSettings.cpp">
+      <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
@@ -352,7 +379,13 @@
     <Midl Include="Converters\ActionStatusToBrushConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Converters\HexToColorConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Converters\StringToBrushConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Serialization\SettingsBase.idl">
@@ -362,6 +395,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Settings\AppearanceSettings.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Settings\UserSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\ActionItem.idl">

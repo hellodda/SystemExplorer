@@ -1,0 +1,7 @@
+namespace SystemExplorer.Converters
+{
+    runtimeclass HexToColorConverter :  [default] Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        HexToColorConverter();
+    }
+}
