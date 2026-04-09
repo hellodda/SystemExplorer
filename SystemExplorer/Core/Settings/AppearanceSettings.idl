@@ -1,23 +1,15 @@
 import "Core/Serialization/SettingsBase.idl";
+import "Core/Data/Enums/BackdropMaterialType.idl";
 
 namespace SystemExplorer.Core.Settings
 {
-    enum BackdropMaterialType
-    {
-        Static,
-        Mica,
-        MicaAlt,
-        Acrylic,
-        ThinAcrylic
-    };
-
     [bindable]
     [default_interface]
     runtimeclass AppearanceSettings : SystemExplorer.Core.Serialization.SettingsBase
     {
         AppearanceSettings();
 
-        BackdropMaterialType BackdropMaterial;
+        SystemExplorer.Core.Data.Enums.BackdropMaterialType BackdropMaterial;
         Microsoft.UI.Xaml.ApplicationTheme ApplicationTheme;
         String AppThemeBackgroundColor;
     }

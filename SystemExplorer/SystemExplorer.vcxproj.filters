@@ -29,16 +29,18 @@
     <Midl Include="Core\Settings\UserSettings.idl" />
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl" />
     <Midl Include="Converters\HexToColorConverter.idl" />
+    <Midl Include="Core\Data\Enums\BackdropMaterialType.idl" />
+    <Midl Include="Helpers\StringsHelper.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
-    <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Serialization\JsonHelper.cpp" />
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
+    <ClCompile Include="Helpers\Win32Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -48,10 +50,10 @@
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
-    <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Core\Serialization\JsonHelper.h" />
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Core\Services\ISingletonService.h" />
+    <ClInclude Include="Helpers\Win32Helper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -92,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SystemExplorer_TemporaryKey.pfx" />
+    <None Include="ResourceGenerator.ps1" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />

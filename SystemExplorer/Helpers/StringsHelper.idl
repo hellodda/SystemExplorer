@@ -1,0 +1,39 @@
+﻿namespace SystemExplorer.Helpers
+{
+    [default_interface]
+    runtimeclass StringsHelper
+    {
+        static String Acrylic { get; };
+        static String Blue { get; };
+        static String BlueGray { get; };
+        static String BrickRed { get; };
+        static String Camouflage { get; };
+        static String CoolBlueBright { get; };
+        static String Custom { get; };
+        static String Dark { get; };
+        static String Default { get; };
+        static String Gray { get; };
+        static String GrayDark { get; };
+        static String Green { get; };
+        static String IrisPastel { get; };
+        static String Light { get; };
+        static String Mica { get; };
+        static String MicaAlt { get; };
+        static String MintLight { get; };
+        static String ModRed { get; };
+        static String NavRootHomeContent { get; };
+        static String NavRootMonitoring { get; };
+        static String NavRootSystem { get; };
+        static String OrangeBright { get; };
+        static String Overcast { get; };
+        static String Red { get; };
+        static String RoseBright { get; };
+        static String Seafoam { get; };
+        static String Static { get; };
+        static String Storm { get; };
+        static String SystemTheme { get; };
+        static String ThinAcrylic { get; };
+        static String VioletRedLight { get; };
+        static String YellowGold { get; };
+    }
+}

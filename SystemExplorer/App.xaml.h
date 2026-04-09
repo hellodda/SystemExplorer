@@ -12,6 +12,7 @@ namespace winrt::SystemExplorer::implementation
 
         void OnLaunched(LaunchActivatedEventArgs const&);
 
+
 		[[nodiscard]] static Window Window() { return window_; }
     private:
         static winrt::Microsoft::UI::Xaml::Window window_;

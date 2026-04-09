@@ -16,6 +16,12 @@ using namespace winrt::Windows::UI::Xaml::Interop;
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
+    IAsyncAction SettingsRootPage::SettingsFrameLoaded(IInspectable const& sender, RoutedEventArgs const& args)
+    {
+        SettingsNavView().SelectedItem(GeneralNavItem());
+        SettingsFrame().Navigate(xaml_typename<Settings::GeneralPage>());
+        co_return;
+    }
     IAsyncAction SettingsRootPage::SettingsNavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args)
     {
         if (auto item = args.SelectedItem())

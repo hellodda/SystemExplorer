@@ -15,8 +15,8 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
     {
         AppearanceSettings() = default;
 
-        [[nodiscard]] BackdropMaterialType BackdropMaterial() { return Get(L"BackdropMaterial", BackdropMaterialType::Mica); }
-        void BackdropMaterial(BackdropMaterialType value) { Set(L"BackdropMaterial", value); }
+        [[nodiscard]] Core::Data::Enums::BackdropMaterialType BackdropMaterial() { return Get(L"BackdropMaterial", Core::Data::Enums::BackdropMaterialType::Mica); }
+        void BackdropMaterial(Core::Data::Enums::BackdropMaterialType value) { Set(L"BackdropMaterial", value); }
 
         [[nodiscard]] Microsoft::UI::Xaml::ApplicationTheme ApplicationTheme() { return Get(L"ApplicationTheme", ApplicationTheme::Light); }
         void ApplicationTheme(Microsoft::UI::Xaml::ApplicationTheme value) { Set(L"ApplicationTheme", value); }

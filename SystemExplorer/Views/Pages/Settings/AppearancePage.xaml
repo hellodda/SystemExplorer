@@ -89,7 +89,9 @@
                 <xtc:SettingsCard Header="Application theme"
                                   Description="Select the application theme to display"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xE790;}">
-                    <ComboBox Width="200">
+                    <ComboBox Width="200"
+                              SelectedIndex="0"
+                              essential:ComboBoxHelper.AcrylicWorkaround="True">
                         <ComboBoxItem Tag="Light">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE706;" />
@@ -115,13 +117,11 @@
                     Description="Select the backdrop material to display"
                     HeaderIcon="{toolkit:FontIcon Glyph=&#xEF1F;}">
 
-                    <ComboBox Width="200">
-                        <ComboBoxItem Content="Static"/>
-                        <ComboBoxItem Content="Acrylic"/>
-                        <ComboBoxItem Content="Thin Acrylic"/>
-                        <ComboBoxItem Content="Mica"/>
-                        <ComboBoxItem Content="Mica Alt"/>
-                    </ComboBox>
+                    <ComboBox Width="200"
+                              essential:ComboBoxHelper.AcrylicWorkaround="True"
+                              ItemsSource="{x:Bind ViewModel.BackdropMaterialTypes}"
+                              SelectedItem="{x:Bind ViewModel.SelectedBackdropMaterial, Mode=TwoWay}"
+                              SelectedIndex="{x:Bind ViewModel.SelectedBackdropMaterialIndex, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsExpander
                     Header="Background color"

@@ -6,6 +6,7 @@
 #endif
 #include "Views/Windows/MainWindow.xaml.h"
 #include "Core/Settings/UserSettings.h"
+#include "Core/Services/AppResourcesService.h"
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
@@ -16,7 +17,6 @@ namespace winrt::SystemExplorer::implementation
 
     App::App()
     {
-
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
         UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
         {

@@ -5,7 +5,8 @@
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
-    using namespace winrt::Microsoft::UI::Xaml::Media;
+    using namespace winrt::Windows::Foundation;
+    using namespace winrt::Microsoft::UI::Xaml::Controls;
 
     struct AppearancePage : AppearancePageT<AppearancePage>
     {

@@ -110,6 +110,9 @@
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -ExecutionPolicy Bypass -Command "&amp; '$(ProjectDir)ResourceGenerator.ps1' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw' -OutputDir '$(ProjectDir)Helpers' -ClassName 'StringsHelper' -IdlNamespace 'SystemExplorer.Helpers' -GeneratedIncludePrefix 'Helpers'"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -172,6 +175,11 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
     </ClInclude>
+    <ClInclude Include="Helpers\StringsHelper.h">
+      <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Models\ActionItem.h">
       <DependentUpon>Models\ActionItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -237,7 +245,6 @@
       <DependentUpon>Views\Pages\Settings\SettingsRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Helpers\Win32Helper.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -295,6 +302,11 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Helpers\StringsHelper.cpp">
+      <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
@@ -373,7 +385,6 @@
       <DependentUpon>Views\Pages\Settings\SettingsRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Helpers\Win32Helper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\ActionStatusToBrushConverter.idl">
@@ -385,6 +396,7 @@
     <Midl Include="Converters\StringToBrushConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Core\Data\Enums\BackdropMaterialType.idl" />
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -398,6 +410,12 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Settings\UserSettings.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <None Include="ResourceGenerator.ps1">
+      <FileType>Document</FileType>
+    </None>
+    <Midl Include="Helpers\StringsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\ActionItem.idl">
@@ -484,6 +502,7 @@
   -->
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SystemExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xaml\Xaml.vcxproj">
@@ -499,6 +518,8 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>false</VcpkgEnabled>
+    <PackageCertificateThumbprint>628A64302861AAA1D67F749051395B5814369942</PackageCertificateThumbprint>
+    <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

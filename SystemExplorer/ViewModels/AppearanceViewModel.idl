@@ -1,3 +1,4 @@
+import "Core/Settings/AppearanceSettings.idl";
 import "Models/Items/AppThemeResourceItem.idl";
 
 namespace SystemExplorer.ViewModels
@@ -9,8 +10,11 @@ namespace SystemExplorer.ViewModels
         AppearanceViewModel();
 
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.Items.AppThemeResourceItem> AppThemeResources { get; };
-
         SystemExplorer.Models.Items.AppThemeResourceItem SelectedAppThemeResources;
+
+        Windows.Foundation.Collections.IVector<Object> BackdropMaterialTypes { get; };
+        Object SelectedBackdropMaterial;    
+        Int32 SelectedBackdropMaterialIndex;
 
         String AppThemeBackgroundColor;
     }

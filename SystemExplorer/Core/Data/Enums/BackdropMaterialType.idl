@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Data.Enums
+{
+    enum BackdropMaterialType
+    {
+        Static,
+        Mica,
+        MicaAlt,
+        Acrylic,
+        ThinAcrylic
+    };
+}
