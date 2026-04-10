@@ -102,7 +102,7 @@ foreach ($enum in $allEnums) {
 }
 
 $hCode.AppendLine() | Out-Null
-$hCode.AppendLine("        template <typename EnumT>") | Out-Null
+$hCode.AppendLine("        template <typename EnumT> requires std::is_enum_v<EnumT>") | Out-Null
 $hCode.AppendLine("        [[nodiscard]] static EnumT Map(winrt::hstring const& value);") | Out-Null
 $hCode.AppendLine() | Out-Null
 $hCode.AppendLine("    private:") | Out-Null

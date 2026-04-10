@@ -8,8 +8,12 @@ namespace winrt::SystemExplorer::Helpers
     struct EnumHelper
     {
         [[nodiscard]] static winrt::hstring Map(winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType value);
+        [[nodiscard]] static winrt::hstring Map(winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment value);
+        [[nodiscard]] static winrt::hstring Map(winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed value);
+        [[nodiscard]] static winrt::hstring Map(winrt::SystemExplorer::Core::Data::Enums::Stretch value);
+        [[nodiscard]] static winrt::hstring Map(winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment value);
 
-        template <typename EnumT>
+        template <typename EnumT> requires std::is_enum_v<EnumT>
         [[nodiscard]] static EnumT Map(winrt::hstring const& value);
 
     private:
@@ -18,4 +22,12 @@ namespace winrt::SystemExplorer::Helpers
 
     template <>
     winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType>(winrt::hstring const& value);
+    template <>
+    winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment>(winrt::hstring const& value);
+    template <>
+    winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed>(winrt::hstring const& value);
+    template <>
+    winrt::SystemExplorer::Core::Data::Enums::Stretch EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::Stretch>(winrt::hstring const& value);
+    template <>
+    winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment>(winrt::hstring const& value);
 }

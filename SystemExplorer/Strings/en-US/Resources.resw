@@ -213,4 +213,31 @@
   <data name="SystemTheme.Text" xml:space="preserve">
     <value>As in the system</value>
   </data>
+  <data name="None" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="Fill" xml:space="preserve">
+    <value>Fill</value>
+  </data>
+  <data name="Uniform" xml:space="preserve">
+    <value>Uniform</value>
+  </data>
+  <data name="UniformToFill" xml:space="preserve">
+    <value>UniformToFill</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Top</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>Center</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Bottom</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Left</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Right</value>
+  </data>
 </root>

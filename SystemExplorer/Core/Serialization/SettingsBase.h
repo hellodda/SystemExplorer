@@ -14,7 +14,7 @@ namespace winrt::SystemExplorer::Core::Serialization::implementation
     struct SettingsBase : SettingsBaseT<SettingsBase>, wil::notify_property_changed_base<SettingsBase>
     {
         SettingsBase() : Values(Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalSettings().Values()) {}
-        ~SettingsBase() { Save(); }
+        ~SettingsBase() { Save(); } // lyuti stub
 
         wil::single_threaded_property<IPropertySet> Values;
         wil::typed_event<IInspectable, Core::Data::EventArguments::SettingChangedEventArgs> SettingChanged;

@@ -40,6 +40,15 @@ namespace winrt::SystemExplorer::Helpers::implementation
        [[nodiscard]] static hstring DarkText();
        [[nodiscard]] static hstring LightText();
        [[nodiscard]] static hstring SystemThemeText();
+       [[nodiscard]] static hstring None();
+       [[nodiscard]] static hstring Fill();
+       [[nodiscard]] static hstring Uniform();
+       [[nodiscard]] static hstring UniformToFill();
+       [[nodiscard]] static hstring Top();
+       [[nodiscard]] static hstring Center();
+       [[nodiscard]] static hstring Bottom();
+       [[nodiscard]] static hstring Left();
+       [[nodiscard]] static hstring Right();
 
     private:
         StringsHelper() = default;

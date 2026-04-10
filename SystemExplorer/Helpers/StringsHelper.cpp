@@ -168,4 +168,49 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         return loader_.GetString(L"SystemTheme.Text");
     }
+
+    hstring StringsHelper::None()
+    {
+        return loader_.GetString(L"None");
+    }
+
+    hstring StringsHelper::Fill()
+    {
+        return loader_.GetString(L"Fill");
+    }
+
+    hstring StringsHelper::Uniform()
+    {
+        return loader_.GetString(L"Uniform");
+    }
+
+    hstring StringsHelper::UniformToFill()
+    {
+        return loader_.GetString(L"UniformToFill");
+    }
+
+    hstring StringsHelper::Top()
+    {
+        return loader_.GetString(L"Top");
+    }
+
+    hstring StringsHelper::Center()
+    {
+        return loader_.GetString(L"Center");
+    }
+
+    hstring StringsHelper::Bottom()
+    {
+        return loader_.GetString(L"Bottom");
+    }
+
+    hstring StringsHelper::Left()
+    {
+        return loader_.GetString(L"Left");
+    }
+
+    hstring StringsHelper::Right()
+    {
+        return loader_.GetString(L"Right");
+    }
 }

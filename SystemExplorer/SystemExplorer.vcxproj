@@ -159,7 +159,6 @@
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Core\Settings\UserSettings.h">
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
@@ -290,7 +289,6 @@
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Models\Items\AppThemeResourceItem.cpp">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
@@ -355,6 +353,10 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Enums\BackdropMaterialType.idl" />
+    <Midl Include="Core\Data\Enums\HorizontalAlignment.idl" />
+    <Midl Include="Core\Data\Enums\InformationUpdateSpeed.idl" />
+    <Midl Include="Core\Data\Enums\Stretch.idl" />
+    <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>

@@ -1,0 +1,10 @@
+namespace SystemExplorer.Core.Data.Enums
+{
+    enum InformationUpdateSpeed
+    {
+        High,
+        Default,
+        Low,
+        Suspended
+    };
+}

@@ -15,146 +15,192 @@ using namespace winrt::XamlToolkit::WinUI::Helpers;
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
-    const auto StaticBackdropMaterialName = StringsHelper::Static();
-    const auto AcrylicBackdropMaterialName = StringsHelper::Acrylic();
-    const auto ThinAcrylicBackdropMaterialName = StringsHelper::ThinAcrylic();
-    const auto MicaBackdropMaterialName = StringsHelper::Mica();
-    const auto MicaAltBackdropMaterialName = StringsHelper::MicaAlt();
-
     AppearanceViewModel::AppearanceViewModel()
+        : INIT_NOTIFYING_PROPERTY(SelectedBackdropMaterialIndex, 0),
+          INIT_NOTIFYING_PROPERTY(SelectedImageStretchTypeIndex, 0),
+          INIT_NOTIFYING_PROPERTY(SelectedImageVerticalAlignmentTypeIndex, 0),
+          INIT_NOTIFYING_PROPERTY(SelectedImageHorizontalAlignmentTypeIndex, 0),
+          INIT_NOTIFYING_PROPERTY(AppThemeBackgroundImageSource, L"")
     {
         updateSelectedResource();
-
-        BackdropMaterialTypes.Append(box_value(StaticBackdropMaterialName));
-        BackdropMaterialTypes.Append(box_value(AcrylicBackdropMaterialName));
-        BackdropMaterialTypes.Append(box_value(ThinAcrylicBackdropMaterialName));
-        BackdropMaterialTypes.Append(box_value(MicaBackdropMaterialName));
-        BackdropMaterialTypes.Append(box_value(MicaAltBackdropMaterialName));
-
-        updateSelectedBackdropMaterial();
         updateSelectedAppTheme();
+
+        BackdropMaterialTypes.Append(box_value(StringsHelper::Static()));
+        BackdropMaterialTypes.Append(box_value(StringsHelper::Acrylic()));
+        BackdropMaterialTypes.Append(box_value(StringsHelper::ThinAcrylic()));
+        BackdropMaterialTypes.Append(box_value(StringsHelper::Mica()));
+        BackdropMaterialTypes.Append(box_value(StringsHelper::MicaAlt()));
+        updateSelectedBackdropMaterial();
+
+        ImageStretchTypes.Append(box_value(StringsHelper::None()));
+        ImageStretchTypes.Append(box_value(StringsHelper::Fill()));
+        ImageStretchTypes.Append(box_value(StringsHelper::Uniform()));
+        ImageStretchTypes.Append(box_value(StringsHelper::UniformToFill()));
+        updateSelectedImageStretch();
+
+        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Top()));
+        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Center()));
+        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Bottom()));
+        updateSelectedImageVerticalAlignmentType();
+
+        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Left()));
+        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Center()));
+        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Right()));
+        updateSelectedImageHorizontalAlignmentType();
+
     }
 
-    hstring AppearanceViewModel::AppThemeBackgroundColor() const noexcept(std::is_nothrow_copy_constructible_v<hstring>)
+    hstring AppearanceViewModel::AppThemeBackgroundColor() const
+        noexcept(std::is_nothrow_copy_constructible_v<hstring>)
     {
         return settings_.AppThemeBackgroundColor();
     }
 
-    void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept(std::is_nothrow_move_assignable_v<hstring>)
+    void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value)
+        noexcept(std::is_nothrow_move_assignable_v<hstring>)
     {
         Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(ColorHelper::ToColor(value));
-        
         settings_.AppThemeBackgroundColor(value);
-
         RaisePropertyChanged(L"AppThemeBackgroundColor");
     }
 
-    AppThemeResourceItem AppearanceViewModel::SelectedAppThemeResources() const noexcept(std::is_nothrow_copy_constructible_v<AppThemeResourceItem>)
+    AppThemeResourceItem AppearanceViewModel::SelectedAppThemeResources() const
+        noexcept(std::is_nothrow_copy_constructible_v<AppThemeResourceItem>)
     {
         return SelectedAppThemeResources_;
     }
 
-    void AppearanceViewModel::SelectedAppThemeResources(AppThemeResourceItem const& value) noexcept(std::is_nothrow_copy_constructible_v<AppThemeResourceItem>)
+    void AppearanceViewModel::SelectedAppThemeResources(AppThemeResourceItem const& value)
+        noexcept(std::is_nothrow_copy_constructible_v<AppThemeResourceItem>)
     {
         if (value != SelectedAppThemeResources_)
         {
             SelectedAppThemeResources_ = value;
-
             AppThemeBackgroundColor(value.BackgroundColor());
-
             RaisePropertyChanged(L"SelectedAppThemeResources");
         }
     }
 
-    IInspectable AppearanceViewModel::SelectedBackdropMaterial() const noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    IInspectable AppearanceViewModel::SelectedBackdropMaterial() const
+        noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
     {
         return SelectedBackdropMaterial_;
     }
 
-    void AppearanceViewModel::SelectedBackdropMaterial(IInspectable const& value) noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    void AppearanceViewModel::SelectedBackdropMaterial(IInspectable const& value)
+        noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
     {
         if (SelectedBackdropMaterial_ != value)
         {
             SelectedBackdropMaterial_ = value;
-
             settings_.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
-
             RaisePropertyChanged(L"SelectedBackdropMaterial");
         }
     }
 
-
-    int32_t AppearanceViewModel::SelectedAppThemeIndex() const noexcept(std::is_nothrow_copy_constructible_v<int32_t>)
+    int32_t AppearanceViewModel::SelectedAppThemeIndex() const
+        noexcept(std::is_nothrow_copy_constructible_v<int32_t>)
     {
         return SelectedAppThemeIndex_;
     }
 
-    void AppearanceViewModel::SelectedAppThemeIndex(int32_t const& value) noexcept(std::is_nothrow_move_assignable_v<int32_t>)
+    void AppearanceViewModel::SelectedAppThemeIndex(int32_t const& value)
+        noexcept(std::is_nothrow_move_assignable_v<int32_t>)
     {
-        ElementTheme selectedTheme;
-
-        switch (value)
+        static const std::array themes = { ElementTheme::Light, ElementTheme::Dark, ElementTheme::Default };
+        if (value >= 0 && value < static_cast<int32_t>(themes.size()))
         {
-        case 0:
-            selectedTheme = ElementTheme::Light;
-            break;
-        case 1:
-            selectedTheme = ElementTheme::Dark;
-            break;
-        case 2:
-            selectedTheme = ElementTheme::Default;
-            break;
-        default:
-            break;
+            SelectedAppThemeIndex_ = value;
+            settings_.ApplicationTheme(themes[value]);
+            RaisePropertyChanged(L"SelectedAppThemeIndex");
         }
-        settings_.ApplicationTheme(selectedTheme);
+    }
+
+    IInspectable AppearanceViewModel::SelectedImageStretchType() const noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        return SelectedImageStretchType_;
+    }
+
+    void AppearanceViewModel::SelectedImageStretchType(IInspectable const& value)
+        noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        settings_.AppThemeBackgroundImageFit(EnumHelper::Map<Data::Enums::Stretch>(unbox_value<hstring>(value)));
+    }
+
+    IInspectable AppearanceViewModel::SelectedImageVerticalAlignmentType() const noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        return SelectedImageVerticalAlignmentType_;
+    }
+
+    void AppearanceViewModel::SelectedImageVerticalAlignmentType(IInspectable const& value)
+        noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        settings_.AppThemeBackgroundImageVerticalAlignment(EnumHelper::Map<Data::Enums::VerticalAlignment>(unbox_value<hstring>(value)));
+    }
+
+    IInspectable AppearanceViewModel::SelectedImageHorizontalAlignmentType() const noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        return SelectedImageHorizontalAlignmentType_;
+    }
+
+    void AppearanceViewModel::SelectedImageHorizontalAlignmentType(IInspectable const& value)
+        noexcept(std::is_nothrow_copy_constructible_v<IInspectable>)
+    {
+        settings_.AppThemeBackgroundImageHorizontalAlignment(EnumHelper::Map<Data::Enums::HorizontalAlignment>(unbox_value<hstring>(value)));
     }
 
     void AppearanceViewModel::updateSelectedResource()
-	{
-        const auto themeBackgroundColor = AppThemeBackgroundColor(); 
-        const auto CustomAppThemeResourceName = StringsHelper::Custom();
-
+    {
+        const auto themeBackgroundColor = AppThemeBackgroundColor();
+        const auto customName = StringsHelper::Custom();
         AppThemeResourceItem selected{ nullptr };
 
         for (auto const& p : AppThemeResources)
         {
-            if (p.BackgroundColor() == themeBackgroundColor)
-            {
+            if (p.BackgroundColor() == themeBackgroundColor) {
                 selected = p;
                 break;
             }
         }
+
         if (!selected)
         {
-            if (AppThemeResources.Size() > 0)
+            if (AppThemeResources.Size() > 0 && AppThemeResources.GetAt(AppThemeResources.Size() - 1).Name() == customName)
             {
-                auto last = AppThemeResources.GetAt(AppThemeResources.Size() - 1);
-                if (last.Name() == CustomAppThemeResourceName)
-                {
-                    AppThemeResources.RemoveAtEnd();
-                }
+                AppThemeResources.RemoveAtEnd();
             }
-            auto item = AppThemeResourceItem{};
-            item.BackgroundColor(themeBackgroundColor);
-            item.Name(CustomAppThemeResourceName);
-
-            AppThemeResources.Append(item);
-            selected = item;                          
+            selected = AppThemeResourceItem{};
+            selected.BackgroundColor(themeBackgroundColor);
+            selected.Name(customName);
+            AppThemeResources.Append(selected);
         }
         SelectedAppThemeResources(selected);
-	}
+    }
+
     void AppearanceViewModel::updateSelectedBackdropMaterial()
     {
-        auto currentMaterialStr = EnumHelper::Map(settings_.BackdropMaterial());
-
-        auto index = IndexOf<IInspectable>(BackdropMaterialTypes(),
-        [&](IInspectable const& item)
-        {
-            return unbox_value_or<hstring>(item, L"") == currentMaterialStr;
-        });
-        SelectedBackdropMaterialIndex(index >= 0 ? index : 0);
+        SetIndexFromSetting(BackdropMaterialTypes, settings_.BackdropMaterial(), &AppearanceViewModel::SelectedBackdropMaterialIndex);
     }
-    void implementation::AppearanceViewModel::updateSelectedAppTheme()
-    {}
+
+    void AppearanceViewModel::updateSelectedAppTheme()
+    {
+        auto theme = settings_.ApplicationTheme();
+        int32_t index = (theme == ElementTheme::Light) ? 0 : (theme == ElementTheme::Dark ? 1 : 2);
+        SelectedAppThemeIndex(index);
+    }
+
+    void AppearanceViewModel::updateSelectedImageStretch()
+    {
+        SetIndexFromSetting(ImageStretchTypes, settings_.AppThemeBackgroundImageFit(), &AppearanceViewModel::SelectedImageStretchTypeIndex);
+    }
+
+    void AppearanceViewModel::updateSelectedImageVerticalAlignmentType()
+    {
+        SetIndexFromSetting(ImageVerticalAlignmentTypes, settings_.AppThemeBackgroundImageVerticalAlignment(), &AppearanceViewModel::SelectedImageVerticalAlignmentTypeIndex);
+    }
+
+    void AppearanceViewModel::updateSelectedImageHorizontalAlignmentType()
+    {
+        SetIndexFromSetting(ImageHorizontalAlignmentTypes, settings_.AppThemeBackgroundImageHorizontalAlignment(), &AppearanceViewModel::SelectedImageHorizontalAlignmentTypeIndex);
+    }
 }

@@ -27,10 +27,13 @@
     <Midl Include="Converters\HexToColorConverter.idl" />
     <Midl Include="Core\Data\Enums\BackdropMaterialType.idl" />
     <Midl Include="Helpers\StringsHelper.idl" />
+    <Midl Include="Core\Data\Enums\InformationUpdateSpeed.idl" />
+    <Midl Include="Core\Data\Enums\Stretch.idl" />
+    <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
+    <Midl Include="Core\Data\Enums\HorizontalAlignment.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="main.cpp" />
@@ -40,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Core\Diagnostics\ActionCenterLogger.h" />
     <ClInclude Include="ViewModels\ViewModelBase.h" />
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />

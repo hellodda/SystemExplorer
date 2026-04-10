@@ -1,5 +1,8 @@
 import "Core/Serialization/SettingsBase.idl";
 import "Core/Data/Enums/BackdropMaterialType.idl";
+import "Core/Data/Enums/HorizontalAlignment.idl";
+import "Core/Data/Enums/VerticalAlignment.idl";
+import "Core/Data/Enums/Stretch.idl";
 
 namespace SystemExplorer.Core.Settings
 {
@@ -11,6 +14,10 @@ namespace SystemExplorer.Core.Settings
 
         SystemExplorer.Core.Data.Enums.BackdropMaterialType BackdropMaterial;
         Microsoft.UI.Xaml.ElementTheme ApplicationTheme;
+        SystemExplorer.Core.Data.Enums.Stretch AppThemeBackgroundImageFit;
+        SystemExplorer.Core.Data.Enums.VerticalAlignment AppThemeBackgroundImageVerticalAlignment;
+        SystemExplorer.Core.Data.Enums.HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment;
         String AppThemeBackgroundColor;
+        String AppThemeBackgroundImageSource;
     }
 }

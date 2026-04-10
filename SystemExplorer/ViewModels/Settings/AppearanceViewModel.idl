@@ -16,8 +16,25 @@ namespace SystemExplorer.ViewModels.Settings
         Object SelectedBackdropMaterial;    
         Int32 SelectedBackdropMaterialIndex;
 
+        Windows.Foundation.Collections.IVector<Object> ImageStretchTypes { get; };
+        Object SelectedImageStretchType;    
+        Int32 SelectedImageStretchTypeIndex;
+
+        Windows.Foundation.Collections.IVector<Object> ImageVerticalAlignmentTypes { get; };
+        Object SelectedImageVerticalAlignmentType;    
+        Int32 SelectedImageVerticalAlignmentTypeIndex;
+
+        Windows.Foundation.Collections.IVector<Object> ImageHorizontalAlignmentTypes { get; };
+        Object SelectedImageHorizontalAlignmentType;    
+        Int32 SelectedImageHorizontalAlignmentTypeIndex;
+
+        Int32 AppThemeBackgroundImageOpacity;
         Int32 SelectedAppThemeIndex;
 
+        String AppThemeBackgroundImageSource;
         String AppThemeBackgroundColor;
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SelectImageCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RemoveImageCommand { get; };
     }
 }

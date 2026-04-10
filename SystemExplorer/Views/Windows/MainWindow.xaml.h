@@ -14,6 +14,7 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
     {
         MainWindow()
         {
+            InitializeComponent();
             ExtendsContentIntoTitleBar(true);
             AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);
             
@@ -21,7 +22,10 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
                 this->OnSystemBackdropSettingChanged(sender, args);
                 this->OnApplicationThemeSettingChanged(sender, args);
             });
+
+            LoadSettings();
         }
+        void LoadSettings();
         void OnSystemBackdropSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
         void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
     };

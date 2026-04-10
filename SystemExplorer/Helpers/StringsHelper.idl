@@ -35,5 +35,14 @@
         static String DarkText { get; };
         static String LightText { get; };
         static String SystemThemeText { get; };
+        static String None { get; };
+        static String Fill { get; };
+        static String Uniform { get; };
+        static String UniformToFill { get; };
+        static String Top { get; };
+        static String Center { get; };
+        static String Bottom { get; };
+        static String Left { get; };
+        static String Right { get; };
     }
 }

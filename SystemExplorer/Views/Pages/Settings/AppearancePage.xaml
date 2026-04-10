@@ -166,15 +166,17 @@
                     </xtc:SettingsExpander.ItemsHeader>
                 </xtc:SettingsExpander>
                 <xtc:SettingsExpander Header="Background image"
+                                      Description="{x:Bind ViewModel.AppThemeBackgroundImageSource, Mode=OneWay}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE91B;}">
                     <SplitButton
 					    x:Name="SelectImageButton"
 					    Content="Review"
-					    >
+                        Command="{x:Bind ViewModel.SelectImageCommand, Mode=OneWay}">
                         <SplitButton.Flyout>
                             <MenuFlyout Placement="Bottom">
                                 <MenuFlyoutItem
 								x:Name="RemoveImageMenuItem"
+                                Command="{x:Bind ViewModel.RemoveImageCommand, Mode=OneWay}"
 								Text="Remove" />
                             </MenuFlyout>
                         </SplitButton.Flyout>
@@ -189,29 +191,31 @@
 							Maximum="1"
 							Minimum=".1"
 							StepFrequency=".1"
-                               
-							 />
+                            Value="{x:Bind ViewModel.AppThemeBackgroundImageOpacity, Mode=TwoWay}"/>
                         </xtc:SettingsCard>
 
-                        <!--  Image Fit  -->
                         <xtc:SettingsCard Header="Image Fit">
                             <ComboBox
 							MinWidth="140"
-							 />
+                            ItemsSource="{x:Bind ViewModel.ImageStretchTypes}"
+                            SelectedItem="{x:Bind ViewModel.SelectedImageStretchType, Mode=TwoWay}"
+                            SelectedIndex="{x:Bind ViewModel.SelectedImageStretchTypeIndex, Mode=TwoWay}"/>
                         </xtc:SettingsCard>
 
-                        <!--  VerticalAlignment  -->
                         <xtc:SettingsCard Header="Vertical Alignment">
                             <ComboBox
 							MinWidth="140"
-							/>
+                            ItemsSource="{x:Bind ViewModel.ImageVerticalAlignmentTypes}"
+                            SelectedItem="{x:Bind ViewModel.SelectedImageVerticalAlignmentType, Mode=TwoWay}"
+                            SelectedIndex="{x:Bind ViewModel.SelectedImageVerticalAlignmentTypeIndex, Mode=TwoWay}"/>
                         </xtc:SettingsCard>
 
-                        <!--  HorizontalAlignment  -->
                         <xtc:SettingsCard Header="Horizontal Alignment">
                             <ComboBox
 							MinWidth="140"
-						     />
+                            ItemsSource="{x:Bind ViewModel.ImageHorizontalAlignmentTypes}"
+                            SelectedItem="{x:Bind ViewModel.SelectedImageHorizontalAlignmentType, Mode=TwoWay}"
+                            SelectedIndex="{x:Bind ViewModel.SelectedImageHorizontalAlignmentTypeIndex, Mode=TwoWay}"/>
                         </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
