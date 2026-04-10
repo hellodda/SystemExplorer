@@ -36,6 +36,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Helpers\Win32Helper.cpp" />
+    <ClCompile Include="Helpers\EnumHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -50,6 +51,7 @@
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="macro.h" />
     <ClInclude Include="Helpers\Common.h" />
+    <ClInclude Include="Helpers\EnumHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -92,6 +94,7 @@
     <None Include="packages.config" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
     <None Include="ResourceGenerator.ps1" />
+    <None Include="EnumMapingGenerator.ps1" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />

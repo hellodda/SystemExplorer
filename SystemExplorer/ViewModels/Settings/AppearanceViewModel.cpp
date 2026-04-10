@@ -4,6 +4,7 @@
 #include "ViewModels/Settings/AppearanceViewModel.g.cpp"
 #endif
 #include <Helpers/StringsHelper.h>
+#include <Helpers/EnumHelper.h>
 #include <Helpers/Common.h>
 #include <Core/Services/AppResourcesService.h>
 
@@ -19,21 +20,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     const auto ThinAcrylicBackdropMaterialName = StringsHelper::ThinAcrylic();
     const auto MicaBackdropMaterialName = StringsHelper::Mica();
     const auto MicaAltBackdropMaterialName = StringsHelper::MicaAlt();
-
-    const auto& BackdropMaterialTable()
-    {
-        using BackdropEntry = std::pair<Data::Enums::BackdropMaterialType, hstring>;
-
-        static const std::array<BackdropEntry, 5> table
-        {
-            BackdropEntry{ Data::Enums::BackdropMaterialType::Static, StaticBackdropMaterialName },
-            BackdropEntry{ Data::Enums::BackdropMaterialType::Acrylic, AcrylicBackdropMaterialName },
-            BackdropEntry{ Data::Enums::BackdropMaterialType::ThinAcrylic, ThinAcrylicBackdropMaterialName },
-            BackdropEntry{ Data::Enums::BackdropMaterialType::Mica, MicaBackdropMaterialName },
-            BackdropEntry{ Data::Enums::BackdropMaterialType::MicaAlt, MicaAltBackdropMaterialName },
-        };
-        return table;
-    }
 
     AppearanceViewModel::AppearanceViewModel()
     {
@@ -91,7 +77,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedBackdropMaterial_ = value;
 
-            settings_.BackdropMaterial(BackdropMaterialType(unbox_value<hstring>(value)));
+            settings_.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
 
             RaisePropertyChanged(L"SelectedBackdropMaterial");
         }
@@ -122,34 +108,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
             break;
         }
         settings_.ApplicationTheme(selectedTheme);
-    }
-
-    hstring AppearanceViewModel::BackdropMaterialType(Data::Enums::BackdropMaterialType value)
-    {
-        auto const& table = BackdropMaterialTable();
-
-        auto it = std::ranges::find_if(table, [&](auto const& item)
-        {
-            return item.first == value;
-        });
-
-        return it != table.end()
-            ? it->second
-            : StringsHelper::Static();
-    }
-
-    Data::Enums::BackdropMaterialType AppearanceViewModel::BackdropMaterialType(hstring const& value)
-    {
-        auto const& table = BackdropMaterialTable();
-
-        auto it = std::ranges::find_if(table, [&](auto const& item)
-        {
-            return item.second == value;
-        });
-
-        return it != table.end()
-            ? it->first
-            : Data::Enums::BackdropMaterialType::Static;
     }
 
     void AppearanceViewModel::updateSelectedResource()
@@ -188,7 +146,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 	}
     void AppearanceViewModel::updateSelectedBackdropMaterial()
     {
-        auto currentMaterialStr = BackdropMaterialType(settings_.BackdropMaterial());
+        auto currentMaterialStr = EnumHelper::Map(settings_.BackdropMaterial());
 
         auto index = IndexOf<IInspectable>(BackdropMaterialTypes(),
         [&](IInspectable const& item)

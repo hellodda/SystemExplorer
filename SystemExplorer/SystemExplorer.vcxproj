@@ -111,7 +111,7 @@
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -ExecutionPolicy Bypass -Command "&amp; '$(ProjectDir)ResourceGenerator.ps1' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw' -OutputDir '$(ProjectDir)Helpers' -ClassName 'StringsHelper' -IdlNamespace 'SystemExplorer.Helpers' -GeneratedIncludePrefix 'Helpers'"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -ExecutionPolicy Bypass -Command "&amp; '$(ProjectDir)ResourceGenerator.ps1' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw' -OutputDir '$(ProjectDir)Helpers' -ClassName 'StringsHelper' -IdlNamespace 'SystemExplorer.Helpers' -GeneratedIncludePrefix 'Helpers'; &amp; '$(ProjectDir)EnumMapingGenerator.ps1' -ProjDir '$(ProjectDir)' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw'"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
@@ -168,6 +168,7 @@
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Helpers\Common.h" />
+    <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\StringsHelper.h">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -277,6 +278,7 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -420,6 +422,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
+    <None Include="EnumMapingGenerator.ps1">
+      <FileType>Document</FileType>
+    </None>
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>

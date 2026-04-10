@@ -35,8 +35,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     private:
         Core::Settings::IAppearanceSettings settings_ = Core::Settings::UserSettings::Instance().AppearanceSettings();
 
-        hstring BackdropMaterialType(Data::Enums::BackdropMaterialType value);
-        Data::Enums::BackdropMaterialType BackdropMaterialType(hstring const& value);
 
         void updateSelectedResource();
         void updateSelectedBackdropMaterial();
