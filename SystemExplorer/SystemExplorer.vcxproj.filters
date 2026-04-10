@@ -8,23 +8,19 @@
     <Page Include="Views\Pages\RootPage.xaml" />
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml" />
     <Page Include="Views\Pages\Settings\AboutPage.xaml" />
-    <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml" />
     <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
     <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
     <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
-    <Midl Include="ViewModels\ActionCenterViewModel.idl" />
-    <Midl Include="Models\ActionItem.idl" />
-    <Midl Include="Converters\ActionStatusToBrushConverter.idl" />
-    <Midl Include="ViewModels\AboutViewModel.idl" />
+    <Midl Include="ViewModels\Settings\AboutViewModel.idl" />
     <Midl Include="Converters\StringToBrushConverter.idl" />
     <Midl Include="Models\Items\AppThemeResourceItem.idl" />
-    <Midl Include="ViewModels\AppearanceViewModel.idl" />
+    <Midl Include="ViewModels\Settings\AppearanceViewModel.idl" />
     <Midl Include="Core\Serialization\SettingsBase.idl" />
     <Midl Include="Core\Settings\AppearanceSettings.idl" />
-    <Midl Include="ViewModels\AdvancedViewModel.idl" />
+    <Midl Include="ViewModels\Settings\AdvancedViewModel.idl" />
     <Midl Include="Core\Settings\AdvancedSettings.idl" />
     <Midl Include="Core\Settings\UserSettings.idl" />
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl" />
@@ -38,7 +34,6 @@
     <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Core\Serialization\JsonHelper.cpp" />
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Helpers\Win32Helper.cpp" />
   </ItemGroup>
@@ -50,10 +45,11 @@
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
-    <ClInclude Include="Core\Serialization\JsonHelper.h" />
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Core\Services\ISingletonService.h" />
     <ClInclude Include="Helpers\Win32Helper.h" />
+    <ClInclude Include="macro.h" />
+    <ClInclude Include="Helpers\Common.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

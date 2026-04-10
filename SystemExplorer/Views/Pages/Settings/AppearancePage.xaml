@@ -90,24 +90,24 @@
                                   Description="Select the application theme to display"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xE790;}">
                     <ComboBox Width="200"
-                              SelectedIndex="0"
-                              essential:ComboBoxHelper.AcrylicWorkaround="True">
+                              essential:ComboBoxHelper.AcrylicWorkaround="True"
+                              SelectedIndex="{x:Bind ViewModel.SelectedAppThemeIndex, Mode=TwoWay}">
                         <ComboBoxItem Tag="Light">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE706;" />
-                                <TextBlock Text="Light" />
+                                <TextBlock x:Uid="Light" />
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Dark">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE708;" />
-                                <TextBlock Text="Dark" />
+                                <TextBlock x:Uid="Dark" />
                             </StackPanel>
                         </ComboBoxItem>
                         <ComboBoxItem Tag="Default">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE770;" />
-                                <TextBlock Text="As in the system" />
+                                <TextBlock x:Uid="SystemTheme" />
                             </StackPanel>
                         </ComboBoxItem>
                     </ComboBox>

@@ -1,4 +1,4 @@
-namespace SystemExplorer.ViewModels
+namespace SystemExplorer.ViewModels.Settings
 {
     [bindable]
     [default_interface]

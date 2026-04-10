@@ -138,9 +138,6 @@
   <data name="Custom" xml:space="preserve">
     <value>Custom</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Dark</value>
-  </data>
   <data name="Default" xml:space="preserve">
     <value>Default</value>
   </data>
@@ -155,9 +152,6 @@
   </data>
   <data name="IrisPastel" xml:space="preserve">
     <value>Iris Pastel</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Light</value>
   </data>
   <data name="Mica" xml:space="preserve">
     <value>Mica</value>
@@ -201,9 +195,6 @@
   <data name="Storm" xml:space="preserve">
     <value>Storm</value>
   </data>
-  <data name="SystemTheme" xml:space="preserve">
-    <value>As in the system</value>
-  </data>
   <data name="ThinAcrylic" xml:space="preserve">
     <value>Thin Acrylic</value>
   </data>
@@ -212,5 +203,14 @@
   </data>
   <data name="YellowGold" xml:space="preserve">
     <value>Yellow Gold</value>
+  </data>
+  <data name="Dark.Text" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Light.Text" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="SystemTheme.Text" xml:space="preserve">
+    <value>As in the system</value>
   </data>
 </root>

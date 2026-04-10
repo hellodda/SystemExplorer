@@ -43,5 +43,12 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
             }
         }
     }
+    void MainWindow::OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args)
+    {
+        if (args.SettingName() == L"ApplicationTheme")
+        {
+            this->RootGrid().RequestedTheme(unbox_value<ElementTheme>(args.NewValue()));
+        }
+    }
 }
 

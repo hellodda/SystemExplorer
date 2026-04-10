@@ -10,13 +10,11 @@
         static String Camouflage { get; };
         static String CoolBlueBright { get; };
         static String Custom { get; };
-        static String Dark { get; };
         static String Default { get; };
         static String Gray { get; };
         static String GrayDark { get; };
         static String Green { get; };
         static String IrisPastel { get; };
-        static String Light { get; };
         static String Mica { get; };
         static String MicaAlt { get; };
         static String MintLight { get; };
@@ -31,9 +29,11 @@
         static String Seafoam { get; };
         static String Static { get; };
         static String Storm { get; };
-        static String SystemTheme { get; };
         static String ThinAcrylic { get; };
         static String VioletRedLight { get; };
         static String YellowGold { get; };
+        static String DarkText { get; };
+        static String LightText { get; };
+        static String SystemThemeText { get; };
     }
 }

@@ -15,13 +15,11 @@ namespace winrt::SystemExplorer::Helpers::implementation
        [[nodiscard]] static hstring Camouflage();
        [[nodiscard]] static hstring CoolBlueBright();
        [[nodiscard]] static hstring Custom();
-       [[nodiscard]] static hstring Dark();
        [[nodiscard]] static hstring Default();
        [[nodiscard]] static hstring Gray();
        [[nodiscard]] static hstring GrayDark();
        [[nodiscard]] static hstring Green();
        [[nodiscard]] static hstring IrisPastel();
-       [[nodiscard]] static hstring Light();
        [[nodiscard]] static hstring Mica();
        [[nodiscard]] static hstring MicaAlt();
        [[nodiscard]] static hstring MintLight();
@@ -36,10 +34,12 @@ namespace winrt::SystemExplorer::Helpers::implementation
        [[nodiscard]] static hstring Seafoam();
        [[nodiscard]] static hstring Static();
        [[nodiscard]] static hstring Storm();
-       [[nodiscard]] static hstring SystemTheme();
        [[nodiscard]] static hstring ThinAcrylic();
        [[nodiscard]] static hstring VioletRedLight();
        [[nodiscard]] static hstring YellowGold();
+       [[nodiscard]] static hstring DarkText();
+       [[nodiscard]] static hstring LightText();
+       [[nodiscard]] static hstring SystemThemeText();
 
     private:
         StringsHelper() = default;

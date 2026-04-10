@@ -19,9 +19,11 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
             
             Core::Settings::UserSettings::Instance().AppearanceSettings().SettingChanged([this](auto& sender, auto& args) {
                 this->OnSystemBackdropSettingChanged(sender, args);
+                this->OnApplicationThemeSettingChanged(sender, args);
             });
         }
         void OnSystemBackdropSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
+        void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
     };
 }
 

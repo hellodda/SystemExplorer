@@ -1,8 +1,0 @@
-namespace SystemExplorer.Views.Flyouts
-{
-    [default_interface]
-    runtimeclass ActionsCenterFlyout : Microsoft.UI.Xaml.Controls.Flyout
-    {
-        ActionsCenterFlyout();
-    }
-}

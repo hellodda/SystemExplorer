@@ -10,7 +10,7 @@ namespace SystemExplorer.Core.Settings
         AppearanceSettings();
 
         SystemExplorer.Core.Data.Enums.BackdropMaterialType BackdropMaterial;
-        Microsoft.UI.Xaml.ApplicationTheme ApplicationTheme;
+        Microsoft.UI.Xaml.ElementTheme ApplicationTheme;
         String AppThemeBackgroundColor;
     }
 }

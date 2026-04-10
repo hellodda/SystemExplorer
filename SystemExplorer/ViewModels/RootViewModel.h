@@ -10,9 +10,4 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     };
 }
 
-namespace winrt::SystemExplorer::ViewModels::factory_implementation
-{
-    struct RootViewModel : RootViewModelT<RootViewModel, implementation::RootViewModel>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::ViewModels, RootViewModel);

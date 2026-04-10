@@ -1,12 +1,12 @@
 ﻿#pragma once
 
-#include "ViewModels/AboutViewModel.g.h"
+#include "ViewModels/Settings/AboutViewModel.g.h"
 #include <wil/cppwinrt_authoring.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Windows.System.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 
-namespace winrt::SystemExplorer::ViewModels::implementation
+namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
 	using namespace winrt::Microsoft::UI::Xaml::Input;
 	using namespace winrt::Windows::Foundation;
@@ -30,9 +30,4 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     };
 }
 
-namespace winrt::SystemExplorer::ViewModels::factory_implementation
-{
-    struct AboutViewModel : AboutViewModelT<AboutViewModel, implementation::AboutViewModel>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::ViewModels::Settings, AboutViewModel);

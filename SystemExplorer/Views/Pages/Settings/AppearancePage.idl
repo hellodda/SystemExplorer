@@ -1,4 +1,4 @@
-import "ViewModels/AppearanceViewModel.idl";
+import "ViewModels/Settings/AppearanceViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
@@ -7,6 +7,6 @@ namespace SystemExplorer.Views.Pages.Settings
     {
         AppearancePage();
 
-        SystemExplorer.ViewModels.AppearanceViewModel ViewModel { get; };
+        SystemExplorer.ViewModels.Settings.AppearanceViewModel ViewModel { get; };
     }
 }

@@ -20,9 +20,4 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     };
 }
 
-namespace winrt::SystemExplorer::Views::Pages::Settings::factory_implementation
-{
-    struct SettingsRootPage : SettingsRootPageT<SettingsRootPage, implementation::SettingsRootPage>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Views::Pages::Settings, SettingsRootPage);

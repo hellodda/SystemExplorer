@@ -1,4 +1,4 @@
-import "ViewModels/AboutViewModel.idl";
+import "ViewModels/Settings/AboutViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
@@ -7,6 +7,6 @@ namespace SystemExplorer.Views.Pages.Settings
     {
         AboutPage();
 
-        SystemExplorer.ViewModels.AboutViewModel ViewModel { get; };
+        SystemExplorer.ViewModels.Settings.AboutViewModel ViewModel { get; };
     }
 }

@@ -123,12 +123,6 @@
   <data name="Custom" xml:space="preserve">
     <value>Пользовательский</value>
   </data>
-  <data name="Dark" xml:space="preserve">
-    <value>Темная</value>
-  </data>
-  <data name="Light" xml:space="preserve">
-    <value>Светлая</value>
-  </data>
   <data name="Mica" xml:space="preserve">
     <value>Мика</value>
   </data>
@@ -147,10 +141,16 @@
   <data name="Static" xml:space="preserve">
     <value>Статический</value>
   </data>
-  <data name="SystemTheme" xml:space="preserve">
-    <value>Как в системе</value>
-  </data>
   <data name="ThinAcrylic" xml:space="preserve">
     <value>Тонкий Акриль</value>
+  </data>
+  <data name="Dark.Text" xml:space="preserve">
+    <value>Темная</value>
+  </data>
+  <data name="Light.Text" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="SystemTheme.Text" xml:space="preserve">
+    <value>Как в системе</value>
   </data>
 </root>

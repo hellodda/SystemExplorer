@@ -1,7 +1,7 @@
 #pragma once
 #include "Views/Pages/Settings/AppearancePage.g.h"
+#include <ViewModels/Settings/AppearanceViewModel.h>
 #include <Core/Settings/UserSettings.h>
-#include <winrt/Windows.UI.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
@@ -14,13 +14,8 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         {
             
         }
-        wil::single_threaded_property<ViewModels::AppearanceViewModel> ViewModel;
+        wil::single_threaded_property<ViewModels::Settings::AppearanceViewModel> ViewModel;
     };
 }
 
-namespace winrt::SystemExplorer::Views::Pages::Settings::factory_implementation
-{
-    struct AppearancePage : AppearancePageT<AppearancePage, implementation::AppearancePage>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Views::Pages::Settings, AppearancePage);

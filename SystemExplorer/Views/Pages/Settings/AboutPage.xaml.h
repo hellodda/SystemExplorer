@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Views/Pages/Settings/AboutPage.g.h"
+#include <ViewModels/Settings/AboutViewModel.h>
 #include <wil/cppwinrt_authoring.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
@@ -13,13 +14,8 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         {
     
         }
-        wil::single_threaded_property<ViewModels::AboutViewModel> ViewModel{};
+        wil::single_threaded_property<ViewModels::Settings::AboutViewModel> ViewModel{};
     };
 }
 
-namespace winrt::SystemExplorer::Views::Pages::Settings::factory_implementation
-{
-    struct AboutPage : AboutPageT<AboutPage, implementation::AboutPage>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Views::Pages::Settings, AboutPage);

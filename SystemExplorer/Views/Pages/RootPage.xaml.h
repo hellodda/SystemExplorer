@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Views/Pages/RootPage.g.h"
+#include <macro.h>
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
 {
@@ -18,9 +19,4 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
     };
 }
 
-namespace winrt::SystemExplorer::Views::Pages::factory_implementation
-{
-    struct RootPage : RootPageT<RootPage, implementation::RootPage>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Views::Pages, RootPage);

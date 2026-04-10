@@ -18,8 +18,8 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
         [[nodiscard]] Core::Data::Enums::BackdropMaterialType BackdropMaterial() { return Get(L"BackdropMaterial", Core::Data::Enums::BackdropMaterialType::Mica); }
         void BackdropMaterial(Core::Data::Enums::BackdropMaterialType value) { Set(L"BackdropMaterial", value); }
 
-        [[nodiscard]] Microsoft::UI::Xaml::ApplicationTheme ApplicationTheme() { return Get(L"ApplicationTheme", ApplicationTheme::Light); }
-        void ApplicationTheme(Microsoft::UI::Xaml::ApplicationTheme value) { Set(L"ApplicationTheme", value); }
+        [[nodiscard]] ElementTheme ApplicationTheme() { return Get(L"ApplicationTheme", ElementTheme::Light); }
+        void ApplicationTheme(ElementTheme value) { Set(L"ApplicationTheme", value); }
 
         [[nodiscard]] hstring AppThemeBackgroundColor() { return  Get(L"AppThemeBackgroundColor", hstring{ L"#00000000" }); }
         void AppThemeBackgroundColor(hstring const& value) { Set(L"AppThemeBackgroundColor", value); }

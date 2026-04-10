@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include "ViewModels/AdvancedViewModel.g.h"
+#include "ViewModels/Settings/AdvancedViewModel.g.h"
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Microsoft.Windows.Storage.h>
 #include <Core/Settings/AdvancedSettings.h>
 
-namespace winrt::SystemExplorer::ViewModels::implementation
+namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Windows::System;
@@ -41,9 +41,4 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     };
 }
 
-namespace winrt::SystemExplorer::ViewModels::factory_implementation
-{
-    struct AdvancedViewModel : AdvancedViewModelT<AdvancedViewModel, implementation::AdvancedViewModel>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::ViewModels::Settings, AdvancedViewModel);

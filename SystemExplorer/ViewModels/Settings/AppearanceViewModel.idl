@@ -1,7 +1,7 @@
 import "Core/Settings/AppearanceSettings.idl";
 import "Models/Items/AppThemeResourceItem.idl";
 
-namespace SystemExplorer.ViewModels
+namespace SystemExplorer.ViewModels.Settings
 {
     [bindable]
     [default_interface]
@@ -15,6 +15,8 @@ namespace SystemExplorer.ViewModels
         Windows.Foundation.Collections.IVector<Object> BackdropMaterialTypes { get; };
         Object SelectedBackdropMaterial;    
         Int32 SelectedBackdropMaterialIndex;
+
+        Int32 SelectedAppThemeIndex;
 
         String AppThemeBackgroundColor;
     }

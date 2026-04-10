@@ -13,9 +13,4 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     };
 }
 
-namespace winrt::SystemExplorer::Views::Pages::Settings::factory_implementation
-{
-    struct GeneralPage : GeneralPageT<GeneralPage, implementation::GeneralPage>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Views::Pages::Settings, GeneralPage);

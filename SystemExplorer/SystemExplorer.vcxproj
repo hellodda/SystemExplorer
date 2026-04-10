@@ -155,10 +155,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
-    <ClInclude Include="Converters\ActionStatusToBrushConverter.h">
-      <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Converters\StringToBrushConverter.h">
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -171,19 +167,13 @@
     </ClInclude>
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
-    <ClInclude Include="Core\Serialization\JsonHelper.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-    </ClInclude>
+    <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\StringsHelper.h">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
-    <ClInclude Include="Models\ActionItem.h">
-      <DependentUpon>Models\ActionItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
+    <ClInclude Include="macro.h" />
     <ClInclude Include="Models\Items\AppThemeResourceItem.h">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -192,27 +182,19 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="ViewModels\ActionCenterViewModel.h">
-      <DependentUpon>ViewModels\ActionCenterViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\Settings\AboutViewModel.h">
+      <DependentUpon>ViewModels\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ViewModels\AboutViewModel.h">
-      <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\Settings\AdvancedViewModel.h">
+      <DependentUpon>ViewModels\Settings\AdvancedViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ViewModels\AdvancedViewModel.h">
-      <DependentUpon>ViewModels\AdvancedViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="ViewModels\AppearanceViewModel.h">
-      <DependentUpon>ViewModels\AppearanceViewModel.idl</DependentUpon>
+    <ClInclude Include="ViewModels\Settings\AppearanceViewModel.h">
+      <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\ViewModelBase.h" />
-    <ClInclude Include="Views\Flyouts\ActionsCenterFlyout.xaml.h">
-      <DependentUpon>Views\Flyouts\ActionsCenterFlyout.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\AboutPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -248,9 +230,6 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="Views\Flyouts\ActionsCenterFlyout.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\Pages\Settings\AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -294,10 +273,6 @@
       <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\Serialization\JsonHelper.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</DeploymentContent>
-    </ClCompile>
     <ClCompile Include="Core\Settings\UserSettings.cpp">
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -309,20 +284,12 @@
     <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
-    <ClCompile Include="Converters\ActionStatusToBrushConverter.cpp">
-      <DependentUpon>Converters\ActionStatusToBrushConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Converters\StringToBrushConverter.cpp">
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Diagnostics\ActionCenterLogger.cpp" />
     <ClCompile Include="Core\System\Management.cpp" />
-    <ClCompile Include="Models\ActionItem.cpp">
-      <DependentUpon>Models\ActionItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Models\Items\AppThemeResourceItem.cpp">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -333,24 +300,16 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="ViewModels\ActionCenterViewModel.cpp">
-      <DependentUpon>ViewModels\ActionCenterViewModel.idl</DependentUpon>
+    <ClCompile Include="ViewModels\Settings\AboutViewModel.cpp">
+      <DependentUpon>ViewModels\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ViewModels\AboutViewModel.cpp">
-      <DependentUpon>ViewModels\AboutViewModel.idl</DependentUpon>
+    <ClCompile Include="ViewModels\Settings\AdvancedViewModel.cpp">
+      <DependentUpon>ViewModels\Settings\AdvancedViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="ViewModels\AdvancedViewModel.cpp">
-      <DependentUpon>ViewModels\AdvancedViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="ViewModels\AppearanceViewModel.cpp">
-      <DependentUpon>ViewModels\AppearanceViewModel.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Views\Flyouts\ActionsCenterFlyout.xaml.cpp">
-      <DependentUpon>Views\Flyouts\ActionsCenterFlyout.xaml</DependentUpon>
+    <ClCompile Include="ViewModels\Settings\AppearanceViewModel.cpp">
+      <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AboutPage.xaml.cpp">
@@ -387,9 +346,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="Converters\ActionStatusToBrushConverter.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Converters\HexToColorConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -418,27 +374,17 @@
     <Midl Include="Helpers\StringsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\ActionItem.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Models\Items\AppThemeResourceItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ViewModels\ActionCenterViewModel.idl">
+    <Midl Include="ViewModels\Settings\AboutViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ViewModels\AboutViewModel.idl">
+    <Midl Include="ViewModels\Settings\AdvancedViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="ViewModels\AdvancedViewModel.idl">
+    <Midl Include="ViewModels\Settings\AppearanceViewModel.idl">
       <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="ViewModels\AppearanceViewModel.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Views\Flyouts\ActionsCenterFlyout.idl">
-      <DependentUpon>Views\Flyouts\ActionsCenterFlyout.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>

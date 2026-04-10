@@ -37,4 +37,4 @@
 #include <ppl.h>
 #include <pplawait.h>
 #include <pplcancellation_token.h>
-#undef CreateFile
+#include "macro.h"

@@ -1,4 +1,4 @@
-import "ViewModels/AdvancedViewModel.idl";
+import "ViewModels/Settings/AdvancedViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
@@ -7,6 +7,6 @@ namespace SystemExplorer.Views.Pages.Settings
     {
         AdvancedPage();
 
-        SystemExplorer.ViewModels.AdvancedViewModel ViewModel { get; };
+        SystemExplorer.ViewModels.Settings.AdvancedViewModel ViewModel { get; };
     }
 }

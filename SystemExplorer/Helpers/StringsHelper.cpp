@@ -44,11 +44,6 @@ namespace winrt::SystemExplorer::Helpers::implementation
         return loader_.GetString(L"Custom");
     }
 
-    hstring StringsHelper::Dark()
-    {
-        return loader_.GetString(L"Dark");
-    }
-
     hstring StringsHelper::Default()
     {
         return loader_.GetString(L"Default");
@@ -72,11 +67,6 @@ namespace winrt::SystemExplorer::Helpers::implementation
     hstring StringsHelper::IrisPastel()
     {
         return loader_.GetString(L"IrisPastel");
-    }
-
-    hstring StringsHelper::Light()
-    {
-        return loader_.GetString(L"Light");
     }
 
     hstring StringsHelper::Mica()
@@ -149,11 +139,6 @@ namespace winrt::SystemExplorer::Helpers::implementation
         return loader_.GetString(L"Storm");
     }
 
-    hstring StringsHelper::SystemTheme()
-    {
-        return loader_.GetString(L"SystemTheme");
-    }
-
     hstring StringsHelper::ThinAcrylic()
     {
         return loader_.GetString(L"ThinAcrylic");
@@ -167,5 +152,20 @@ namespace winrt::SystemExplorer::Helpers::implementation
     hstring StringsHelper::YellowGold()
     {
         return loader_.GetString(L"YellowGold");
+    }
+
+    hstring StringsHelper::DarkText()
+    {
+        return loader_.GetString(L"Dark.Text");
+    }
+
+    hstring StringsHelper::LightText()
+    {
+        return loader_.GetString(L"Light.Text");
+    }
+
+    hstring StringsHelper::SystemThemeText()
+    {
+        return loader_.GetString(L"SystemTheme.Text");
     }
 }
