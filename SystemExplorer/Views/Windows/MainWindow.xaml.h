@@ -1,6 +1,6 @@
 #pragma once
 #include "Views/Windows/MainWindow.g.h"
-
+#include <macro.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <Core/Settings/UserSettings.h>
 #include <Core/Services/AppResourcesService.h>
@@ -30,10 +30,5 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
     };
 }
+FACTORY(winrt::SystemExplorer::Views::Windows, MainWindow);
 
-namespace winrt::SystemExplorer::Views::Windows::factory_implementation
-{
-    struct MainWindow : MainWindowT<MainWindow, implementation::MainWindow>
-    {
-    };
-}

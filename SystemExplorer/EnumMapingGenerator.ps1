@@ -1,6 +1,6 @@
 [CmdletBinding()]
 param (
-    [Parameter(Mandatory=$true, Position=0, HelpMessage="(ProjDir)")]
+    [Parameter(Mandatory=$true, Position=0, HelpMessage="Путь к директории проекта (ProjDir)")]
     [string]$ProjDir,
 
     [string]$EnumNamespace = "winrt::SystemExplorer::Core::Data::Enums",
@@ -14,7 +14,8 @@ if (-not (Test-Path -Path $ProjDir -PathType Container)) {
     exit
 }
 
-$availableStrings = @()
+$availableStrings = [System.Collections.Generic.HashSet[string]]::new([StringComparer]::Ordinal)
+
 if ([string]::IsNullOrWhiteSpace($ReswFilePath)) {
     $foundResw = Get-ChildItem -Path $ProjDir -Filter "Resources.resw" -Recurse | Select-Object -First 1
     if ($foundResw) {
@@ -23,28 +24,29 @@ if ([string]::IsNullOrWhiteSpace($ReswFilePath)) {
 }
 
 if (-Not [string]::IsNullOrWhiteSpace($ReswFilePath) -and (Test-Path $ReswFilePath)) {
-    [xml]$xml = Get-Content $ReswFilePath -Encoding UTF8
-    $dataNodes = $xml.SelectNodes("//root/data")
-    foreach ($node in $dataNodes) {
-        $rawName = $node.name
-        $safeName = $rawName -replace '[\.\-\s]', ''
-        $availableStrings += $safeName
+    try {
+        [xml]$xml = [System.IO.File]::ReadAllText($ReswFilePath, [System.Text.Encoding]::UTF8)
+        $dataNodes = $xml.SelectNodes("//root/data")
+        foreach ($node in $dataNodes) {
+            $safeName = $node.name -replace '[\.\-\s]', ''
+            [void]$availableStrings.Add($safeName)
+        }
+        Write-Host "Loaded $($availableStrings.Count) resource keys from $ReswFilePath" -ForegroundColor Cyan
+    } catch {
+        Write-Warning "Failed to parse XML in $ReswFilePath. Details: $_"
     }
-    Write-Host "Loaded $($availableStrings.Count) resource keys from $ReswFilePath" -ForegroundColor Cyan
 } else {
     Write-Host "Resw file not found. Falling back to string literals only." -ForegroundColor Yellow
 }
 
 $idlFiles = Get-ChildItem -Path $ProjDir -Filter "*.idl" -File -Recurse
-
 if ($idlFiles.Count -eq 0) {
     Write-Host "No .idl files found in '$ProjDir'." -ForegroundColor Yellow
     exit
 }
 
-$allEnums = @()
-$pattern = '(?s)\benum\s+([a-zA-Z0-9_]+)\s*\{([^}]+)\}'
-$enumRegex = [regex]$pattern
+$allEnums = [System.Collections.Generic.List[PSCustomObject]]::new()
+$enumRegex = [regex]::new('(?s)\benum\s+([a-zA-Z0-9_]+)\s*\{([^}]+)\}')
 
 foreach ($file in $idlFiles) {
     $content = [System.IO.File]::ReadAllText($file.FullName)
@@ -54,7 +56,7 @@ foreach ($file in $idlFiles) {
         $enumName = $match.Groups[1].Value.Trim()
         $enumBody = $match.Groups[2].Value
 
-        $enumValues = @()
+        $enumValues = [System.Collections.Generic.List[string]]::new()
         
         $lines = $enumBody -split ','
         foreach ($line in $lines) {
@@ -62,15 +64,15 @@ foreach ($file in $idlFiles) {
             $cleanLine = ($cleanLine -split '=')[0].Trim()
             
             if ($cleanLine -match '^[a-zA-Z0-9_]+$') {
-                $enumValues += $cleanLine
+                [void]$enumValues.Add($cleanLine)
             }
         }
 
         if ($enumValues.Count -gt 0) {
-            $allEnums += [PSCustomObject]@{
-                Name = $enumName
-                Values = $enumValues
-            }
+            $allEnums.Add([PSCustomObject]@{
+                Name   = $enumName
+                Values = $enumValues.ToArray()
+            })
         }
     }
 }
@@ -81,95 +83,89 @@ if ($allEnums.Count -eq 0) {
 }
 
 $helpersDir = Join-Path -Path $ProjDir -ChildPath "Helpers"
-
 if (-not (Test-Path -Path $helpersDir)) {
-    New-Item -ItemType Directory -Path $helpersDir -Force | Out-Null
+    [void](New-Item -ItemType Directory -Path $helpersDir -Force)
 }
 
-$hCode = New-Object System.Text.StringBuilder
-$hCode.AppendLine("#pragma once") | Out-Null
-$hCode.AppendLine("#include <winrt/base.h>") | Out-Null
-$hCode.AppendLine() | Out-Null
-$hCode.AppendLine("#include <winrt/SystemExplorer.Core.Data.Enums.h>") | Out-Null
-$hCode.AppendLine() | Out-Null
-$hCode.AppendLine("namespace $HelperNamespace") | Out-Null
-$hCode.AppendLine("{") | Out-Null
-$hCode.AppendLine("    struct EnumHelper") | Out-Null
-$hCode.AppendLine("    {") | Out-Null
+$hCode = [System.Text.StringBuilder]::new()
+[void]$hCode.AppendLine(@"
+#pragma once
+#include <winrt/base.h>
+#include <winrt/SystemExplorer.Core.Data.Enums.h>
+#include <type_traits>
+#include <string_view>
+
+namespace $HelperNamespace
+{
+    struct EnumHelper
+    {
+        EnumHelper() = delete;
+"@)
 
 foreach ($enum in $allEnums) {
-    $hCode.AppendLine("        [[nodiscard]] static winrt::hstring Map(${EnumNamespace}::$($enum.Name) value);") | Out-Null
+    [void]$hCode.AppendLine("        [[nodiscard]] static winrt::hstring Map(${EnumNamespace}::$($enum.Name) value);")
 }
 
-$hCode.AppendLine() | Out-Null
-$hCode.AppendLine("        template <typename EnumT> requires std::is_enum_v<EnumT>") | Out-Null
-$hCode.AppendLine("        [[nodiscard]] static EnumT Map(winrt::hstring const& value);") | Out-Null
-$hCode.AppendLine() | Out-Null
-$hCode.AppendLine("    private:") | Out-Null
-$hCode.AppendLine("        EnumHelper() = default;") | Out-Null
-$hCode.AppendLine("    };") | Out-Null
-$hCode.AppendLine() | Out-Null
+[void]$hCode.AppendLine(@"
+
+        template <typename EnumT>
+            requires std::is_enum_v<EnumT>
+        [[nodiscard]] static EnumT Map(winrt::hstring const& value);
+    };
+"@)
 
 foreach ($enum in $allEnums) {
     $fqn = "${EnumNamespace}::$($enum.Name)"
-    $hCode.AppendLine("    template <>") | Out-Null
-    $hCode.AppendLine("    $fqn EnumHelper::Map<$fqn>(winrt::hstring const& value);") | Out-Null
+    [void]$hCode.AppendLine("    template <>")
+    [void]$hCode.AppendLine("    $fqn EnumHelper::Map<$fqn>(winrt::hstring const& value);")
 }
-$hCode.AppendLine("}") | Out-Null
+[void]$hCode.AppendLine("}")
 
-$cppCode = New-Object System.Text.StringBuilder
-$cppCode.AppendLine("#include `"pch.h`"") | Out-Null
-$cppCode.AppendLine("#include `"EnumHelper.h`"") | Out-Null
+$cppCode = [System.Text.StringBuilder]::new()
+[void]$cppCode.AppendLine(@"
+#include "pch.h"
+#include "EnumHelper.h"
+#include <stdexcept>
+"@)
 
 if ($availableStrings.Count -gt 0) {
     $winrtHeader = ($StringsHelperNamespace -replace '^winrt::', '') -replace '::', '.'
-    $cppCode.AppendLine("#include <winrt/${winrtHeader}.h>") | Out-Null
+    [void]$cppCode.AppendLine("#include <winrt/${winrtHeader}.h>")
 }
 
-$cppCode.AppendLine("#include <stdexcept>") | Out-Null
-$cppCode.AppendLine() | Out-Null
-$cppCode.AppendLine("namespace $HelperNamespace") | Out-Null
-$cppCode.AppendLine("{") | Out-Null
+[void]$cppCode.AppendLine("`nnamespace $HelperNamespace`n{")
 
 foreach ($enum in $allEnums) {
     $name = $enum.Name
     $fqn = "${EnumNamespace}::${name}"
     
-    $cppCode.AppendLine("    winrt::hstring EnumHelper::Map($fqn value)") | Out-Null
-    $cppCode.AppendLine("    {") | Out-Null
-    $cppCode.AppendLine("        switch (value)") | Out-Null
-    $cppCode.AppendLine("        {") | Out-Null
+    [void]$cppCode.AppendLine("    winrt::hstring EnumHelper::Map($fqn value)`n    {`n        switch (value)`n        {")
     foreach ($val in $enum.Values) {
-        if ($availableStrings -ccontains $val) {
-            $cppCode.AppendLine("            case ${fqn}::${val}: return ${StringsHelperNamespace}::StringsHelper::${val}();") | Out-Null
+        if ($availableStrings.Contains($val)) {
+            [void]$cppCode.AppendLine("            case ${fqn}::${val}: return ${StringsHelperNamespace}::StringsHelper::${val}();")
         } else {
-            $cppCode.AppendLine("            case ${fqn}::${val}: return L`"$val`";") | Out-Null
+            [void]$cppCode.AppendLine("            case ${fqn}::${val}: return L`"$val`";")
         }
     }
-    $cppCode.AppendLine("            default: throw winrt::hresult_invalid_argument(L`"Invalid value for enum $name`");") | Out-Null
-    $cppCode.AppendLine("        }") | Out-Null
-    $cppCode.AppendLine("    }") | Out-Null
-    $cppCode.AppendLine() | Out-Null
+    [void]$cppCode.AppendLine("        }`n        throw winrt::hresult_invalid_argument(L`"Invalid value for enum $name`");`n    }`n")
     
-    $cppCode.AppendLine("    template <>") | Out-Null
-    $cppCode.AppendLine("    $fqn EnumHelper::Map<$fqn>(winrt::hstring const& value)") | Out-Null
-    $cppCode.AppendLine("    {") | Out-Null
+    [void]$cppCode.AppendLine("    template <>`n    $fqn EnumHelper::Map<$fqn>(winrt::hstring const& value)`n    {")
+    
+    $hasStrings = $false
     foreach ($val in $enum.Values) {
-        if ($availableStrings -ccontains $val) {
-            $cppCode.AppendLine("        if (value == ${StringsHelperNamespace}::StringsHelper::${val}()) return ${fqn}::${val};") | Out-Null
+        if ($availableStrings.Contains($val)) {
+            [void]$cppCode.AppendLine("        if (value == ${StringsHelperNamespace}::StringsHelper::${val}()) return ${fqn}::${val};")
         } else {
-            $cppCode.AppendLine("        if (value == L`"$val`") return ${fqn}::${val};") | Out-Null
+            [void]$cppCode.AppendLine("        if (value == std::wstring_view{L`"$val`"}) return ${fqn}::${val};")
         }
     }
-    $cppCode.AppendLine("        throw winrt::hresult_invalid_argument(L`"Invalid string mapping for enum $name`");") | Out-Null
-    $cppCode.AppendLine("    }") | Out-Null
-    $cppCode.AppendLine() | Out-Null
+    [void]$cppCode.AppendLine("        throw winrt::hresult_invalid_argument(L`"Invalid string mapping for enum $name`");`n    }`n")
 }
 
-$cppCode.AppendLine("}") | Out-Null
+[void]$cppCode.AppendLine("}")
 
 $headerPath = Join-Path -Path $helpersDir -ChildPath "EnumHelper.h"
-$cppPath = Join-Path -Path $helpersDir -ChildPath "EnumHelper.cpp"
+$cppPath    = Join-Path -Path $helpersDir -ChildPath "EnumHelper.cpp"
 
 [System.IO.File]::WriteAllText($headerPath, $hCode.ToString(), [System.Text.Encoding]::UTF8)
 [System.IO.File]::WriteAllText($cppPath, $cppCode.ToString(), [System.Text.Encoding]::UTF8)

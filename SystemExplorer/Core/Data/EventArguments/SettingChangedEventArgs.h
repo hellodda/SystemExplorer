@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Core/Data/EventArguments/SettingChangedEventArgs.g.h"
+#include <macro.h>
 
 namespace winrt::SystemExplorer::Core::Data::EventArguments::implementation
 {
@@ -16,10 +17,4 @@ namespace winrt::SystemExplorer::Core::Data::EventArguments::implementation
         wil::single_threaded_rw_property<IInspectable> NewValue;
     };
 }
-
-namespace winrt::SystemExplorer::Core::Data::EventArguments::factory_implementation
-{
-    struct SettingChangedEventArgs : SettingChangedEventArgsT<SettingChangedEventArgs, implementation::SettingChangedEventArgs>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Core::Data::EventArguments, SettingChangedEventArgs);

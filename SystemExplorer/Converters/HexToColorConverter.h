@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Converters/HexToColorConverter.g.h"
+#include <macro.h>
 
 namespace winrt::SystemExplorer::Converters::implementation
 {
@@ -28,10 +29,4 @@ namespace winrt::SystemExplorer::Converters::implementation
         );
     };
 }
-
-namespace winrt::SystemExplorer::Converters::factory_implementation
-{
-    struct HexToColorConverter : HexToColorConverterT<HexToColorConverter, implementation::HexToColorConverter>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Converters, HexToColorConverter);

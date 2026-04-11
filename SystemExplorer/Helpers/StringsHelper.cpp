@@ -7,210 +7,208 @@
 
 namespace winrt::SystemExplorer::Helpers::implementation
 {
-    winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader StringsHelper::loader_{};
-
     hstring StringsHelper::Acrylic()
     {
-        return loader_.GetString(L"Acrylic");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Acrylic");
     }
 
     hstring StringsHelper::Blue()
     {
-        return loader_.GetString(L"Blue");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Blue");
     }
 
     hstring StringsHelper::BlueGray()
     {
-        return loader_.GetString(L"BlueGray");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"BlueGray");
     }
 
     hstring StringsHelper::BrickRed()
     {
-        return loader_.GetString(L"BrickRed");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"BrickRed");
     }
 
     hstring StringsHelper::Camouflage()
     {
-        return loader_.GetString(L"Camouflage");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Camouflage");
     }
 
     hstring StringsHelper::CoolBlueBright()
     {
-        return loader_.GetString(L"CoolBlueBright");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"CoolBlueBright");
     }
 
     hstring StringsHelper::Custom()
     {
-        return loader_.GetString(L"Custom");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Custom");
     }
 
     hstring StringsHelper::Default()
     {
-        return loader_.GetString(L"Default");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Default");
     }
 
     hstring StringsHelper::Gray()
     {
-        return loader_.GetString(L"Gray");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Gray");
     }
 
     hstring StringsHelper::GrayDark()
     {
-        return loader_.GetString(L"GrayDark");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"GrayDark");
     }
 
     hstring StringsHelper::Green()
     {
-        return loader_.GetString(L"Green");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Green");
     }
 
     hstring StringsHelper::IrisPastel()
     {
-        return loader_.GetString(L"IrisPastel");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"IrisPastel");
     }
 
     hstring StringsHelper::Mica()
     {
-        return loader_.GetString(L"Mica");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Mica");
     }
 
     hstring StringsHelper::MicaAlt()
     {
-        return loader_.GetString(L"MicaAlt");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"MicaAlt");
     }
 
     hstring StringsHelper::MintLight()
     {
-        return loader_.GetString(L"MintLight");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"MintLight");
     }
 
     hstring StringsHelper::ModRed()
     {
-        return loader_.GetString(L"ModRed");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"ModRed");
     }
 
     hstring StringsHelper::NavRootHomeContent()
     {
-        return loader_.GetString(L"Nav.Root.Home.Content");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Nav.Root.Home.Content");
     }
 
     hstring StringsHelper::NavRootMonitoring()
     {
-        return loader_.GetString(L"Nav.Root.Monitoring");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Nav.Root.Monitoring");
     }
 
     hstring StringsHelper::NavRootSystem()
     {
-        return loader_.GetString(L"Nav.Root.System");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Nav.Root.System");
     }
 
     hstring StringsHelper::OrangeBright()
     {
-        return loader_.GetString(L"OrangeBright");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"OrangeBright");
     }
 
     hstring StringsHelper::Overcast()
     {
-        return loader_.GetString(L"Overcast");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Overcast");
     }
 
     hstring StringsHelper::Red()
     {
-        return loader_.GetString(L"Red");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Red");
     }
 
     hstring StringsHelper::RoseBright()
     {
-        return loader_.GetString(L"RoseBright");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"RoseBright");
     }
 
     hstring StringsHelper::Seafoam()
     {
-        return loader_.GetString(L"Seafoam");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Seafoam");
     }
 
     hstring StringsHelper::Static()
     {
-        return loader_.GetString(L"Static");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Static");
     }
 
     hstring StringsHelper::Storm()
     {
-        return loader_.GetString(L"Storm");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Storm");
     }
 
     hstring StringsHelper::ThinAcrylic()
     {
-        return loader_.GetString(L"ThinAcrylic");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"ThinAcrylic");
     }
 
     hstring StringsHelper::VioletRedLight()
     {
-        return loader_.GetString(L"VioletRedLight");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"VioletRedLight");
     }
 
     hstring StringsHelper::YellowGold()
     {
-        return loader_.GetString(L"YellowGold");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"YellowGold");
     }
 
     hstring StringsHelper::DarkText()
     {
-        return loader_.GetString(L"Dark.Text");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Dark.Text");
     }
 
     hstring StringsHelper::LightText()
     {
-        return loader_.GetString(L"Light.Text");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Light.Text");
     }
 
     hstring StringsHelper::SystemThemeText()
     {
-        return loader_.GetString(L"SystemTheme.Text");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"SystemTheme.Text");
     }
 
     hstring StringsHelper::None()
     {
-        return loader_.GetString(L"None");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"None");
     }
 
     hstring StringsHelper::Fill()
     {
-        return loader_.GetString(L"Fill");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Fill");
     }
 
     hstring StringsHelper::Uniform()
     {
-        return loader_.GetString(L"Uniform");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Uniform");
     }
 
     hstring StringsHelper::UniformToFill()
     {
-        return loader_.GetString(L"UniformToFill");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"UniformToFill");
     }
 
     hstring StringsHelper::Top()
     {
-        return loader_.GetString(L"Top");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Top");
     }
 
     hstring StringsHelper::Center()
     {
-        return loader_.GetString(L"Center");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Center");
     }
 
     hstring StringsHelper::Bottom()
     {
-        return loader_.GetString(L"Bottom");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Bottom");
     }
 
     hstring StringsHelper::Left()
     {
-        return loader_.GetString(L"Left");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Left");
     }
 
     hstring StringsHelper::Right()
     {
-        return loader_.GetString(L"Right");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Right");
     }
 }

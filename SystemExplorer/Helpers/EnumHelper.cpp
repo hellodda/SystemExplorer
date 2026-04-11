@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "EnumHelper.h"
-#include <winrt/SystemExplorer.Helpers.h>
 #include <stdexcept>
+#include <winrt/SystemExplorer.Helpers.h>
 
 namespace winrt::SystemExplorer::Helpers
 {
@@ -14,8 +14,8 @@ namespace winrt::SystemExplorer::Helpers
             case winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType::MicaAlt: return winrt::SystemExplorer::Helpers::StringsHelper::MicaAlt();
             case winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType::Acrylic: return winrt::SystemExplorer::Helpers::StringsHelper::Acrylic();
             case winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType::ThinAcrylic: return winrt::SystemExplorer::Helpers::StringsHelper::ThinAcrylic();
-            default: throw winrt::hresult_invalid_argument(L"Invalid value for enum BackdropMaterialType");
         }
+        throw winrt::hresult_invalid_argument(L"Invalid value for enum BackdropMaterialType");
     }
 
     template <>
@@ -36,8 +36,8 @@ namespace winrt::SystemExplorer::Helpers
             case winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment::Left: return winrt::SystemExplorer::Helpers::StringsHelper::Left();
             case winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment::Center: return winrt::SystemExplorer::Helpers::StringsHelper::Center();
             case winrt::SystemExplorer::Core::Data::Enums::HorizontalAlignment::Right: return winrt::SystemExplorer::Helpers::StringsHelper::Right();
-            default: throw winrt::hresult_invalid_argument(L"Invalid value for enum HorizontalAlignment");
         }
+        throw winrt::hresult_invalid_argument(L"Invalid value for enum HorizontalAlignment");
     }
 
     template <>
@@ -57,17 +57,17 @@ namespace winrt::SystemExplorer::Helpers
             case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Default: return winrt::SystemExplorer::Helpers::StringsHelper::Default();
             case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low: return L"Low";
             case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended: return L"Suspended";
-            default: throw winrt::hresult_invalid_argument(L"Invalid value for enum InformationUpdateSpeed");
         }
+        throw winrt::hresult_invalid_argument(L"Invalid value for enum InformationUpdateSpeed");
     }
 
     template <>
     winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed>(winrt::hstring const& value)
     {
-        if (value == L"High") return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High;
+        if (value == std::wstring_view{L"High"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High;
         if (value == winrt::SystemExplorer::Helpers::StringsHelper::Default()) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Default;
-        if (value == L"Low") return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low;
-        if (value == L"Suspended") return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended;
+        if (value == std::wstring_view{L"Low"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low;
+        if (value == std::wstring_view{L"Suspended"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended;
         throw winrt::hresult_invalid_argument(L"Invalid string mapping for enum InformationUpdateSpeed");
     }
 
@@ -79,8 +79,8 @@ namespace winrt::SystemExplorer::Helpers
             case winrt::SystemExplorer::Core::Data::Enums::Stretch::Fill: return winrt::SystemExplorer::Helpers::StringsHelper::Fill();
             case winrt::SystemExplorer::Core::Data::Enums::Stretch::Uniform: return winrt::SystemExplorer::Helpers::StringsHelper::Uniform();
             case winrt::SystemExplorer::Core::Data::Enums::Stretch::UniformToFill: return winrt::SystemExplorer::Helpers::StringsHelper::UniformToFill();
-            default: throw winrt::hresult_invalid_argument(L"Invalid value for enum Stretch");
         }
+        throw winrt::hresult_invalid_argument(L"Invalid value for enum Stretch");
     }
 
     template <>
@@ -100,8 +100,8 @@ namespace winrt::SystemExplorer::Helpers
             case winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment::Top: return winrt::SystemExplorer::Helpers::StringsHelper::Top();
             case winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment::Center: return winrt::SystemExplorer::Helpers::StringsHelper::Center();
             case winrt::SystemExplorer::Core::Data::Enums::VerticalAlignment::Bottom: return winrt::SystemExplorer::Helpers::StringsHelper::Bottom();
-            default: throw winrt::hresult_invalid_argument(L"Invalid value for enum VerticalAlignment");
         }
+        throw winrt::hresult_invalid_argument(L"Invalid value for enum VerticalAlignment");
     }
 
     template <>

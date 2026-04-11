@@ -1,47 +1,53 @@
+[CmdletBinding()]
 param(
-    [Parameter(Mandatory=$true)][string]$ReswFilePath,
-    [Parameter(Mandatory=$true)][string]$OutputDir,
+    [Parameter(Mandatory=$true)]
+    [ValidateScript({Test-Path $_ -PathType Leaf})]
+    [string]$ReswFilePath,
+
+    [Parameter(Mandatory=$true)]
+    [string]$OutputDir,
+
     [string]$ClassName = "StringsHelper",
     [string]$IdlNamespace = "SystemExplorer.Helpers",
     [string]$GeneratedIncludePrefix = "Helpers"
 )
 
+$ErrorActionPreference = "Stop"
+
 $CppNamespace = "winrt::" + ($IdlNamespace -replace '\.', '::')
 
-if (-Not (Test-Path $ReswFilePath)) {
-    Write-Error "File not found: $ReswFilePath"
-    exit 1
-}
-
-if (-Not (Test-Path $OutputDir)) {
+if (-not (Test-Path -Path $OutputDir)) {
     New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
 }
 
-[xml]$xml = Get-Content $ReswFilePath -Encoding UTF8
+[xml]$xml = Get-Content -Path $ReswFilePath -Encoding UTF8
 $dataNodes = $xml.SelectNodes("//root/data")
 
-$idlMethods = [System.Collections.Generic.List[string]]::new()
-$headerMethods = [System.Collections.Generic.List[string]]::new()
-$cppMethods = [System.Collections.Generic.List[string]]::new()
+if ($null -eq $dataNodes -or $dataNodes.Count -eq 0) {
+    Write-Warning "Resource file is empty or does not contain //root/data nodes: $ReswFilePath"
+    return
+}
+
+$idlMethods = [System.Text.StringBuilder]::new()
+$headerMethods = [System.Text.StringBuilder]::new()
+$cppMethods = [System.Text.StringBuilder]::new()
 
 foreach ($node in $dataNodes) {
     $rawName = $node.name
     $safeName = $rawName -replace '[\.\-\s]', ''
 
-    $idlMethods.Add("        static String $safeName { get; };")
-    $headerMethods.Add("       [[nodiscard]] static hstring $safeName();")
+    [void]$idlMethods.AppendLine("        static String $safeName { get; };")
+    [void]$headerMethods.AppendLine("        [[nodiscard]] static hstring $safeName();")
     
-    $cppMethods.Add(@"
-    hstring $ClassName`::$safeName()
+    $cppMethod = @"
+    hstring ${ClassName}::${safeName}()
     {
-        return loader_.GetString(L"$rawName");
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"$rawName");
     }
-"@)
+"@
+    [void]$cppMethods.AppendLine($cppMethod)
+    [void]$cppMethods.AppendLine()
 }
-
-$idlMethodsString = $idlMethods -join "`n"
-$headerMethodsString = $headerMethods -join "`n"
-$cppMethodsString = $cppMethods -join "`n`n"
 
 $idlContent = @"
 namespace $IdlNamespace
@@ -49,7 +55,7 @@ namespace $IdlNamespace
     [default_interface]
     runtimeclass $ClassName
     {
-$idlMethodsString
+$($idlMethods.ToString().TrimEnd())
     }
 }
 "@
@@ -57,6 +63,7 @@ $idlMethodsString
 $headerContent = @"
 #pragma once
 #include "$GeneratedIncludePrefix/$ClassName.g.h"
+#include "../macro.h"
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
 namespace $CppNamespace`::implementation
@@ -65,21 +72,13 @@ namespace $CppNamespace`::implementation
 
     struct $ClassName : ${ClassName}T<$ClassName>
     {
-$headerMethodsString
+$($headerMethods.ToString().TrimEnd())
 
     private:
         $ClassName() = default;
-
-        static ResourceLoader loader_;
     };
 }
-
-namespace $CppNamespace`::factory_implementation
-{
-    struct $ClassName : ${ClassName}T<$ClassName, implementation::$ClassName>
-    {
-    };
-}
+FACTORY($CppNamespace, $ClassName)
 "@
 
 $cppContent = @"
@@ -92,9 +91,7 @@ $cppContent = @"
 
 namespace $CppNamespace`::implementation
 {
-    winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader $ClassName`::loader_{};
-
-$cppMethodsString
+$($cppMethods.ToString().TrimEnd())
 }
 "@
 

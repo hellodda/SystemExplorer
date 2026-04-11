@@ -47,7 +47,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Center()));
         ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Right()));
         updateSelectedImageHorizontalAlignmentType();
-
     }
 
     hstring AppearanceViewModel::AppThemeBackgroundColor() const
