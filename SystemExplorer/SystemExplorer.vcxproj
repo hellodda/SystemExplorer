@@ -182,6 +182,7 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ViewModels\Settings\AboutViewModel.h">
       <DependentUpon>ViewModels\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -465,6 +466,9 @@
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="SystemExplorer.rc" />
   </ItemGroup>
   <PropertyGroup Condition="'$(DisableHasPackageAndPublishMenuAddedByProject)'!='true' and '$(EnableMsixTooling)'=='true'">
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>

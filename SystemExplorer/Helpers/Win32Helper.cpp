@@ -23,5 +23,18 @@ namespace winrt::SystemExplorer::Helpers
         }
         return L"Unknown Error";
     }
+    std::wstring Win32Helper::GetLocalizedResource(UINT id)
+    {
+        static auto module{ GetModuleHandle(NULL) };
+        LPWSTR buffer{ nullptr };
+
+        int len = LoadStringW(module, id, reinterpret_cast<LPWSTR>(&buffer), 0);
+
+        if (len > 0 && buffer)
+        {
+            return { buffer, static_cast<size_t>(len) };
+        }
+        return L"";
+    }
 }
 

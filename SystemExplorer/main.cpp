@@ -1,30 +1,36 @@
 #include "pch.h"
 #include "App.xaml.h"
+#include "resource.h"
 #include "Helpers/Win32Helper.h"
+#include "Helpers/Common.h"
 
+using namespace winrt::SystemExplorer::Helpers;
+
+// potom pomenyayu
 LONG WINAPI PlatformExceptionFilter(
     _In_ PEXCEPTION_POINTERS pExceptionInfo
 )
 {
-    const auto record = pExceptionInfo->ExceptionRecord;
+    const auto* record = pExceptionInfo->ExceptionRecord;
 
-    std::wstring errorDesc = winrt::SystemExplorer::Helpers::Win32Helper::GetErrorMessage(record->ExceptionCode);
+    const std::wstring errorDesc = Win32Helper::GetErrorMessage(record->ExceptionCode);
+    const std::wstring appName = Win32Helper::GetLocalizedResource(IDS_APP_NAME);
 
-    std::wstring message = std::format(
-        L"A critical application error has occurred.\n\n"
-        L"Exception Details:\n"
-        L"Faulting Code: 0x{:08X}\n"
-        L"Description: {}\n"
-        L"Instruction Address: 0x{:p}\n",
-        record->ExceptionCode,
-        errorDesc,
-        record->ExceptionAddress
+    std::wstring details = Win32Helper::GetLocalizedResource(IDS_EXCEPTION_DETAILS);
+
+    details += Format(Win32Helper::GetLocalizedResource(IDS_FAULTING_CODE).c_str(), record->ExceptionCode);
+    details += Format(Win32Helper::GetLocalizedResource(IDS_DESCRIPTION).c_str(), errorDesc.c_str());
+    details += Format(Win32Helper::GetLocalizedResource(IDS_INSTRUCTION_ADDRESS).c_str(), record->ExceptionAddress);
+
+    const std::wstring finalMessage = Format(
+        Win32Helper::GetLocalizedResource(IDS_CRITICAL_ERROR).c_str(),
+        details.c_str()
     );
 
     MessageBoxW(
-        NULL,
-        message.c_str(),
-        L"System Explorer - Critical Error",
+        nullptr,
+        finalMessage.c_str(),
+        appName.c_str(),
         MB_OK | MB_ICONERROR | MB_SETFOREGROUND | MB_TOPMOST
     );
 
@@ -43,9 +49,14 @@ int APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
+
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
     SetUnhandledExceptionFilter(PlatformExceptionFilter);
+
+#ifdef DEBUG_E
+    RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);
+#endif 
 
     winrt::Microsoft::UI::Xaml::Application::Start([](auto&&)
     {
