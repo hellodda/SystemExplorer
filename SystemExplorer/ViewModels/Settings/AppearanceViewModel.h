@@ -1,14 +1,21 @@
 ﻿#pragma once
 
 #include "ViewModels/Settings/AppearanceViewModel.g.h"
+#include "../ViewModelBase.h"
+
+#include <winrt/Microsoft.Windows.Storage.Pickers.h>
+#include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
+
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
 #include <Core/Settings/UserSettings.h>
 #include <Helpers/EnumHelper.h>
+#include <App.xaml.h>
 #include <macro.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
+    using namespace winrt::Microsoft::Windows::Storage::Pickers;
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Windows::Foundation;
 
@@ -16,13 +23,31 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     using namespace winrt::SystemExplorer::Models::Items;
     using namespace winrt::SystemExplorer::Core;
 
-    struct AppearanceViewModel : AppearanceViewModelT<AppearanceViewModel>, wil::notify_property_changed_base<AppearanceViewModel>
+    struct AppearanceViewModel : AppearanceViewModelT<AppearanceViewModel, ViewModels::implementation::ViewModelBase>
     {
         AppearanceViewModel();
 
+        wil::single_threaded_property<IAsyncRelayCommand> SelectImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
+            FileOpenPicker picker{ SystemExplorer::implementation::App::Window().AppWindow().Id() };
+            picker.FileTypeFilter().Append(L".jpg");
+            picker.FileTypeFilter().Append(L".png");
+            
+            auto result = co_await picker.PickSingleFileAsync();
+            
+            if (result)
+                AppThemeBackgroundImageSource(result.Path());
+        });
+
+        wil::single_threaded_property<IAsyncRelayCommand> RemoveImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
+            AppThemeBackgroundImageSource(L"");
+            co_return;
+        });
+
         DECLARE_PROPERTY(hstring, AppThemeBackgroundColor);
+        DECLARE_PROPERTY(hstring, AppThemeBackgroundImageSource);
         DECLARE_PROPERTY(AppThemeResourceItem, SelectedAppThemeResources);
         DECLARE_PROPERTY(int32_t, SelectedAppThemeIndex);
+        DECLARE_PROPERTY(float, AppThemeBackgroundImageOpacity);
         DECLARE_PROPERTY(IInspectable, SelectedBackdropMaterial);
         DECLARE_PROPERTY(IInspectable, SelectedImageStretchType);
         DECLARE_PROPERTY(IInspectable, SelectedImageVerticalAlignmentType);
@@ -31,38 +56,20 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         wil::single_threaded_property<IObservableVector<AppThemeResourceItem>> AppThemeResources =
             Data::Factories::AppThemeResourceFactory::AppThemeResources();
 
-        wil::single_threaded_property<IVector<IInspectable>> BackdropMaterialTypes =
-            single_threaded_vector<IInspectable>();
-
-        wil::single_threaded_property<IVector<IInspectable>> ImageStretchTypes =
-            single_threaded_vector<IInspectable>();
-
-        wil::single_threaded_property<IVector<IInspectable>> ImageVerticalAlignmentTypes =
-            single_threaded_vector<IInspectable>();
-
-        wil::single_threaded_property<IVector<IInspectable>> ImageHorizontalAlignmentTypes =
-            single_threaded_vector<IInspectable>();
+        wil::single_threaded_property<IVector<IInspectable>> BackdropMaterialTypes = single_threaded_vector<IInspectable>();
+        wil::single_threaded_property<IVector<IInspectable>> ImageStretchTypes = single_threaded_vector<IInspectable>();
+        wil::single_threaded_property<IVector<IInspectable>> ImageVerticalAlignmentTypes = single_threaded_vector<IInspectable>();
+        wil::single_threaded_property<IVector<IInspectable>> ImageHorizontalAlignmentTypes = single_threaded_vector<IInspectable>();
 
         wil::single_threaded_notifying_property<int32_t> SelectedBackdropMaterialIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageStretchTypeIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageVerticalAlignmentTypeIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageHorizontalAlignmentTypeIndex;
 
-        wil::single_threaded_rw_property<int32_t> AppThemeBackgroundImageOpacity;
-        wil::single_threaded_notifying_property<hstring> AppThemeBackgroundImageSource;
-        
-        wil::single_threaded_property<IAsyncRelayCommand> SelectImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
-            AppThemeBackgroundImageSource(L"C:\\Users\\user\\bublik.png");
-            RaisePropertyChanged(L"AppThemeBackgroundImageSource");
-            co_return;
-        });
-        wil::single_threaded_property<IAsyncRelayCommand> RemoveImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
-            co_return;
-        });
-
     private:
         Core::Settings::IAppearanceSettings settings_ = Core::Settings::UserSettings::Instance().AppearanceSettings();
 
+    private:
         void updateSelectedResource();
         void updateSelectedBackdropMaterial();
         void updateSelectedAppTheme();
@@ -81,5 +88,4 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         }
     };
 }
-
 FACTORY(winrt::SystemExplorer::ViewModels::Settings, AppearanceViewModel);

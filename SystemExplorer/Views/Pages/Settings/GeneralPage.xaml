@@ -51,7 +51,7 @@
                 <xtc:SettingsCard
                     Header="Default start page"
                     Description="Specify which page to display when System Explorer starts"
-                    HeaderIcon="{toolkit:FontIcon Glyph=&#xEB3B;}">
+                    HeaderIcon="{toolkit:FontIcon Glyph=&#xF57E;}">
 
                     <ComboBox SelectedIndex="0"
                               essential:ComboBoxHelper.AcrylicWorkaround="True">

@@ -17,6 +17,15 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Image
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Stretch="{x:Bind ViewModel.AppThemeBackgroundImageFit, Mode=OneWay}"
+            HorizontalAlignment="{x:Bind ViewModel.AppThemeBackgroundImageHorizontalAlignment, Mode=OneWay}"
+            VerticalAlignment="{x:Bind ViewModel.AppThemeBackgroundImageVerticalAlignment, Mode=OneWay}"
+            Source="{x:Bind ViewModel.AppThemeBackgroundImageSource, Mode=OneWay}"
+            Opacity="{x:Bind ViewModel.AppThemeBackgroundImageOpacity, Mode=OneWay}"/>
+
         <TitleBar
             Grid.Row="0"
             x:Name="AppTitleBar"
@@ -63,5 +72,6 @@
                 <Frame x:Name="NavFrame"/>
             </NavigationView.Content>
         </NavigationView>
+
     </Grid>
 </Page>

@@ -36,6 +36,7 @@
     <Midl Include="Mvvm\Input\RelayCommand.idl" />
     <Midl Include="Mvvm\Input\AsyncRelayCommand.idl" />
     <Midl Include="Mvvm\Input\AsyncRelayCommandFactory.idl" />
+    <Midl Include="Mvvm\ComponentModel\ObservableObject.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />

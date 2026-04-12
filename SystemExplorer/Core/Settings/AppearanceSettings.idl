@@ -19,5 +19,6 @@ namespace SystemExplorer.Core.Settings
         SystemExplorer.Core.Data.Enums.HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment;
         String AppThemeBackgroundColor;
         String AppThemeBackgroundImageSource;
+        Single AppThemeBackgroundImageOpacity;
     }
 }

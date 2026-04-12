@@ -35,20 +35,21 @@
                       Command="{x:Bind ViewModel.OpenSettingsFileCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
-                <xtc:SettingsCard Header="Add System Explorer to Windows startup"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE7E8;}">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>
-                </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
             <xaml:SimpleSettingsGroup Header="Experimental functions">
                 <xtc:SettingsCard 
                       Header="Advanced AI assistant"
-                      Description="More access to system information"
+                      Description="Advanced system interaction: manage, create, and terminate processes with elevated access to core system information."
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}"
                       IsClickEnabled="False"
                       IsActionIconVisible="False">
                     <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Set System Explorer as the default task manager"
+                       Description="This setting modifies the Windows registry and may have unexpected side effects on your device. Proceed at your own risk."
+                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEB3B;}">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard 
                       Header="Use driver as data source"

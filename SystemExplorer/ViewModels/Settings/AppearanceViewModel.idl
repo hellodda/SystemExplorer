@@ -1,3 +1,5 @@
+import "ViewModels/ViewModelBase.idl";
+
 import "Core/Settings/AppearanceSettings.idl";
 import "Models/Items/AppThemeResourceItem.idl";
 
@@ -5,7 +7,7 @@ namespace SystemExplorer.ViewModels.Settings
 {
     [bindable]
     [default_interface]
-    runtimeclass AppearanceViewModel 
+    runtimeclass AppearanceViewModel : SystemExplorer.ViewModels.ViewModelBase
     {
         AppearanceViewModel();
 
@@ -28,7 +30,7 @@ namespace SystemExplorer.ViewModels.Settings
         Object SelectedImageHorizontalAlignmentType;    
         Int32 SelectedImageHorizontalAlignmentTypeIndex;
 
-        Int32 AppThemeBackgroundImageOpacity;
+        Single AppThemeBackgroundImageOpacity;
         Int32 SelectedAppThemeIndex;
 
         String AppThemeBackgroundImageSource;

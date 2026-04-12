@@ -13,16 +13,16 @@ LONG WINAPI PlatformExceptionFilter(
 {
     const auto* record = pExceptionInfo->ExceptionRecord;
 
-    const std::wstring errorDesc = Win32Helper::GetErrorMessage(record->ExceptionCode);
-    const std::wstring appName = Win32Helper::GetLocalizedResource(IDS_APP_NAME);
+    const auto errorDesc = Win32Helper::GetErrorMessage(record->ExceptionCode);
+    const auto appName = Win32Helper::GetLocalizedResource(IDS_APP_NAME);
 
-    std::wstring details = Win32Helper::GetLocalizedResource(IDS_EXCEPTION_DETAILS);
+    auto details = Win32Helper::GetLocalizedResource(IDS_EXCEPTION_DETAILS);
 
     details += Format(Win32Helper::GetLocalizedResource(IDS_FAULTING_CODE).c_str(), record->ExceptionCode);
     details += Format(Win32Helper::GetLocalizedResource(IDS_DESCRIPTION).c_str(), errorDesc.c_str());
     details += Format(Win32Helper::GetLocalizedResource(IDS_INSTRUCTION_ADDRESS).c_str(), record->ExceptionAddress);
 
-    const std::wstring finalMessage = Format(
+    const auto finalMessage = Format(
         Win32Helper::GetLocalizedResource(IDS_CRITICAL_ERROR).c_str(),
         details.c_str()
     );

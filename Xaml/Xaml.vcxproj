@@ -146,6 +146,10 @@
       <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Mvvm\ComponentModel\ObservableObject.h">
+      <DependentUpon>Mvvm\ComponentModel\ObservableObject.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Mvvm\Input\AsyncRelayCommand.h">
       <DependentUpon>Mvvm\Input\AsyncRelayCommand.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -179,6 +183,10 @@
     </ClCompile>
     <ClCompile Include="Helpers\ImplicitOffsetAnimationHelper.cpp">
       <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Mvvm\ComponentModel\ObservableObject.cpp">
+      <DependentUpon>Mvvm\ComponentModel\ObservableObject.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Mvvm\Input\AsyncRelayCommand.cpp">
@@ -221,6 +229,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Mvvm\ComponentModel\ObservableObject.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Mvvm\Input\AsyncRelayCommand.idl">

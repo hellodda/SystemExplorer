@@ -8,8 +8,8 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     xmlns:tookit="using:XamlToolkit.WinUI"
-    NavigationCacheMode="Required"
-    >
+    xmlns:essential="using:WinUI3Package"
+    NavigationCacheMode="Required">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,6 +27,7 @@
             Grid.ColumnSpan="3"
             CompactPaneLength="70"
             IsBackButtonVisible="Collapsed"
+            essential:NavigationViewHelper.AcrylicWorkaround="True"
             IsSettingsVisible="False"
             OpenPaneLength="200"
             PaneDisplayMode="Left"

@@ -195,7 +195,10 @@
       <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="ViewModels\ViewModelBase.h" />
+    <ClInclude Include="ViewModels\ViewModelBase.h">
+      <DependentUpon>ViewModels\ViewModelBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\AboutPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -313,6 +316,10 @@
       <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\ViewModelBase.cpp">
+      <DependentUpon>ViewModels\ViewModelBase.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AboutPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -389,6 +396,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\Settings\AppearanceViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ViewModels\ViewModelBase.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">

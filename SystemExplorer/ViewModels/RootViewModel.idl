@@ -1,9 +1,18 @@
+
+import "ViewModels/ViewModelBase.idl";
+
 namespace SystemExplorer.ViewModels
 {
     [bindable]
     [default_interface]
-    runtimeclass RootViewModel 
+    runtimeclass RootViewModel : ViewModelBase
     {
         RootViewModel();
+
+        Microsoft.UI.Xaml.Media.Stretch AppThemeBackgroundImageFit { get; };
+        Microsoft.UI.Xaml.Media.ImageSource AppThemeBackgroundImageSource { get; };
+        Microsoft.UI.Xaml.VerticalAlignment AppThemeBackgroundImageVerticalAlignment { get; };
+        Microsoft.UI.Xaml.HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment { get; };
+        Single AppThemeBackgroundImageOpacity { get; };
     }
 }

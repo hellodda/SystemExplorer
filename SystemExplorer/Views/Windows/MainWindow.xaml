@@ -21,8 +21,6 @@
             <essential:ModernStandardWindowContextMenu x:Name="Menu" Window="{x:Bind}"/>
         </Grid.Resources>
 
-        <Image/>
-
         <pages:RootPage/>
     </Grid>
 </essential:WindowEx>

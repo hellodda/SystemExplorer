@@ -36,6 +36,9 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
 
         [[nodiscard]] hstring AppThemeBackgroundImageSource() { return Get(L"AppThemeBackgroundImageSource", hstring{ L"" }); }
         void AppThemeBackgroundImageSource(hstring const& value) { Set(L"AppThemeBackgroundImageSource", value); }
+
+        [[nodiscard]] float AppThemeBackgroundImageOpacity() { return Get(L"AppThemeBackgroundImageOpacity", float{ 0.5 }); }
+        void AppThemeBackgroundImageOpacity(float value) { Set(L"AppThemeBackgroundImageOpacity", value); }
     };
 }
 

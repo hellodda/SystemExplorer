@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Views/Pages/RootPage.g.h"
+#include <ViewModels/RootViewModel.h>
 #include <macro.h>
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
@@ -15,8 +16,10 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
         {
 
         }
+
+        wil::single_threaded_property<ViewModels::RootViewModel> ViewModel;
+
         IAsyncAction NavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args);
     };
 }
-
 FACTORY(winrt::SystemExplorer::Views::Pages, RootPage);
