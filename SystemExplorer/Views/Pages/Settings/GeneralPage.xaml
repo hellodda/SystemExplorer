@@ -61,6 +61,22 @@
                         <ComboBoxItem Content="Users"/>
                     </ComboBox>
                 </xtc:SettingsCard>
+                <xtc:SettingsExpander Header="Window management"
+                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
+                                      Description="Specify the default behavior of the System Explorer window.">
+                    <xtc:SettingsExpander.Items>
+
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
+            </xaml:SimpleSettingsGroup>
+            <xaml:SimpleSettingsGroup Header="Additionally">
+                <xtc:SettingsExpander Header="Dynamic kernel memory dump settings"
+                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
+                                      Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
+                    <xtc:SettingsExpander.Items>
+
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
             <xaml:SimpleSettingsGroup
                 Header="Reset settings">

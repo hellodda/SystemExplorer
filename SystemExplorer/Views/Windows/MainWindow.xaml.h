@@ -12,19 +12,7 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
 
     struct MainWindow : MainWindowT<MainWindow>
     {
-        MainWindow()
-        {
-            InitializeComponent();
-            ExtendsContentIntoTitleBar(true);
-            AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);
-            
-            Core::Settings::UserSettings::Instance().AppearanceSettings().SettingChanged([this](auto& sender, auto& args) {
-                this->OnSystemBackdropSettingChanged(sender, args);
-                this->OnApplicationThemeSettingChanged(sender, args);
-            });
-
-            LoadSettings();
-        }
+        MainWindow();
         void LoadSettings();
         void OnSystemBackdropSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
         void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);

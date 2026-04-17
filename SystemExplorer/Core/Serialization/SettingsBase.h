@@ -25,7 +25,7 @@ namespace winrt::SystemExplorer::Core::Serialization::implementation
         [[nodiscard]] T Get(hstring const& key, T defaultValue)
         {
             auto value = GetCached(key);
-            return value ? unbox_value<T>(value) : defaultValue;
+            return value ? unbox_value_or<T>(value, defaultValue) : defaultValue;
         }
         [[nodiscard]] IInspectable Get(hstring const& key);
 

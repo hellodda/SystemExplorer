@@ -32,6 +32,8 @@
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
     <Midl Include="Core\Data\Enums\HorizontalAlignment.idl" />
     <Midl Include="ViewModels\ViewModelBase.idl" />
+    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl" />
+    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -41,6 +43,7 @@
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
+    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -55,6 +58,8 @@
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
+    <ClInclude Include="Core\Diagnostics\ILogger.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

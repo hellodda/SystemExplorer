@@ -1,3 +1,5 @@
+import "Core/Serialization/DefaultJsonSettingsSerializer.idl";
+
 import "Core/Settings/AdvancedSettings.idl";
 import "Core/Settings/AppearanceSettings.idl";
 
@@ -5,7 +7,7 @@ namespace SystemExplorer.Core.Settings
 {
     [bindable]
     [default_interface]
-    runtimeclass UserSettings 
+    runtimeclass UserSettings : SystemExplorer.Core.Serialization.DefaultJsonSettingsSerializer
     {
         static UserSettings Instance{ get; };
 

@@ -74,8 +74,11 @@
 
                 <xtc:SettingsCard Header="Open logs"
                           Description="View application logs"
+                          IsActionIconVisible="False"
                           IsClickEnabled="True"
-                          HeaderIcon="{toolkit:FontIcon Glyph=&#xE838;}">
+                          HeaderIcon="{toolkit:FontIcon Glyph=&#xE838;}"
+                          Command="{x:Bind ViewModel.OpenLogsCommand}">
+                    <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 

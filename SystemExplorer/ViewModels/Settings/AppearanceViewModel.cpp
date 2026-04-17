@@ -87,13 +87,8 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept
     {
-        if (AppThemeBackgroundColor_ != value)
-        {
-            AppThemeBackgroundColor_ = value;
-            Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(ColorHelper::ToColor(value));
-            settings_.AppThemeBackgroundColor(AppThemeBackgroundColor_);
-            RaisePropertyChanged(L"AppThemeBackgroundColor");
-        }
+        Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(ColorHelper::ToColor(value));
+        settings_.AppThemeBackgroundColor(value);
     }
 
     IInspectable AppearanceViewModel::SelectedBackdropMaterial() const noexcept

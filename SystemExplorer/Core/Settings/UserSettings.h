@@ -1,12 +1,13 @@
 ﻿#pragma once
 
 #include "Core/Settings/UserSettings.g.h"
+#include "../Serialization/DefaultJsonSettingsSerializer.h"
 #include "AdvancedSettings.h"
 #include "AppearanceSettings.h"
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
-    struct UserSettings : UserSettingsT<UserSettings>
+    struct UserSettings : UserSettingsT<UserSettings, Core::Serialization::implementation::DefaultJsonSettingsSerializer>
     {
         UserSettings() = default;
         static Settings::UserSettings Instance();

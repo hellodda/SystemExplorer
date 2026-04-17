@@ -19,13 +19,15 @@
                 <xtc:SettingsCard Header="Export settings"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE8B5;}"
                       IsClickEnabled="True"
-                      IsActionIconVisible="False">
+                      IsActionIconVisible="False"
+                      Command="{x:Bind ViewModel.ExportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard Header="Import Settings"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEA52;}"
                       IsClickEnabled="True"
-                      IsActionIconVisible="False">
+                      IsActionIconVisible="False"
+                      Command="{x:Bind ViewModel.ImportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard Header="Edit the settings file"
@@ -44,12 +46,12 @@
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}"
                       IsClickEnabled="False"
                       IsActionIconVisible="False">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>
+                    <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>-->
                 </xtc:SettingsCard>
                 <xtc:SettingsCard Header="Set System Explorer as the default task manager"
                        Description="This setting modifies the Windows registry and may have unexpected side effects on your device. Proceed at your own risk."
                        HeaderIcon="{toolkit:FontIcon Glyph=&#xEB3B;}">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>
+                    <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>-->
                 </xtc:SettingsCard>
                 <xtc:SettingsCard 
                       Header="Use driver as data source"

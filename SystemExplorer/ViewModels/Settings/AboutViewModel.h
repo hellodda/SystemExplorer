@@ -4,6 +4,8 @@
 #include <wil/cppwinrt_authoring.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Windows.System.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Microsoft.Windows.Storage.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
@@ -27,7 +29,17 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
                 co_await Launcher::LaunchUriAsync(Uri{ link.value() }, options);
             }
         });
+
+        wil::single_threaded_property<IAsyncRelayCommand> OpenLogsCommand = AsyncRelayCommandFactory::Make([](IInspectable const&) -> IAsyncAction {
+           
+            auto appDataPath = winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalCacheFolder().Path();
+			auto logFilePath = winrt::hstring(appDataPath + L"SystemExplorer.log");
+
+            if (!logFilePath.empty())
+            {
+                co_await Launcher::LaunchUriAsync(Uri{ winrt::hstring{ L"file:///" } + logFilePath });
+            }
+		});
     };
 }
-
 FACTORY(winrt::SystemExplorer::ViewModels::Settings, AboutViewModel);

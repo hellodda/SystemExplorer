@@ -6,7 +6,7 @@
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
-	Settings::UserSettings implementation::UserSettings::Instance()
+	Settings::UserSettings UserSettings::Instance()
 	{
 		static auto instance = winrt::make<implementation::UserSettings>();
 		return instance;

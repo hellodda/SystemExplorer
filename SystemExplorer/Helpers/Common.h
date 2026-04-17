@@ -11,7 +11,7 @@ int32_t IndexOf(winrt::Windows::Foundation::Collections::IVector<T> const& vecto
     return -1;
 }
 
-inline std::wstring Format(const wchar_t* fmt, ...)
+inline std::wstring Format(PCWSTR fmt, ...)
 {
     if (!fmt) return L"";
 
@@ -30,4 +30,32 @@ inline std::wstring Format(const wchar_t* fmt, ...)
     va_end(args);
 
     return result;
+}
+
+inline std::wstring NarrowToWide(PCSTR narrowStr)
+{
+    if (!narrowStr)
+        return {};
+    
+    int size = MultiByteToWideChar(CP_UTF8, 0, narrowStr, -1, nullptr, 0);
+    
+    if (size <= 0)
+        return {};
+    
+    std::wstring result(size - 1, L'\0');
+    MultiByteToWideChar(CP_UTF8, 0, narrowStr, -1, result.data(), size);
+    
+    return result;
+}
+
+inline constexpr std::wstring_view GetWilFailureTypeString(wil::FailureType type) noexcept
+{
+    switch (type)
+    {
+        case wil::FailureType::Exception: return L"Exception";
+        case wil::FailureType::Return:    return L"Return";
+        case wil::FailureType::Log:       return L"Log";
+        case wil::FailureType::FailFast:  return L"FailFast";
+        default:                          return L"Unknown";
+    }
 }

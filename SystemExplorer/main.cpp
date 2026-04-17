@@ -13,6 +13,13 @@ LONG WINAPI PlatformExceptionFilter(
 {
     const auto* record = pExceptionInfo->ExceptionRecord;
 
+    LOG_NTSTATUS_MSG(
+        record->ExceptionCode,
+        "Platform Exception Filter Caught Address: 0x%p, Flags: %lu",
+        record->ExceptionAddress,
+        record->ExceptionFlags
+    );
+
     const auto errorDesc = Win32Helper::GetErrorMessage(record->ExceptionCode);
     const auto appName = Win32Helper::GetLocalizedResource(IDS_APP_NAME);
 
@@ -48,7 +55,6 @@ int APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
-
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 

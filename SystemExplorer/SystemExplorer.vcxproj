@@ -132,6 +132,12 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
+    <ClInclude Include="Core\Diagnostics\ILogger.h" />
+    <ClInclude Include="Core\Serialization\DefaultJsonSettingsSerializer.h">
+      <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Converters\HexToColorConverter.h">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -256,6 +262,11 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
+    <ClCompile Include="Core\Serialization\DefaultJsonSettingsSerializer.cpp">
+      <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Converters\HexToColorConverter.cpp">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -368,6 +379,9 @@
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Serialization\SettingsBase.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -377,6 +391,7 @@
     <Midl Include="Core\Settings\AppearanceSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl" />
     <Midl Include="Core\Settings\UserSettings.idl">
       <SubType>Designer</SubType>
     </Midl>

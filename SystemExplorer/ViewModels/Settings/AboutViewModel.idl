@@ -7,5 +7,6 @@ namespace SystemExplorer.ViewModels.Settings
         AboutViewModel();
 
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand LaunchUriCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenLogsCommand { get; };
     }
 }

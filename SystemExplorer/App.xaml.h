@@ -1,5 +1,4 @@
 #pragma once
-
 #include "App.xaml.g.h"
 
 namespace winrt::SystemExplorer::implementation

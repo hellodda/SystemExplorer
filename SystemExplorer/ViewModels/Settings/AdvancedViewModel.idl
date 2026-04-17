@@ -7,9 +7,9 @@ namespace SystemExplorer.ViewModels.Settings
     runtimeclass AdvancedViewModel 
     {
         AdvancedViewModel();
-        
-        SystemExplorer.Core.Settings.AdvancedSettings Settings { get; };
 
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenSettingsFileCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ImportSettingsCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ExportSettingsCommand { get; };
     }
 }

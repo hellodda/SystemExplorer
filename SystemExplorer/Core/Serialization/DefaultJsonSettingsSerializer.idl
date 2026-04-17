@@ -1,0 +1,10 @@
+import "Core/Serialization/IJsonSettingsSerializer.idl";
+
+namespace SystemExplorer.Core.Serialization
+{
+    [default_interface]
+    unsealed runtimeclass DefaultJsonSettingsSerializer : IJsonSettingsSerializer
+    {
+        DefaultJsonSettingsSerializer();
+    }
+}
