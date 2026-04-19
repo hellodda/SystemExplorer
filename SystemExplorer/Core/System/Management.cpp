@@ -13,7 +13,6 @@ namespace winrt::SystemExplorer::Core::System::Management
 		HRESULT hr = object_->BeginEnumeration(WBEM_FLAG_NONSYSTEM_ONLY);
 		if (FAILED(hr)) return properties;
 
-		auto guard = wil::scope_exit([this] { object_->EndEnumeration(); });
 
 		_bstr_t name;
 		_variant_t variant;
@@ -123,5 +122,20 @@ namespace winrt::SystemExplorer::Core::System::Management
 	concurrency::task<std::vector<ManagementClassObject>> QuerySink::GetResultsAsync() const
 	{
 		return concurrency::task<std::vector<ManagementClassObject>>(queryCompletedEvent_);
+	}
+
+	void WmiQueryValidator::initialize()
+	{
+		THROW_IF_FAILED(CoCreateInstance(
+			CLSID_WbemQuery,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(query_.put())
+		));
+	}
+
+	bool WmiQueryValidator::ValidateQuery(winrt::hstring const& query) const
+	{
+		return SUCCEEDED(query_->Parse(L"WQL", query.c_str(), NULL));
 	}
 }
