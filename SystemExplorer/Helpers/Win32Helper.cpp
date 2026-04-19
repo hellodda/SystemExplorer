@@ -36,5 +36,12 @@ namespace winrt::SystemExplorer::Helpers
         }
         return L"";
     }
+    std::wstring Win32Helper::GetCurrentProcessPath()
+    {
+        WCHAR path[MAX_PATH];
+        GetModuleFileNameW(NULL, path, MAX_PATH);
+
+        return std::wstring(L"\"") + path + L"\"";
+    }
 }
 

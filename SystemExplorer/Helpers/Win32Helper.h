@@ -4,7 +4,8 @@ namespace winrt::SystemExplorer::Helpers
 {
 	struct Win32Helper
 	{
-		static std::wstring GetErrorMessage(DWORD code);
-		static std::wstring GetLocalizedResource(UINT id);
+		[[nodiscard]] static std::wstring GetErrorMessage(DWORD code);
+		[[nodiscard]] static std::wstring GetLocalizedResource(UINT id);
+		[[nodiscard]] static std::wstring GetCurrentProcessPath();
 	};
 }
