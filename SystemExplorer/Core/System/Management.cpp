@@ -13,6 +13,7 @@ namespace winrt::SystemExplorer::Core::System::Management
 		HRESULT hr = object_->BeginEnumeration(WBEM_FLAG_NONSYSTEM_ONLY);
 		if (FAILED(hr)) return properties;
 
+		auto guard = wil::scope_exit([this] { object_->EndEnumeration(); });
 
 		_bstr_t name;
 		_variant_t variant;
