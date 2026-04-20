@@ -20,7 +20,8 @@ namespace winrt::SystemExplorer::Core::System::Management
 	struct ManagementConnection
 	{
 		ManagementConnection(winrt::hstring const& connectionNamespace)
-			: connectionNamespace_(connectionNamespace) {
+			: connectionNamespace_(connectionNamespace)
+		{
 			initialize();
 		}
 
@@ -30,7 +31,8 @@ namespace winrt::SystemExplorer::Core::System::Management
 			winrt::hstring const& password
 		)
 			: connectionNamespace_(connectionNamespace),
-			user_(user), password_(password) {
+			user_(user), password_(password)
+		{
 			initialize();
 		}
 
@@ -46,9 +48,9 @@ namespace winrt::SystemExplorer::Core::System::Management
 		winrt::hstring password_{};
 	};
 
-	struct WmiQueryValidator
+	struct QueryValidator
 	{
-		WmiQueryValidator() = default;
+		QueryValidator() = default;
 
 		[[nodiscard]] bool ValidateQuery(winrt::hstring const& query) const;
 
@@ -56,20 +58,6 @@ namespace winrt::SystemExplorer::Core::System::Management
 		void initialize();
 	private:
 		winrt::com_ptr<IWbemQuery> query_{ nullptr };
-	};
-
-	struct WmiPath
-	{
-		WmiPath() = default;
-
-		[[nodiscard]] winrt::hstring GetNamespaceCount() const;
-		[[nodiscard]] winrt::hstring GetClassName() const;
-		[[nodiscard]] winrt::hstring GetRelPath() const;
-
-	private:
-		void initialize();
-	private:
-		winrt::com_ptr<IWbemPath> path_{ nullptr };
 	};
 
 	struct QuerySink : winrt::implements<QuerySink, IWbemObjectSink>

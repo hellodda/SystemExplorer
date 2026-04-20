@@ -1,0 +1,11 @@
+namespace SystemExplorer.Models.Items
+{
+    [default_interface]
+    runtimeclass AppLanguageItem 
+    {
+        AppLanguageItem(String code, Boolean systemDefault);
+        
+        String Code;
+        String Name;
+    }
+}

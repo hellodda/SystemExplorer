@@ -44,5 +44,6 @@
         static String Bottom { get; };
         static String Left { get; };
         static String Right { get; };
+        static String SystemSetting { get; };
     }
 }

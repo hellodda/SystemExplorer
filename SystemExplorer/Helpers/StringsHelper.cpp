@@ -211,4 +211,9 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Right");
     }
+
+    hstring StringsHelper::SystemSetting()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"SystemSetting");
+    }
 }

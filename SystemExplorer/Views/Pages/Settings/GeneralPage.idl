@@ -1,8 +1,12 @@
+import "ViewModels/Settings/GeneralViewModel.idl";
+
 namespace SystemExplorer.Views.Pages.Settings
 {
     [default_interface]
     runtimeclass GeneralPage : Microsoft.UI.Xaml.Controls.Page
     {
         GeneralPage();
+
+        SystemExplorer.ViewModels.Settings.GeneralViewModel ViewModel { get; };
     }
 }

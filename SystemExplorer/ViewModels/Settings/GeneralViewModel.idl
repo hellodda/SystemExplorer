@@ -1,0 +1,18 @@
+import "ViewModels/ViewModelBase.idl";
+
+namespace SystemExplorer.ViewModels.Settings
+{
+    [bindable]
+    [default_interface]
+    runtimeclass GeneralViewModel : SystemExplorer.ViewModels.ViewModelBase
+    {
+        GeneralViewModel();
+        
+        Windows.Foundation.Collections.IVector<Object> AppLanguages { get; };
+        Object SelectedAppLanguage;    
+        Int32 SelectedAppLanguageIndex;
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CancelRestartCommand { get; };
+    }
+}

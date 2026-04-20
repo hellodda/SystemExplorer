@@ -132,6 +132,8 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Serialization\functional.h" />
+    <ClInclude Include="Core\Services\AppLanguageService.h" />
     <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
     <ClInclude Include="Core\Diagnostics\ILogger.h" />
     <ClInclude Include="Core\Serialization\DefaultJsonSettingsSerializer.h">
@@ -180,6 +182,10 @@
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="macro.h" />
+    <ClInclude Include="Models\Items\AppLanguageItem.h">
+      <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Models\Items\AppThemeResourceItem.h">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -199,6 +205,10 @@
     </ClInclude>
     <ClInclude Include="ViewModels\Settings\AppearanceViewModel.h">
       <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="ViewModels\Settings\GeneralViewModel.h">
+      <DependentUpon>ViewModels\Settings\GeneralViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="ViewModels\ViewModelBase.h">
@@ -262,6 +272,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Services\AppLanguageService.cpp" />
     <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
     <ClCompile Include="Core\Serialization\DefaultJsonSettingsSerializer.cpp">
       <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
@@ -305,6 +316,10 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Management.cpp" />
+    <ClCompile Include="Models\Items\AppLanguageItem.cpp">
+      <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Models\Items\AppThemeResourceItem.cpp">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -325,6 +340,10 @@
     </ClCompile>
     <ClCompile Include="ViewModels\Settings\AppearanceViewModel.cpp">
       <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="ViewModels\Settings\GeneralViewModel.cpp">
+      <DependentUpon>ViewModels\Settings\GeneralViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="ViewModels\ViewModelBase.cpp">
@@ -401,6 +420,9 @@
     <Midl Include="Helpers\StringsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Models\Items\AppLanguageItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Models\Items\AppThemeResourceItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -411,6 +433,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\Settings\AppearanceViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ViewModels\Settings\GeneralViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\ViewModelBase.idl">

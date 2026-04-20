@@ -240,4 +240,7 @@
   <data name="Right" xml:space="preserve">
     <value>Right</value>
   </data>
+  <data name="SystemSetting" xml:space="preserve">
+    <value>System Setting</value>
+  </data>
 </root>

@@ -50,6 +50,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
         [[nodiscard]] static hstring Bottom();
         [[nodiscard]] static hstring Left();
         [[nodiscard]] static hstring Right();
+        [[nodiscard]] static hstring SystemSetting();
 
     private:
         StringsHelper() = default;

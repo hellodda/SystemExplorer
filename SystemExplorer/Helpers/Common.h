@@ -59,3 +59,12 @@ inline constexpr std::wstring_view GetWilFailureTypeString(wil::FailureType type
         default:                          return L"Unknown";
     }
 }
+
+template<typename T>
+winrt::Windows::Foundation::Collections::IVector<T> ViewToVector(winrt::Windows::Foundation::Collections::IVectorView<T> const& view) 
+{
+    if (!view)
+        return nullptr;
+
+    return winrt::single_threaded_vector(std::vector<T>(view.begin(), view.end()));
+}

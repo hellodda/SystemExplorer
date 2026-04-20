@@ -2,9 +2,13 @@
 #include "App.xaml.h"
 #include "resource.h"
 #include "Helpers/Win32Helper.h"
+#include "Core/Services/AppLanguageService.h"
 #include "Helpers/Common.h"
 
+
 using namespace winrt::SystemExplorer::Helpers;
+using namespace winrt::SystemExplorer::Core::Services;
+
 
 // potom pomenyayu
 LONG WINAPI PlatformExceptionFilter(
@@ -59,6 +63,14 @@ int APIENTRY wWinMain(
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
     SetUnhandledExceptionFilter(PlatformExceptionFilter);
+
+    auto langs = AppLanguageService::Instance().SupportedLanguages();
+
+    for (const auto& lang : langs)
+    {
+        auto code = lang.Code();
+        auto name = lang.Name();
+	}
 
 #ifdef DEBUG_E
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);

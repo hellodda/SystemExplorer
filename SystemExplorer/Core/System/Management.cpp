@@ -125,7 +125,7 @@ namespace winrt::SystemExplorer::Core::System::Management
 		return concurrency::task<std::vector<ManagementClassObject>>(queryCompletedEvent_);
 	}
 
-	void WmiQueryValidator::initialize()
+	void QueryValidator::initialize()
 	{
 		THROW_IF_FAILED(CoCreateInstance(
 			CLSID_WbemQuery,
@@ -135,7 +135,7 @@ namespace winrt::SystemExplorer::Core::System::Management
 		));
 	}
 
-	bool WmiQueryValidator::ValidateQuery(winrt::hstring const& query) const
+	bool QueryValidator::ValidateQuery(winrt::hstring const& query) const
 	{
 		return SUCCEEDED(query_->Parse(L"WQL", query.c_str(), NULL));
 	}

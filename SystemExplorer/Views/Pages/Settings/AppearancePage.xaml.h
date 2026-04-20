@@ -17,5 +17,4 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         wil::single_threaded_property<ViewModels::Settings::AppearanceViewModel> ViewModel;
     };
 }
-
 FACTORY(winrt::SystemExplorer::Views::Pages::Settings, AppearancePage);
