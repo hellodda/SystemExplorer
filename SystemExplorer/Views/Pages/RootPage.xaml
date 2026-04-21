@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     Background="{ThemeResource App.Theme.BackgroundBrush}"
     mc:Ignorable="d">
 
@@ -49,16 +50,14 @@
             <NavigationView.MenuItems>
 
                 <NavigationViewItem
-                    x:Uid="Nav.Root.System"
-                    Content="System"
-                    Tag="SystemExplorer.MainSystemInformationPage"
+                    Content="{x:Bind helpers:StringsHelper.System}"
+                    Tag=""
                     Icon="{toolkit:FontIcon Glyph=&#xE770;}"
                     />
 
                 <NavigationViewItem
-                    x:Uid="Nav.Root.Performance"
-                    Content="Performance"
-                    Tag="SystemExplorer.SystemMonitoringRootPage"
+                    Content="{x:Bind helpers:StringsHelper.Performance}"
+                    Tag=""
                     Icon="{toolkit:FontIcon Glyph=&#xF120;}"
                     />
 

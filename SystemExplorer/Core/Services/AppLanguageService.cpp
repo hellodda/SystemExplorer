@@ -11,7 +11,6 @@ namespace winrt::SystemExplorer::Core::Services
     AppLanguageService::AppLanguageService()
     {
         auto appLanguages = ViewToVector(ApplicationLanguages::ManifestLanguages());
-        appLanguages.Append(L"");
 
         std::vector<AppLanguageItem> languageItems;
         languageItems.reserve(appLanguages.Size());

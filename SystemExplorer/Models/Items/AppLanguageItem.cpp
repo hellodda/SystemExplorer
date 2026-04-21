@@ -16,7 +16,7 @@ namespace winrt::SystemExplorer::Models::Items::implementation
 		if (systemDefault || code.empty())
 		{
 			Code = ApplicationLanguages::Languages().GetAt(0);
-			Name = StringsHelper::SystemSetting();
+			Name = StringsHelper::SystemTheme();
 		}
 		else
 		{

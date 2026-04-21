@@ -8,6 +8,7 @@
 #include "Core/Settings/UserSettings.h"
 #include "Core/Services/AppResourcesService.h"
 #include "Core/Diagnostics/AsyncFileLogger.h"
+#include <Core/Serialization/functional.h>
 #include <wil/result_macros.h>
 
 using namespace winrt;

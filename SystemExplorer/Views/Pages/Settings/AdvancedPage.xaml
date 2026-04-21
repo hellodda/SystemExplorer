@@ -9,21 +9,22 @@
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d">
 
     <Grid Padding="20">
         <StackPanel>
-            <TextBlock FontSize="26" Margin="0 10 0 0" Text="Advanced"/>
+            <TextBlock FontSize="26" Margin="0 10 0 0" Text="{x:Bind helpers:StringsHelper.Advanced}"/>
 
             <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
-                <xtc:SettingsCard Header="Export settings"
+                <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.ExportSettings}"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE8B5;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
                       Command="{x:Bind ViewModel.ExportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
-                <xtc:SettingsCard Header="Import Settings"
+                <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.ImportSettings}"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEA52;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
@@ -39,7 +40,7 @@
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
-            <xaml:SimpleSettingsGroup Header="Experimental functions">
+            <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.ExperimentalFunctions}">
                 <xtc:SettingsCard 
                       Header="Advanced AI assistant"
                       Description="Advanced system interaction: manage, create, and terminate processes with elevated access to core system information."
@@ -54,7 +55,7 @@
                     <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>-->
                 </xtc:SettingsCard>
                 <xtc:SettingsCard 
-                      Header="Use driver as data source"
+                      Header="{x:Bind helpers:StringsHelper.UseDriver}"
                       Description="Requires a secure connection"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
                       IsClickEnabled="False"

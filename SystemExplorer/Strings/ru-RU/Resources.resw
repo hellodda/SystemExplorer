@@ -120,8 +120,38 @@
   <data name="Acrylic" xml:space="preserve">
     <value>Акриловый</value>
   </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Синий</value>
+  </data>
+  <data name="BlueGray" xml:space="preserve">
+    <value>Сине-серый</value>
+  </data>
+  <data name="BrickRed" xml:space="preserve">
+    <value>Сине-серый</value>
+  </data>
+  <data name="Camouflage" xml:space="preserve">
+    <value>Камуфляж</value>
+  </data>
+  <data name="CoolBlueBright" xml:space="preserve">
+    <value>Яркий холодный синий</value>
+  </data>
   <data name="Custom" xml:space="preserve">
     <value>Пользовательский</value>
+  </data>
+  <data name="Default" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Gray" xml:space="preserve">
+    <value>Серый</value>
+  </data>
+  <data name="GrayDark" xml:space="preserve">
+    <value>Тёмно-серый</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Зелёный</value>
+  </data>
+  <data name="IrisPastel" xml:space="preserve">
+    <value>Пастельный ирис</value>
   </data>
   <data name="Mica" xml:space="preserve">
     <value>Мика</value>
@@ -129,28 +159,197 @@
   <data name="MicaAlt" xml:space="preserve">
     <value>Мика Альт</value>
   </data>
-  <data name="Nav.Root.Home.Content" xml:space="preserve">
-    <value>Главная</value>
+  <data name="MintLight" xml:space="preserve">
+    <value>Светло-мятный</value>
   </data>
-  <data name="Nav.Root.Monitoring" xml:space="preserve">
+  <data name="ModRed" xml:space="preserve">
+    <value>Современный красный</value>
+  </data>
+  <data name="Performance" xml:space="preserve">
     <value>Мониторинг</value>
   </data>
-  <data name="Nav.Root.System" xml:space="preserve">
+  <data name="System" xml:space="preserve">
     <value>Система</value>
+  </data>
+  <data name="OrangeBright" xml:space="preserve">
+    <value>Ярко-оранжевый</value>
+  </data>
+  <data name="Overcast" xml:space="preserve">
+    <value>Пасмурный</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Красный</value>
+  </data>
+  <data name="RoseBright" xml:space="preserve">
+    <value>Ярко-розовый</value>
+  </data>
+  <data name="Seafoam" xml:space="preserve">
+    <value>Морская пена</value>
   </data>
   <data name="Static" xml:space="preserve">
     <value>Статический</value>
   </data>
+  <data name="Storm" xml:space="preserve">
+    <value>Шторм</value>
+  </data>
   <data name="ThinAcrylic" xml:space="preserve">
     <value>Тонкий Акриль</value>
   </data>
-  <data name="Dark.Text" xml:space="preserve">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="VioletRedLight" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="YellowGold" xml:space="preserve">
+    <value>Золотисто-жёлтый</value>
+  </data>
+  <data name="Dark" xml:space="preserve">
     <value>Темная</value>
   </data>
-  <data name="Light.Text" xml:space="preserve">
+  <data name="Light" xml:space="preserve">
     <value>Светлая</value>
   </data>
-  <data name="SystemTheme.Text" xml:space="preserve">
+  <data name="SystemTheme" xml:space="preserve">
     <value>Как в системе</value>
+  </data>
+  <data name="None" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="Fill" xml:space="preserve">
+    <value>Заполнить</value>
+  </data>
+  <data name="Uniform" xml:space="preserve">
+    <value>Равномерно</value>
+  </data>
+  <data name="UniformToFill" xml:space="preserve">
+    <value>Равномерно с заполнением</value>
+  </data>
+  <data name="Top" xml:space="preserve">
+    <value>Вверху</value>
+  </data>
+  <data name="Center" xml:space="preserve">
+    <value>По центру</value>
+  </data>
+  <data name="Bottom" xml:space="preserve">
+    <value>Внизу</value>
+  </data>
+  <data name="Left" xml:space="preserve">
+    <value>Слева</value>
+  </data>
+  <data name="Right" xml:space="preserve">
+    <value>Справа</value>
+  </data>
+  <data name="SystemSetting" xml:space="preserve">
+    <value>Системная настройка</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Да</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Нет</value>
+  </data>
+  <data name="UpdateSpeed" xml:space="preserve">
+    <value>Скорость обновления в реальном времени</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>Высокая</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Низкая</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Приостановлено</value>
+  </data>
+  <data name="DefaultStartPage" xml:space="preserve">
+    <value>Страница запуска по умолчанию</value>
+  </data>
+  <data name="Processes" xml:space="preserve">
+    <value>Процессы</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Службы</value>
+  </data>
+  <data name="WindowManagement" xml:space="preserve">
+    <value>Управление окнами</value>
+  </data>
+  <data name="DymamicKernelMemoryDump" xml:space="preserve">
+    <value>Настройки динамического дампа памяти ядра</value>
+  </data>
+  <data name="RestoreSettings" xml:space="preserve">
+    <value>Восстановить все настройки по умолчанию</value>
+  </data>
+  <data name="ResetSettings" xml:space="preserve">
+    <value>Сбросить настройки</value>
+  </data>
+  <data name="Additionally" xml:space="preserve">
+    <value>Дополнительно</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="Backdrop" xml:space="preserve">
+    <value>Фон</value>
+  </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Тема приложения</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Цвет фона</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Обзор</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Непрозрачность</value>
+  </data>
+  <data name="ImageFit" xml:space="preserve">
+    <value>Режим изображения</value>
+  </data>
+  <data name="Vertical Alignment" xml:space="preserve">
+    <value>Вертикальное выравнивание</value>
+  </data>
+  <data name="Horizontal Alignment" xml:space="preserve">
+    <value>Горизонтальное выравнивание</value>
+  </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Расширенный</value>
+  </data>
+  <data name="ExportSettings" xml:space="preserve">
+    <value>Экспорт настроек</value>
+  </data>
+  <data name="ImportSettings" xml:space="preserve">
+    <value>Импорт настроек</value>
+  </data>
+  <data name="EditSettingsFile" xml:space="preserve">
+    <value>Редактировать файл настроек</value>
+  </data>
+  <data name="ExperimentalFunctions" xml:space="preserve">
+    <value>Экспериментальные функции</value>
+  </data>
+  <data name="UseDriver" xml:space="preserve">
+    <value>Использовать драйвер как источник данных</value>
+  </data>
+  <data name="AboutApplication" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="SupportOnGitHub" xml:space="preserve">
+    <value>Поддержите нас на GitHub</value>
+  </data>
+  <data name="HelpAndSupport" xml:space="preserve">
+    <value>Помощь и поддержка</value>
+  </data>
+  <data name="Documentation" xml:space="preserve">
+    <value>Документация</value>
+  </data>
+  <data name="OpenSource" xml:space="preserve">
+    <value>Открытый исходный код</value>
   </data>
 </root>

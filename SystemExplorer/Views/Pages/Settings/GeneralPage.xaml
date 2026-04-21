@@ -10,6 +10,8 @@
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
     xmlns:essential="using:WinUI3Package"
+    xmlns:items="using:SystemExplorer.Models.Items"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     >
@@ -18,50 +20,55 @@
         <StackPanel>
             <TextBlock FontSize="26"
                        Margin="0 10 0 0"
-                       Text="General"/>
+                       Text="{x:Bind helpers:StringsHelper.General}"/>
 
             <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
                 <xtc:SettingsCard
-                    Header="Language"
+                    Header="{x:Bind helpers:StringsHelper.Language}"
                     Description="Select the application language"
                     HeaderIcon="{toolkit:FontIcon Glyph=&#xF2B7;}">
 
                     <ComboBox
-                        SelectedIndex="0"
-                        essential:ComboBoxHelper.AcrylicWorkaround="True">
-                        <ComboBoxItem Content="English"/>
-                        <ComboBoxItem Content="Русский"/>
-                        <ComboBoxItem Content="Հայերեն"/>
+                        x:Name="AppLanguagesComboBox"
+                        essential:ComboBoxHelper.AcrylicWorkaround="True"
+                        ItemsSource="{x:Bind ViewModel.AppLanguages}"
+                        SelectedIndex="{x:Bind ViewModel.SelectedAppLanguageIndex, Mode=TwoWay}">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="items:AppLanguageItem">
+                                <TextBlock Text="{x:Bind Name}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
                     </ComboBox>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard
-                  Header="Real-time update speed"
+                  Header="{x:Bind helpers:StringsHelper.UpdateSpeed}"
                   Description="Select the update frequency for system resource usage reports"
                   HeaderIcon="{toolkit:FontIcon Glyph=&#xEC49;}">
 
                     <ComboBox
                         SelectedIndex="1"
                         essential:ComboBoxHelper.AcrylicWorkaround="True">
-                        <ComboBoxItem Content="High"/>
-                        <ComboBoxItem Content="Default"/>
-                        <ComboBoxItem Content="Low"/>
-                        <ComboBoxItem Content="Suspended"/>
+                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.High}"/>
+                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Default}"/>
+                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Low}"/>
+                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Suspended}"/>
                     </ComboBox>
                 </xtc:SettingsCard>
                 <xtc:SettingsCard
-                    Header="Default start page"
+                    Header="{x:Bind helpers:StringsHelper.DefaultStartPage}"
                     Description="Specify which page to display when System Explorer starts"
                     HeaderIcon="{toolkit:FontIcon Glyph=&#xF57E;}">
 
                     <ComboBox SelectedIndex="0"
                               essential:ComboBoxHelper.AcrylicWorkaround="True">
-                        <ComboBoxItem Content="Processes"/>
+                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Processes}"/>
                         <ComboBoxItem Content="Services"/>
                         <ComboBoxItem Content="System"/>
                         <ComboBoxItem Content="Users"/>
                     </ComboBox>
                 </xtc:SettingsCard>
-                <xtc:SettingsExpander Header="Window management"
+                <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.WindowManagement}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
                                       Description="Specify the default behavior of the System Explorer window.">
                     <xtc:SettingsExpander.Items>
@@ -69,8 +76,8 @@
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
-            <xaml:SimpleSettingsGroup Header="Additionally">
-                <xtc:SettingsExpander Header="Dynamic kernel memory dump settings"
+            <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.Additionally}">
+                <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.DymamicKernelMemoryDump}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
                                       Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
                     <xtc:SettingsExpander.Items>
@@ -79,8 +86,8 @@
                 </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
             <xaml:SimpleSettingsGroup
-                Header="Reset settings">
-                <Button Content="Restore all settings to default"/>
+                Header="{x:Bind helpers:StringsHelper.ResetSettings}">
+                <Button Content="{x:Bind helpers:StringsHelper.RestoreSettings}"/>
             </xaml:SimpleSettingsGroup>
 
             <StackPanel.ChildrenTransitions>
@@ -90,5 +97,32 @@
                 </TransitionCollection>
             </StackPanel.ChildrenTransitions>
         </StackPanel>
+
+
+        <TeachingTip
+			IsLightDismissEnabled="True"
+			IsOpen="{x:Bind ViewModel.ShowRestartControl, Mode=TwoWay}"
+			Target="{x:Bind AppLanguagesComboBox}">
+            <StackPanel
+				x:Name="ButtonsStackPanel"
+				Padding="0,8,0,0"
+				HorizontalAlignment="Right"
+				Orientation="Horizontal"
+				Spacing="8">
+
+                <Button
+					x:Name="YesButton"
+					MinWidth="140"
+					Command="{x:Bind ViewModel.RestartCommand, Mode=OneWay}"
+					Content="{x:Bind helpers:StringsHelper.Yes}"
+					Style="{ThemeResource AccentButtonStyle}" />
+
+                <Button
+					x:Name="NoButton"
+					MinWidth="140"
+					Command="{x:Bind ViewModel.CancelRestartCommand, Mode=OneWay}"
+					Content="{x:Bind helpers:StringsHelper.No}" />
+            </StackPanel>
+        </TeachingTip>
     </Grid>
 </Page>

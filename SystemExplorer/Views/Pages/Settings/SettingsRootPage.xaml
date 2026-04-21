@@ -9,6 +9,7 @@
     mc:Ignorable="d"
     xmlns:tookit="using:XamlToolkit.WinUI"
     xmlns:essential="using:WinUI3Package"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     NavigationCacheMode="Required">
 
     <Grid>
@@ -36,7 +37,7 @@
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
-                    Content="General"
+                    Content="{x:Bind helpers:StringsHelper.General}"
                     Tag="SystemExplorer.Views.Pages.Settings.GeneralPage"
                     Icon="{tookit:FontIcon Glyph=&#xE9E9;}"
                     >
@@ -47,19 +48,19 @@
 
                 <NavigationViewItemSeparator />
 
-                <NavigationViewItem Content="Appearance"
+                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Appearance}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AppearancePage"
                                     Icon="{tookit:FontIcon Glyph=&#xE790;}"
                                     />
 
-                <NavigationViewItem Content="Advanced"
+                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Advanced}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage"
                                     Icon="{tookit:FontIcon Glyph=&#xF1AD;}"
                                     />
 
                 <NavigationViewItemSeparator />
 
-                <NavigationViewItem Content="About"
+                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.AboutApplication}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AboutPage"
                                     Icon="{tookit:FontIcon Glyph=&#xE946;}"
                                     />

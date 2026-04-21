@@ -9,6 +9,7 @@
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d"
     NavigationCacheMode="Required">
 
@@ -23,7 +24,7 @@
 
     <Grid Padding="20">
         <StackPanel>
-            <TextBlock FontSize="26" Margin="0 10 0 0" Text="About application"/>
+            <TextBlock FontSize="26" Margin="0 10 0 0" Text="{x:Bind helpers:StringsHelper.AboutApplication}"/>
             <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
                 <xtc:SettingsCard Header="System Explorer"
                                   Description="Version: 1.0.0"
@@ -44,7 +45,7 @@
                                   Command="{x:Bind ViewModel.LaunchUriCommand}"
                                   CommandParameter="{StaticResource GitHubUrl}">
                     <xtc:SettingsCard.Header>
-                        <TextBlock Text="Support us on GitHub"
+                        <TextBlock Text="{x:Bind helpers:StringsHelper.SupportOnGitHub}"
                            FontFamily="Segoe UI Variable Text"
                            FontSize="15"
                            FontWeight="SemiBold" />
@@ -53,8 +54,8 @@
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
-            <xaml:SimpleSettingsGroup Header="Help and support">
-                <xtc:SettingsCard Header="Documentation"
+            <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.HelpAndSupport}">
+                <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.Documentation}"
                           Description="Learn how to use the app"
                           IsClickEnabled="True"
                           IsActionIconVisible="False"
@@ -82,7 +83,7 @@
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
 
-            <xaml:SimpleSettingsGroup Header="Open source">
+            <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.OpenSource}">
                 <xtc:SettingsExpander Header="Third-party libraries"
                                       Description="View application dependencies"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE90F;}">

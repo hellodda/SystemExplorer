@@ -3,18 +3,29 @@
 #if __has_include("ViewModels/Settings/GeneralViewModel.g.cpp")
 #include "ViewModels/Settings/GeneralViewModel.g.cpp"
 #endif
+#include <Core/Services/AppLanguageService.h>
+
+using namespace winrt::SystemExplorer::Core::Services;
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
-	IInspectable GeneralViewModel::SelectedAppLanguage() const noexcept
+	GeneralViewModel::GeneralViewModel() 
+	  : INIT_NOTIFYING_PROPERTY(ShowRestartControl, false)
 	{
-		return SelectedAppLanguage_;
+		for (auto const& lang : AppLanguageService::Instance().SupportedLanguages())
+			AppLanguages.Append(box_value(lang));
 	}
-	void GeneralViewModel::SelectedAppLanguage(IInspectable const& value) noexcept
+	int32_t GeneralViewModel::SelectedAppLanguageIndex() const noexcept
 	{
-		if (SelectedAppLanguage_ != value)
+		return SelectedAppLanguageIndex_;
+	}
+	void GeneralViewModel::SelectedAppLanguageIndex(int32_t const& value) noexcept
+	{
+		if (AppLanguageService::Instance().TryChange(value))
 		{
-			SelectedAppLanguage_ = value;
+			SelectedAppLanguageIndex_ = value;
+			RaisePropertyChanged(L"SelectedAppLanguageIndex");
+			ShowRestartControl(true);
 		}
 	}
 }

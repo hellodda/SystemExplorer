@@ -4,43 +4,17 @@
 #include "Views/Windows/MainWindow.g.cpp"
 #endif
 #include <Core/Services/AppResourcesService.h>
-
-#include <iostream>
 #include <Helpers/EnumHelper.h>
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
 
 
-#define WM_HOTKEY_OPEN_CONSOLE (WM_APP + 1)
-
-LRESULT CALLBACK KeyWindowProc(
-    _In_ HWND hWnd,
-    _In_ UINT uMsg,
-    _In_ WPARAM wParam,
-    _In_ LPARAM lParam,
-    _In_ UINT_PTR uIdSubclass,
-    _In_ DWORD_PTR dwRefData
-)
-{
-    if (uMsg == WM_HOTKEY)
-    {
-        if (wParam == WM_HOTKEY_OPEN_CONSOLE)
-        {
-        }
-    }
-    return NULL;
-}
-
 namespace winrt::SystemExplorer::Views::Windows::implementation
 {
     MainWindow::MainWindow()
     {
         InitializeComponent();
-
-        auto hWnd = reinterpret_cast<HWND>(Hwnd());
-
-		RegisterHotKey(hWnd, WM_HOTKEY_OPEN_CONSOLE, MOD_ALT, 'C');
 
         ExtendsContentIntoTitleBar(true);
         AppWindow().TitleBar().PreferredHeightOption(TitleBarHeightOption::Tall);

@@ -165,13 +165,10 @@
   <data name="ModRed" xml:space="preserve">
     <value>Mod Red</value>
   </data>
-  <data name="Nav.Root.Home.Content" xml:space="preserve">
-    <value>Home</value>
-  </data>
-  <data name="Nav.Root.Monitoring" xml:space="preserve">
+  <data name="Performance" xml:space="preserve">
     <value>Monitoring</value>
   </data>
-  <data name="Nav.Root.System" xml:space="preserve">
+  <data name="System" xml:space="preserve">
     <value>System</value>
   </data>
   <data name="OrangeBright" xml:space="preserve">
@@ -204,13 +201,13 @@
   <data name="YellowGold" xml:space="preserve">
     <value>Yellow Gold</value>
   </data>
-  <data name="Dark.Text" xml:space="preserve">
+  <data name="Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
-  <data name="Light.Text" xml:space="preserve">
+  <data name="Light" xml:space="preserve">
     <value>Light</value>
   </data>
-  <data name="SystemTheme.Text" xml:space="preserve">
+  <data name="SystemTheme" xml:space="preserve">
     <value>As in the system</value>
   </data>
   <data name="None" xml:space="preserve">
@@ -242,5 +239,116 @@
   </data>
   <data name="SystemSetting" xml:space="preserve">
     <value>System Setting</value>
+  </data>
+  <data name="Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UpdateSpeed" xml:space="preserve">
+    <value>Real-time update speed</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="Low" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Suspended</value>
+  </data>
+  <data name="DefaultStartPage" xml:space="preserve">
+    <value>Default start page</value>
+  </data>
+  <data name="Processes" xml:space="preserve">
+    <value>Processes</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="WindowManagement" xml:space="preserve">
+    <value>Window management</value>
+  </data>
+  <data name="DymamicKernelMemoryDump" xml:space="preserve">
+    <value>Dymamic kernel memory dump settings</value>
+  </data>
+  <data name="RestoreSettings" xml:space="preserve">
+    <value>Restore all settings to default</value>
+  </data>
+  <data name="ResetSettings" xml:space="preserve">
+    <value>Reset settings</value>
+  </data>
+  <data name="Additionally" xml:space="preserve">
+    <value>Additionally</value>
+  </data>
+  <data name="General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Backdrop" xml:space="preserve">
+    <value>Backdrop</value>
+  </data>
+  <data name="ApplicationTheme" xml:space="preserve">
+    <value>Application theme</value>
+  </data>
+  <data name="BackgroundColor" xml:space="preserve">
+    <value>Background color</value>
+  </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="Remove" xml:space="preserve">
+    <value>Remove</value>
+  </data>
+  <data name="Opacity" xml:space="preserve">
+    <value>Opacity</value>
+  </data>
+  <data name="ImageFit" xml:space="preserve">
+    <value>Image Fit</value>
+  </data>
+  <data name="Vertical Alignment" xml:space="preserve">
+    <value>Vertical Alignment</value>
+  </data>
+  <data name="Horizontal Alignment" xml:space="preserve">
+    <value>Horizontal Alignment</value>
+  </data>
+  <data name="Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ExportSettings" xml:space="preserve">
+    <value>Export Settings</value>
+  </data>
+  <data name="ImportSettings" xml:space="preserve">
+    <value>Import Settings</value>
+  </data>
+  <data name="EditSettingsFile" xml:space="preserve">
+    <value>Edit the settings file</value>
+  </data>
+  <data name="ExperimentalFunctions" xml:space="preserve">
+    <value>Experimental functions</value>
+  </data>
+  <data name="UseDriver" xml:space="preserve">
+    <value>Use driver as data source</value>
+  </data>
+  <data name="AboutApplication" xml:space="preserve">
+    <value>About application</value>
+  </data>
+  <data name="SupportOnGitHub" xml:space="preserve">
+    <value>Support us on GitHub</value>
+  </data>
+  <data name="HelpAndSupport" xml:space="preserve">
+    <value>Help and support</value>
+  </data>
+  <data name="Documentation" xml:space="preserve">
+    <value>Documentation</value>
+  </data>
+  <data name="OpenSource" xml:space="preserve">
+    <value>Open source</value>
   </data>
 </root>

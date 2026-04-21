@@ -69,7 +69,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     private:
         Core::Settings::IAppearanceSettings settings_ = Core::Settings::UserSettings::Instance().AppearanceSettings();
 
-    private:
+    private:    
         void updateSelectedResource();
         void updateSelectedBackdropMaterial();
         void updateSelectedAppTheme();

@@ -9,10 +9,11 @@ namespace SystemExplorer.ViewModels.Settings
         GeneralViewModel();
         
         Windows.Foundation.Collections.IVector<Object> AppLanguages { get; };
-        Object SelectedAppLanguage;    
         Int32 SelectedAppLanguageIndex;
 
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CancelRestartCommand { get; };
+
+        Boolean ShowRestartControl;
     }
 }

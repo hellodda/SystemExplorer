@@ -53,10 +53,10 @@ namespace winrt::SystemExplorer::Helpers
     {
         switch (value)
         {
-            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High: return L"High";
+            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High: return winrt::SystemExplorer::Helpers::StringsHelper::High();
             case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Default: return winrt::SystemExplorer::Helpers::StringsHelper::Default();
-            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low: return L"Low";
-            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended: return L"Suspended";
+            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low: return winrt::SystemExplorer::Helpers::StringsHelper::Low();
+            case winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended: return winrt::SystemExplorer::Helpers::StringsHelper::Suspended();
         }
         throw winrt::hresult_invalid_argument(L"Invalid value for enum InformationUpdateSpeed");
     }
@@ -64,10 +64,10 @@ namespace winrt::SystemExplorer::Helpers
     template <>
     winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed EnumHelper::Map<winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed>(winrt::hstring const& value)
     {
-        if (value == std::wstring_view{L"High"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High;
+        if (value == winrt::SystemExplorer::Helpers::StringsHelper::High()) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::High;
         if (value == winrt::SystemExplorer::Helpers::StringsHelper::Default()) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Default;
-        if (value == std::wstring_view{L"Low"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low;
-        if (value == std::wstring_view{L"Suspended"}) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended;
+        if (value == winrt::SystemExplorer::Helpers::StringsHelper::Low()) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Low;
+        if (value == winrt::SystemExplorer::Helpers::StringsHelper::Suspended()) return winrt::SystemExplorer::Core::Data::Enums::InformationUpdateSpeed::Suspended;
         throw winrt::hresult_invalid_argument(L"Invalid string mapping for enum InformationUpdateSpeed");
     }
 

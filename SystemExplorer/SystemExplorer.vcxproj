@@ -473,6 +473,7 @@
       <DependentUpon>Views\Pages\Settings\SettingsRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <None Include="SystemExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="EnumMapingGenerator.ps1">
@@ -506,7 +507,6 @@
   -->
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="SystemExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Xaml\Xaml.vcxproj">
@@ -514,7 +514,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-US\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <SubType>Designer</SubType>
+    </PRIResource>
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
@@ -525,8 +527,9 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>false</VcpkgEnabled>
-    <PackageCertificateThumbprint>628A64302861AAA1D67F749051395B5814369942</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>794A75B4276EA5522188D13D88FBD8BF85C9FEC4</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
+    <PackageCertificateKeyFile>SystemExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
