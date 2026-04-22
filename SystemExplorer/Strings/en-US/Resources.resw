@@ -351,4 +351,13 @@
   <data name="OpenSource" xml:space="preserve">
     <value>Open source</value>
   </data>
+  <data name="RestartNotificationText" xml:space="preserve">
+    <value>To apply the new settings you need to restart the application. Do you want to restart the application?</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Activities</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
 </root>

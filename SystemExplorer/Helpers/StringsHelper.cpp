@@ -396,4 +396,19 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"OpenSource");
     }
+
+    hstring StringsHelper::RestartNotificationText()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"RestartNotificationText");
+    }
+
+    hstring StringsHelper::Activities()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Activities");
+    }
+
+    hstring StringsHelper::About()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"About");
+    }
 }

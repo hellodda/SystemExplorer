@@ -87,6 +87,9 @@ namespace winrt::SystemExplorer::Helpers::implementation
         [[nodiscard]] static hstring HelpAndSupport();
         [[nodiscard]] static hstring Documentation();
         [[nodiscard]] static hstring OpenSource();
+        [[nodiscard]] static hstring RestartNotificationText();
+        [[nodiscard]] static hstring Activities();
+        [[nodiscard]] static hstring About();
 
     private:
         StringsHelper() = default;

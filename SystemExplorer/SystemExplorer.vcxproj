@@ -215,6 +215,10 @@
       <DependentUpon>ViewModels\ViewModelBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Activities\ActivitiesRootPage.xaml.h">
+      <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\AboutPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -250,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Settings\AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -350,6 +357,10 @@
       <DependentUpon>ViewModels\ViewModelBase.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Activities\ActivitiesRootPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AboutPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -440,6 +451,10 @@
     </Midl>
     <Midl Include="ViewModels\ViewModelBase.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Activities\ActivitiesRootPage.idl">
+      <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>

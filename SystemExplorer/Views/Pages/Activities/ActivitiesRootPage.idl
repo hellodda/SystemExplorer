@@ -1,0 +1,8 @@
+namespace SystemExplorer.Views.Pages.Activities
+{
+    [default_interface]
+    runtimeclass ActivitiesRootPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ActivitiesRootPage();
+    }
+}

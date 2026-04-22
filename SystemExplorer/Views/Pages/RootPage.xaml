@@ -47,6 +47,13 @@
                  SelectionChanged="NavViewSelectionChanged"
                  IsSettingsVisible="True"
                  Style="{StaticResource NavigationViewStoreStyle}">
+
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" 
+                     Color="{ThemeResource SolidBackgroundFillColorBase}" 
+                     Opacity="0.3"/>
+            </NavigationView.Resources>
+
             <NavigationView.MenuItems>
 
                 <NavigationViewItem
@@ -56,8 +63,8 @@
                     />
 
                 <NavigationViewItem
-                    Content="{x:Bind helpers:StringsHelper.Performance}"
-                    Tag=""
+                    Content="{x:Bind helpers:StringsHelper.Activities}"
+                    Tag="SystemExplorer.Views.Pages.Activities.ActivitiesRootPage"
                     Icon="{toolkit:FontIcon Glyph=&#xF120;}"
                     />
 

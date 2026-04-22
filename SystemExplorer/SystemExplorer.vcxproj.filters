@@ -11,6 +11,7 @@
     <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
     <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
     <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
+    <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -115,5 +116,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemExplorer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
   </ItemGroup>
 </Project>

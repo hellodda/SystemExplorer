@@ -81,5 +81,8 @@
         static String HelpAndSupport { get; };
         static String Documentation { get; };
         static String OpenSource { get; };
+        static String RestartNotificationText { get; };
+        static String Activities { get; };
+        static String About { get; };
     }
 }

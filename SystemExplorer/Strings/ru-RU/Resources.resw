@@ -352,4 +352,13 @@
   <data name="OpenSource" xml:space="preserve">
     <value>Открытый исходный код</value>
   </data>
+  <data name="RestartNotificationText" xml:space="preserve">
+    <value>Для применения новых настроек необходимо перезапустить приложение. Вы хотите перезапустить приложение?</value>
+  </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Активности</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
 </root>

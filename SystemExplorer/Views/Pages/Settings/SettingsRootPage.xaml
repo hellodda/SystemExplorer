@@ -34,6 +34,17 @@
             PaneDisplayMode="Left"
             SelectionChanged="SettingsNavViewSelectionChanged">
 
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent"/>
+
+            </NavigationView.Resources>
+
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
@@ -46,8 +57,6 @@
                     </NavigationViewItem.InfoBadge>
                 </NavigationViewItem>
 
-                <NavigationViewItemSeparator />
-
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Appearance}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AppearancePage"
                                     Icon="{tookit:FontIcon Glyph=&#xE790;}"
@@ -58,9 +67,7 @@
                                     Icon="{tookit:FontIcon Glyph=&#xF1AD;}"
                                     />
 
-                <NavigationViewItemSeparator />
-
-                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.AboutApplication}"
+                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.About}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AboutPage"
                                     Icon="{tookit:FontIcon Glyph=&#xE946;}"
                                     />
