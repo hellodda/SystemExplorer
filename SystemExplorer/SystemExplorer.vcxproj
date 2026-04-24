@@ -132,6 +132,10 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Converters\StringFormatConverter.h">
+      <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Converters\ValueToSizeUnitConverter.h">
       <DependentUpon>Converters\ValueToSizeUnitConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -300,6 +304,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Converters\StringFormatConverter.cpp">
+      <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Converters\ValueToSizeUnitConverter.cpp">
       <DependentUpon>Converters\ValueToSizeUnitConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -434,6 +442,9 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Converters\StringFormatConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Converters\StringToBrushConverter.idl">

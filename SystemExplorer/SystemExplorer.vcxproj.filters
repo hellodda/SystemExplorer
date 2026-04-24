@@ -42,6 +42,7 @@
     <Midl Include="Models\ProcessInformation.idl" />
     <Midl Include="Converters\ValueToSizeUnitConverter.idl" />
     <Midl Include="Core\Settings\GeneralSettings.idl" />
+    <Midl Include="Converters\StringFormatConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

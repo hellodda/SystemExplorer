@@ -61,10 +61,7 @@ namespace winrt::SystemExplorer::Core::System
             }
         } while (status == STATUS_INFO_LENGTH_MISMATCH);
 
-        if (!NT_SUCCESS(status))
-        {
-            return;
-        }
+        THROW_IF_FAILED_MSG(status, "Xuyna rabotai");
 
         auto* pInfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer_.get());
 

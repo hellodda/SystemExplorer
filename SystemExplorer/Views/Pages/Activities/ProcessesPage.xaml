@@ -17,6 +17,7 @@
 
     <Page.Resources>
         <convertes:ValueToSizeUnitConverter x:Key="SizeConverter"/>
+        <convertes:StringFormatConverter x:Key="StringFormatConverter"/>
     </Page.Resources>
     
     <Grid>
@@ -137,7 +138,7 @@
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
-                                <TextBlock Text="{x:Bind ViewModel.TotalCpuUsage, Mode=OneWay}" HorizontalAlignment="Right"/>
+                                <TextBlock Text="{x:Bind ViewModel.TotalCpuUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}%', Mode=OneWay}" />
                                 <TextBlock Text="CPU"/>
                             </StackPanel>
                         </controls:DataColumn>
@@ -196,11 +197,11 @@
                         </Border>
 
                         <Border>
-                            <TextBlock Text="{x:Bind Pid}" />
+                            <TextBlock Text="" />
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind ParentId}" />
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind  Pid}" />
                         </Border>
 
                         <Border>
