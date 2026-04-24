@@ -33,6 +33,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         });
         
 		DECLARE_PROPERTY(int32_t, SelectedAppLanguageIndex);
+        DECLARE_PROPERTY(int32_t, SelectedRealTimeUpdateSpeedIndex);
 
 		wil::single_threaded_property<IVector<IInspectable>> AppLanguages = single_threaded_vector<IInspectable>();
 		

@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "Win32Helper.h"
 
+typedef struct LANGANDCODEPAGE {
+    WORD wLanguage;
+    WORD wCodePage;
+} *PLANGANDCODEPAGE, FAR* LPLANGANDCODEPAGE;
+
 namespace winrt::SystemExplorer::Helpers
 {
     std::wstring Win32Helper::GetErrorMessage(DWORD code)
@@ -42,6 +47,79 @@ namespace winrt::SystemExplorer::Helpers
         GetModuleFileNameW(NULL, path, MAX_PATH);
 
         return std::wstring(L"\"") + path + L"\"";
+    }
+    uint64_t Win32Helper::GetCurrentSystemTime()
+    {
+        FILETIME idleTime{}, kernelTime{}, userTime{};
+
+        if (!GetSystemTimes(&idleTime, &kernelTime, &userTime))
+            return 0;
+
+        return FileTimeToInteger(kernelTime) + FileTimeToInteger(userTime);
+    }
+    uint64_t Win32Helper::FileTimeToInteger(FILETIME const& fileTime)
+    {
+        return (static_cast<uint64_t>(fileTime.dwHighDateTime) << 32) | fileTime.dwLowDateTime;
+    }
+    std::wstring Win32Helper::GetFileVersionString(HANDLE handle, std::wstring_view key)
+    {
+        if (!handle || handle == INVALID_HANDLE_VALUE)
+            return {};
+
+        WCHAR fullPath[MAX_PATH]{};
+        DWORD sizePath = MAX_PATH;
+
+        if (!QueryFullProcessImageNameW(handle, 0, fullPath, &sizePath))
+            return {};
+
+        DWORD dummy = 0;
+        DWORD size = GetFileVersionInfoSizeW(fullPath, &dummy);
+        if (!size)
+            return {};
+
+        std::vector<BYTE> versionData(size);
+
+        if (!GetFileVersionInfoW(fullPath, 0, size, versionData.data()))
+            return {};
+
+        PLANGANDCODEPAGE translate = nullptr;
+        UINT cbTranslate = 0;
+
+        if (!VerQueryValueW(versionData.data(),
+            L"\\VarFileInfo\\Translation",
+            (LPVOID*)&translate,
+            &cbTranslate))
+            return {};
+
+        if (cbTranslate < sizeof(LANGANDCODEPAGE))
+            return {};
+
+        WCHAR subBlock[128]{};
+        swprintf_s(subBlock, L"\\StringFileInfo\\%04x%04x\\%s",
+            translate[0].wLanguage,
+            translate[0].wCodePage,
+            key.data());
+
+        LPVOID buffer = nullptr;
+        UINT bytes = 0;
+
+        if (VerQueryValueW(versionData.data(), subBlock, &buffer, &bytes))
+        {
+            return std::wstring(static_cast<wchar_t*>(buffer));
+        }
+
+        return {};
+    }
+    std::wstring Win32Helper::ProcessHelper::GetProcessDescription(uint32_t pid)
+    {
+        if (pid == 0 || pid == 4) return {};
+
+        HANDLE hProcess = OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, pid);
+        if (!hProcess) return {};
+
+        wil::unique_handle processHandle(hProcess);
+        
+        return Win32Helper::GetFileVersionString(processHandle.get(), L"FileDescription");
     }
 }
 

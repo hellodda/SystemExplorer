@@ -11,6 +11,8 @@ namespace SystemExplorer.ViewModels.Settings
         Windows.Foundation.Collections.IVector<Object> AppLanguages { get; };
         Int32 SelectedAppLanguageIndex;
 
+        Int32 SelectedRealTimeUpdateSpeedIndex;
+
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CancelRestartCommand { get; };
 

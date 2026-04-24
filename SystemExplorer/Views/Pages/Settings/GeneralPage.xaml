@@ -47,7 +47,7 @@
                   HeaderIcon="{toolkit:FontIcon Glyph=&#xEC49;}">
 
                     <ComboBox
-                        SelectedIndex="1"
+                        SelectedIndex="{x:Bind ViewModel.SelectedRealTimeUpdateSpeedIndex, Mode=TwoWay}"
                         essential:ComboBoxHelper.AcrylicWorkaround="True">
                         <ComboBoxItem Content="{x:Bind helpers:StringsHelper.High}"/>
                         <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Default}"/>

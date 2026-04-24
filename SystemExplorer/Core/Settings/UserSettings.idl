@@ -2,6 +2,7 @@ import "Core/Serialization/DefaultJsonSettingsSerializer.idl";
 
 import "Core/Settings/AdvancedSettings.idl";
 import "Core/Settings/AppearanceSettings.idl";
+import "Core/Settings/GeneralSettings.idl";
 
 namespace SystemExplorer.Core.Settings
 {
@@ -13,5 +14,6 @@ namespace SystemExplorer.Core.Settings
 
         SystemExplorer.Core.Settings.AppearanceSettings AppearanceSettings { get; };
         SystemExplorer.Core.Settings.AdvancedSettings AdvancedSettings { get; };
+        SystemExplorer.Core.Settings.GeneralSettings GeneralSettings { get; };
     }
 }

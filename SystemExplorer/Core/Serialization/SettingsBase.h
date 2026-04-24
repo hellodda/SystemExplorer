@@ -52,10 +52,4 @@ namespace winrt::SystemExplorer::Core::Serialization::implementation
         }
     };
 }
-
-namespace winrt::SystemExplorer::Core::Serialization::factory_implementation
-{
-    struct SettingsBase : SettingsBaseT<SettingsBase, implementation::SettingsBase>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Core::Serialization, SettingsBase);

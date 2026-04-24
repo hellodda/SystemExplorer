@@ -41,10 +41,4 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
         void AppThemeBackgroundImageOpacity(float value) { Set(L"AppThemeBackgroundImageOpacity", value); }
     };
 }
-
-namespace winrt::SystemExplorer::Core::Settings::factory_implementation
-{
-    struct AppearanceSettings : AppearanceSettingsT<AppearanceSettings, implementation::AppearanceSettings>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Core::Settings, AppearanceSettings);

@@ -12,6 +12,7 @@
     <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
     <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml" />
+    <Page Include="Views\Pages\Activities\ProcessesPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -37,6 +38,10 @@
     <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl" />
     <Midl Include="Models\Items\AppLanguageItem.idl" />
     <Midl Include="ViewModels\Settings\GeneralViewModel.idl" />
+    <Midl Include="ViewModels\Activities\ProcessesViewModel.idl" />
+    <Midl Include="Models\ProcessInformation.idl" />
+    <Midl Include="Converters\ValueToSizeUnitConverter.idl" />
+    <Midl Include="Core\Settings\GeneralSettings.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -48,6 +53,7 @@
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
     <ClCompile Include="Core\Services\AppLanguageService.cpp" />
+    <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -66,6 +72,8 @@
     <ClInclude Include="Core\Diagnostics\ILogger.h" />
     <ClInclude Include="Core\Services\AppLanguageService.h" />
     <ClInclude Include="Core\Serialization\functional.h" />
+    <ClInclude Include="Core\System\ProcessInformationProvider.h" />
+    <ClInclude Include="Core\System\pthread.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

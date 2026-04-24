@@ -1,0 +1,20 @@
+import "ViewModels/ViewModelBase.idl";
+import "Models/ProcessInformation.idl";
+
+namespace SystemExplorer.ViewModels.Activities
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ProcessesViewModel : SystemExplorer.ViewModels.ViewModelBase
+    {
+        ProcessesViewModel();
+        
+        SystemExplorer.Models.ProcessInformation SelectedProcess;
+
+        Single TotalCpuUsage;
+        UInt64 TotalIoRate;
+        UInt64 TotalPrivateBytes;
+
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.ProcessInformation> Processes { get; };
+    }
+}

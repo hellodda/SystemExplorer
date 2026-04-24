@@ -1,0 +1,12 @@
+import "ViewModels/Activities/ProcessesViewModel.idl";
+
+namespace SystemExplorer.Views.Pages.Activities
+{
+    [default_interface]
+    runtimeclass ProcessesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ProcessesPage();
+
+        SystemExplorer.ViewModels.Activities.ProcessesViewModel ViewModel{ get; };
+    }
+}

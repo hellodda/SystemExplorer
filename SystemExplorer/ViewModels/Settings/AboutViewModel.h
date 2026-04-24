@@ -20,14 +20,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         AboutViewModel() = default;
 
         wil::single_threaded_property<IAsyncRelayCommand> LaunchUriCommand = AsyncRelayCommandFactory::Make([](IInspectable const& parameter) -> IAsyncAction {
-
-            if (auto link = parameter.try_as<hstring>())
-            {
-                LauncherOptions options;
-                options.DisplayApplicationPicker(true);
-
-                co_await Launcher::LaunchUriAsync(Uri{ link.value() }, options);
-            }
+                co_await Launcher::LaunchUriAsync(Uri{ parameter.as<hstring>() });
         });
 
         wil::single_threaded_property<IAsyncRelayCommand> OpenLogsCommand = AsyncRelayCommandFactory::Make([](IInspectable const&) -> IAsyncAction {

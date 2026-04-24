@@ -9,6 +9,7 @@
     xmlns:tookit="using:XamlToolkit.WinUI"
     xmlns:essential="using:WinUI3Package"
     xmlns:helpers="using:SystemExplorer.Helpers"
+    NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Grid>
@@ -21,7 +22,7 @@
         </Grid.ColumnDefinitions>
 
         <NavigationView
-             x:Name="SettingsNavView"
+             x:Name="ActivitiesNavView"
              Grid.Row="0"
              Grid.Column="0"
              Grid.ColumnSpan="3"
@@ -30,7 +31,8 @@
              essential:NavigationViewHelper.AcrylicWorkaround="True"
              IsSettingsVisible="False"
              OpenPaneLength="200"
-             PaneDisplayMode="Left">
+             PaneDisplayMode="Left"
+             SelectionChanged="ActivitiesNavViewSelectionChanged">
 
             <NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
@@ -45,7 +47,7 @@
 
             <NavigationView.MenuItems>
 
-                <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Processes}"
+                <NavigationViewItem x:Name="ProcessesNavItem" Content="{x:Bind helpers:StringsHelper.Processes}"
                                     Icon="{tookit:FontIcon Glyph=&#xECAA;}"/>
 
                 <NavigationViewItem Content="App history"
@@ -62,15 +64,15 @@
 
             </NavigationView.MenuItems>
 
-            <ScrollView>
-                <Frame x:Name="ActivitiesFrame" x:FieldModifier="Public">
+            <Grid>
+                <Frame x:Name="ActivitiesFrame" x:FieldModifier="Public" Loaded="ActivitiesFrameLoaded">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition />
                         </TransitionCollection>
                     </Frame.ContentTransitions>
                 </Frame>
-            </ScrollView>
+            </Grid>
         </NavigationView>
     </Grid>
 </Page>

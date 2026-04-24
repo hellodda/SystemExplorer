@@ -1,0 +1,13 @@
+namespace SystemExplorer.Models
+{
+    struct ProcessInformation
+    {
+        UInt32 Pid;
+        UInt32 ParentId;
+        UInt32 IoRate;
+        UInt32 PrivateBytes;
+        Single CpuUsage;
+        String Name;
+        String Description;
+    };
+}

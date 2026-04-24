@@ -1,0 +1,7 @@
+namespace SystemExplorer.Converters
+{
+    runtimeclass ValueToSizeUnitConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter
+    {
+        ValueToSizeUnitConverter();
+    }
+}

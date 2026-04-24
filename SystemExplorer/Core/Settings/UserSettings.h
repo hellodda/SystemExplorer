@@ -4,6 +4,7 @@
 #include "../Serialization/DefaultJsonSettingsSerializer.h"
 #include "AdvancedSettings.h"
 #include "AppearanceSettings.h"
+#include "GeneralSettings.h"
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
@@ -14,12 +15,7 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
 
         wil::single_threaded_property<Settings::AdvancedSettings> AdvancedSettings;
         wil::single_threaded_property<Settings::AppearanceSettings> AppearanceSettings;
+        wil::single_threaded_property<Settings::GeneralSettings> GeneralSettings;
     };
 }
-
-namespace winrt::SystemExplorer::Core::Settings::factory_implementation
-{
-    struct UserSettings : UserSettingsT<UserSettings, implementation::UserSettings>
-    {
-    };
-}
+FACTORY(winrt::SystemExplorer::Core::Settings, UserSettings);

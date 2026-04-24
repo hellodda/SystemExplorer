@@ -16,15 +16,4 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
         void InStartup(bool value) { Set(L"InStartup", value); }
     };
 }
-
-namespace winrt::SystemExplorer::Core::Settings::factory_implementation
-{
-    struct AdvancedSettings : AdvancedSettingsT<AdvancedSettings, implementation::AdvancedSettings>
-    {
-        static auto CreateInstance()
-        {
-            static auto instance = winrt::make<implementation::AdvancedSettings>();
-            return instance;
-        }
-    };
-}
+FACTORY(winrt::SystemExplorer::Core::Settings, AdvancedSettings);

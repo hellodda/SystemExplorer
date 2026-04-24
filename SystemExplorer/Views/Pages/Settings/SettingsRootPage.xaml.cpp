@@ -18,8 +18,11 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     IAsyncAction SettingsRootPage::SettingsFrameLoaded(IInspectable const& sender, RoutedEventArgs const& args)
     {
-        SettingsNavView().SelectedItem(GeneralNavItem());
-        SettingsFrame().Navigate(xaml_typename<Settings::GeneralPage>());
+        if (SettingsFrame().Content() == nullptr)
+        {
+            SettingsNavView().SelectedItem(GeneralNavItem());
+            SettingsFrame().Navigate(xaml_typename<Settings::GeneralPage>());
+        }
         co_return;
     }
     IAsyncAction SettingsRootPage::SettingsNavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args)

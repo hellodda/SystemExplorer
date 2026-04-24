@@ -1,0 +1,12 @@
+import "Core/Serialization/SettingsBase.idl";
+
+namespace SystemExplorer.Core.Settings
+{
+    [default_interface]
+    runtimeclass GeneralSettings : SystemExplorer.Core.Serialization.SettingsBase
+    {
+        GeneralSettings();
+        
+        UInt16 RealTimeUpdateSpeedMs;
+    }
+}
