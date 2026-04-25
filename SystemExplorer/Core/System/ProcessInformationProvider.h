@@ -41,6 +41,6 @@ namespace winrt::SystemExplorer::Core::System
         std::unordered_map<uint32_t, ProcessCacheEntry> processCache_;
 
         ULONG bufferSize_;
-        std::unique_ptr<uint8_t[]> buffer_;
+        wil::unique_virtualalloc_ptr<BYTE> buffer_;
     };
 }

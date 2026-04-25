@@ -139,7 +139,7 @@
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind ViewModel.TotalCpuUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}%', Mode=OneWay}" />
-                                <TextBlock Text="CPU"/>
+                                <TextBlock Text="CPU" HorizontalAlignment="Right"/>
                             </StackPanel>
                         </controls:DataColumn>
 
@@ -148,7 +148,7 @@
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind ViewModel.TotalIoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}" HorizontalAlignment="Right"/>
-                                <TextBlock Text="I/O total rate"/>
+                                <TextBlock Text="I/O total rate" HorizontalAlignment="Right"/>
                             </StackPanel>
                         </controls:DataColumn>
 

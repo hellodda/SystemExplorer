@@ -1,4 +1,5 @@
 #pragma once
+#include "Diagnostics.h"
 #include <filesystem>
 #include <fstream>
 #include <mutex>
@@ -9,12 +10,11 @@
 #include <string>
 #include <chrono>
 #include <Helpers/Common.h>
-#include "ILogger.h"
-
-
 
 namespace winrt::SystemExplorer::Core::Diagnostics
 {
+	using namespace winrt::SystemExplorer::Core::Diagnostics::Contracts;
+
 	struct AsyncFileLogger : ILogger
 	{
 		~AsyncFileLogger();

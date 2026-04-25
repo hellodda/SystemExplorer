@@ -7,7 +7,6 @@
 #include <Core/Settings/UserSettings.h>
 #include <Helpers/Common.h>
 
-#include <winrt/SystemExplorer.Models.h>
 #include <ranges>
 
 
@@ -33,21 +32,24 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
             pullTimer_.Tick([this](auto const&, auto const&)
             {
+
+
                     auto newProcesses = provider_->GetAllProcesses();
                     updateProcessesIist(newProcesses);
             });
             pullTimer_.Start();
-
-            Core::Settings::UserSettings::Instance().GeneralSettings().SettingChanged([this](auto const&, auto const& args) {
-
-                if (args.SettingName() == L"RealTimeUpdateSpeedMs")
+            
+            Core::Settings::UserSettings::Instance().GeneralSettings().SettingChanged([weak_this = this->get_weak()](auto const&, auto const& args)
+            {
+                if (auto strong_this = weak_this.get())
                 {
-                    auto value = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
-
-                    pullTimer_.Interval(value);
-                    provider_->Thread()->SetInterval(value);
+                    if (args.SettingName() == L"RealTimeUpdateSpeedMs")
+                    {
+                        auto value = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
+                        strong_this->pullTimer_.Interval(value);
+                        strong_this->provider_->Thread()->SetInterval(value);
+                    }
                 }
-
             });
         }
 
@@ -59,9 +61,10 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalPrivateBytes, 0);
     private:
         void updateProcessesIist(std::vector<ProcessInformation>& newProcesses);
-        void restoreSelection(uint32_t pid);
     private:
+        Microsoft::UI::Dispatching::DispatcherQueue dispatcher_ = Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
         std::shared_ptr<IProcessInformationProvider> provider_ = std::make_shared<ProcessInformationProvider>();
+        std::unordered_map<uint32_t, ProcessInformation> m_uiMap;
         DispatcherTimer pullTimer_;
     };
 }

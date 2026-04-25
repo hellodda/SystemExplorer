@@ -27,7 +27,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		switch (value)
 		{
 		case 0: // high
-			updateSpeed = 250;
+			updateSpeed = 15;
 			break;
 		case 1: // def
 			updateSpeed = 1000;

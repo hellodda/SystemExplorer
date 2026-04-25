@@ -140,10 +140,10 @@
       <DependentUpon>Converters\ValueToSizeUnitConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
     <ClInclude Include="Core\Serialization\functional.h" />
     <ClInclude Include="Core\Services\AppLanguageService.h" />
     <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
-    <ClInclude Include="Core\Diagnostics\ILogger.h" />
     <ClInclude Include="Core\Serialization\DefaultJsonSettingsSerializer.h">
       <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -201,6 +201,10 @@
     </ClInclude>
     <ClInclude Include="Models\Items\AppThemeResourceItem.h">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Models\ProcessInformation.h">
+      <DependentUpon>Models\ProcessInformation.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
@@ -368,6 +372,10 @@
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Models\ProcessInformation.cpp">
+      <DependentUpon>Models\ProcessInformation.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -492,7 +500,9 @@
     <Midl Include="Models\Items\AppThemeResourceItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\ProcessInformation.idl" />
+    <Midl Include="Models\ProcessInformation.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>

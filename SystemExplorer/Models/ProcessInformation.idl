@@ -1,7 +1,10 @@
 namespace SystemExplorer.Models
 {
-    struct ProcessInformation
+    [default_interface]
+    runtimeclass ProcessInformation 
     {
+        ProcessInformation();
+
         UInt32 Pid;
         UInt32 ParentId;
         UInt32 IoRate;
@@ -9,5 +12,5 @@ namespace SystemExplorer.Models
         Single CpuUsage;
         String Name;
         String Description;
-    };
+    }
 }

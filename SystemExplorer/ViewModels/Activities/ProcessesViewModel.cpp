@@ -12,80 +12,61 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         uint64_t totalIo{ 0 };
         uint64_t totalPrivateBytes{ 0 };
 
-        uint32_t selectedPid{ 0 };
-        bool hasSelection{ false };
+        std::unordered_map<uint32_t, ProcessInformation> incomingMap;
+        incomingMap.reserve(newProcesses.size());
 
         for (const auto& proc : newProcesses)
         {
-            if (proc.Name == std::wstring_view(L"Idle"))
-                continue;
-
-            totalCpu += proc.CpuUsage;
-            totalIo += proc.IoRate;
-            totalPrivateBytes += proc.PrivateBytes;
+            if (proc.Name() != L"Idle")
+            {
+                totalCpu += proc.CpuUsage();
+                totalIo += proc.IoRate();
+                totalPrivateBytes += proc.PrivateBytes();
+            }
+            incomingMap.emplace(proc.Pid(), proc);
         }
 
         TotalCpuUsage(std::round(totalCpu * 100.0f) / 100.0f);
         TotalIoRate(totalIo);
         TotalPrivateBytes(totalPrivateBytes);
 
-        if (!SelectedProcess().Name.empty())
+        for (auto it = m_uiMap.begin(); it != m_uiMap.end(); )
         {
-            selectedPid = SelectedProcess().Pid;
-            hasSelection = true;
-        }
+            uint32_t pid = it->first;
+            auto& existingProc = it->second;
 
-        std::ranges::sort(newProcesses, {}, &ProcessInformation::Pid);
-        std::vector<bool> processed(newProcesses.size(), false);
-
-        uint32_t currentSize = Processes().Size();
-        for (uint32_t i = currentSize; i > 0; --i)
-        {
-            uint32_t index = i - 1;
-            ProcessInformation currentProc = Processes().GetAt(index);
-
-            auto it = std::ranges::lower_bound(newProcesses, currentProc.Pid, {}, &ProcessInformation::Pid);
-
-            if (it != newProcesses.end() && it->Pid == currentProc.Pid)
+            auto incomingIt = incomingMap.find(pid);
+            if (incomingIt != incomingMap.end())
             {
-                if (currentProc.CpuUsage != it->CpuUsage ||
-                    currentProc.IoRate != it->IoRate ||
-                    currentProc.PrivateBytes != it->PrivateBytes)
-                {
-                    Processes().SetAt(index, *it);
-                }
-                processed[std::distance(newProcesses.begin(), it)] = true;
+                const auto& incoming = incomingIt->second;
+
+                if (existingProc.CpuUsage() != incoming.CpuUsage())
+                    existingProc.CpuUsage(incoming.CpuUsage());
+
+                if (existingProc.IoRate() != incoming.IoRate())
+                    existingProc.IoRate(incoming.IoRate());
+
+                if (existingProc.PrivateBytes() != incoming.PrivateBytes())
+                    existingProc.PrivateBytes(incoming.PrivateBytes());
+
+                incomingMap.erase(incomingIt);
+                ++it;
             }
             else
             {
-                Processes().RemoveAt(index);
+                uint32_t index;
+                if (Processes().IndexOf(existingProc, index))
+                {
+                    Processes().RemoveAt(index);
+                }
+                it = m_uiMap.erase(it);
             }
         }
-        for (size_t i = 0; i < newProcesses.size(); ++i)
-        {
-            if (!processed[i])
-            {
-                Processes().Append(newProcesses[i]);
-            }
-        }
-        if (hasSelection)
-        {
-            restoreSelection(selectedPid);
-        }
-    }
-    void ProcessesViewModel::restoreSelection(uint32_t pid)
-    {
-        auto view = Processes();
-        uint32_t size = view.Size();
 
-        for (uint32_t i = 0; i < size; ++i)
+        for (auto& [pid, newProc] : incomingMap)
         {
-            if (view.GetAt(i).Pid == pid)
-            {
-                SelectedProcess(view.GetAt(i));
-                return;
-            }
+            m_uiMap.emplace(pid, newProc);
+            Processes().Append(newProc);
         }
-        SelectedProcess(ProcessInformation{});
     }
 }

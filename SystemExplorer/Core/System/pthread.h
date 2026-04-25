@@ -58,22 +58,8 @@ namespace winrt::SystemExplorer::Core::System
         void Resume() override
         {
             if (!timer_ || interval_.count() <= 0) return;
-
             is_running_ = true;
-
-            LARGE_INTEGER liDueTime;
-            liDueTime.QuadPart = -static_cast<LONGLONG>(interval_.count() * 10000LL);
-
-            FILETIME ftDueTime;
-            ftDueTime.dwLowDateTime = liDueTime.LowPart;
-            ftDueTime.dwHighDateTime = liDueTime.HighPart;
-
-            ::SetThreadpoolTimer(
-                timer_.get(),
-                &ftDueTime,
-                static_cast<DWORD>(interval_.count()),
-                0
-            );
+            ScheduleNext(); 
         }
 
         void Suspend() override

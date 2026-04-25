@@ -1,19 +1,19 @@
 #include "pch.h"
 #include "ProcessInformationProvider.h"
 
-#include <phnt_windows.h>
-#include <phnt.h>
-
 #include <Helpers/Win32Helper.h>
+#include <unordered_set>
 
 using namespace winrt::SystemExplorer::Helpers;
+
+static constexpr ULONG INITIAL_BUFFER_SIZE{ 6400 };
+static constexpr ULONG MAX_BUFFER_SIZE{ 1280000 };
 
 namespace winrt::SystemExplorer::Core::System
 {
     ProcessInformationProvider::ProcessInformationProvider()
     {
-        bufferSize_ = 1024 * 1024;
-        buffer_ = std::make_unique<uint8_t[]>(bufferSize_);
+        bufferSize_ = INITIAL_BUFFER_SIZE; 
 
         thread_ = std::make_unique<ProviderThread>(
             [this]() { this->updateProcesses(); },
@@ -37,81 +37,91 @@ namespace winrt::SystemExplorer::Core::System
         FILETIME idleTime, kernelTime, userTime;
         GetSystemTimes(&idleTime, &kernelTime, &userTime);
 
-        ULONGLONG currentSystemTime =
+        auto currentSystemTime =
             (ULARGE_INTEGER{ kernelTime.dwLowDateTime, kernelTime.dwHighDateTime }.QuadPart) +
             (ULARGE_INTEGER{ userTime.dwLowDateTime, userTime.dwHighDateTime }.QuadPart);
 
-        uint64_t currentTick = GetTickCount64();
-
+        auto currentTick = GetTickCount64();
         ULONG returnLength{ 0 };
         NTSTATUS status;
 
         do
         {
+            buffer_.reset(static_cast<PBYTE>(
+                VirtualAlloc(NULL, bufferSize_, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)
+            ));
+            THROW_IF_NULL_ALLOC(buffer_);
+
             status = NtQuerySystemInformation(
                 SystemProcessInformation,
                 buffer_.get(),
                 bufferSize_,
-                &returnLength);
-
-            if (status == STATUS_INFO_LENGTH_MISMATCH)
+                &returnLength
+            );
+            
+            if (status == STATUS_INFO_LENGTH_MISMATCH || status == STATUS_BUFFER_OVERFLOW) [[likely]]
             {
-                bufferSize_ = returnLength + (1024 * 1024);
-                buffer_ = std::make_unique<uint8_t[]>(bufferSize_);
+                if (returnLength > 0) [[likely]]
+                    bufferSize_ = returnLength;
+                else
+                    bufferSize_ = min(bufferSize_ * 2, MAX_BUFFER_SIZE);
+                continue;
             }
+            if (bufferSize_ >= MAX_BUFFER_SIZE) [[unlikely]]
+                THROW_HR(E_OUTOFMEMORY);
+
         } while (status == STATUS_INFO_LENGTH_MISMATCH);
 
-        THROW_IF_FAILED_MSG(status, "Xuyna rabotai");
+        THROW_IF_FAILED_MSG(status, "QuerySystemInformation failed");
 
         auto* pInfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer_.get());
 
-        std::unordered_map<uint32_t, ProcessCacheEntry> newCache;
         std::vector<ProcessInformation> newActiveProcesses;
+        std::unordered_set<uint32_t> currentTickPids; 
 
         while (true)
         {
             uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->UniqueProcessId));
+            currentTickPids.insert(pid);
 
             ProcessInformation proc{};
-            proc.Pid = pid;
-            proc.ParentId = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->InheritedFromUniqueProcessId));
-            proc.PrivateBytes = static_cast<uint32_t>(pInfo->PrivatePageCount);
+            proc.Pid(pid);
+            proc.ParentId(static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->InheritedFromUniqueProcessId)));
+            proc.PrivateBytes(static_cast<uint32_t>(pInfo->PrivatePageCount));
 
-            ULONGLONG currentIoCount = pInfo->ReadTransferCount.QuadPart +
+            auto currentIoCount = pInfo->ReadTransferCount.QuadPart +
                 pInfo->WriteTransferCount.QuadPart +
                 pInfo->OtherTransferCount.QuadPart;
 
-            ULONGLONG currentProcessTime = pInfo->KernelTime.QuadPart + pInfo->UserTime.QuadPart;
+            auto currentProcessTime = pInfo->KernelTime.QuadPart + pInfo->UserTime.QuadPart;
 
             auto it = processCache_.find(pid);
             if (it != processCache_.end() && it->second.CreateTime.QuadPart == pInfo->CreateTime.QuadPart)
             {
                 ProcessCacheEntry& cache = it->second;
-                proc.Name = cache.Name;
-                proc.Description = cache.Description;
+                proc.Name(cache.Name);
+                proc.Description(cache.Description);
 
-                ULONGLONG sysDelta = currentSystemTime - cache.LastSystemTime;
-                ULONGLONG procDelta = currentProcessTime - cache.LastProcessTime;
+                auto sysDelta = currentSystemTime - cache.LastSystemTime;
+                auto procDelta = currentProcessTime - cache.LastProcessTime;
 
                 if (sysDelta > 0)
                 {
                     float rawCpu = static_cast<float>(procDelta * 100.0 / sysDelta);
-                    proc.CpuUsage = std::round(rawCpu * 10.0f) / 10.0f;
+                    proc.CpuUsage(std::round(rawCpu * 10.0f) / 10.0f);
                 }
 
-                uint64_t tickDelta = currentTick - cache.LastTickCount;
+                auto tickDelta = currentTick - cache.LastTickCount;
                 if (tickDelta > 0)
                 {
-                    ULONGLONG ioDelta = currentIoCount - cache.LastIoTransferCount;
-                    proc.IoRate = static_cast<uint32_t>((ioDelta * 1000ULL) / tickDelta);
+                    auto ioDelta = currentIoCount - cache.LastIoTransferCount;
+                    proc.IoRate(static_cast<uint32_t>((ioDelta * 1000ULL) / tickDelta));
                 }
 
                 cache.LastSystemTime = currentSystemTime;
                 cache.LastProcessTime = currentProcessTime;
                 cache.LastIoTransferCount = currentIoCount;
                 cache.LastTickCount = currentTick;
-
-                newCache[pid] = cache;
             }
             else
             {
@@ -137,12 +147,12 @@ namespace winrt::SystemExplorer::Core::System
 
                 newEntry.Description = Win32Helper::ProcessHelper::GetProcessDescription(pid);
 
-                proc.Name = newEntry.Name;
-                proc.Description = newEntry.Description;
-                proc.CpuUsage = 0.0f;
-                proc.IoRate = 0;
+                proc.Name(std::move(newEntry.Name));
+                proc.Description(std::move(newEntry.Description));
+                proc.CpuUsage(0.0f);
+                proc.IoRate(0);
 
-                newCache[pid] = newEntry;
+                processCache_[pid] = std::move(newEntry);
             }
 
             newActiveProcesses.push_back(std::move(proc));
@@ -151,12 +161,16 @@ namespace winrt::SystemExplorer::Core::System
                 break;
             }
             pInfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(
-                reinterpret_cast<uint8_t*>(pInfo) + pInfo->NextEntryOffset);
+                reinterpret_cast<PBYTE>(pInfo) + pInfo->NextEntryOffset);
         }
+
+        std::erase_if(processCache_, [&](const auto& pair)
+        {
+            return !currentTickPids.contains(pair.first);
+        });
         {
             auto lock = lock_.lock_exclusive();
             activeProcesses_ = std::move(newActiveProcesses);
         }
-        processCache_ = std::move(newCache);
     }
 }

@@ -30,12 +30,12 @@ namespace winrt::SystemExplorer::Converters::implementation
         {
             return winrt::hstring(buffer, static_cast<uint32_t>(length));
         }
-        return L"0 B";
+        return L"";
     }
 
 	IInspectable ValueToSizeUnitConverter::Convert(IInspectable const& value, TypeName const& type, IInspectable const& parameter, hstring const&)
 	{
-        if (!value) return winrt::box_value(L"0 B");
+        if (!value) return winrt::box_value(L"");
 
         uint64_t bytes{ 0 };
 
@@ -43,6 +43,9 @@ namespace winrt::SystemExplorer::Converters::implementation
         {
             auto pv = value.as<winrt::Windows::Foundation::IPropertyValue>();
             bytes = pv.GetUInt64();
+
+            if (bytes == 0)
+                return box_value(L"");
         }
         catch (...)
         {

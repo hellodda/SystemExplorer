@@ -1,6 +1,8 @@
 #pragma once
 
 #include <windows.h>
+#include <phnt_windows.h>
+#include <phnt.h>
 #include <unknwn.h>
 #include <restrictederrorinfo.h>
 #include <hstring.h>
