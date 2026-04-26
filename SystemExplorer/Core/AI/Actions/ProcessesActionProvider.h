@@ -28,4 +28,4 @@ namespace winrt::SystemExplorer::Core::AI::Actions::implementation
         //static IAsyncAction getDetailInformationOfProcessAction();
     };
 }
-COM_FACTORY(winrt::SystemExplorer::Core::AI::Actions, ProcessesActionProvider);
+COM_FACTORY(winrt::SystemExplorer::Core::AI::Actions, ProcessesActionProvider); 

@@ -47,7 +47,7 @@ namespace NAMESPACE::factory_implementation \
         } \
         HRESULT STDMETHODCALLTYPE LockServer(BOOL) noexcept override { return S_OK; } \
     }; \
-}
+} 
 
 //⣿⣿⣿⣿⣿⣿⢿⣿⣿⢾⣷⣬⣿⣷⢸⢳⣆⢦⢹⣷⢸⡧⢂⠲⡇⡆⣿⢣⢸⣿⡿⣿⡆⡷⡀⣿⣿⡿⣰⠇⣸⣿⡿⠃⢰⡿⢰⣿⡇⣻⣿⣿⣿⣿⣿⡿⠋⢀⣾⣿⣿⣿⣿⣿⣿
 //⣿⣿⣿⣿⣿⣿⡈⢿⣿⠘⣿⣿⣿⣿⡘⠈⢿⡄⠣⡻⡘⡇⡜⣆⠃⢳⢻⢸⡎⢿⡇⢻⡇⠇⡇⢸⢟⡴⣫⢠⡿⢟⠁⠁⢛⢀⣾⡿⡀⣿⡿⢋⣿⣿⣭⠖⣡⣿⢻⣿⣿⣿⣿⣿⣿
