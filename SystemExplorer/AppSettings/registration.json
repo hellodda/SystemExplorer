@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "actions": [
+    {
+      "name": "SystemExplorer.EndProcess",
+      "description": "Ends process on system",
+      "displaysUI": false,
+      "disclaimer": "UsesAI",
+      "usesGenerativeAI": true,
+      "isAvailable": true,
+      "hasFeedbackHandler": false,
+      "inputs": [
+        {
+          "name": "PID",
+          "kind": "Text"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "Stub",
+          "kind": "Text"
+        }
+      ],
+      "invocation": {
+        "type": "COM",
+        "clsid": "{9F46D58D-DFFA-4C00-85C2-BFFB13BDCB6A}"
+      }
+    }
+  ]
+}

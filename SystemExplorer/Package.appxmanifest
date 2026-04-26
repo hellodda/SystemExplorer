@@ -4,9 +4,13 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+  xmlns:com="http://schemas.microsoft.com/appx/manifest/com/windows10"
+  xmlns:com2="http://schemas.microsoft.com/appx/manifest/com/windows10/2"
+  xmlns:com3="http://schemas.microsoft.com/appx/manifest/com/windows10/3"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
   xmlns:systemai="http://schemas.microsoft.com/appx/manifest/systemai/windows10"
-  IgnorableNamespaces="uap rescap systemai">
+  IgnorableNamespaces="uap uap3 com com2 com3 rescap systemai">
 
   <Identity
     Name="62f5925b-f169-4338-8acc-876b708c2322"
@@ -43,6 +47,28 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+
+
+		<Extensions>
+			<com2:Extension Category="windows.comServer">
+				<com2:ComServer>
+					<com3:ExeServer Executable="SystemExplorer.exe" DisplayName="System Explorer">
+						<com:Class Id="9f46d58d-dffa-4c00-85c2-bffb13bdcb6a" DisplayName="ProcessesActionProvider" />
+					</com3:ExeServer>
+				</com2:ComServer>
+			</com2:Extension>
+
+			<uap3:Extension Category="windows.appExtension">
+				<uap3:AppExtension Name="com.microsoft.windows.ai.actions"
+								   Id="SystemExplorerAIActionExtension"
+								   PublicFolder="AppSettings"
+								   DisplayName="SystemExplorer Action">
+					<uap3:Properties>
+						<Registration>registration.json</Registration>
+					</uap3:Properties>
+				</uap3:AppExtension>
+			</uap3:Extension>
+		</Extensions>
     </Application>
   </Applications>
 
