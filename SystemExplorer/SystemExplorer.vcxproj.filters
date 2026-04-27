@@ -55,6 +55,9 @@
     <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
     <ClCompile Include="Core\Services\AppLanguageService.cpp" />
     <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
+    <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
+    <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
+    <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -75,6 +78,9 @@
     <ClInclude Include="Core\System\ProcessInformationProvider.h" />
     <ClInclude Include="Core\System\pthread.h" />
     <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
+    <ClInclude Include="Core\Services\ComRegistrationService.h" />
+    <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
+    <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -106,6 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
+    <Text Include="AppSettings\registration.json" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -125,9 +132,5 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemExplorer.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
   </ItemGroup>
 </Project>

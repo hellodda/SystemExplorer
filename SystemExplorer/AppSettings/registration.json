@@ -25,6 +25,35 @@
         "type": "COM",
         "clsid": "{9F46D58D-DFFA-4C00-85C2-BFFB13BDCB6A}"
       }
+    },
+    {
+      "name": "SystemExplorer.QueryWQL",
+      "description": "WQL Query to get system information",
+      "displaysUI": false,
+      "disclaimer": "UsesAI",
+      "usesGenerativeAI": true,
+      "isAvailable": true,
+      "hasFeedbackHandler": false,
+      "inputs": [
+        {
+          "name": "Namespace",
+          "kind": "Text"
+        },
+        {
+          "name": "Query",
+          "kind": "Text"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "QueryResults",
+          "kind": "Text"
+        }
+      ],
+      "invocation": {
+        "type": "COM",
+        "clsid": "{00000000-0000-0000-0000-000000000000}"
+      }
     }
   ]
 }

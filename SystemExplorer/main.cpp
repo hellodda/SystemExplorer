@@ -4,9 +4,13 @@
 #include "Helpers/Win32Helper.h"
 #include "Helpers/Common.h"
 
-using namespace winrt::SystemExplorer::Helpers;
-using namespace winrt::SystemExplorer::Core::Services;
+#include "Core/AI/Actions/ProcessesActionProvider.h"
+#include "Core/Services/ComRegistrationService.h"
 
+
+
+using namespace winrt::SystemExplorer::Helpers;
+using namespace winrt::SystemExplorer::Core;
 
 // potom pomenyayu
 LONG WINAPI PlatformExceptionFilter(
@@ -59,6 +63,12 @@ int APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(nCmdShow);
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
+
+    // test
+    Services::ComRegistrationService::RegisterDynamicObject(
+        __uuidof(AI::Actions::implementation::ProcessesActionProvider),
+        winrt::make_self<AI::Actions::factory_implementation::ProcessesActionProviderFactory>()
+    );
 
     SetUnhandledExceptionFilter(PlatformExceptionFilter);
 

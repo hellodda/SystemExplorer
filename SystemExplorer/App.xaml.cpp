@@ -11,6 +11,8 @@
 #include <Core/Serialization/functional.h>
 #include <wil/result_macros.h>
 
+#include <winrt/Windows.AI.Actions.h>
+
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
 
