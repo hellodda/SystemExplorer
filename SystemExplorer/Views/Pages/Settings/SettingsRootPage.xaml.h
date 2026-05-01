@@ -1,7 +1,7 @@
 #pragma once
 #include "Views/Pages/Settings/SettingsRootPage.g.h"
-
 #include <winrt/Microsoft.UI.Xaml.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {

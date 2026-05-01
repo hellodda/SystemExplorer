@@ -360,4 +360,10 @@
   <data name="About" xml:space="preserve">
     <value>About</value>
   </data>
+  <data name="ImageFiles" xml:space="preserve">
+    <value>Image files</value>
+  </data>
+  <data name="BitmapFiles" xml:space="preserve">
+    <value>Bitmap files</value>
+  </data>
 </root>

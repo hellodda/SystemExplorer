@@ -3,6 +3,7 @@
 #include "Views/Pages/Settings/AdvancedPage.g.h"
 #include <ViewModels/Settings/AdvancedViewModel.h>
 #include <wil/cppwinrt_authoring.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {

@@ -206,6 +206,7 @@
     <ClInclude Include="Core\System\pthread.h" />
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
+    <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="Helpers\StringsHelper.h">
@@ -213,7 +214,6 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
-    <ClInclude Include="macro.h" />
     <ClInclude Include="Models\Items\AppLanguageItem.h">
       <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -232,6 +232,7 @@
     </ClInclude>
     <ClInclude Include="Core\System\ProcessInformationProvider.h" />
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
+    <ClInclude Include="property.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ViewModels\Activities\ProcessesViewModel.h">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
@@ -644,7 +645,7 @@
     <HasPackageAndPublishMenu>true</HasPackageAndPublishMenu>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <PreBuildEventUseInBuild>false</PreBuildEventUseInBuild>
+    <PreBuildEventUseInBuild>true</PreBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>true</VcpkgEnabled>

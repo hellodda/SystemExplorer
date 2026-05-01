@@ -1,7 +1,7 @@
 #pragma once
 #include <winrt/Windows.AI.Actions.h>
 #include <winrt/Windows.AI.Actions.Provider.h>
-
+#include <factory.h>
 /// <summary>
 /// poka v planax...
 /// </summary>

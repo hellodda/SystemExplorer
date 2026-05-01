@@ -1,14 +1,11 @@
 #pragma once
 #include "System.h"
+#include <chrono>
 #include <functional>
 #include <thread>
-#include <winrt/base.h>
-#include <wil/win32_helpers.h>
-
-
-//
-// budet ubran v sled kommitax tak ka vsyo je jthread lushe budet chem eta huita
-//
+#include <mutex>
+#include <condition_variable>
+#include <atomic>
 
 namespace winrt::SystemExplorer::Core::System
 {
@@ -16,99 +13,94 @@ namespace winrt::SystemExplorer::Core::System
 
     using callback_handler = std::function<void()>;
 
-    class ProviderThread : public IProviderThread
+    struct ProviderThread : IProviderThread
     {
-    public:
-
         explicit ProviderThread(callback_handler handler, std::chrono::milliseconds interval = std::chrono::milliseconds(0))
-            : handler_(std::move(handler)),
-            interval_(interval)
+            : handler_(std::move(handler)), interval_(interval), is_running_(interval.count() > 0)
         {
             if (!handler_)
-                throw winrt::hresult_invalid_argument(L"Callback handler cannot be null");
+                throw std::invalid_argument("Callback handler cannot be null");
 
-            timer_.reset(::CreateThreadpoolTimer(TimerCallback, this, nullptr));
-            if (!timer_)
-                winrt::throw_last_error();
-
-            if (interval_.count() > 0)
-            {
-                Resume();
-            }
+            // Запускаем поток
+            worker_thread_ = std::jthread([this](std::stop_token st) { ThreadLoop(st); });
         }
 
-        ~ProviderThread()
-        {
-            if (timer_)
-            {
-                ::SetThreadpoolTimer(timer_.get(), nullptr, 0, 0);
-                ::WaitForThreadpoolTimerCallbacks(timer_.get(), TRUE);
-            }
+        // Деструктор не нужен (jthread сам все сделает), 
+        // но если нужно явно остановить до удаления объекта:
+        void Stop() {
+            worker_thread_.request_stop();
+            cv_.notify_all();
         }
 
-        void SetInterval(std::chrono::milliseconds interval) override
+        void SetInterval(std::chrono::milliseconds interval)
         {
-            interval_ = interval;
-            if (is_running_)
             {
-                Resume();
+                std::lock_guard lock(mutex_);
+                interval_ = interval;
             }
+            cv_.notify_all(); // Пробуждаем поток, чтобы применить новый интервал
         }
 
-        void Resume() override
+        void Resume()
         {
-            if (!timer_ || interval_.count() <= 0) return;
-            is_running_ = true;
-            ScheduleNext(); 
+            {
+                std::lock_guard lock(mutex_);
+                is_running_ = true;
+            }
+            cv_.notify_all();
         }
 
-        void Suspend() override
+        void Suspend()
         {
-            is_running_ = false;
-
-            if (timer_)
             {
-                ::SetThreadpoolTimer(timer_.get(), nullptr, 0, 0);
+                std::lock_guard lock(mutex_);
+                is_running_ = false;
             }
+            // Поток заснет на cv_.wait
         }
 
     private:
-
-        void ScheduleNext()
+        void ThreadLoop(std::stop_token stop_token)
         {
-            if (!timer_ || interval_.count() <= 0) return;
-
-            LARGE_INTEGER liDueTime;
-            liDueTime.QuadPart = -static_cast<LONGLONG>(interval_.count() * 10000LL);
-
-            FILETIME ftDueTime;
-            ftDueTime.dwLowDateTime = liDueTime.LowPart;
-            ftDueTime.dwHighDateTime = liDueTime.HighPart;
-
-            ::SetThreadpoolTimer(timer_.get(), &ftDueTime, 0, 0);
-        }
-
-
-        static void NTAPI TimerCallback(
-            _In_ PTP_CALLBACK_INSTANCE,
-            _In_ PVOID Context,
-            _In_ PTP_TIMER) noexcept
-        {
-            auto* self = static_cast<ProviderThread*>(Context);
-            if (self && self->handler_)
+            while (!stop_token.stop_requested())
             {
-                self->handler_();
+                std::unique_lock lock(mutex_);
 
-                if (self->is_running_)
-                {
-                    self->ScheduleNext();
+                // Ждем либо сигнала остановки, либо пока станет is_running == true
+                cv_.wait(lock, stop_token, [this] {
+                    return is_running_.load();
+                    });
+
+                if (stop_token.stop_requested()) break;
+
+                // Копируем интервал локально под замком
+                auto current_interval = interval_;
+                lock.unlock();
+
+                // Выполняем полезную работу
+                if (handler_) {
+                    handler_();
+                }
+
+                // Спим до следующей итерации или до изменения состояния
+                if (current_interval.count() > 0) {
+                    std::unique_lock sleep_lock(mutex_);
+                    cv_.wait_for(sleep_lock, stop_token, current_interval, [] { return false; });
+                    // wait_for вернет false по тайм-ауту, либо выйдет раньше при cv_.notify_all()
                 }
             }
         }
 
-        wil::unique_threadpool_timer timer_;
         callback_handler handler_;
+
+        // Синхронизация
+        std::mutex mutex_;
+        std::condition_variable_any cv_;
+
+        // Состояние
         std::chrono::milliseconds interval_;
-        bool is_running_ = false;
+        std::atomic<bool> is_running_{ false };
+
+        std::jthread worker_thread_;
     };
 }

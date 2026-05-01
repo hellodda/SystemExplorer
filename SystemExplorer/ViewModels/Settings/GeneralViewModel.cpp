@@ -53,8 +53,8 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		if (AppLanguageService::Instance().TryChange(value))
 		{
 			SelectedAppLanguageIndex_ = value;
-			RaisePropertyChanged(L"SelectedAppLanguageIndex");
 			ShowRestartControl(true);
+			RAISE_PROPERTY_CHANGED;
 		}
 	}
 }

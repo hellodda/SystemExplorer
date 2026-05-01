@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Core/Data/EventArguments/SettingChangedEventArgs.g.h"
-#include <macro.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Core::Data::EventArguments::implementation
 {

@@ -6,6 +6,8 @@
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <Models/Items/AppLanguageItem.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
+#include <factory.h>
+#include <property.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
@@ -21,14 +23,11 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         GeneralViewModel();
 
         wil::single_threaded_property<IAsyncRelayCommand> RestartCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
-            
             AppInstance::Restart(L"");
-
             co_return;
         });
         wil::single_threaded_property<IAsyncRelayCommand> CancelRestartCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
             ShowRestartControl = false;
-            
             co_return;
         });
         
@@ -36,10 +35,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         DECLARE_PROPERTY(int32_t, SelectedRealTimeUpdateSpeedIndex);
 
 		wil::single_threaded_property<IVector<IInspectable>> AppLanguages = single_threaded_vector<IInspectable>();
-		
-
 		wil::single_threaded_notifying_property<bool> ShowRestartControl;
-
     private:
 		std::vector<AppLanguageItem> appLanguages_;
     };

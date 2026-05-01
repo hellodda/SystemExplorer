@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Converters/StringFormatConverter.g.h"
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Converters::implementation
 {

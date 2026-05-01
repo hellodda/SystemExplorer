@@ -1,9 +1,9 @@
 #pragma once
 #include "Views/Windows/MainWindow.g.h"
-#include <macro.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <Core/Settings/UserSettings.h>
 #include <Core/Services/AppResourcesService.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Windows::implementation
 {

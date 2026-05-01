@@ -63,7 +63,7 @@ $($idlMethods.ToString().TrimEnd())
 $headerContent = @"
 #pragma once
 #include "$GeneratedIncludePrefix/$ClassName.g.h"
-#include "../macro.h"
+#include <factory.h>
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
 namespace $CppNamespace`::implementation

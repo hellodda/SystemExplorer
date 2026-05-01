@@ -6,6 +6,7 @@
 #include <Core/Data/EventArguments/SettingChangedEventArgs.h>
 #include <unordered_set>
 #include <shared_mutex>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Core::Serialization::implementation
 {

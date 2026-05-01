@@ -18,6 +18,25 @@
     <Page.Resources>
         <convertes:ValueToSizeUnitConverter x:Key="SizeConverter"/>
         <convertes:StringFormatConverter x:Key="StringFormatConverter"/>
+        
+        <MenuFlyout x:Key="ProcessMenuFlyout">
+            <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
+            <MenuFlyoutItem Text="Suspend" />
+            <MenuFlyoutItem Text="Restart"/>
+
+            <MenuFlyoutSeparator/>
+
+            <MenuFlyoutItem Text="Efficiency mode"/>
+            <MenuFlyoutItem Text="Debug"/>
+            <MenuFlyoutItem Text="Create memory dump file"/>
+
+            <MenuFlyoutSeparator/>
+
+            <MenuFlyoutItem Text="Go to detials"/>
+            <MenuFlyoutItem Text="Open file location"/>
+            <MenuFlyoutItem Text="Search online"/>
+            <MenuFlyoutItem Text="Properties"/>
+        </MenuFlyout>
     </Page.Resources>
     
     <Grid>
@@ -45,8 +64,7 @@
                             Orientation="Horizontal"
                             Spacing="10">
 
-                    <Button Background="Transparent"
-                            BorderThickness="0">
+                    <Button Style="{ThemeResource FlatButtonStyle}">
                         <StackPanel Spacing="10"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
@@ -62,8 +80,8 @@
                             Fill="{ThemeResource DividerStrokeColorDefaultBrush}" 
                             VerticalAlignment="Center"/>
 
-                    <Button Background="Transparent"
-                            BorderThickness="0">
+                    <Button Style="{ThemeResource FlatButtonStyle}"
+                            Command="{x:Bind ViewModel.TerminateProcessCommand, Mode=OneWay}">
                         <StackPanel Spacing="10"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
@@ -74,8 +92,8 @@
                         </StackPanel>
                     </Button>
 
-                    <Button Background="Transparent"
-                            BorderThickness="0">
+                    <Button Style="{ThemeResource FlatButtonStyle}"
+                           >
                         <StackPanel Spacing="10"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
@@ -97,7 +115,7 @@
 
         <ListView HorizontalAlignment="Stretch"
                   ItemContainerTransitions="{x:Null}"
-                  SelectedItem="{x:Bind ViewModel.SelectedProcess}"
+                  SelectedItem="{x:Bind ViewModel.SelectedProcess, Mode=TwoWay}"
                   ItemsSource="{x:Bind ViewModel.Processes}"
                   Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -174,7 +192,8 @@
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:ProcessInformation">
-                    <controls:DataRow HorizontalAlignment="Stretch">
+                    <controls:DataRow HorizontalAlignment="Stretch"
+                                      ContextFlyout="{StaticResource ProcessMenuFlyout}">
                         <controls:DataRow.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="BorderBrush" Value="{ThemeResource DividerStrokeColorDefaultBrush}" />
@@ -205,15 +224,15 @@
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind CpuUsage}" />
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind CpuUsage, Mode=OneWay}" />
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind IoRate, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}" />
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}" />
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind PrivateBytes, Converter={StaticResource SizeConverter}}" />
+                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}" />
                         </Border>
 
                         <Border>

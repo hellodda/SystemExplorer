@@ -43,5 +43,6 @@
     <Page Include="Themes\Generic.xaml" />
     <Page Include="Styles\Animations.xaml" />
     <Page Include="Styles\NavigationView.xaml" />
+    <Page Include="Styles\FlatButton.xaml" />
   </ItemGroup>
 </Project>

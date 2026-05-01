@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Converters/StringToBrushConverter.g.h"
-#include <macro.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Converters::implementation
 {

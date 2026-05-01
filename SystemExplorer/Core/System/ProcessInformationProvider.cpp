@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "ProcessInformationProvider.h"
-
 #include <Helpers/Win32Helper.h>
 #include <unordered_set>
 
@@ -13,7 +12,7 @@ namespace winrt::SystemExplorer::Core::System
 {
     ProcessInformationProvider::ProcessInformationProvider()
     {
-        bufferSize_ = INITIAL_BUFFER_SIZE; 
+        bufferSize_ = INITIAL_BUFFER_SIZE;
 
         thread_ = std::make_unique<ProviderThread>(
             [this]() { this->updateProcesses(); },
@@ -21,7 +20,7 @@ namespace winrt::SystemExplorer::Core::System
         );
     }
 
-    std::vector<ProcessInformation> ProcessInformationProvider::GetAllProcesses()
+    std::vector<PROCESS_INFORMATION> ProcessInformationProvider::GetAllProcesses()
     {
         auto lock = lock_.lock_shared();
         return activeProcesses_;
@@ -49,7 +48,7 @@ namespace winrt::SystemExplorer::Core::System
         {
             buffer_.reset(static_cast<PBYTE>(
                 VirtualAlloc(NULL, bufferSize_, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE)
-            ));
+                ));
             THROW_IF_NULL_ALLOC(buffer_);
 
             status = NtQuerySystemInformation(
@@ -58,7 +57,7 @@ namespace winrt::SystemExplorer::Core::System
                 bufferSize_,
                 &returnLength
             );
-            
+
             if (status == STATUS_INFO_LENGTH_MISMATCH || status == STATUS_BUFFER_OVERFLOW) [[likely]]
             {
                 if (returnLength > 0) [[likely]]
@@ -76,18 +75,20 @@ namespace winrt::SystemExplorer::Core::System
 
         auto* pInfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer_.get());
 
-        std::vector<ProcessInformation> newActiveProcesses;
-        std::unordered_set<uint32_t> currentTickPids; 
+        std::vector<PROCESS_INFORMATION> newActiveProcesses;
+        std::unordered_set<uint32_t> currentTickPids;
 
         while (true)
         {
             uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->UniqueProcessId));
             currentTickPids.insert(pid);
 
-            ProcessInformation proc{};
-            proc.Pid(pid);
-            proc.ParentId(static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->InheritedFromUniqueProcessId)));
-            proc.PrivateBytes(static_cast<uint32_t>(pInfo->PrivatePageCount));
+            PROCESS_INFORMATION pi{};
+            pi.Pid = pid;
+            pi.ParentId = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->InheritedFromUniqueProcessId));
+            pi.PrivateBytes = static_cast<uint32_t>(pInfo->PrivatePageCount);
+            pi.CpuUsage = 0.0f;
+            pi.IoRate = 0;
 
             auto currentIoCount = pInfo->ReadTransferCount.QuadPart +
                 pInfo->WriteTransferCount.QuadPart +
@@ -99,29 +100,28 @@ namespace winrt::SystemExplorer::Core::System
             if (it != processCache_.end() && it->second.CreateTime.QuadPart == pInfo->CreateTime.QuadPart)
             {
                 ProcessCacheEntry& cache = it->second;
-                proc.Name(cache.Name);
-                proc.Description(cache.Description);
-
+                cache.IsActive = true; 
                 auto sysDelta = currentSystemTime - cache.LastSystemTime;
                 auto procDelta = currentProcessTime - cache.LastProcessTime;
 
                 if (sysDelta > 0)
                 {
                     float rawCpu = static_cast<float>(procDelta * 100.0 / sysDelta);
-                    proc.CpuUsage(std::round(rawCpu * 10.0f) / 10.0f);
+                    pi.CpuUsage = std::round(rawCpu * 10.0f) / 10.0f;
                 }
 
                 auto tickDelta = currentTick - cache.LastTickCount;
                 if (tickDelta > 0)
                 {
                     auto ioDelta = currentIoCount - cache.LastIoTransferCount;
-                    proc.IoRate(static_cast<uint32_t>((ioDelta * 1000ULL) / tickDelta));
+                    pi.IoRate = static_cast<uint32_t>((ioDelta * 1000ULL) / tickDelta);
                 }
-
                 cache.LastSystemTime = currentSystemTime;
                 cache.LastProcessTime = currentProcessTime;
                 cache.LastIoTransferCount = currentIoCount;
                 cache.LastTickCount = currentTick;
+                pi.Name = cache.Name.c_str();
+                pi.Description = cache.Description.c_str();
             }
             else
             {
@@ -131,6 +131,7 @@ namespace winrt::SystemExplorer::Core::System
                 newEntry.LastProcessTime = currentProcessTime;
                 newEntry.LastIoTransferCount = currentIoCount;
                 newEntry.LastTickCount = currentTick;
+                newEntry.IsActive = true;
 
                 if (pInfo->ImageName.Buffer != nullptr)
                 {
@@ -146,16 +147,13 @@ namespace winrt::SystemExplorer::Core::System
                 }
 
                 newEntry.Description = Win32Helper::ProcessHelper::GetProcessDescription(pid);
+                auto& insertedEntry = (processCache_[pid] = std::move(newEntry));
 
-                proc.Name(std::move(newEntry.Name));
-                proc.Description(std::move(newEntry.Description));
-                proc.CpuUsage(0.0f);
-                proc.IoRate(0);
-
-                processCache_[pid] = std::move(newEntry);
+                pi.Name = insertedEntry.Name.c_str();
+                pi.Description = insertedEntry.Description.c_str();
             }
 
-            newActiveProcesses.push_back(std::move(proc));
+            newActiveProcesses.push_back(pi);
 
             if (pInfo->NextEntryOffset == 0) {
                 break;
@@ -163,14 +161,20 @@ namespace winrt::SystemExplorer::Core::System
             pInfo = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(
                 reinterpret_cast<PBYTE>(pInfo) + pInfo->NextEntryOffset);
         }
-
-        std::erase_if(processCache_, [&](const auto& pair)
-        {
-            return !currentTickPids.contains(pair.first);
-        });
         {
             auto lock = lock_.lock_exclusive();
             activeProcesses_ = std::move(newActiveProcesses);
+        }
+        std::erase_if(processCache_, [](const auto& pair)
+        {
+            return !pair.second.IsActive;
+        });
+        for (auto& pair : processCache_)
+        {
+            if (!currentTickPids.contains(pair.first))
+            {
+                pair.second.IsActive = false;
+            }
         }
     }
 }

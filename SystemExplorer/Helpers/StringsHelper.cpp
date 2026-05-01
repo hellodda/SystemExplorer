@@ -411,4 +411,14 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"About");
     }
+
+    hstring StringsHelper::ImageFiles()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"ImageFiles");
+    }
+
+    hstring StringsHelper::BitmapFiles()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"BitmapFiles");
+    }
 }

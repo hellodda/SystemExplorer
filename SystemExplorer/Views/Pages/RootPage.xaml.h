@@ -2,7 +2,7 @@
 
 #include "Views/Pages/RootPage.g.h"
 #include <ViewModels/RootViewModel.h>
-#include <macro.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
 {

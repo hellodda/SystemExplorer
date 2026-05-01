@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Models/Items/AppLanguageItem.g.h"
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Models::Items::implementation
 {

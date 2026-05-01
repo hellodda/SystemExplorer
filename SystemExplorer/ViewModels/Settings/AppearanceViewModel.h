@@ -6,12 +6,12 @@
 #include <winrt/Microsoft.Windows.Storage.Pickers.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
-
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
 #include <Core/Settings/UserSettings.h>
 #include <Helpers/EnumHelper.h>
 #include <App.xaml.h>
-#include <macro.h>
+#include <factory.h>
+#include <property.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
@@ -28,14 +28,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         AppearanceViewModel();
 
         wil::single_threaded_property<IAsyncRelayCommand> SelectImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
-            FileOpenPicker picker{ SystemExplorer::implementation::App::Window().AppWindow().Id() };
-            picker.FileTypeFilter().Append(L".jpg");
-            picker.FileTypeFilter().Append(L".png");
-            
-            auto result = co_await picker.PickSingleFileAsync();
-            
-            if (result)
-                AppThemeBackgroundImageSource(result.Path());
+            co_await doSelectImageAsync();
         });
 
         wil::single_threaded_property<IAsyncRelayCommand> RemoveImageCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
@@ -45,13 +38,14 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
         DECLARE_PROPERTY(hstring, AppThemeBackgroundColor);
         DECLARE_PROPERTY(hstring, AppThemeBackgroundImageSource);
-        DECLARE_PROPERTY(AppThemeResourceItem, SelectedAppThemeResources);
-        DECLARE_PROPERTY(int32_t, SelectedAppThemeIndex);
         DECLARE_PROPERTY(float, AppThemeBackgroundImageOpacity);
-        DECLARE_PROPERTY(IInspectable, SelectedBackdropMaterial);
-        DECLARE_PROPERTY(IInspectable, SelectedImageStretchType);
-        DECLARE_PROPERTY(IInspectable, SelectedImageVerticalAlignmentType);
-        DECLARE_PROPERTY(IInspectable, SelectedImageHorizontalAlignmentType);
+
+        DECLARE_ONLY_SETTER(int32_t, SelectedAppThemeIndex);
+        DECLARE_ONLY_SETTER(AppThemeResourceItem, SelectedAppThemeResources);
+        DECLARE_ONLY_SETTER(IInspectable, SelectedBackdropMaterial);
+        DECLARE_ONLY_SETTER(IInspectable, SelectedImageStretchType);
+        DECLARE_ONLY_SETTER(IInspectable, SelectedImageVerticalAlignmentType);
+        DECLARE_ONLY_SETTER(IInspectable, SelectedImageHorizontalAlignmentType);
 
         wil::single_threaded_property<IObservableVector<AppThemeResourceItem>> AppThemeResources =
             Data::Factories::AppThemeResourceFactory::AppThemeResources();
@@ -68,8 +62,9 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     private:
         Core::Settings::IAppearanceSettings settings_ = Core::Settings::UserSettings::Instance().AppearanceSettings();
+    private:
+        IAsyncAction doSelectImageAsync();
 
-    private:    
         void updateSelectedResource();
         void updateSelectedBackdropMaterial();
         void updateSelectedAppTheme();

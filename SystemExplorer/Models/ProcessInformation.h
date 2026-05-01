@@ -1,26 +1,23 @@
 ﻿#pragma once
 
 #include "Models/ProcessInformation.g.h"
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Models::implementation
 {
     using namespace winrt::Windows::Foundation::Collections;
 
-    template<typename T>
-    using rw_property = wil::single_threaded_rw_property<T>;
-
-    struct ProcessInformation : ProcessInformationT<ProcessInformation>
+    struct ProcessInformation : ProcessInformationT<ProcessInformation>, wil::notify_property_changed_base<ProcessInformation>
     {
         ProcessInformation() = default;
-        ProcessInformation(PSYSTEM_PROCESS_INFORMATION source) {}
 
-        rw_property<uint32_t> Pid;
-        rw_property<uint32_t> ParentId;
-        rw_property<uint32_t> IoRate;
-        rw_property<uint32_t> PrivateBytes;
-        rw_property<float> CpuUsage;
-        rw_property<hstring> Name;
-        rw_property<hstring> Description;
+        WIL_NOTIFYING_PROPERTY(uint32_t, Pid, 0);
+        WIL_NOTIFYING_PROPERTY(uint32_t, ParentId, 0);
+        WIL_NOTIFYING_PROPERTY(uint32_t, IoRate, 0);
+        WIL_NOTIFYING_PROPERTY(uint32_t, PrivateBytes, 0);
+        WIL_NOTIFYING_PROPERTY(float, CpuUsage, 0);
+        WIL_NOTIFYING_PROPERTY(hstring, Name, L"");
+        WIL_NOTIFYING_PROPERTY(hstring, Description, L"");
     };
 }
 FACTORY(winrt::SystemExplorer::Models, ProcessInformation);

@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "Helpers/StringsHelper.g.h"
-#include "../macro.h"
+#include <factory.h>
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
 namespace winrt::SystemExplorer::Helpers::implementation
@@ -90,6 +90,8 @@ namespace winrt::SystemExplorer::Helpers::implementation
         [[nodiscard]] static hstring RestartNotificationText();
         [[nodiscard]] static hstring Activities();
         [[nodiscard]] static hstring About();
+        [[nodiscard]] static hstring ImageFiles();
+        [[nodiscard]] static hstring BitmapFiles();
 
     private:
         StringsHelper() = default;

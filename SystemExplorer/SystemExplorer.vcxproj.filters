@@ -68,7 +68,6 @@
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Core\Services\ISingletonService.h" />
     <ClInclude Include="Helpers\Win32Helper.h" />
-    <ClInclude Include="macro.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="resource.h" />
@@ -81,6 +80,8 @@
     <ClInclude Include="Core\Services\ComRegistrationService.h" />
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
+    <ClInclude Include="factory.h" />
+    <ClInclude Include="property.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -132,5 +133,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemExplorer.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
   </ItemGroup>
 </Project>

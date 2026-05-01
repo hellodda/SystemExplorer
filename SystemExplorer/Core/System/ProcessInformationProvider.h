@@ -18,16 +18,16 @@ namespace winrt::SystemExplorer::Core::System
         ULONGLONG LastProcessTime{};
         ULONGLONG LastIoTransferCount{};
         uint64_t LastTickCount{};
-
         hstring Name;
         hstring Description;
+        bool IsActive{ true };
     };
 
     struct ProcessInformationProvider : public IProcessInformationProvider
     {
         ProcessInformationProvider();
 
-        std::vector<ProcessInformation> GetAllProcesses() override;
+        std::vector<PROCESS_INFORMATION> GetAllProcesses() override;
 
         IProviderThread* Thread() override;
 
@@ -37,7 +37,7 @@ namespace winrt::SystemExplorer::Core::System
         std::unique_ptr<IProviderThread> thread_;
 
         wil::srwlock lock_;
-        std::vector<ProcessInformation> activeProcesses_;
+        std::vector<PROCESS_INFORMATION> activeProcesses_;
         std::unordered_map<uint32_t, ProcessCacheEntry> processCache_;
 
         ULONG bufferSize_;

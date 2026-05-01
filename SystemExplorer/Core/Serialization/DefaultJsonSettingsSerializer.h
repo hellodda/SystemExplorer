@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Core/Serialization/DefaultJsonSettingsSerializer.g.h"
-#include <macro.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Core::Serialization::implementation
 {

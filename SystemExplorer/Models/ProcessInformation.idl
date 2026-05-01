@@ -1,7 +1,7 @@
 namespace SystemExplorer.Models
 {
     [default_interface]
-    runtimeclass ProcessInformation 
+    runtimeclass ProcessInformation : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         ProcessInformation();
 

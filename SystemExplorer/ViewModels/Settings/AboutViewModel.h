@@ -2,11 +2,10 @@
 
 #include "ViewModels/Settings/AboutViewModel.g.h"
 #include <wil/cppwinrt_authoring.h>
-#include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Windows.System.h>
-#include <winrt/Windows.Storage.h>
-#include <winrt/Microsoft.Windows.Storage.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
+#include <factory.h>
+#include <property.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
@@ -20,19 +19,14 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         AboutViewModel() = default;
 
         wil::single_threaded_property<IAsyncRelayCommand> LaunchUriCommand = AsyncRelayCommandFactory::Make([](IInspectable const& parameter) -> IAsyncAction {
-                co_await Launcher::LaunchUriAsync(Uri{ parameter.as<hstring>() });
+            co_await Launcher::LaunchUriAsync(Uri{ parameter.as<hstring>() });
         });
 
-        wil::single_threaded_property<IAsyncRelayCommand> OpenLogsCommand = AsyncRelayCommandFactory::Make([](IInspectable const&) -> IAsyncAction {
-           
-            auto appDataPath = winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalCacheFolder().Path();
-			auto logFilePath = winrt::hstring(appDataPath + L"SystemExplorer.log");
-
-            if (!logFilePath.empty())
-            {
-                co_await Launcher::LaunchUriAsync(Uri{ winrt::hstring{ L"file:///" } + logFilePath });
-            }
+        wil::single_threaded_property<IAsyncRelayCommand> OpenLogsCommand = AsyncRelayCommandFactory::Make([this](IInspectable const&) -> IAsyncAction {
+            co_await doOpenLogsFolderAsync();
 		});
+    private:
+        IAsyncAction doOpenLogsFolderAsync();
     };
 }
 FACTORY(winrt::SystemExplorer::ViewModels::Settings, AboutViewModel);

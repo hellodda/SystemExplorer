@@ -39,4 +39,3 @@
 #include <ppl.h>
 #include <pplawait.h>
 #include <pplcancellation_token.h>
-#include "macro.h"

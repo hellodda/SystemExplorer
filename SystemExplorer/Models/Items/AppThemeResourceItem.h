@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Models/Items/AppThemeResourceItem.g.h"
-#include <macro.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Models::Items::implementation
 {

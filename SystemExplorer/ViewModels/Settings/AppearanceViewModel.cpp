@@ -49,11 +49,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         updateSelectedImageHorizontalAlignmentType();
     }
 
-    int32_t AppearanceViewModel::SelectedAppThemeIndex() const noexcept
-    {
-        return SelectedAppThemeIndex_;
-    }
-
     void AppearanceViewModel::SelectedAppThemeIndex(int32_t const& value) noexcept
     {
         static const std::array themes = { ElementTheme::Light, ElementTheme::Dark, ElementTheme::Default };
@@ -61,13 +56,8 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeIndex_ = value;
             settings_.ApplicationTheme(themes[value]);
-            RaisePropertyChanged(L"SelectedAppThemeIndex");
+            RAISE_PROPERTY_CHANGED;
         }
-    }
-
-    AppThemeResourceItem AppearanceViewModel::SelectedAppThemeResources() const noexcept
-    {
-        return SelectedAppThemeResources_;
     }
 
     void AppearanceViewModel::SelectedAppThemeResources(AppThemeResourceItem const& value) noexcept
@@ -76,7 +66,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeResources_ = value;
             AppThemeBackgroundColor(value.BackgroundColor());
-            RaisePropertyChanged(L"SelectedAppThemeResources");
+            RAISE_PROPERTY_CHANGED;
         }
     }
 
@@ -91,18 +81,13 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         settings_.AppThemeBackgroundColor(value);
     }
 
-    IInspectable AppearanceViewModel::SelectedBackdropMaterial() const noexcept
-    {
-        return SelectedBackdropMaterial_;
-    }
-
     void AppearanceViewModel::SelectedBackdropMaterial(IInspectable const& value) noexcept
     {
         if (SelectedBackdropMaterial_ != value)
         {
             SelectedBackdropMaterial_ = value;
             settings_.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
-            RaisePropertyChanged(L"SelectedBackdropMaterial");
+            RAISE_PROPERTY_CHANGED;
         }
     }
 
@@ -115,7 +100,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     {
         AppThemeBackgroundImageSource_ = value;
         settings_.AppThemeBackgroundImageSource(value);
-        RaisePropertyChanged(L"AppThemeBackgroundImageSource");
+        RAISE_PROPERTY_CHANGED;
     }
 
     float AppearanceViewModel::AppThemeBackgroundImageOpacity() const noexcept
@@ -126,12 +111,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     void AppearanceViewModel::AppThemeBackgroundImageOpacity(float const& value) noexcept
     {
         settings_.AppThemeBackgroundImageOpacity(value);
-        RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
-    }
-
-    IInspectable AppearanceViewModel::SelectedImageStretchType() const noexcept
-    {
-        return SelectedImageStretchType_;
+        RAISE_PROPERTY_CHANGED;
     }
 
     void AppearanceViewModel::SelectedImageStretchType(IInspectable const& value) noexcept
@@ -139,19 +119,9 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         settings_.AppThemeBackgroundImageFit(EnumHelper::Map<Data::Enums::Stretch>(unbox_value<hstring>(value)));
     }
 
-    IInspectable AppearanceViewModel::SelectedImageVerticalAlignmentType() const noexcept
-    {
-        return SelectedImageVerticalAlignmentType_;
-    }
-
     void AppearanceViewModel::SelectedImageVerticalAlignmentType(IInspectable const& value) noexcept
     {
         settings_.AppThemeBackgroundImageVerticalAlignment(EnumHelper::Map<Data::Enums::VerticalAlignment>(unbox_value<hstring>(value)));
-    }
-
-    IInspectable AppearanceViewModel::SelectedImageHorizontalAlignmentType() const noexcept
-    {
-        return SelectedImageHorizontalAlignmentType_;
     }
 
     void AppearanceViewModel::SelectedImageHorizontalAlignmentType(IInspectable const& value) noexcept
@@ -164,6 +134,31 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         auto theme = settings_.ApplicationTheme();
         int32_t index = (theme == ElementTheme::Light) ? 0 : (theme == ElementTheme::Dark ? 1 : 2);
         SelectedAppThemeIndex(index);
+    }
+
+    IAsyncAction AppearanceViewModel::doSelectImageAsync()
+    {
+       /* auto extensions = std::vector<hstring>({
+            StringsHelper::ImageFiles(), L"*.bmp;*.dib;*.jpg;*.jpeg;*.jpe;*.jfif;*.gif;*.tif;*.tiff;*.png;*.heic;*.hif;*.webp",
+            StringsHelper::BitmapFiles(), L"*.bmp;*.dib",
+            L"JPEG", L"*.jpg;*.jpeg;*.jpe;*.jfif",
+            L"GIF", L"*.gif",
+            L"TIFF", L"*.tif;*.tiff",
+            L"PNG", L"*.png",
+            L"HEIC", L"*.heic;*.hif",
+            L"WEBP", L"*.webp"
+        });*/
+
+        FileOpenPicker picker{ SystemExplorer::implementation::App::Window().AppWindow().Id() };
+        picker.FileTypeFilter().ReplaceAll({
+            L".bmp", L".dib", L".jpg", L".jpeg", L".jpe", L".jfif",
+            L".gif", L".tif", L".tiff", L".png", L".heic", L".hif", L".webp"
+        });
+
+        auto result = co_await picker.PickSingleFileAsync();
+
+        if (result)
+            AppThemeBackgroundImageSource(result.Path());
     }
 
     void AppearanceViewModel::updateSelectedResource()

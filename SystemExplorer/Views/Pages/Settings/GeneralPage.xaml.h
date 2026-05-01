@@ -3,6 +3,7 @@
 
 #include <wil/cppwinrt_authoring.h>
 #include <ViewModels/Settings/GeneralViewModel.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {

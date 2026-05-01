@@ -8,6 +8,7 @@
         <!--Controls-->
         <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Controls/SettingsGroup/SimpleSettingsGroup/SimpleSettingsGroup.xaml"/>
         <!--Resources-->
+        <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/FlatButton.xaml"/>
         <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/Animations.xaml"/>
         <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/NavigationView.xaml"/>
     </ResourceDictionary.MergedDictionaries>

@@ -2,6 +2,7 @@
 #include "Views/Pages/Settings/AppearancePage.g.h"
 #include <ViewModels/Settings/AppearanceViewModel.h>
 #include <Core/Settings/UserSettings.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {

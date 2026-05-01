@@ -84,5 +84,7 @@
         static String RestartNotificationText { get; };
         static String Activities { get; };
         static String About { get; };
+        static String ImageFiles { get; };
+        static String BitmapFiles { get; };
     }
 }

@@ -361,4 +361,10 @@
   <data name="About" xml:space="preserve">
     <value>О приложении</value>
   </data>
+  <data name="ImageFiles" xml:space="preserve">
+    <value>Изображения</value>
+  </data>
+  <data name="BitmapFiles" xml:space="preserve">
+    <value>Растровые изображения</value>
+  </data>
 </root>

@@ -1,6 +1,7 @@
 #pragma once
 #include <winrt/Windows.AI.Actions.h>
 #include <winrt/Windows.AI.Actions.Provider.h>
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Core::AI::Actions::implementation
 {

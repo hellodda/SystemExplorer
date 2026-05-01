@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Views/Pages/Activities/ProcessesPage.g.h"
+#include <factory.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
