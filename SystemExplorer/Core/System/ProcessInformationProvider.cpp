@@ -96,11 +96,26 @@ namespace winrt::SystemExplorer::Core::System
 
             auto currentProcessTime = pInfo->KernelTime.QuadPart + pInfo->UserTime.QuadPart;
 
+            bool isSuspended = false;
+            if (pInfo->NumberOfThreads > 0)
+            {
+                isSuspended = true;
+                for (ULONG i = 0; i < pInfo->NumberOfThreads; i++)
+                {
+                    if (pInfo->Threads[i].ThreadState != 5 || pInfo->Threads[i].WaitReason != 5)
+                    {
+                        isSuspended = false;
+                        break;
+                    }
+                }
+            }
+            pi.Status = isSuspended ? PROCESS_STATUS::Suspended : PROCESS_STATUS::Running;
+
             auto it = processCache_.find(pid);
             if (it != processCache_.end() && it->second.CreateTime.QuadPart == pInfo->CreateTime.QuadPart)
             {
                 ProcessCacheEntry& cache = it->second;
-                cache.IsActive = true; 
+                cache.IsActive = true;
                 auto sysDelta = currentSystemTime - cache.LastSystemTime;
                 auto procDelta = currentProcessTime - cache.LastProcessTime;
 
@@ -122,6 +137,8 @@ namespace winrt::SystemExplorer::Core::System
                 cache.LastTickCount = currentTick;
                 pi.Name = cache.Name.c_str();
                 pi.Description = cache.Description.c_str();
+                pi.IsEfficiencyModeEnabled = cache.IsEfficiencyModeEnabled;
+                pi.Icon = cache.Icon.get();
             }
             else
             {
@@ -132,6 +149,8 @@ namespace winrt::SystemExplorer::Core::System
                 newEntry.LastIoTransferCount = currentIoCount;
                 newEntry.LastTickCount = currentTick;
                 newEntry.IsActive = true;
+                newEntry.IsEfficiencyModeEnabled = IsEfficiencyModeEnabledByPid(pid);
+                newEntry.LastStatusCheckTick = currentTick;
 
                 if (pInfo->ImageName.Buffer != nullptr)
                 {
@@ -147,10 +166,15 @@ namespace winrt::SystemExplorer::Core::System
                 }
 
                 newEntry.Description = Win32Helper::ProcessHelper::GetProcessDescription(pid);
+                newEntry.Icon.reset(Win32Helper::ProcessHelper::GetProcessIcon(pid));
+
                 auto& insertedEntry = (processCache_[pid] = std::move(newEntry));
 
                 pi.Name = insertedEntry.Name.c_str();
                 pi.Description = insertedEntry.Description.c_str();
+                pi.Icon = insertedEntry.Icon.get();
+
+                pi.IsEfficiencyModeEnabled = insertedEntry.IsEfficiencyModeEnabled;
             }
 
             newActiveProcesses.push_back(pi);

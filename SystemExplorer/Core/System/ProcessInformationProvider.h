@@ -18,9 +18,13 @@ namespace winrt::SystemExplorer::Core::System
         ULONGLONG LastProcessTime{};
         ULONGLONG LastIoTransferCount{};
         uint64_t LastTickCount{};
+        uint64_t LastStatusCheckTick{ 0 };
         hstring Name;
         hstring Description;
         bool IsActive{ true };
+        bool IsEfficiencyModeEnabled{ false };
+        bool IsSuspended{ false };
+        wil::unique_hicon Icon;
     };
 
     struct ProcessInformationProvider : public IProcessInformationProvider

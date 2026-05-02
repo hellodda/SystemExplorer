@@ -11,22 +11,25 @@
     xmlns:controls="using:XamlToolkit.Labs.WinUI"
     xmlns:models="using:SystemExplorer.Models"
     xmlns:toolkit="using:XamlToolkit.WinUI"
-    xmlns:convertes="using:SystemExplorer.Converters"
+    xmlns:tconverters="using:XamlToolkit.WinUI.Converters"
+    xmlns:converters="using:SystemExplorer.Converters"
+    xmlns:essential="using:WinUI3Package"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <convertes:ValueToSizeUnitConverter x:Key="SizeConverter"/>
-        <convertes:StringFormatConverter x:Key="StringFormatConverter"/>
-        
-        <MenuFlyout x:Key="ProcessMenuFlyout">
+        <converters:ValueToSizeUnitConverter x:Key="SizeConverter"/>
+        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+        <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
             <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
             <MenuFlyoutItem Text="Suspend" />
             <MenuFlyoutItem Text="Restart"/>
 
             <MenuFlyoutSeparator/>
 
-            <MenuFlyoutItem Text="Efficiency mode"/>
+            <MenuFlyoutItem Text="Efficiency mode" Command="{x:Bind ViewModel.EfficiencyModeCommand}"/>
             <MenuFlyoutItem Text="Debug"/>
             <MenuFlyoutItem Text="Create memory dump file"/>
 
@@ -93,7 +96,7 @@
                     </Button>
 
                     <Button Style="{ThemeResource FlatButtonStyle}"
-                           >
+                            Command="{x:Bind ViewModel.EfficiencyModeCommand, Mode=OneWay}">
                         <StackPanel Spacing="10"
                                     Orientation="Horizontal"
                                     VerticalAlignment="Center">
@@ -210,13 +213,26 @@
 
                         <Border>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Image Source="/Assets/Square44x44Logo.png" Width="18" Height="18"/>
-                                <TextBlock Text="{x:Bind Name}" />
+                                <Image Source="{x:Bind Icon, Mode=OneWay}" Width="18" Height="18"/>
+                                <TextBlock Text="{x:Bind Name}"
+                                           TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Border>
 
                         <Border>
-                            <TextBlock Text="" />
+                            <Grid VerticalAlignment="Center"
+                                    Visibility="{x:Bind IsEfficiencyModeEnabled, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                                <FontIcon
+                                  Foreground="{ThemeResource SystemFillColorSuccessBrush}"
+                                  FontSize="14"
+                                  Glyph="&#xF1E8;"
+                                  >
+                                    <ToolTipService.ToolTip>
+                                        <ToolTip essential:ToolTipHelper.AcrylicWorkaround="True"
+                                                 Content="Efficiency mode"/>
+                                    </ToolTipService.ToolTip>
+                                </FontIcon>
+                            </Grid>
                         </Border>
 
                         <Border>
@@ -236,7 +252,8 @@
                         </Border>
 
                         <Border>
-                            <TextBlock Text="{x:Bind Description}" />
+                            <TextBlock Text="{x:Bind Description}"
+                                       TextTrimming="CharacterEllipsis"/>
                         </Border>
 
                     </controls:DataRow>

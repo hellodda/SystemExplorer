@@ -5,12 +5,7 @@
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
-    typedef struct I_NATIVE_DATA_STRUCT
-    {
-        int id;
-        const wchar_t* name;
-    } *PI_NATIVE_DATA_STRUCT;
-
+    using namespace winrt::Windows::Foundation;
 
     struct ProcessesPage : ProcessesPageT<ProcessesPage>
     {
@@ -20,6 +15,8 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 
 		
         }
+        IAsyncAction ProcessMenuFlyoutOpened(IInspectable const& sender, IInspectable const&);
+
 		wil::single_threaded_property<ViewModels::Activities::ProcessesViewModel> ViewModel;
     };
 }

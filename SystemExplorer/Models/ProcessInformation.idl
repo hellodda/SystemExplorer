@@ -9,8 +9,10 @@ namespace SystemExplorer.Models
         UInt32 ParentId;
         UInt32 IoRate;
         UInt32 PrivateBytes;
+        Boolean IsEfficiencyModeEnabled;
         Single CpuUsage;
         String Name;
         String Description;
+        Microsoft.UI.Xaml.Media.ImageSource Icon;
     }
 }

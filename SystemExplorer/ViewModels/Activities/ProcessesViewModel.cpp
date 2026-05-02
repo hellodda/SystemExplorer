@@ -3,13 +3,23 @@
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
 #include "ViewModels/Activities/ProcessesViewModel.g.cpp"
 #endif
+#include <winrt/Microsoft.UI.Xaml.Media.h>
+#include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <ranges>
 #include <property.h>
+#include <Converters/HiconToBitmapSourceConverter.h>
+#include <Core/System/ProcessInformationProvider.h>
+#include <Core/System/ProcessManager.h>
+
+using namespace winrt::SystemExplorer::Converters;
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
     ProcessesViewModel::ProcessesViewModel()
     {
+        provider_ = std::make_shared<ProcessInformationProvider>();
+        manager_ = std::make_shared<ProcessManager>();
+
         auto speed = std::chrono::milliseconds(Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs());
 
         pullTimer_.Interval(speed);
@@ -34,8 +44,6 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 }
             }
         });
-
-        //TerminateProcessCommand = AsyncRelayCommandFactory::Make(&ProcessesViewModel::terminateProcessAsync);
     }
 
     void ProcessesViewModel::SelectedProcess(ProcessInformation const& value) noexcept
@@ -44,6 +52,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         {
             SelectedProcess_ = value;
             TerminateProcessCommand.NotifyCanExecuteChanged();
+            EfficiencyModeCommand.NotifyCanExecuteChanged();
 
             RAISE_PROPERTY_CHANGED;
         }
@@ -93,6 +102,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 newUiObj.CpuUsage(proc.CpuUsage);
                 newUiObj.IoRate(proc.IoRate);
                 newUiObj.PrivateBytes(proc.PrivateBytes);
+                newUiObj.IsEfficiencyModeEnabled(proc.IsEfficiencyModeEnabled);
+                newUiObj.Icon(HiconToBitmapSourceConverter::Convert(proc.Icon));
 
                 uiCache_.emplace(proc.Pid, newUiObj);
                 Processes().Append(newUiObj);
@@ -116,14 +127,21 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
     {
-        if (!SelectedProcess_)
-            co_return;
+        manager_->Terminate(SelectedProcess_.Pid());
+        co_return;
+    }
 
-        wil::unique_process_handle handle{ OpenProcess(PROCESS_TERMINATE, FALSE, SelectedProcess_.Pid()) };
+    IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
+    {
+        auto pid = SelectedProcess_.Pid();
 
-        if (!TerminateProcess(handle.get(), EXIT_SUCCESS))
+        if (!IsEfficiencyModeEnabledByPid(pid))
         {
-            THROW_LAST_ERROR_MSG("Failed \"failed terminate processs :(\" ");
+            manager_->EnableEfficiencyMode(pid);
+        }
+        else
+        {
+            manager_->DisableEfficiencyMode(pid);
         }
         co_return;
     }

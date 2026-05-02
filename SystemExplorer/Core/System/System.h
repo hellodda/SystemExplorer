@@ -4,6 +4,14 @@
 
 namespace winrt::SystemExplorer::Core::System
 {
+    enum class PROCESS_STATUS : DWORD
+    {
+        Running,
+        Suspended,
+        NotResponding,
+        Terminated
+    };
+
     typedef struct PROCESS_INFORMATION
     {
         uint32_t Pid;
@@ -12,8 +20,12 @@ namespace winrt::SystemExplorer::Core::System
         uint32_t PrivateBytes;
         float CpuUsage;
 
+        PROCESS_STATUS Status;
+        bool IsEfficiencyModeEnabled;
+
         const wchar_t* Name;
         const wchar_t* Description;
+        HICON Icon;
     } PPROSESS_INFORMATION;
     typedef struct SERVICE_INFORMATION
     {
@@ -25,7 +37,7 @@ namespace winrt::SystemExplorer::Core::System
     };
     typedef struct OBJECT_INFORMATION
     {
-
+        // ... :)
     };
 }
 
@@ -40,6 +52,13 @@ namespace winrt::SystemExplorer::Core::System::Contracts
         void Suspend();
     };
 
+    __interface IProcessManager
+    {
+        void Terminate(uint32_t pid);
+        void EnableEfficiencyMode(uint32_t pid);
+        void DisableEfficiencyMode(uint32_t pid);
+    };
+
     __interface IProcessInformationProvider
     {
         std::vector<PROCESS_INFORMATION> GetAllProcesses();
@@ -52,3 +71,6 @@ namespace winrt::SystemExplorer::Core::System::Contracts
 
     };
 }
+
+
+bool IsEfficiencyModeEnabledByPid(uint32_t pid);

@@ -58,6 +58,9 @@
     <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
     <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
+    <ClCompile Include="Core\System\ProcessManager.cpp" />
+    <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp" />
+    <ClCompile Include="Core\System\System.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -82,6 +85,8 @@
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="property.h" />
+    <ClInclude Include="Core\System\ProcessManager.h" />
+    <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

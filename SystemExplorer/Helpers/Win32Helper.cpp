@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Win32Helper.h"
 
+#pragma comment(lib, "Shell32.lib")
+
 typedef struct LANGANDCODEPAGE {
     WORD wLanguage;
     WORD wCodePage;
@@ -120,6 +122,31 @@ namespace winrt::SystemExplorer::Helpers
         wil::unique_handle processHandle(hProcess);
         
         return Win32Helper::GetFileVersionString(processHandle.get(), L"FileDescription");
+    }
+    HICON Win32Helper::ProcessHelper::GetProcessIcon(uint32_t id)
+    {
+        WCHAR processPath[MAX_PATH]{};
+
+        wil::unique_process_handle process{ OpenProcess(
+            PROCESS_QUERY_LIMITED_INFORMATION,
+            FALSE,
+            id
+        ) };
+
+        if (process.is_valid())
+        {
+            DWORD size = MAX_PATH;
+            QueryFullProcessImageNameW(process.get(), 0, processPath, &size);
+        }
+
+        wil::unique_hicon icon;
+        if (wcslen(processPath) > 0) {
+            ExtractIconExW(processPath, 0, nullptr, icon.put(), 1);
+        }
+        if (!icon.is_valid()) {
+            icon.reset(LoadIcon(NULL, IDI_APPLICATION));
+        }
+        return icon.release();
     }
 }
 

@@ -20,7 +20,7 @@ namespace SystemExplorer.ViewModels.Activities
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };
         //SystemExplorer.Xaml.IAsyncRelayCommand SuspendProcessCommand { get; };
         //SystemExplorer.Xaml.IAsyncRelayCommand RestartProcessCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand EfficiencyModeCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand EfficiencyModeCommand { get; };
         //SystemExplorer.Xaml.IAsyncRelayCommand DebugProcessCommand { get; };
         //SystemExplorer.Xaml.IAsyncRelayCommand CreateDumpFileCommand { get; };
         //SystemExplorer.Xaml.IAsyncRelayCommand GoToDetailsCommand { get; };

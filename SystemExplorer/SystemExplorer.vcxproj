@@ -214,6 +214,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
+    <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
     <ClInclude Include="Models\Items\AppLanguageItem.h">
       <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -232,6 +233,7 @@
     </ClInclude>
     <ClInclude Include="Core\System\ProcessInformationProvider.h" />
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
+    <ClInclude Include="Core\System\ProcessManager.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ViewModels\Activities\ProcessesViewModel.h">
@@ -374,12 +376,14 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Core\System\System.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Helpers\Win32Helper.cpp" />
+    <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="Converters\StringToBrushConverter.cpp">
@@ -407,6 +411,7 @@
     </ClCompile>
     <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
     <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
+    <ClCompile Include="Core\System\ProcessManager.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>

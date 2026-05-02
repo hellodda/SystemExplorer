@@ -14,6 +14,7 @@ namespace winrt::SystemExplorer::Helpers
 		struct ProcessHelper
 		{
 			[[nodiscard]] static std::wstring GetProcessDescription(uint32_t id);
+			[[nodiscard]] static HICON GetProcessIcon(uint32_t id);
 		};
 	};
 }
