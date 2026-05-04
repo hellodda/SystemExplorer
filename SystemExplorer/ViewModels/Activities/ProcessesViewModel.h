@@ -1,11 +1,16 @@
 ﻿#pragma once
 
 #include "../ViewModelBase.h"
-#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
+
 #include "ViewModels/Activities/ProcessesViewModel.g.h"
+
+#include <Converters/HiconToBitmapSourceConverter.h>
 #include <Core/Settings/UserSettings.h>
 #include <Core/System/System.h>
+
+#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <Helpers/Common.h>
+
 #include <factory.h>
 #include <property.h>
 
@@ -36,17 +41,22 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }, [this](auto&&) -> bool {
             return SelectedProcess_ != nullptr;
         });
+        wil::single_threaded_property<IAsyncRelayCommand> RestartProcessCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
+            co_await doRestartProcessAsync();
+        });
 
         DECLARE_ONLY_SETTER(ProcessInformation, SelectedProcess, nullptr);
         WIL_NOTIFYING_PROPERTY(float, TotalCpuUsage, 0);
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalIoRate, 0);
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalPrivateBytes, 0);
     private: // internal
-        void updateProcessesList(std::vector<PROCESS_INFORMATION>& newProcesses);
+        void updateProcessesList(std::vector<ProcessNativeInformation>& newProcesses);
     private: // commands
         IAsyncAction doTerminateProcessAsync();
         IAsyncAction doSetEfficiencyModeAsync();
+        IAsyncAction doRestartProcessAsync();
     private:
+        Converters::HiconToBitmapSourceConverter converter_;
         std::shared_ptr<IProcessInformationProvider> provider_{ nullptr };
         std::shared_ptr<IProcessManager> manager_{ nullptr };
         std::unordered_map<uint32_t, ProcessInformation> uiCache_;

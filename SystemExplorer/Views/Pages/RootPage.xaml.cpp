@@ -3,6 +3,7 @@
 #if __has_include("Views/Pages/RootPage.g.cpp")
 #include "Views/Pages/RootPage.g.cpp"
 #endif
+#include "Activities/ProcessesPage.xaml.h"
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include "Settings/SettingsRootPage.xaml.h"
  
@@ -15,6 +16,13 @@ using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
 {
+    RootPage::RootPage()
+    {
+        InitializeComponent();
+
+        NavFrame().Navigate(xaml_typename<Activities::ActivitiesRootPage>());
+    }
+
 	IAsyncAction RootPage::NavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args)
 	{
         if (auto item = args.SelectedItem())

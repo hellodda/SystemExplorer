@@ -13,6 +13,9 @@ namespace SystemExplorer.ViewModels.Settings
 
         Int32 SelectedRealTimeUpdateSpeedIndex;
 
+        Windows.Foundation.Collections.IVector<Object> StartPages { get; };
+        Int32 SelectedStartPageIndex;
+        
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CancelRestartCommand { get; };
 

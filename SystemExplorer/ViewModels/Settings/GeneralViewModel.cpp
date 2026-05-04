@@ -3,10 +3,12 @@
 #if __has_include("ViewModels/Settings/GeneralViewModel.g.cpp")
 #include "ViewModels/Settings/GeneralViewModel.g.cpp"
 #endif
+#include <Helpers/StringsHelper.h>
 #include <Core/Services/AppLanguageService.h>
 #include <Core/Settings/UserSettings.h>
 
 using namespace winrt::SystemExplorer::Core::Services;
+using namespace winrt::SystemExplorer::Helpers;
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
@@ -15,11 +17,10 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 	{
 		for (auto const& lang : AppLanguageService::Instance().SupportedLanguages())
 			AppLanguages.Append(box_value(lang));
+
+		StartPages.Append(box_value(StringsHelper::Processes()));
 	}
-	int32_t GeneralViewModel::SelectedRealTimeUpdateSpeedIndex() const noexcept
-	{
-		return SelectedRealTimeUpdateSpeedIndex_;
-	}
+
 	void GeneralViewModel::SelectedRealTimeUpdateSpeedIndex(int32_t const& value) noexcept
 	{
 		uint16_t updateSpeed{ 1500 };
@@ -44,10 +45,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		}
 		Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs(updateSpeed);
 	}
-	int32_t GeneralViewModel::SelectedAppLanguageIndex() const noexcept
-	{
-		return SelectedAppLanguageIndex_;
-	}
+
 	void GeneralViewModel::SelectedAppLanguageIndex(int32_t const& value) noexcept
 	{
 		if (AppLanguageService::Instance().TryChange(value))

@@ -1,10 +1,11 @@
 #pragma once
+#include "ProviderThread.h"
 #include <winrt/SystemExplorer.Models.h>
 #include <Helpers/Win32Helper.h>
 
 namespace winrt::SystemExplorer::Core::System
 {
-    enum class PROCESS_STATUS : DWORD
+    enum class ProcessStatus : DWORD
     {
         Running,
         Suspended,
@@ -12,7 +13,7 @@ namespace winrt::SystemExplorer::Core::System
         Terminated
     };
 
-    typedef struct PROCESS_INFORMATION
+    struct ProcessNativeInformation
     {
         uint32_t Pid;
         uint32_t ParentId;
@@ -20,24 +21,12 @@ namespace winrt::SystemExplorer::Core::System
         uint32_t PrivateBytes;
         float CpuUsage;
 
-        PROCESS_STATUS Status;
+        ProcessStatus Status;
         bool IsEfficiencyModeEnabled;
 
         const wchar_t* Name;
         const wchar_t* Description;
         HICON Icon;
-    } PPROSESS_INFORMATION;
-    typedef struct SERVICE_INFORMATION
-    {
-
-    } PSERVICE_INFORMATION;
-    typedef struct HANDLE_INFORMATION
-    {
-
-    };
-    typedef struct OBJECT_INFORMATION
-    {
-        // ... :)
     };
 }
 
@@ -45,25 +34,22 @@ namespace winrt::SystemExplorer::Core::System::Contracts
 {
     using namespace winrt::SystemExplorer::Models;
 
-    __interface IProviderThread
+    __interface IInformationMonitor
     {
-        void SetInterval(std::chrono::milliseconds interval);
-        void Resume();
-        void Suspend();
+         ProviderThread& Thread();
     };
 
     __interface IProcessManager
     {
         void Terminate(uint32_t pid);
+        void Restart(uint32_t pid);
         void EnableEfficiencyMode(uint32_t pid);
         void DisableEfficiencyMode(uint32_t pid);
     };
 
-    __interface IProcessInformationProvider
+    __interface IProcessInformationProvider : IInformationMonitor
     {
-        std::vector<PROCESS_INFORMATION> GetAllProcesses();
-
-        IProviderThread* Thread();
+        std::vector<ProcessNativeInformation> GetAllProcesses();
     };
 
     __interface IServiceInformationProvider
@@ -72,5 +58,3 @@ namespace winrt::SystemExplorer::Core::System::Contracts
     };
 }
 
-
-bool IsEfficiencyModeEnabledByPid(uint32_t pid);

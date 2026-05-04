@@ -31,11 +31,13 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
             co_return;
         });
         
-		DECLARE_PROPERTY(int32_t, SelectedAppLanguageIndex);
-        DECLARE_PROPERTY(int32_t, SelectedRealTimeUpdateSpeedIndex);
+        DECLARE_ONLY_SETTER(int32_t, SelectedAppLanguageIndex);
+        DECLARE_ONLY_SETTER(int32_t, SelectedRealTimeUpdateSpeedIndex);
+        wil::single_threaded_rw_property<int32_t> SelectedStartPageIndex;
 
 		wil::single_threaded_property<IVector<IInspectable>> AppLanguages = single_threaded_vector<IInspectable>();
-		wil::single_threaded_notifying_property<bool> ShowRestartControl;
+		wil::single_threaded_property<IVector<IInspectable>> StartPages = single_threaded_vector<IInspectable>();
+        wil::single_threaded_notifying_property<bool> ShowRestartControl;
     private:
 		std::vector<AppLanguageItem> appLanguages_;
     };

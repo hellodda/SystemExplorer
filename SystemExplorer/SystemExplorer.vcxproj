@@ -203,9 +203,9 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\System\pthread.h" />
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
+    <ClInclude Include="Core\System\Utils.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
@@ -235,6 +235,7 @@
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
     <ClInclude Include="Core\System\ProcessManager.h" />
     <ClInclude Include="property.h" />
+    <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="ViewModels\Activities\ProcessesViewModel.h">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
@@ -376,7 +377,7 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\System\System.cpp" />
+    <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
@@ -412,6 +413,7 @@
     <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
     <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
     <ClCompile Include="Core\System\ProcessManager.cpp" />
+    <ClCompile Include="Core\System\ProviderThread.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>

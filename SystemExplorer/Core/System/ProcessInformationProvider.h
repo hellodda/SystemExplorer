@@ -1,7 +1,7 @@
 #pragma once
 #include "System.h"
-#include "pthread.h"
-#include <unordered_map>
+#include "ProviderThread.h"
+#include <unordered_set>
 #include <wil/resource.h> 
 
 #pragma comment(lib, "ntdll.lib")
@@ -31,20 +31,26 @@ namespace winrt::SystemExplorer::Core::System
     {
         ProcessInformationProvider();
 
-        std::vector<PROCESS_INFORMATION> GetAllProcesses() override;
+        std::vector<ProcessNativeInformation> GetAllProcesses() override;
 
-        IProviderThread* Thread() override;
+        ProviderThread& Thread() override;
 
     private:
         void updateProcesses();
+        
+        ProcessNativeInformation parseCacheProcess(
+            _In_ PSYSTEM_PROCESS_INFORMATION pInfo,
+            IN uint32_t pid,
+            IN uint64_t currentSystemTime,
+            IN uint64_t currentTick
+        );
+        
+        void cleanupCache(std::unordered_set<uint32_t> const& currentTickPids);
     private:
-        std::unique_ptr<IProviderThread> thread_;
+        ProviderThread thread_;
 
         wil::srwlock lock_;
-        std::vector<PROCESS_INFORMATION> activeProcesses_;
+        std::vector<ProcessNativeInformation> activeProcesses_;
         std::unordered_map<uint32_t, ProcessCacheEntry> processCache_;
-
-        ULONG bufferSize_;
-        wil::unique_virtualalloc_ptr<BYTE> buffer_;
     };
 }

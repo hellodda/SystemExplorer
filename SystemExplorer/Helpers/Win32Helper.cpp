@@ -1,7 +1,13 @@
 #include "pch.h"
 #include "Win32Helper.h"
+#include <shobjidl.h>   
+#include <appmodel.h> 
 
 #pragma comment(lib, "Shell32.lib")
+
+#ifndef SHGFI_LIMITICON
+#define SHGFI_LIMITICON 0x00010000
+#endif
 
 typedef struct LANGANDCODEPAGE {
     WORD wLanguage;
@@ -30,6 +36,7 @@ namespace winrt::SystemExplorer::Helpers
         }
         return L"Unknown Error";
     }
+
     std::wstring Win32Helper::GetLocalizedResource(UINT id)
     {
         static auto module{ GetModuleHandle(NULL) };
@@ -43,6 +50,7 @@ namespace winrt::SystemExplorer::Helpers
         }
         return L"";
     }
+
     std::wstring Win32Helper::GetCurrentProcessPath()
     {
         WCHAR path[MAX_PATH];
@@ -50,6 +58,7 @@ namespace winrt::SystemExplorer::Helpers
 
         return std::wstring(L"\"") + path + L"\"";
     }
+
     uint64_t Win32Helper::GetCurrentSystemTime()
     {
         FILETIME idleTime{}, kernelTime{}, userTime{};
@@ -59,59 +68,44 @@ namespace winrt::SystemExplorer::Helpers
 
         return FileTimeToInteger(kernelTime) + FileTimeToInteger(userTime);
     }
-    uint64_t Win32Helper::FileTimeToInteger(FILETIME const& fileTime)
+
+    [[nodiscard]] uint64_t Win32Helper::FileTimeToInteger(FILETIME const& fileTime)
     {
-        return (static_cast<uint64_t>(fileTime.dwHighDateTime) << 32) | fileTime.dwLowDateTime;
+        return std::bit_cast<uint64_t>(fileTime);
     }
+
     std::wstring Win32Helper::GetFileVersionString(HANDLE handle, std::wstring_view key)
     {
         if (!handle || handle == INVALID_HANDLE_VALUE)
             return {};
 
-        WCHAR fullPath[MAX_PATH]{};
-        DWORD sizePath = MAX_PATH;
+        wchar_t path[MAX_PATH];
+        DWORD pathSize = MAX_PATH;
+        if (!QueryFullProcessImageNameW(handle, 0, path, &pathSize)) return {};
 
-        if (!QueryFullProcessImageNameW(handle, 0, fullPath, &sizePath))
+        DWORD dummy;
+        DWORD size = GetFileVersionInfoSizeW(path, &dummy);
+        if (size == 0) return {};
+
+        auto data = std::make_unique_for_overwrite<std::byte[]>(size);
+        if (!GetFileVersionInfoW(path, 0, size, data.get())) return {};
+
+        PLANGANDCODEPAGE translate;
+        UINT length;
+
+        if (!VerQueryValueW(data.get(), L"\\VarFileInfo\\Translation", (LPVOID*)&translate, &length) || length < sizeof(LANGANDCODEPAGE))
             return {};
 
-        DWORD dummy = 0;
-        DWORD size = GetFileVersionInfoSizeW(fullPath, &dummy);
-        if (!size)
-            return {};
+        auto subBlock = std::format(L"\\StringFileInfo\\{:04x}{:04x}\\{}",
+            translate->wLanguage, translate->wCodePage, key);
 
-        std::vector<BYTE> versionData(size);
-
-        if (!GetFileVersionInfoW(fullPath, 0, size, versionData.data()))
-            return {};
-
-        PLANGANDCODEPAGE translate = nullptr;
-        UINT cbTranslate = 0;
-
-        if (!VerQueryValueW(versionData.data(),
-            L"\\VarFileInfo\\Translation",
-            (LPVOID*)&translate,
-            &cbTranslate))
-            return {};
-
-        if (cbTranslate < sizeof(LANGANDCODEPAGE))
-            return {};
-
-        WCHAR subBlock[128]{};
-        swprintf_s(subBlock, L"\\StringFileInfo\\%04x%04x\\%s",
-            translate[0].wLanguage,
-            translate[0].wCodePage,
-            key.data());
-
-        LPVOID buffer = nullptr;
-        UINT bytes = 0;
-
-        if (VerQueryValueW(versionData.data(), subBlock, &buffer, &bytes))
-        {
-            return std::wstring(static_cast<wchar_t*>(buffer));
-        }
+        wchar_t* buffer;
+        if (VerQueryValueW(data.get(), subBlock.c_str(), (LPVOID*)&buffer, &length))
+            return buffer;
 
         return {};
     }
+
     std::wstring Win32Helper::ProcessHelper::GetProcessDescription(uint32_t pid)
     {
         if (pid == 0 || pid == 4) return {};
@@ -123,30 +117,94 @@ namespace winrt::SystemExplorer::Helpers
         
         return Win32Helper::GetFileVersionString(processHandle.get(), L"FileDescription");
     }
-    HICON Win32Helper::ProcessHelper::GetProcessIcon(uint32_t id)
+
+    std::wstring Win32Helper::ProcessHelper::GetProcessDescription(HANDLE process)
     {
-        WCHAR processPath[MAX_PATH]{};
+        return Win32Helper::GetFileVersionString(process, L"FileDescription");
+    }
 
-        wil::unique_process_handle process{ OpenProcess(
-            PROCESS_QUERY_LIMITED_INFORMATION,
-            FALSE,
-            id
-        ) };
+    std::wstring Win32Helper::ProcessHelper::GetProcessAMUID(uint32_t id)
+    {
+        return std::wstring();
+    }
 
-        if (process.is_valid())
-        {
-            DWORD size = MAX_PATH;
-            QueryFullProcessImageNameW(process.get(), 0, processPath, &size);
-        }
+    std::wstring Win32Helper::ProcessHelper::GetProcessAMUID(HANDLE process)
+    {
+        UINT32 length{ 0 };
+        LONG rc = GetApplicationUserModelId(process, &length, NULL);
 
+        if (rc != ERROR_INSUFFICIENT_BUFFER)
+            return {};
+
+        std::wstring amuid;
+
+        rc = GetApplicationUserModelId(process, &length, amuid.data());
+    }
+
+    wil::unique_hicon Win32Helper::ProcessHelper::GetProcessIcon(uint32_t id)
+    {
+        wil::unique_process_handle process{ OpenProcess(PROCESS_QUERY_LIMITED_INFORMATION, FALSE, id) };
+        
+        return GetProcessIcon(process.get());
+    }
+
+    wil::unique_hicon Win32Helper::ProcessHelper::GetProcessIcon(HANDLE process)
+    {
         wil::unique_hicon icon;
-        if (wcslen(processPath) > 0) {
-            ExtractIconExW(processPath, 0, nullptr, icon.put(), 1);
+        auto path = GetProcessPath(process);
+
+        if (path.size() > 0)
+        {
+            ExtractIconExW(path.c_str(), NULL, nullptr, icon.put(), 1);
         }
-        if (!icon.is_valid()) {
+        if (!icon.is_valid())
+        {
             icon.reset(LoadIcon(NULL, IDI_APPLICATION));
         }
-        return icon.release();
+        return icon;
+    }
+
+    std::wstring Win32Helper::ProcessHelper::GetProcessPath(HANDLE process)
+    {
+        if (!process || process == INVALID_HANDLE_VALUE) return {};
+
+        DWORD size{ MAX_PATH };
+        std::wstring buffer(size, L'\0');
+
+        while (true)
+        {
+            if (QueryFullProcessImageNameW(process, 0, buffer.data(), &size))
+            {
+                buffer.resize(size);
+                return buffer;
+            }
+
+            if (GetLastError() == ERROR_INSUFFICIENT_BUFFER)
+            {
+                size *= 2;
+                buffer.resize(size);
+            }
+            else 
+                return {};
+        }
+    }
+    bool Win32Helper::ProcessHelper::IsProcessEfficiencyModeEnabled(uint32_t id)
+    {
+        wil::unique_process_handle process{ OpenProcess(PROCESS_QUERY_INFORMATION, FALSE, id) };
+        return IsProcessEfficiencyModeEnabled(process.get());
+    }
+    bool Win32Helper::ProcessHelper::IsProcessEfficiencyModeEnabled(HANDLE process)
+    {
+        if (process != INVALID_HANDLE_VALUE) return false;
+
+        PROCESS_POWER_THROTTLING_STATE state{};
+        state.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
+
+        if (GetProcessInformation(process, ProcessPowerThrottling, &state, sizeof(state)))
+        {
+            return (state.ControlMask & PROCESS_POWER_THROTTLING_EXECUTION_SPEED) &&
+                (state.StateMask & PROCESS_POWER_THROTTLING_EXECUTION_SPEED);
+        }
+        return false;
     }
 }
-

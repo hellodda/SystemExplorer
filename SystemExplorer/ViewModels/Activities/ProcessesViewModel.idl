@@ -18,13 +18,13 @@ namespace SystemExplorer.ViewModels.Activities
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.ProcessInformation> Processes { get; };
 
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand SuspendProcessCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand RestartProcessCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SuspendProcessCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartProcessCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand EfficiencyModeCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand DebugProcessCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand CreateDumpFileCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand GoToDetailsCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand OpenFileLocationCommand { get; };
-        //SystemExplorer.Xaml.IAsyncRelayCommand OpenProcessPropertiesCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand DebugProcessCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CreateDumpFileCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand GoToDetailsCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenFileLocationCommand { get; };
+        //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenProcessPropertiesCommand { get; };
     }
 }

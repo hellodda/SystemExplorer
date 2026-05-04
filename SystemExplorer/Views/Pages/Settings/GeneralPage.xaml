@@ -61,12 +61,8 @@
                     HeaderIcon="{toolkit:FontIcon Glyph=&#xF57E;}">
 
                     <ComboBox SelectedIndex="0"
-                              essential:ComboBoxHelper.AcrylicWorkaround="True">
-                        <ComboBoxItem Content="{x:Bind helpers:StringsHelper.Processes}"/>
-                        <ComboBoxItem Content="Services"/>
-                        <ComboBoxItem Content="System"/>
-                        <ComboBoxItem Content="Users"/>
-                    </ComboBox>
+                              ItemsSource="{x:Bind ViewModel.StartPages}"
+                              essential:ComboBoxHelper.AcrylicWorkaround="True"/>
                 </xtc:SettingsCard>
                 <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.WindowManagement}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"

@@ -12,10 +12,7 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
 
     struct RootPage : RootPageT<RootPage>
     {
-        RootPage()
-        {
-
-        }
+        RootPage();
 
         wil::single_threaded_property<ViewModels::RootViewModel> ViewModel;
 

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "ProcessManager.h"
+#include "Utils.h"
 
 namespace winrt::SystemExplorer::Core::System
 {
@@ -17,6 +18,20 @@ namespace winrt::SystemExplorer::Core::System
 			THROW_LAST_ERROR_MSG("Cannot open process");
 
 		TerminateProcess(handle.get(), EXIT_SUCCESS);
+	}
+
+	void ProcessManager::Restart(uint32_t pid)
+	{
+		auto handle = wil::unique_process_handle{ OpenProcess(
+			PROCESS_QUERY_INFORMATION | PROCESS_TERMINATE,
+			FALSE,
+			pid
+		) };
+
+		if (!handle.is_valid())
+			THROW_LAST_ERROR_MSG("Cannot open process");
+
+		Utils::RestartProcess(handle.get());
 	}
 
 	void ProcessManager::EnableEfficiencyMode(uint32_t pid)

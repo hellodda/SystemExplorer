@@ -8,5 +8,6 @@ namespace SystemExplorer.Core.Settings
         GeneralSettings();
         
         UInt16 RealTimeUpdateSpeedMs;
+        String StartPage;
     }
 }

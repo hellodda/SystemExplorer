@@ -55,7 +55,6 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         this->RootGrid().RequestedTheme(appearanceSettings.ApplicationTheme());
 
         winrt::SystemExplorer::Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(XamlToolkit::WinUI::Helpers::ColorHelper::ColorHelper::ToColor(appearanceSettings.AppThemeBackgroundColor()));
-
     }
     void MainWindow::OnSystemBackdropSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args)
 	{

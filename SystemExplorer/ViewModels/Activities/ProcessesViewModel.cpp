@@ -7,11 +7,11 @@
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <ranges>
 #include <property.h>
-#include <Converters/HiconToBitmapSourceConverter.h>
 #include <Core/System/ProcessInformationProvider.h>
 #include <Core/System/ProcessManager.h>
+#include <Core/System/Utils.h>
 
-using namespace winrt::SystemExplorer::Converters;
+using namespace winrt::SystemExplorer::Helpers;
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
@@ -23,7 +23,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         auto speed = std::chrono::milliseconds(Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs());
 
         pullTimer_.Interval(speed);
-        provider_->Thread()->SetInterval(speed);
+        provider_->Thread().SetInterval(speed);
 
         pullTimer_.Tick([this](auto const&, auto const&)
         {
@@ -40,7 +40,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 {
                     auto value = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
                     strong_this->pullTimer_.Interval(value);
-                    strong_this->provider_->Thread()->SetInterval(value);
+                    strong_this->provider_->Thread().SetInterval(value);
                 }
             }
         });
@@ -58,7 +58,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
     }
 
-    void ProcessesViewModel::updateProcessesList(std::vector<PROCESS_INFORMATION>& newProcesses)
+    void ProcessesViewModel::updateProcessesList(std::vector<ProcessNativeInformation>& newProcesses)
     {
         namespace view = std::ranges::views;
 
@@ -103,7 +103,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 newUiObj.IoRate(proc.IoRate);
                 newUiObj.PrivateBytes(proc.PrivateBytes);
                 newUiObj.IsEfficiencyModeEnabled(proc.IsEfficiencyModeEnabled);
-                newUiObj.Icon(HiconToBitmapSourceConverter::Convert(proc.Icon));
+                newUiObj.Icon(converter_.Convert(proc.Icon));
 
                 uiCache_.emplace(proc.Pid, newUiObj);
                 Processes().Append(newUiObj);
@@ -135,7 +135,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     {
         auto pid = SelectedProcess_.Pid();
 
-        if (!IsEfficiencyModeEnabledByPid(pid))
+        if (!Win32Helper::ProcessHelper::IsProcessEfficiencyModeEnabled(pid))
         {
             manager_->EnableEfficiencyMode(pid);
         }
@@ -143,6 +143,11 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         {
             manager_->DisableEfficiencyMode(pid);
         }
+        co_return;
+    }
+    IAsyncAction ProcessesViewModel::doRestartProcessAsync()
+    {
+        manager_->Restart(SelectedProcess_.Pid());
         co_return;
     }
 }

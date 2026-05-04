@@ -60,7 +60,8 @@
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
     <ClCompile Include="Core\System\ProcessManager.cpp" />
     <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp" />
-    <ClCompile Include="Core\System\System.cpp" />
+    <ClCompile Include="Core\System\Utils.cpp" />
+    <ClCompile Include="Core\System\ProviderThread.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -78,7 +79,6 @@
     <ClInclude Include="Core\Services\AppLanguageService.h" />
     <ClInclude Include="Core\Serialization\functional.h" />
     <ClInclude Include="Core\System\ProcessInformationProvider.h" />
-    <ClInclude Include="Core\System\pthread.h" />
     <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
     <ClInclude Include="Core\Services\ComRegistrationService.h" />
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
@@ -87,6 +87,8 @@
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProcessManager.h" />
     <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Core\System\Utils.h" />
+    <ClInclude Include="Core\System\ProviderThread.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

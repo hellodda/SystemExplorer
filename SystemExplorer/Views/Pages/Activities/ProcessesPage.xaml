@@ -11,6 +11,7 @@
     xmlns:controls="using:XamlToolkit.Labs.WinUI"
     xmlns:models="using:SystemExplorer.Models"
     xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     xmlns:tconverters="using:XamlToolkit.WinUI.Converters"
     xmlns:converters="using:SystemExplorer.Converters"
     xmlns:essential="using:WinUI3Package"
@@ -25,7 +26,7 @@
         <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
             <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
             <MenuFlyoutItem Text="Suspend" />
-            <MenuFlyoutItem Text="Restart"/>
+            <MenuFlyoutItem Text="Restart" Command="{x:Bind ViewModel.RestartProcessCommand}"/>
 
             <MenuFlyoutSeparator/>
 
@@ -61,7 +62,7 @@
                            VerticalAlignment="Center"
                            FontSize="15" 
                            FontWeight="SemiBold" 
-                           Text="Processes" />
+                           Text="{x:Bind helpers:StringsHelper.Processes}" />
 
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal"
@@ -215,14 +216,16 @@
                             <StackPanel Orientation="Horizontal" Spacing="10">
                                 <Image Source="{x:Bind Icon, Mode=OneWay}" Width="18" Height="18"/>
                                 <TextBlock Text="{x:Bind Name}"
+                                           FontSize="13"
                                            TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Border>
 
                         <Border>
                             <Grid VerticalAlignment="Center"
-                                    Visibility="{x:Bind IsEfficiencyModeEnabled, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
+                                  Visibility="{x:Bind IsEfficiencyModeEnabled, Converter={StaticResource BoolToVisibilityConverter}, Mode=OneWay}">
                                 <FontIcon
+                                  HorizontalAlignment="Left"
                                   Foreground="{ThemeResource SystemFillColorSuccessBrush}"
                                   FontSize="14"
                                   Glyph="&#xF1E8;"
@@ -236,24 +239,43 @@
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind  Pid}" />
+                            <TextBlock
+                                HorizontalAlignment="Right"
+                                Text="{x:Bind  Pid}"
+                                FontSize="13"/>
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind CpuUsage, Mode=OneWay}" />
+                            <Border.Background>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                            </Border.Background>
+                            <TextBlock HorizontalAlignment="Right"
+                                       Text="{x:Bind CpuUsage, Mode=OneWay}"
+                                       FontSize="13"/>
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}" />
+                            <Border.Background>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                            </Border.Background>
+                            <TextBlock HorizontalAlignment="Right"
+                                       Text="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}"
+                                       FontSize="13"/>
                         </Border>
 
                         <Border>
-                            <TextBlock HorizontalAlignment="Right" Text="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}" />
+                            <Border.Background>
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                            </Border.Background>
+                            <TextBlock HorizontalAlignment="Right"
+                                       Text="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}"
+                                       FontSize="13"/>
                         </Border>
 
                         <Border>
                             <TextBlock Text="{x:Bind Description}"
-                                       TextTrimming="CharacterEllipsis"/>
+                                       TextTrimming="CharacterEllipsis"
+                                       FontSize="13"/>
                         </Border>
 
                     </controls:DataRow>

@@ -3,45 +3,28 @@
 
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <winrt/Windows.Graphics.Imaging.h>
-#include <windows.graphics.imaging.interop.h>
-#include <wincodec.h>
-#include <Shlwapi.h>
 
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "Windowscodecs.lib")
 
-using namespace winrt::Windows::Graphics::Imaging;
-
 namespace winrt::SystemExplorer::Converters
 {
+	HiconToBitmapSourceConverter::HiconToBitmapSourceConverter()
+	{
+		initialize();
+	}
 	SoftwareBitmapSource HiconToBitmapSourceConverter::Convert(HICON icon)
 	{
 		if (!icon) return nullptr; 
-
-		com_ptr<IWICImagingFactory> wicImagingFactory;
-		THROW_IF_FAILED(CoCreateInstance(
-			CLSID_WICImagingFactory,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&wicImagingFactory)
-		));
-
+		
 		com_ptr<IWICBitmap> wicBitmap;
-		THROW_IF_FAILED(wicImagingFactory->CreateBitmapFromHICON(
+		THROW_IF_FAILED(wicImagingFactory_->CreateBitmapFromHICON(
 			icon,
 			wicBitmap.put()
 		));
 
-		com_ptr<ISoftwareBitmapNativeFactory> softwareBitmapNativeFactory;
-		THROW_IF_FAILED(CoCreateInstance(
-			CLSID_SoftwareBitmapNativeFactory,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&softwareBitmapNativeFactory)
-		));
-
 		SoftwareBitmap softwareBitmap{ nullptr };
-		THROW_IF_FAILED(softwareBitmapNativeFactory->CreateFromWICBitmap(
+		THROW_IF_FAILED(softwareBitmapNativeFactory_->CreateFromWICBitmap(
 			wicBitmap.get(),
 			FALSE,
 			guid_of<SoftwareBitmap>(),
@@ -60,5 +43,21 @@ namespace winrt::SystemExplorer::Converters
 		source.SetBitmapAsync(softwareBitmap);
 
 		return source;
+	}
+	void HiconToBitmapSourceConverter::initialize()
+	{
+		THROW_IF_FAILED(CoCreateInstance(
+			CLSID_WICImagingFactory,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&wicImagingFactory_)
+		));
+
+		THROW_IF_FAILED(CoCreateInstance(
+			CLSID_SoftwareBitmapNativeFactory,
+			NULL,
+			CLSCTX_INPROC_SERVER,
+			IID_PPV_ARGS(&softwareBitmapNativeFactory_)
+		));
 	}
 }

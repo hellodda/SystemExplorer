@@ -3,6 +3,7 @@
 #if __has_include("Views/Pages/Activities/ActivitiesRootPage.g.cpp")
 #include "Views/Pages/Activities/ActivitiesRootPage.g.cpp"
 #endif
+#include <Core/Settings/UserSettings.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 
@@ -17,8 +18,10 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
     {
         if (ActivitiesFrame().Content() == nullptr)
         {
-            ActivitiesNavView().SelectedItem(ProcessesNavItem());
-            ActivitiesFrame().Navigate(xaml_typename<Activities::ProcessesPage>());
+            auto startPage = Core::Settings::UserSettings::Instance().GeneralSettings().StartPage();
+            auto startPageFull = L"SystemExplorer.Views.Pages.Activities." + startPage;
+
+            ActivitiesFrame().Navigate(TypeName{ startPageFull, TypeKind::Metadata });
         }
         co_return;
     }
