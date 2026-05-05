@@ -43,6 +43,7 @@
     <Midl Include="Core\Settings\GeneralSettings.idl" />
     <Midl Include="Converters\StringFormatConverter.idl" />
     <Midl Include="Models\ProcessInformation.idl" />
+    <Midl Include="Converters\TransparencyConverter.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -89,6 +90,7 @@
     <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
     <ClInclude Include="Core\System\Utils.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
+    <ClInclude Include="Core\Sorting.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

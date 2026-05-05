@@ -1,0 +1,7 @@
+namespace SystemExplorer.Converters
+{
+    runtimeclass TransparencyConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter 
+    {
+        TransparencyConverter();
+    }
+}

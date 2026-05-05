@@ -24,8 +24,8 @@ namespace winrt::SystemExplorer::Core::System
         ProcessStatus Status;
         bool IsEfficiencyModeEnabled;
 
-        const wchar_t* Name;
-        const wchar_t* Description;
+        std::wstring Name;
+        std::wstring Description;
         HICON Icon;
     };
 }

@@ -21,6 +21,7 @@
     <Page.Resources>
         <converters:ValueToSizeUnitConverter x:Key="SizeConverter"/>
         <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+        <converters:TransparencyConverter x:Key="TransparencyConverter"/>
         <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
         <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
@@ -57,7 +58,7 @@
                 BorderThickness="1,1,1,0">
 
             <Grid VerticalAlignment="Center">
-                
+
                 <TextBlock HorizontalAlignment="Left"
                            VerticalAlignment="Center"
                            FontSize="15" 
@@ -136,7 +137,9 @@
                     <controls:DataTable ColumnSpacing="0">
 
                         <controls:DataColumn
+                               Tapped="{x:Bind ViewModel.SortByName}"
                                CanResize="True"
+                               Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                BorderThickness="0,0,1,1">
                             <TextBlock Text="Name" Margin="0 25 0 0" HorizontalAlignment="Left"/>
@@ -144,19 +147,24 @@
 
                         <controls:DataColumn
                                CanResize="True"
+                               Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                BorderThickness="0,0,1,1">
                             <TextBlock Text="Status" Margin="0 25 0 0" HorizontalAlignment="Left"/>
                         </controls:DataColumn>
 
                         <controls:DataColumn
+                            Tapped="{x:Bind ViewModel.FilterByPid}"
                              CanResize="True"
+                             Background="Transparent"
                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                              BorderThickness="0,0,1,1">
                             <TextBlock Text="PID" Margin="0 25 0 0" HorizontalAlignment="Right"/>
                         </controls:DataColumn>
-                        
-                        <controls:DataColumn CanResize="True"
+
+                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByCpu}"
+                                             CanResize="True"
+                                             Background="Transparent"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
@@ -165,7 +173,9 @@
                             </StackPanel>
                         </controls:DataColumn>
 
-                        <controls:DataColumn CanResize="True"
+                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByIoRate}"
+                                             CanResize="True"
+                                             Background="Transparent"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
@@ -174,7 +184,8 @@
                             </StackPanel>
                         </controls:DataColumn>
 
-                        <controls:DataColumn CanResize="True"
+                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByPrivateBytes}"
+                                             CanResize="True"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                              BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
@@ -197,6 +208,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:ProcessInformation">
                     <controls:DataRow HorizontalAlignment="Stretch"
+                                      Background="Transparent"
                                       ContextFlyout="{StaticResource ProcessMenuFlyout}">
                         <controls:DataRow.Resources>
                             <Style TargetType="Border">
@@ -247,7 +259,7 @@
 
                         <Border>
                             <Border.Background>
-                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind CpuUsage, Mode=OneWay, Converter={StaticResource TransparencyConverter}, ConverterParameter='Percent'}" />
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind CpuUsage, Mode=OneWay}"
@@ -256,7 +268,7 @@
 
                         <Border>
                             <Border.Background>
-                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource TransparencyConverter}, ConverterParameter='Log'}" />
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}"
@@ -265,7 +277,7 @@
 
                         <Border>
                             <Border.Background>
-                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="0.2" />
+                                <SolidColorBrush Color="{ThemeResource SystemAccentColor}" Opacity="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource TransparencyConverter}, ConverterParameter='Log'}" />
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}"

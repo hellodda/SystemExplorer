@@ -150,6 +150,10 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Converters\TransparencyConverter.h">
+      <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Services\ComRegistrationService.h" />
     <ClInclude Include="Converters\StringFormatConverter.h">
       <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
@@ -203,6 +207,7 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Sorting.h" />
     <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\System\Utils.h" />
@@ -333,6 +338,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Converters\TransparencyConverter.cpp">
+      <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
     <ClCompile Include="Converters\StringFormatConverter.cpp">
       <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
@@ -488,6 +497,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Converters\StringToBrushConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Converters\TransparencyConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Converters\ValueToSizeUnitConverter.idl">
