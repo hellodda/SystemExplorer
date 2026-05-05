@@ -154,7 +154,7 @@
                         </controls:DataColumn>
 
                         <controls:DataColumn
-                            Tapped="{x:Bind ViewModel.FilterByPid}"
+                            Tapped="{x:Bind ViewModel.SortByPid}"
                              CanResize="True"
                              Background="Transparent"
                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
