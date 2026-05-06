@@ -4,99 +4,261 @@
     <ApplicationDefinition Include="App.xaml" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Views\Windows\MainWindow.xaml" />
-    <Page Include="Views\Pages\RootPage.xaml" />
-    <Page Include="Views\Pages\Settings\SettingsRootPage.xaml" />
-    <Page Include="Views\Pages\Settings\AboutPage.xaml" />
-    <Page Include="Views\Pages\Settings\AppearancePage.xaml" />
-    <Page Include="Views\Pages\Settings\AdvancedPage.xaml" />
-    <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
-    <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml" />
-    <Page Include="Views\Pages\Activities\ProcessesPage.xaml" />
-    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml" />
+    <Page Include="Views\Windows\MainWindow.xaml">
+      <Filter>Views\Windows</Filter>
+    </Page>
+    <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
+      <Filter>Views\Pages\Activities</Filter>
+    </Page>
+    <Page Include="Views\Pages\Settings\AdvancedPage.xaml">
+      <Filter>Views\Pages\Settings</Filter>
+    </Page>
+    <Page Include="Views\Pages\Settings\AboutPage.xaml">
+      <Filter>Views\Pages\Settings</Filter>
+    </Page>
+    <Page Include="Views\Pages\Settings\AppearancePage.xaml">
+      <Filter>Views\Pages\Settings</Filter>
+    </Page>
+    <Page Include="Views\Pages\Settings\GeneralPage.xaml">
+      <Filter>Views\Pages\Settings</Filter>
+    </Page>
+    <Page Include="Views\Pages\Activities\ProcessesPage.xaml">
+      <Filter>Views\Pages\Activities</Filter>
+    </Page>
+    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
+      <Filter>Views\Pages\Properties</Filter>
+    </Page>
+    <Page Include="Views\Pages\RootPage.xaml">
+      <Filter>Views\Pages</Filter>
+    </Page>
+    <Page Include="Views\Pages\Settings\SettingsRootPage.xaml">
+      <Filter>Views\Pages\Settings</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
-    <Midl Include="ViewModels\RootViewModel.idl" />
-    <Midl Include="ViewModels\Settings\AboutViewModel.idl" />
-    <Midl Include="Converters\StringToBrushConverter.idl" />
-    <Midl Include="Core\Data\Items\AppThemeResourceItem.idl" />
-    <Midl Include="ViewModels\Settings\AppearanceViewModel.idl" />
-    <Midl Include="Core\Serialization\SettingsBase.idl" />
-    <Midl Include="Core\Settings\AppearanceSettings.idl" />
-    <Midl Include="ViewModels\Settings\AdvancedViewModel.idl" />
-    <Midl Include="Core\Settings\AdvancedSettings.idl" />
-    <Midl Include="Core\Settings\UserSettings.idl" />
-    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl" />
-    <Midl Include="Converters\HexToColorConverter.idl" />
-    <Midl Include="Core\Data\Enums\BackdropMaterialType.idl" />
-    <Midl Include="Helpers\StringsHelper.idl" />
-    <Midl Include="Core\Data\Enums\InformationUpdateSpeed.idl" />
-    <Midl Include="Core\Data\Enums\Stretch.idl" />
-    <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
-    <Midl Include="Core\Data\Enums\HorizontalAlignment.idl" />
-    <Midl Include="ViewModels\ViewModelBase.idl" />
-    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl" />
-    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl" />
-    <Midl Include="Core\Data\Items\AppLanguageItem.idl" />
-    <Midl Include="ViewModels\Settings\GeneralViewModel.idl" />
-    <Midl Include="ViewModels\Activities\ProcessesViewModel.idl" />
-    <Midl Include="Converters\ValueToSizeUnitConverter.idl" />
-    <Midl Include="Core\Settings\GeneralSettings.idl" />
-    <Midl Include="Converters\StringFormatConverter.idl" />
-    <Midl Include="Converters\TransparencyConverter.idl" />
-    <Midl Include="Helpers\ProcessPropertiesHelper.idl" />
-    <Midl Include="Core\Data\Models\AppModel.idl" />
-    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl" />
-    <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl" />
-    <Midl Include="Core\Data\Items\ProcessItem.idl" />
-    <Midl Include="Core\Data\Items\ISystemItem.idl" />
+    <Midl Include="Converters\HexToColorConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Converters\StringFormatConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Converters\StringToBrushConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Converters\TransparencyConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Converters\ValueToSizeUnitConverter.idl">
+      <Filter>Converters</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Enums\BackdropMaterialType.idl">
+      <Filter>Core\Data\Enums</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Enums\HorizontalAlignment.idl">
+      <Filter>Core\Data\Enums</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Enums\InformationUpdateSpeed.idl">
+      <Filter>Core\Data\Enums</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Enums\Stretch.idl">
+      <Filter>Core\Data\Enums</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Enums\VerticalAlignment.idl">
+      <Filter>Core\Data\Enums</Filter>
+    </Midl>
+    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
+      <Filter>Core\Data\EventArguments</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Items\AppLanguageItem.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Items\AppThemeResourceItem.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Items\ISystemItem.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Items\ProcessItem.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Models\AppModel.idl">
+      <Filter>Core\Data\Models</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
+      <Filter>Core\Data\Parameters</Filter>
+    </Midl>
+    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl">
+      <Filter>Core\Serialization</Filter>
+    </Midl>
+    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl">
+      <Filter>Core\Serialization</Filter>
+    </Midl>
+    <Midl Include="Core\Serialization\SettingsBase.idl">
+      <Filter>Core\Serialization</Filter>
+    </Midl>
+    <Midl Include="Core\Settings\AdvancedSettings.idl">
+      <Filter>Core\Settings</Filter>
+    </Midl>
+    <Midl Include="Core\Settings\AppearanceSettings.idl">
+      <Filter>Core\Settings</Filter>
+    </Midl>
+    <Midl Include="Core\Settings\GeneralSettings.idl">
+      <Filter>Core\Settings</Filter>
+    </Midl>
+    <Midl Include="Core\Settings\UserSettings.idl">
+      <Filter>Core\Settings</Filter>
+    </Midl>
+    <Midl Include="Helpers\ProcessPropertiesHelper.idl">
+      <Filter>Helpers</Filter>
+    </Midl>
+    <Midl Include="Helpers\StringsHelper.idl">
+      <Filter>Helpers</Filter>
+    </Midl>
+    <Midl Include="ViewModels\RootViewModel.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="ViewModels\ViewModelBase.idl">
+      <Filter>ViewModels</Filter>
+    </Midl>
+    <Midl Include="ViewModels\Settings\AppearanceViewModel.idl">
+      <Filter>ViewModels\Settings</Filter>
+    </Midl>
+    <Midl Include="ViewModels\Settings\GeneralViewModel.idl">
+      <Filter>ViewModels\Settings</Filter>
+    </Midl>
+    <Midl Include="ViewModels\Settings\AboutViewModel.idl">
+      <Filter>ViewModels\Settings</Filter>
+    </Midl>
+    <Midl Include="ViewModels\Settings\AdvancedViewModel.idl">
+      <Filter>ViewModels\Settings</Filter>
+    </Midl>
+    <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">
+      <Filter>ViewModels\Activities</Filter>
+    </Midl>
+    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
+      <Filter>Views\Pages\Properties</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Core\System\Management.cpp" />
-    <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Core\Services\AppResourcesService.cpp" />
-    <ClCompile Include="Helpers\Win32Helper.cpp" />
-    <ClCompile Include="Helpers\EnumHelper.cpp" />
-    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
-    <ClCompile Include="Core\Services\AppLanguageService.cpp" />
-    <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
-    <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
-    <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
-    <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
-    <ClCompile Include="Core\System\ProcessManager.cpp" />
-    <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp" />
-    <ClCompile Include="Core\System\Utils.cpp" />
-    <ClCompile Include="Core\System\ProviderThread.cpp" />
+    <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp">
+      <Filter>Converters</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp">
+      <Filter>Core\AI\Actions</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp">
+      <Filter>Core\Data\Factories</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp">
+      <Filter>Core\Diagnostics</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Services\AppLanguageService.cpp">
+      <Filter>Core\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Services\AppResourcesService.cpp">
+      <Filter>Core\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Services\ComRegistrationService.cpp">
+      <Filter>Core\Services</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Management.cpp">
+      <Filter>Core\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\ProcessInformationProvider.cpp">
+      <Filter>Core\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\ProcessManager.cpp">
+      <Filter>Core\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\ProviderThread.cpp">
+      <Filter>Core\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Utils.cpp">
+      <Filter>Core\System</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\EnumHelper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Helpers\Win32Helper.cpp">
+      <Filter>Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
+      <Filter>Core\AI\Actions</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Core\System\Management.h" />
-    <ClInclude Include="Core\System\System.h" />
-    <ClInclude Include="Core\Scripting.h" />
-    <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
-    <ClInclude Include="Core\Services\AppResourcesService.h" />
-    <ClInclude Include="Core\Services\ISingletonService.h" />
-    <ClInclude Include="Helpers\Win32Helper.h" />
-    <ClInclude Include="Helpers\Common.h" />
-    <ClInclude Include="Helpers\EnumHelper.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
-    <ClInclude Include="Core\Services\AppLanguageService.h" />
-    <ClInclude Include="Core\Serialization\functional.h" />
-    <ClInclude Include="Core\System\ProcessInformationProvider.h" />
-    <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
-    <ClInclude Include="Core\Services\ComRegistrationService.h" />
-    <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
-    <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="property.h" />
-    <ClInclude Include="Core\System\ProcessManager.h" />
-    <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
-    <ClInclude Include="Core\System\Utils.h" />
-    <ClInclude Include="Core\System\ProviderThread.h" />
-    <ClInclude Include="Core\Sorting.h" />
+    <ClInclude Include="Converters\HiconToBitmapSourceConverter.h">
+      <Filter>Converters</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h">
+      <Filter>Core\AI\Actions</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h">
+      <Filter>Core\Data\Factories</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Diagnostics\Diagnostics.h">
+      <Filter>Core\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h">
+      <Filter>Core\Diagnostics</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Serialization\functional.h">
+      <Filter>Core\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Services\AppLanguageService.h">
+      <Filter>Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Services\AppResourcesService.h">
+      <Filter>Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Services\ComRegistrationService.h">
+      <Filter>Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Services\ISingletonService.h">
+      <Filter>Core\Services</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Management.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\ProcessInformationProvider.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\ProcessManager.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\ProviderThread.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\System.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Utils.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Scripting.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Sorting.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Common.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\EnumHelper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Helpers\Win32Helper.h">
+      <Filter>Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AI\Actions\WmiActionProvider.h">
+      <Filter>Core\AI\Actions</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -125,10 +287,105 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{6cf68809-cd06-41cd-93b2-fa140f12a6d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AppSettings">
+      <UniqueIdentifier>{beeef091-bfc2-4b8e-a240-7098e8462523}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Converters">
+      <UniqueIdentifier>{b024497e-65e8-4800-a931-5f5f3acf983c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{e6b1739c-0a1c-4777-986f-7b7dd30e2b08}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\AI">
+      <UniqueIdentifier>{ecd5cee4-ac20-402f-b841-bea245b28e32}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\AI\Actions">
+      <UniqueIdentifier>{2e8e1000-23d2-49a7-a0d6-cc7e0c55177b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data">
+      <UniqueIdentifier>{502c9b96-5ee1-42e8-babe-97ac8e9dc411}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\Enums">
+      <UniqueIdentifier>{8f395bc8-2372-411c-90a4-3100b2bc879d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\EventArguments">
+      <UniqueIdentifier>{3d37aa70-fb02-4fe8-a5ed-6298223b92eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\Factories">
+      <UniqueIdentifier>{7605160f-0b3d-49c9-a2c3-c775274f0577}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\Items">
+      <UniqueIdentifier>{b2b18c60-df07-4c95-8f99-ebe4b16a1de8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\Models">
+      <UniqueIdentifier>{7599f08b-bce8-4c28-9a92-e50e350746d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Data\Parameters">
+      <UniqueIdentifier>{aefbb100-c8f8-45af-8486-737ca8e288c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Diagnostics">
+      <UniqueIdentifier>{1959ea71-51c1-4c7d-a6c1-dcca93d33538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Serialization">
+      <UniqueIdentifier>{8452592c-a05e-4e3e-b9a8-7b0807f13ea5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Services">
+      <UniqueIdentifier>{c593e9e0-bfb4-496e-a9ee-7073a7dd6223}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\System">
+      <UniqueIdentifier>{1ac7dbf8-eb65-4574-a4cf-33110220badb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Settings">
+      <UniqueIdentifier>{ef432284-e5e2-4c6f-969e-92b9c3910adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers">
+      <UniqueIdentifier>{e05a4e92-78f6-4b31-a126-f8ef8dfc0818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings">
+      <UniqueIdentifier>{aa0664b7-b8ff-43f4-b621-b1750336c8b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\en-US">
+      <UniqueIdentifier>{85d39805-abc2-455a-bab1-6fad0e4d2b79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Strings\ru-RU">
+      <UniqueIdentifier>{62366373-4852-44f0-95b6-709787973fe2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels">
+      <UniqueIdentifier>{d4b87970-6c79-4154-b748-8c3cdf1d4c97}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels\Settings">
+      <UniqueIdentifier>{240daa6a-457c-4daf-942b-2ff6eb30a40f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels\Activities">
+      <UniqueIdentifier>{02ce6a73-54f3-4ebd-b734-a9f2bd6b82b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views">
+      <UniqueIdentifier>{f5a21c69-7169-466c-93a6-f5a6b96c02b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Pages">
+      <UniqueIdentifier>{81440641-d7fc-466e-9833-f17cec40a7e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Windows">
+      <UniqueIdentifier>{2618a934-b9ea-43a9-b24c-d9d4c98458e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Pages\Settings">
+      <UniqueIdentifier>{e595b030-29fb-4c88-a309-af610d778199}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Pages\Activities">
+      <UniqueIdentifier>{05a6240a-5619-419b-b080-8b06ea9b06af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Views\Pages\Properties">
+      <UniqueIdentifier>{efb85c09-ece8-4efa-9e10-953dd3142faf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SourceGenerators">
+      <UniqueIdentifier>{f20f1dfc-a7fb-4a80-827e-08bfa2bf96c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="readme.txt" />
-    <Text Include="AppSettings\registration.json" />
+    <Text Include="AppSettings\registration.json">
+      <Filter>AppSettings</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="app.manifest" />
@@ -138,13 +395,21 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="ResourceGenerator.ps1" />
-    <None Include="EnumMapingGenerator.ps1" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
+    <None Include="EnumMapingGenerator.ps1">
+      <Filter>SourceGenerators</Filter>
+    </None>
+    <None Include="ResourceGenerator.ps1">
+      <Filter>SourceGenerators</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-US\Resources.resw" />
-    <PRIResource Include="Strings\ru-RU\Resources.resw" />
+    <PRIResource Include="Strings\en-US\Resources.resw">
+      <Filter>Strings\en-US</Filter>
+    </PRIResource>
+    <PRIResource Include="Strings\ru-RU\Resources.resw">
+      <Filter>Strings\ru-RU</Filter>
+    </PRIResource>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemExplorer.rc" />
