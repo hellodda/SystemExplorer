@@ -3,14 +3,14 @@
 
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Globalization.h> 
-#include <Models/Items/AppLanguageItem.h> 
+#include <Core/Data/Items/AppLanguageItem.h> 
 
 namespace winrt::SystemExplorer::Core::Services
 {
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Windows::Globalization;
 
-    using namespace winrt::SystemExplorer::Models::Items;
+    using namespace winrt::SystemExplorer::Core::Data::Items;
 
 	struct AppLanguageService : ISingletonService<AppLanguageService>
 	{

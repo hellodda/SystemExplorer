@@ -13,6 +13,7 @@
 using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::SystemExplorer::Helpers;
 using namespace winrt::XamlToolkit::WinUI::Helpers;
+using namespace winrt::SystemExplorer::Core::Data::Items;
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {

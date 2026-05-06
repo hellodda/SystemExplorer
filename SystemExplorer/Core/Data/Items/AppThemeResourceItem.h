@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "Models/Items/AppThemeResourceItem.g.h"
+#include "Core/Data/Items/AppThemeResourceItem.g.h"
 #include <factory.h>
 
-namespace winrt::SystemExplorer::Models::Items::implementation
+namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {
     struct AppThemeResourceItem : AppThemeResourceItemT<AppThemeResourceItem>
     {
@@ -15,4 +15,4 @@ namespace winrt::SystemExplorer::Models::Items::implementation
         wil::single_threaded_rw_property<hstring> BackgroundColor;
     };
 }
-FACTORY(winrt::SystemExplorer::Models::Items, AppThemeResourceItem);
+FACTORY(winrt::SystemExplorer::Core::Data::Items, AppThemeResourceItem);

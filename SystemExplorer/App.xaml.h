@@ -1,13 +1,12 @@
 #pragma once
 #include "App.xaml.g.h"
-#include "Models/AppModel.h"
-
+#include "Core/Data/Models/AppModel.h"
 
 namespace winrt::SystemExplorer::implementation
 {
-    using namespace winrt::Microsoft::UI::Xaml;
-    using namespace winrt::SystemExplorer::Models;
     using namespace winrt::WinUI3Package;
+    using namespace winrt::Microsoft::UI::Xaml;
+    using namespace winrt::SystemExplorer::Core::Data::Models;
 
     struct App : AppT<App>
     {
@@ -19,7 +18,7 @@ namespace winrt::SystemExplorer::implementation
 		[[nodiscard]] static WindowEx Window() { return window_; }
     private:
         static winrt::WinUI3Package::WindowEx window_;
-        static winrt::SystemExplorer::Models::AppModel appModel_;
+        static winrt::SystemExplorer::Core::Data::Models::AppModel appModel_;
     };
 }
 

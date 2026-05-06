@@ -1,17 +1,17 @@
 ﻿#pragma once
 
-#include "Models/ProcessInformation.g.h"
-#include <winrt/Microsoft.UI.Xaml.Media.h>
+#include "Core/Data/Items/ProcessItem.g.h"
+
 #include <factory.h>
 
-namespace winrt::SystemExplorer::Models::implementation
+namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Microsoft::UI::Xaml::Media;
 
-    struct ProcessInformation : ProcessInformationT<ProcessInformation>, wil::notify_property_changed_base<ProcessInformation>
+    struct ProcessItem : ProcessItemT<ProcessItem>, wil::notify_property_changed_base<ProcessItem>
     {
-        ProcessInformation() = default;
+        ProcessItem() = default;
 
         WIL_NOTIFYING_PROPERTY(uint32_t, Pid, 0);
         WIL_NOTIFYING_PROPERTY(uint32_t, ParentId, 0);
@@ -24,4 +24,5 @@ namespace winrt::SystemExplorer::Models::implementation
         WIL_NOTIFYING_PROPERTY(ImageSource, Icon, nullptr);
     };
 }
-FACTORY(winrt::SystemExplorer::Models, ProcessInformation);
+FACTORY(winrt::SystemExplorer::Core::Data::Items, ProcessItem);
+

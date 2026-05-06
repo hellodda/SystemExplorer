@@ -13,6 +13,7 @@
 using namespace winrt::Windows::Graphics;
 using namespace winrt::Microsoft::UI::Windowing;
 using namespace winrt::SystemExplorer::Core::Data::Parameters;
+using namespace winrt::WinUI3Package;
 
 namespace winrt::SystemExplorer::Helpers::implementation
 {
@@ -26,7 +27,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
 
         auto propertiesWindow = WindowEx{};
         propertiesWindow.Closed(&ProcessPropertiesHelper::PropertiesWindows_Closed);
-        propertiesWindow.SystemBackdrop(Media::MicaBackdrop{});
+        propertiesWindow.SystemBackdrop(CustomAcrylicBackdrop{});
         propertiesWindow.Content(frame);
         propertiesWindow.IsMaximizable(false);
         propertiesWindow.IsMinimizable(false);

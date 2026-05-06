@@ -228,24 +228,20 @@
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
-    <ClInclude Include="Models\AppModel.h">
-      <DependentUpon>Models\AppModel.idl</DependentUpon>
+    <ClInclude Include="Core\Data\Models\AppModel.h">
+      <DependentUpon>Core\Data\Models\AppModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Models\Items\AppLanguageItem.h">
-      <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
+    <ClInclude Include="Core\Data\Items\AppLanguageItem.h">
+      <DependentUpon>Core\Data\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Models\Items\AppThemeResourceItem.h">
-      <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
+    <ClInclude Include="Core\Data\Items\AppThemeResourceItem.h">
+      <DependentUpon>Core\Data\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Models\Items\ProcessItem.h">
-      <DependentUpon>Models\Items\ProcessItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Models\ProcessInformation.h">
-      <DependentUpon>Models\ProcessInformation.idl</DependentUpon>
+    <ClInclude Include="Core\Data\Items\ProcessItem.h">
+      <DependentUpon>Core\Data\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
@@ -436,24 +432,20 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Management.cpp" />
-    <ClCompile Include="Models\AppModel.cpp">
-      <DependentUpon>Models\AppModel.idl</DependentUpon>
+    <ClCompile Include="Core\Data\Models\AppModel.cpp">
+      <DependentUpon>Core\Data\Models\AppModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Models\Items\AppLanguageItem.cpp">
-      <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
+    <ClCompile Include="Core\Data\Items\AppLanguageItem.cpp">
+      <DependentUpon>Core\Data\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Models\Items\AppThemeResourceItem.cpp">
-      <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
+    <ClCompile Include="Core\Data\Items\AppThemeResourceItem.cpp">
+      <DependentUpon>Core\Data\Items\AppThemeResourceItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Models\Items\ProcessItem.cpp">
-      <DependentUpon>Models\Items\ProcessItem.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Models\ProcessInformation.cpp">
-      <DependentUpon>Models\ProcessInformation.idl</DependentUpon>
+    <ClCompile Include="Core\Data\Items\ProcessItem.cpp">
+      <DependentUpon>Core\Data\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -599,20 +591,17 @@
     <Midl Include="Helpers\StringsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\AppModel.idl">
+    <Midl Include="Core\Data\Models\AppModel.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\Items\AppLanguageItem.idl">
+    <Midl Include="Core\Data\Items\AppLanguageItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\Items\AppThemeResourceItem.idl">
+    <Midl Include="Core\Data\Items\AppThemeResourceItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Models\Items\ISystemItem.idl" />
-    <Midl Include="Models\Items\ProcessItem.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Models\ProcessInformation.idl">
+    <Midl Include="Core\Data\Items\ISystemItem.idl" />
+    <Midl Include="Core\Data\Items\ProcessItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">

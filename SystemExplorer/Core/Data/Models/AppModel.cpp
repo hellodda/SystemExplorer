@@ -1,11 +1,11 @@
 ﻿#include "pch.h"
 #include "AppModel.h"
-#if __has_include("Models/AppModel.g.cpp")
-#include "Models/AppModel.g.cpp"
+#if __has_include("Core/Data/Models/AppModel.g.cpp")
+#include "Core/Data/Models/AppModel.g.cpp"
 #endif
 #include <App.xaml.h>
 
-namespace winrt::SystemExplorer::Models::implementation
+namespace winrt::SystemExplorer::Core::Data::Models::implementation
 {
 	AppModel::AppModel()
 	{

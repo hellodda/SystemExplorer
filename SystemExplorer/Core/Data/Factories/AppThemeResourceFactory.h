@@ -1,5 +1,5 @@
 #pragma once
-#include <Models/Items/AppThemeResourceItem.h>
+#include <Core/Data/Items/AppThemeResourceItem.h>
 
 namespace winrt::SystemExplorer::Core::Data::Factories
 {
@@ -7,7 +7,7 @@ namespace winrt::SystemExplorer::Core::Data::Factories
 
 	struct AppThemeResourceFactory
 	{
-		[[nodiscard]] static IObservableVector<SystemExplorer::Models::Items::AppThemeResourceItem> AppThemeResources();
+		[[nodiscard]] static IObservableVector<SystemExplorer::Core::Data::Items::AppThemeResourceItem> AppThemeResources();
 	};
 }
 

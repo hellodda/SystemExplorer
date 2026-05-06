@@ -1,4 +1,4 @@
-namespace SystemExplorer.Models
+namespace SystemExplorer.Core.Data.Models
 {
     [default_interface]
     runtimeclass AppModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged

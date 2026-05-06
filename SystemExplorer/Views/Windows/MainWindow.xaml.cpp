@@ -8,7 +8,7 @@
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
-
+using namespace winrt::WinUI3Package;
 
 namespace winrt::SystemExplorer::Views::Windows::implementation
 {
@@ -40,7 +40,12 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
 
             return backdrop;
         }
-        case Core::Data::Enums::BackdropMaterialType::Acrylic: return Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{};
+        case Core::Data::Enums::BackdropMaterialType::Acrylic:
+        {
+            auto backdrop = CustomAcrylicBackdrop{};
+            backdrop.EnableWhenInactive(true);
+            return backdrop;
+        }
         case Core::Data::Enums::BackdropMaterialType::ThinAcrylic: return Microsoft::UI::Xaml::Media::DesktopAcrylicBackdrop{};
         default: return nullptr;
         }

@@ -1,12 +1,13 @@
-import "Models/Items/ISystemItem.idl";
+import "Core/Data/Items/ISystemItem.idl";
 
-namespace SystemExplorer.Models
+namespace SystemExplorer.Core.Data.Items
 {
+    [bindable]
     [default_interface]
-    runtimeclass ProcessInformation : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, SystemExplorer.Models.Items.ISystemItem
+    runtimeclass ProcessItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, ISystemItem
     {
-        ProcessInformation();
-
+        ProcessItem();
+      
         UInt32 Pid;
         UInt32 ParentId;
         UInt32 IoRate;

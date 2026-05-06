@@ -1,11 +1,10 @@
 ﻿#pragma once
 
-#include "Models/AppModel.g.h"
-
+#include "Core/Data/Models/AppModel.g.h"
 #include <factory.h>
 #include <property.h>
 
-namespace winrt::SystemExplorer::Models::implementation
+namespace winrt::SystemExplorer::Core::Data::Models::implementation
 {
     struct AppModel : AppModelT<AppModel>, wil::notify_property_changed_base<AppModel>
     {
@@ -14,4 +13,4 @@ namespace winrt::SystemExplorer::Models::implementation
         DECLARE_ONLY_GETTER(float, AppWindowDPI, 0.0f);
     };
 }
-FACTORY(winrt::SystemExplorer::Models, AppModel);
+FACTORY(winrt::SystemExplorer::Core::Data::Models, AppModel);

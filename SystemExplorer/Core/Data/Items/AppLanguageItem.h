@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "Models/Items/AppLanguageItem.g.h"
+#include "Core/Data/Items/AppLanguageItem.g.h"
 #include <factory.h>
 
-namespace winrt::SystemExplorer::Models::Items::implementation
+namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {
     struct AppLanguageItem : AppLanguageItemT<AppLanguageItem>
     {
@@ -13,4 +13,4 @@ namespace winrt::SystemExplorer::Models::Items::implementation
 		wil::single_threaded_rw_property<hstring> Name;
     };
 }
-FACTORY(winrt::SystemExplorer::Models::Items, AppLanguageItem);
+FACTORY(winrt::SystemExplorer::Core::Data::Items, AppLanguageItem);

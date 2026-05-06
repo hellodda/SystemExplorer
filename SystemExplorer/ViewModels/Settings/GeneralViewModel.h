@@ -4,7 +4,7 @@
 #include "../ViewModelBase.h"
 
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
-#include <Models/Items/AppLanguageItem.h>
+#include <Core/Data/Items/AppLanguageItem.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <factory.h>
 #include <property.h>
@@ -16,7 +16,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     using namespace winrt::Microsoft::Windows::AppLifecycle;
 
 	using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
-	using namespace winrt::SystemExplorer::Models::Items;
+	using namespace winrt::SystemExplorer::Core::Data::Items;
 
     struct GeneralViewModel : GeneralViewModelT<GeneralViewModel, ViewModels::implementation::ViewModelBase>
     {

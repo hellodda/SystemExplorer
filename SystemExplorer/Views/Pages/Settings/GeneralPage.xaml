@@ -10,7 +10,7 @@
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
     xmlns:essential="using:WinUI3Package"
-    xmlns:items="using:SystemExplorer.Models.Items"
+    xmlns:items="using:SystemExplorer.Core.Data.Items"
     xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d"
     NavigationCacheMode="Required"

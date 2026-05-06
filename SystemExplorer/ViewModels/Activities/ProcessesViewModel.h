@@ -4,6 +4,7 @@
 
 #include <Converters/HiconToBitmapSourceConverter.h>
 
+#include <Core/Data/Items/ProcessItem.h>
 #include <Core/Settings/UserSettings.h>
 #include <Core/System/System.h>
 #include <Core/Sorting.h>
@@ -21,9 +22,9 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Microsoft::UI::Xaml;
 
-    using namespace winrt::SystemExplorer::Models;
     using namespace winrt::SystemExplorer::Core;
     using namespace winrt::SystemExplorer::Core::System;
+    using namespace winrt::SystemExplorer::Core::Data::Items;
     using namespace winrt::SystemExplorer::Core::System::Contracts;
     using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
 
@@ -33,7 +34,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     {
         ProcessesViewModel();
 
-        wil::single_threaded_property<IObservableVector<ProcessInformation>> Processes = single_threaded_observable_vector<ProcessInformation>();
+        wil::single_threaded_property<IObservableVector<ProcessItem>> Processes = single_threaded_observable_vector<ProcessItem>();
         wil::single_threaded_property<IAsyncRelayCommand> TerminateProcessCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
         co_await doTerminateProcessAsync();
         }, [this](auto&&) -> bool {
@@ -52,7 +53,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         });
 
         DECLARE_ONLY_SETTER(hstring, SearchString, L"");
-        DECLARE_ONLY_SETTER(ProcessInformation, SelectedProcess, nullptr);
+        DECLARE_ONLY_SETTER(ProcessItem, SelectedProcess, nullptr);
 
         WIL_NOTIFYING_PROPERTY(float, TotalCpuUsage, 0);
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalIoRate, 0);
@@ -77,7 +78,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
         std::shared_ptr<IProcessInformationProvider> provider_{ nullptr };
         std::shared_ptr<IProcessManager> manager_{ nullptr };
-        std::unordered_map<uint32_t, ProcessInformation> uiCache_;
+        std::unordered_map<uint32_t, ProcessItem> uiCache_;
         DispatcherTimer pullTimer_;
 
         std::vector<ProcessNativeInformation> lastRawProcesses_;

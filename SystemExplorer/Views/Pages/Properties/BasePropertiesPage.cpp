@@ -4,10 +4,10 @@
 #include "Views/Pages/Properties/BasePropertiesPage.g.cpp"
 #endif
 #include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>
-#include <Models/Items/ProcessItem.h>
+#include <Core/Data/Items/ProcessItem.h>
 
 using namespace winrt::SystemExplorer::Core::Data::Parameters;
-using namespace winrt::SystemExplorer::Models::Items;
+using namespace winrt::SystemExplorer::Core::Data::Items;
 
 namespace winrt::SystemExplorer::Views::Pages::Properties::implementation
 {

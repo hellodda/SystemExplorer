@@ -1,7 +1,7 @@
 ﻿#include "pch.h"
 #include "AppLanguageItem.h"
-#if __has_include("Models/Items/AppLanguageItem.g.cpp")
-#include "Models/Items/AppLanguageItem.g.cpp"
+#if __has_include("Core/Data/Items/AppLanguageItem.g.cpp")
+#include "Core/Data/Items/AppLanguageItem.g.cpp"
 #endif
 #include <winrt/Windows.Globalization.h>
 #include <Helpers/StringsHelper.h>
@@ -9,7 +9,7 @@
 using namespace winrt::Windows::Globalization;
 using namespace winrt::SystemExplorer::Helpers;
 
-namespace winrt::SystemExplorer::Models::Items::implementation
+namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {
 	AppLanguageItem::AppLanguageItem(hstring const& code, bool systemDefault)
 	{

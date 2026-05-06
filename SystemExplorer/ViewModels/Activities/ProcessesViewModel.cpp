@@ -48,7 +48,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         });
     }
 
-    void ProcessesViewModel::SelectedProcess(ProcessInformation const& value) noexcept
+    void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
     {
         if (value != SelectedProcess_)
         {
@@ -187,7 +187,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             }
             else
             {
-                ProcessInformation newUiObj;
+                ProcessItem newUiObj;
                 newUiObj.Pid(proc.Pid);
                 newUiObj.ParentId(proc.ParentId);
                 newUiObj.Name(proc.Name);
@@ -206,7 +206,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             return !incomingPids.contains(pair.first);
         });
 
-        std::vector<ProcessInformation> newOrder;
+        std::vector<ProcessItem> newOrder;
         newOrder.reserve(viewList.size());
         for (const auto& nativeProc : viewList)
         {

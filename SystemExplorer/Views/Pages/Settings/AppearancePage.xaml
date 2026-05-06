@@ -12,7 +12,7 @@
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml.Controls"
     xmlns:converters="using:SystemExplorer.Converters"
-    xmlns:items="using:SystemExplorer.Models.Items"
+    xmlns:items="using:SystemExplorer.Core.Data.Items"
     xmlns:helpers="using:SystemExplorer.Helpers"
     NavigationCacheMode="Required">
 

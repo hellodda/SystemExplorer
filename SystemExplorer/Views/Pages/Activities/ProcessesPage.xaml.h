@@ -18,8 +18,6 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
         IAsyncAction ProcessMenuFlyoutOpened(IInspectable const& sender, IInspectable const&);
 
 		wil::single_threaded_property<ViewModels::Activities::ProcessesViewModel> ViewModel;
-
-        void TEST_CLICK(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args);
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Pages::Activities, ProcessesPage);

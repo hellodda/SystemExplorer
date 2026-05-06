@@ -10,7 +10,7 @@
     xmlns:behaviors="using:XamlToolkit.WinUI.Behaviors"
     xmlns:interactivity="using:XamlToolkit.WinUI.Interactivity"
     xmlns:controls="using:XamlToolkit.Labs.WinUI"
-    xmlns:models="using:SystemExplorer.Models"
+    xmlns:models="using:SystemExplorer.Core.Data.Items"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:helpers="using:SystemExplorer.Helpers"
     xmlns:tconverters="using:XamlToolkit.WinUI.Converters"
@@ -70,8 +70,6 @@
                 <StackPanel HorizontalAlignment="Right"
                             Orientation="Horizontal"
                             Spacing="10">
-
-                    <Button Content="TEST" Click="TEST_CLICK"/>
 
                     <Button Style="{ThemeResource FlatButtonStyle}">
                         <StackPanel Spacing="10"
@@ -210,7 +208,7 @@
             </ListView.Header>
 
             <ListView.ItemTemplate>
-                <DataTemplate x:DataType="models:ProcessInformation">
+                <DataTemplate x:DataType="models:ProcessItem">
                     <controls:DataRow HorizontalAlignment="Stretch"
                                       Background="Transparent"
                                       ContextFlyout="{StaticResource ProcessMenuFlyout}">

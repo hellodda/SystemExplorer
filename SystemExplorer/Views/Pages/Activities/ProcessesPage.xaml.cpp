@@ -3,7 +3,7 @@
 #if __has_include("Views/Pages/Activities/ProcessesPage.g.cpp")
 #include "Views/Pages/Activities/ProcessesPage.g.cpp"
 #endif
-#include <Models/ProcessInformation.h>
+#include <Core/Data/Items/ProcessItem.h>
 #include <ViewModels/Activities/ProcessesViewModel.h>
 #include <Helpers/ProcessPropertiesHelper.h>
 
@@ -26,7 +26,7 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 
                 if (dataContext)
                 {
-                    auto selected = dataContext.try_as<SystemExplorer::Models::ProcessInformation>();
+                    auto selected = dataContext.try_as<SystemExplorer::Core::Data::Items::ProcessItem>();
                     uint32_t index{ 0 };
 
                     ViewModel.SelectedProcess(selected);
@@ -36,10 +36,5 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
             }
         }
         co_return;
-    }
-
-    void ProcessesPage::TEST_CLICK(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
-    {
-     
     }
 }

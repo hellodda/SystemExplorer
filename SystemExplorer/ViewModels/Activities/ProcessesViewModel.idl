@@ -1,5 +1,5 @@
 import "ViewModels/ViewModelBase.idl";
-import "Models/ProcessInformation.idl";
+import "Core/Data/Items/ProcessItem.idl";
 
 namespace SystemExplorer.ViewModels.Activities
 {
@@ -9,7 +9,7 @@ namespace SystemExplorer.ViewModels.Activities
     {
         ProcessesViewModel();
         
-        SystemExplorer.Models.ProcessInformation SelectedProcess;
+        SystemExplorer.Core.Data.Items.ProcessItem SelectedProcess;
 
         Single TotalCpuUsage;
         UInt64 TotalIoRate;
@@ -22,7 +22,7 @@ namespace SystemExplorer.ViewModels.Activities
         void SortByPrivateBytes();
 
 
-        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.ProcessInformation> Processes { get; };
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ProcessItem> Processes { get; };
 
         
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };

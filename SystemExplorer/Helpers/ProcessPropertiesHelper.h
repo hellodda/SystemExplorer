@@ -19,7 +19,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
     using namespace winrt::Microsoft::UI::Xaml;
     using namespace winrt::Microsoft::UI::Xaml::Controls;
     using namespace winrt::Windows::Foundation;
-    using namespace winrt::SystemExplorer::Models::Items;
+    using namespace winrt::SystemExplorer::Core::Data::Items;
 
 
     struct ProcessPropertiesHelper : ProcessPropertiesHelperT<ProcessPropertiesHelper>
