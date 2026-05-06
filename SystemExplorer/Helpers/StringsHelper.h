@@ -92,6 +92,13 @@ namespace winrt::SystemExplorer::Helpers::implementation
         [[nodiscard]] static hstring About();
         [[nodiscard]] static hstring ImageFiles();
         [[nodiscard]] static hstring BitmapFiles();
+        [[nodiscard]] static hstring PrivateBytes();
+        [[nodiscard]] static hstring Name();
+        [[nodiscard]] static hstring Description();
+        [[nodiscard]] static hstring Pid();
+        [[nodiscard]] static hstring Cpu();
+        [[nodiscard]] static hstring IoRate();
+        [[nodiscard]] static hstring Properties();
 
     private:
         StringsHelper() = default;

@@ -56,9 +56,6 @@
                 <NavigationViewItem Content="Users"
                                     Icon="{tookit:FontIcon Glyph=&#xE716;}"/>
 
-                <NavigationViewItem Content="Details"
-                                    Icon="{tookit:FontIcon Glyph=&#xE8FD;}"/>
-
                 <NavigationViewItem Content="Services"
                                     Icon="{tookit:FontIcon Glyph=&#xEA86;}"/>
 

@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Data.Parameters
+{
+    [default_interface]
+    runtimeclass PropertiesPageNavigationParameter 
+    {
+        PropertiesPageNavigationParameter();
+        PropertiesPageNavigationParameter(Object parameter);
+
+        Object Parameter;
+    }
+}

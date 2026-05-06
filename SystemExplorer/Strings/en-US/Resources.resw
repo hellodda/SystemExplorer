@@ -366,4 +366,25 @@
   <data name="BitmapFiles" xml:space="preserve">
     <value>Bitmap files</value>
   </data>
+  <data name="PrivateBytes" xml:space="preserve">
+    <value>Private bytes</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Pid" xml:space="preserve">
+    <value>PID</value>
+  </data>
+  <data name="Cpu" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="IoRate" xml:space="preserve">
+    <value>I/O total rate</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Properties</value>
+  </data>
 </root>

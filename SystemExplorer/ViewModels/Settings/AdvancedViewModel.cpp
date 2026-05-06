@@ -21,7 +21,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
     IAsyncAction AdvancedViewModel::doImportSettingsAsync()
     {
-        auto windowId = SystemExplorer::implementation::App::Window().AppWindow().Id();
+        auto windowId = SystemExplorer::CurrentApplication::Window().AppWindow().Id();
         FileOpenPicker picker{ windowId };
 
         picker.FileTypeFilter().Append(L".json");
@@ -41,7 +41,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     }
     IAsyncAction AdvancedViewModel::doExportSettingsAsync()
     {
-        auto windowId = SystemExplorer::implementation::App::Window().AppWindow().Id();
+        auto windowId = SystemExplorer::CurrentApplication::Window().AppWindow().Id();
         FileSavePicker picker{ windowId };
 
         picker.SuggestedFileName(L"ExportedSettings");

@@ -421,4 +421,39 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"BitmapFiles");
     }
+
+    hstring StringsHelper::PrivateBytes()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"PrivateBytes");
+    }
+
+    hstring StringsHelper::Name()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Name");
+    }
+
+    hstring StringsHelper::Description()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Description");
+    }
+
+    hstring StringsHelper::Pid()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Pid");
+    }
+
+    hstring StringsHelper::Cpu()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Cpu");
+    }
+
+    hstring StringsHelper::IoRate()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"IoRate");
+    }
+
+    hstring StringsHelper::Properties()
+    {
+        return winrt::Microsoft::Windows::ApplicationModel::Resources::ResourceLoader().GetString(L"Properties");
+    }
 }

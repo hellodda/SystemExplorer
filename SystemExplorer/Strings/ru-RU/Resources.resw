@@ -367,4 +367,25 @@
   <data name="BitmapFiles" xml:space="preserve">
     <value>Растровые изображения</value>
   </data>
+  <data name="PrivateBytes" xml:space="preserve">
+    <value>Память</value>
+  </data>
+  <data name="Name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Pid" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="Cpu" xml:space="preserve">
+    <value>ЦПУ</value>
+  </data>
+  <data name="IoRate" xml:space="preserve">
+    <value>Запись</value>
+  </data>
+  <data name="Properties" xml:space="preserve">
+    <value>Свойства</value>
+  </data>
 </root>

@@ -154,6 +154,10 @@
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Data\Parameters\PropertiesPageNavigationParameter.h">
+      <DependentUpon>Core\Data\Parameters\PropertiesPageNavigationParameter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Services\ComRegistrationService.h" />
     <ClInclude Include="Converters\StringFormatConverter.h">
       <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
@@ -214,18 +218,30 @@
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
+    <ClInclude Include="Helpers\ProcessPropertiesHelper.h">
+      <DependentUpon>Helpers\ProcessPropertiesHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Helpers\StringsHelper.h">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Converters\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Models\AppModel.h">
+      <DependentUpon>Models\AppModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Models\Items\AppLanguageItem.h">
       <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Models\Items\AppThemeResourceItem.h">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Models\Items\ProcessItem.h">
+      <DependentUpon>Models\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Models\ProcessInformation.h">
@@ -274,6 +290,14 @@
       <DependentUpon>Views\Pages\Activities\ProcessesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Properties\BasePropertiesPage.h">
+      <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Properties\PropertiesRootPage.xaml.h">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\AboutPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -316,6 +340,9 @@
     <Page Include="Views\Pages\Activities\ProcessesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Settings\AboutPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -340,6 +367,10 @@
   <ItemGroup>
     <ClCompile Include="Converters\TransparencyConverter.cpp">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Parameters\PropertiesPageNavigationParameter.cpp">
+      <DependentUpon>Core\Data\Parameters\PropertiesPageNavigationParameter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
@@ -388,6 +419,10 @@
     </ClCompile>
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
+    <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp">
+      <DependentUpon>Helpers\ProcessPropertiesHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -401,12 +436,20 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Management.cpp" />
+    <ClCompile Include="Models\AppModel.cpp">
+      <DependentUpon>Models\AppModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Models\Items\AppLanguageItem.cpp">
       <DependentUpon>Models\Items\AppLanguageItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Models\Items\AppThemeResourceItem.cpp">
       <DependentUpon>Models\Items\AppThemeResourceItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Models\Items\ProcessItem.cpp">
+      <DependentUpon>Models\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Models\ProcessInformation.cpp">
@@ -453,6 +496,14 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\ProcessesPage.xaml.cpp">
       <DependentUpon>Views\Pages\Activities\ProcessesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Properties\BasePropertiesPage.cpp">
+      <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Properties\PropertiesRootPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AboutPage.xaml.cpp">
@@ -513,6 +564,9 @@
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -539,13 +593,23 @@
     <None Include="ResourceGenerator.ps1">
       <FileType>Document</FileType>
     </None>
+    <Midl Include="Helpers\ProcessPropertiesHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Helpers\StringsHelper.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Models\AppModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\Items\AppLanguageItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\Items\AppThemeResourceItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Models\Items\ISystemItem.idl" />
+    <Midl Include="Models\Items\ProcessItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Models\ProcessInformation.idl">
@@ -575,6 +639,13 @@
     </Midl>
     <Midl Include="Views\Pages\Activities\ProcessesPage.idl">
       <DependentUpon>Views\Pages\Activities\ProcessesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Properties\PropertiesRootPage.idl">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">

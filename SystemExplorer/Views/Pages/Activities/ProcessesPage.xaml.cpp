@@ -5,6 +5,7 @@
 #endif
 #include <Models/ProcessInformation.h>
 #include <ViewModels/Activities/ProcessesViewModel.h>
+#include <Helpers/ProcessPropertiesHelper.h>
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
@@ -35,5 +36,10 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
             }
         }
         co_return;
+    }
+
+    void ProcessesPage::TEST_CLICK(IInspectable const& sender, Microsoft::UI::Xaml::RoutedEventArgs const& args)
+    {
+     
     }
 }

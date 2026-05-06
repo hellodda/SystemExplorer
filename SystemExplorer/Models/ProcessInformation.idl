@@ -1,7 +1,9 @@
+import "Models/Items/ISystemItem.idl";
+
 namespace SystemExplorer.Models
 {
     [default_interface]
-    runtimeclass ProcessInformation : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    runtimeclass ProcessInformation : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, SystemExplorer.Models.Items.ISystemItem
     {
         ProcessInformation();
 

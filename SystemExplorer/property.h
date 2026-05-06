@@ -1,8 +1,10 @@
 #pragma once
+#define RAISE_PROPERTY_CHANGED RaisePropertyChanged(__FUNCTIONW__);
 
 #define PROPERTY_FIELD(NAME) NAME ## _
 
 #define DECLARE_PROPERTY_GETTER(TYPE, NAME) TYPE NAME() const noexcept;
+#define DECLARE_PROPERTY_GETTER_NC(TYPE, NAME) TYPE NAME() noexcept;
 
 #define DECLARE_PROPERTY_SETTER(TYPE, NAME) void NAME(TYPE const& value) noexcept;
 
@@ -27,5 +29,17 @@ public: \
     } \
     DECLARE_PROPERTY_SETTER(TYPE, NAME)
 
+#define DECLARE_ONLY_GETTER(TYPE, NAME, INIT) \
+private: \
+    TYPE PROPERTY_FIELD(NAME){ INIT }; \
+public: \
+    void NAME(TYPE const& value) noexcept \
+    { \
+        if (NAME ## _ != value) \
+        {\
+            NAME ## _ = value; \
+            RAISE_PROPERTY_CHANGED; \
+        } \
+    } \
+    DECLARE_PROPERTY_GETTER_NC(TYPE, NAME)
 
-#define RAISE_PROPERTY_CHANGED RaisePropertyChanged(__FUNCTIONW__);

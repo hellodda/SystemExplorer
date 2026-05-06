@@ -86,5 +86,12 @@
         static String About { get; };
         static String ImageFiles { get; };
         static String BitmapFiles { get; };
+        static String PrivateBytes { get; };
+        static String Name { get; };
+        static String Description { get; };
+        static String Pid { get; };
+        static String Cpu { get; };
+        static String IoRate { get; };
+        static String Properties { get; };
     }
 }

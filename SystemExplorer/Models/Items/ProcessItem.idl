@@ -1,0 +1,13 @@
+import "Models/Items/ISystemItem.idl";
+
+namespace SystemExplorer.Models.Items
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ProcessItem : ISystemItem
+    {
+        ProcessItem();
+        
+        UInt32 Pid;
+    }
+}

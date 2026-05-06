@@ -13,6 +13,7 @@
     <Page Include="Views\Pages\Settings\GeneralPage.xaml" />
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml" />
     <Page Include="Views\Pages\Activities\ProcessesPage.xaml" />
+    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="ViewModels\RootViewModel.idl" />
@@ -44,6 +45,12 @@
     <Midl Include="Converters\StringFormatConverter.idl" />
     <Midl Include="Models\ProcessInformation.idl" />
     <Midl Include="Converters\TransparencyConverter.idl" />
+    <Midl Include="Helpers\ProcessPropertiesHelper.idl" />
+    <Midl Include="Models\AppModel.idl" />
+    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl" />
+    <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl" />
+    <Midl Include="Models\Items\ProcessItem.idl" />
+    <Midl Include="Models\Items\ISystemItem.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -47,6 +47,9 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         wil::single_threaded_property<IAsyncRelayCommand> RestartProcessCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
             co_await doRestartProcessAsync();
         });
+        wil::single_threaded_property<IAsyncRelayCommand> OpenProcessDetailsWindowCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
+            co_await doOpenProcessDetailsWindowAsync();
+        });
 
         DECLARE_ONLY_SETTER(hstring, SearchString, L"");
         DECLARE_ONLY_SETTER(ProcessInformation, SelectedProcess, nullptr);
@@ -67,7 +70,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         IAsyncAction doTerminateProcessAsync();
         IAsyncAction doSetEfficiencyModeAsync();
         IAsyncAction doRestartProcessAsync();
-
+        IAsyncAction doOpenProcessDetailsWindowAsync();
     private:
         Converters::HiconToBitmapSourceConverter converter_;
         Core::Sorting::SortManager<SortColumn> sortManager_{ SortColumn::None, Core::Sorting::SortDirection::Ascending };

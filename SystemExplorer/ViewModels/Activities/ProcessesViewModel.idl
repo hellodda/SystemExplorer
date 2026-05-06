@@ -21,8 +21,10 @@ namespace SystemExplorer.ViewModels.Activities
         void SortByName(); 
         void SortByPrivateBytes();
 
+
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Models.ProcessInformation> Processes { get; };
 
+        
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SuspendProcessCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartProcessCommand { get; };
@@ -32,5 +34,6 @@ namespace SystemExplorer.ViewModels.Activities
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand GoToDetailsCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenFileLocationCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenProcessPropertiesCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenProcessDetailsWindowCommand { get; };
     }
 }

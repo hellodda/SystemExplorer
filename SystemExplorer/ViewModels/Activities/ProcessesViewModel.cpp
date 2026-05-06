@@ -11,6 +11,7 @@
 #include <Core/System/ProcessInformationProvider.h>
 #include <Core/System/ProcessManager.h>
 #include <Core/System/Utils.h>
+#include <Helpers/ProcessPropertiesHelper.h>
 
 using namespace winrt::SystemExplorer::Helpers;
 
@@ -243,6 +244,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     void ProcessesViewModel::SortByIoRate() { sortManager_.Toggle(SortColumn::IoRate); applyTransformations(); }
     void ProcessesViewModel::SortByPrivateBytes() { sortManager_.Toggle(SortColumn::PrivateBytes); applyTransformations(); }
 
+
     // commands impl
     IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
     {
@@ -267,6 +269,14 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     IAsyncAction ProcessesViewModel::doRestartProcessAsync()
     {
         manager_->Restart(SelectedProcess_.Pid());
+        co_return;
+    }
+    IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
+    {
+        if (!SelectedProcess_)
+            co_return;
+
+        ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
         co_return;
     }
 }

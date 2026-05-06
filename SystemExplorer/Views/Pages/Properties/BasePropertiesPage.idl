@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Properties
+{
+    unsealed runtimeclass BasePropertiesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        BasePropertiesPage();   
+    }
+}

@@ -18,7 +18,8 @@ using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::SystemExplorer::implementation
 {
-	Window App::window_{ nullptr };
+	WindowEx App::window_{ nullptr };
+    AppModel App::appModel_{};
 
     App::App()
     {

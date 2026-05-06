@@ -1,0 +1,13 @@
+import "Models/Items/ISystemItem.idl";
+
+namespace SystemExplorer.Helpers
+{
+    [bindable]
+    [default_interface]
+    runtimeclass ProcessPropertiesHelper 
+    {
+        ProcessPropertiesHelper();
+
+        static void OpenPropertiesWindow(SystemExplorer.Models.Items.ISystemItem item);
+    }
+}

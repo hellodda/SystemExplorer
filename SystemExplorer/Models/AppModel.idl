@@ -1,0 +1,10 @@
+namespace SystemExplorer.Models
+{
+    [default_interface]
+    runtimeclass AppModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        AppModel();
+
+        Single AppWindowDPI;
+    }
+}
