@@ -1,0 +1,27 @@
+namespace SystemExplorer.Core.Data.Models
+{
+    [bindable]
+    [default_interface]
+    runtimeclass SelectedItemsPropertiesViewModel 
+    {
+        SelectedItemsPropertiesViewModel();
+
+        String ItemVersion;
+
+        String ItemName;
+        String ItemLocation;
+
+        String ItemFileNameWin32;
+        String ItemFileName;
+
+        String ItemLifeTime;
+
+        String ItemCommandLine;
+        String ItemDirectory;
+        String ItemParentConsole;
+        String ItemParentProcess;
+
+        String ItemProtection;
+        String ItemType;
+    }
+}

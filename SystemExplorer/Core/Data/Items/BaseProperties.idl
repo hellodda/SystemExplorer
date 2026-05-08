@@ -1,0 +1,14 @@
+import "Core/Data/Models/SelectedItemsPropertiesViewModel.idl";
+
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface]
+    unsealed runtimeclass BaseProperties 
+    {
+        BaseProperties();
+
+        void GetBaseProperties();
+
+        SystemExplorer.Core.Data.Models.SelectedItemsPropertiesViewModel ViewModel;
+    }
+}

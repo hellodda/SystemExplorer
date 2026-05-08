@@ -14,7 +14,6 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
     {
         MainWindow();
         void LoadSettings();
-        void OnSystemBackdropSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
         void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
     };
 }

@@ -1,0 +1,9 @@
+namespace SystemExplorer.Helpers.UI
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppSystemBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop 
+    {
+        AppSystemBackdrop();
+    }
+}

@@ -1,0 +1,13 @@
+import "Core/Data/Items/BaseProperties.idl";
+import "Core/Data/Items/ProcessItem.idl";
+import "Core/Data/Models/SelectedItemsPropertiesViewModel.idl";
+
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface]
+    runtimeclass ProcessProperties : BaseProperties
+    {
+        ProcessProperties(SystemExplorer.Core.Data.Models.SelectedItemsPropertiesViewModel viewModel, ProcessItem item);
+        ProcessProperties();
+    }
+}

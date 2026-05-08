@@ -1,0 +1,10 @@
+import "Views/Pages/Properties/BasePropertiesPage.idl";
+
+namespace SystemExplorer.Views.Pages.Properties
+{
+    [default_interface]
+    runtimeclass PropertiesGeneralPage : BasePropertiesPage
+    {
+        PropertiesGeneralPage();
+    }
+}

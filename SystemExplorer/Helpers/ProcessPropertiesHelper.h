@@ -8,8 +8,6 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <Views/Pages/Properties/PropertiesRootPage.xaml.h>
 
-#include <winrt/SystemExplorer.Models.Items.h>
-
 #include <factory.h>
 
 namespace winrt::SystemExplorer::Helpers::implementation

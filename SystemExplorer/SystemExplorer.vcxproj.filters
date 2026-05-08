@@ -34,6 +34,7 @@
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml">
       <Filter>Views\Pages\Settings</Filter>
     </Page>
+    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -138,6 +139,10 @@
     <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
       <Filter>Views\Pages\Properties</Filter>
     </Midl>
+    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl" />
+    <Midl Include="Core\Data\Items\ProcessProperties.idl" />
+    <Midl Include="Core\Data\Items\BaseProperties.idl" />
+    <Midl Include="Helpers\UI\AppSystemBackdrop.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -240,9 +245,6 @@
     </ClInclude>
     <ClInclude Include="Core\System\Utils.h">
       <Filter>Core\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Scripting.h">
-      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\Common.h">
       <Filter>Helpers</Filter>

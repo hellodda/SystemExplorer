@@ -7,7 +7,6 @@
 #include <Core/Data/Items/ProcessItem.h>
 #include <Core/Settings/UserSettings.h>
 #include <Core/System/System.h>
-#include <Core/Sorting.h>
 
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <Helpers/Common.h>

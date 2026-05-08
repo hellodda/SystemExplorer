@@ -5,6 +5,7 @@
 #endif
 #include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>
 #include <Core/Data/Items/ProcessItem.h>
+#include <Core/Data/Items/ProcessProperties.h>
 
 using namespace winrt::SystemExplorer::Core::Data::Parameters;
 using namespace winrt::SystemExplorer::Core::Data::Items;
@@ -15,11 +16,8 @@ namespace winrt::SystemExplorer::Views::Pages::Properties::implementation
 	{
 		auto param = args.Parameter().try_as<PropertiesPageNavigationParameter>();
 		
-		if (auto process = param.Parameter().try_as<ProcessItem>())
-		{
-
-		}
-
+		//if (auto process = param.Parameter().try_as<ProcessItem>())
+		//	BaseProperties = ProcessProperties{ ViewModel, process };
 	}
 	void BasePropertiesPage::OnNavigatedFrom(NavigationEventArgs const& args)
 	{

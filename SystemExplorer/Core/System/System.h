@@ -1,6 +1,5 @@
 #pragma once
 #include "ProviderThread.h"
-#include <winrt/SystemExplorer.Models.h>
 #include <Helpers/Win32Helper.h>
 
 namespace winrt::SystemExplorer::Core::System
@@ -32,8 +31,6 @@ namespace winrt::SystemExplorer::Core::System
 
 namespace winrt::SystemExplorer::Core::System::Contracts
 {
-    using namespace winrt::SystemExplorer::Models;
-
     __interface IInformationMonitor
     {
          ProviderThread& Thread();

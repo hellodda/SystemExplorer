@@ -109,5 +109,6 @@
       <Filter>Themes</Filter>
     </Page>
     <Page Include="Controls\DataTable\DataColumn.xaml" />
+    <Page Include="Styles\PropertyStyles.xaml" />
   </ItemGroup>
 </Project>

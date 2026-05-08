@@ -1,7 +1,11 @@
+import "Core/Data/Models/SelectedItemsPropertiesViewModel.idl";
+
 namespace SystemExplorer.Views.Pages.Properties
 {
     unsealed runtimeclass BasePropertiesPage : Microsoft.UI.Xaml.Controls.Page
     {
         BasePropertiesPage();   
+
+        SystemExplorer.Core.Data.Models.SelectedItemsPropertiesViewModel ViewModel { get; };
     }
 }

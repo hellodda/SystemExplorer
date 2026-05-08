@@ -5,6 +5,7 @@
 #include "StringsHelper.h"
 #endif
 #include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>
+#include <Helpers/UI/AppSystemBackdrop.h>
 #include <App.xaml.h>
 
 #undef max
@@ -27,7 +28,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
 
         auto propertiesWindow = WindowEx{};
         propertiesWindow.Closed(&ProcessPropertiesHelper::PropertiesWindows_Closed);
-        propertiesWindow.SystemBackdrop(CustomAcrylicBackdrop{});
+        propertiesWindow.SystemBackdrop(Helpers::UI::AppSystemBackdrop{});
         propertiesWindow.Content(frame);
         propertiesWindow.IsMaximizable(false);
         propertiesWindow.IsMinimizable(false);

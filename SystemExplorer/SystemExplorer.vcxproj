@@ -124,6 +124,9 @@
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
@@ -135,6 +138,9 @@
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -152,6 +158,18 @@
   <ItemGroup>
     <ClInclude Include="Converters\TransparencyConverter.h">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core\Data\Items\BaseProperties.h">
+      <DependentUpon>Core\Data\Items\BaseProperties.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core\Data\Items\ProcessProperties.h">
+      <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core\Data\Models\SelectedItemsPropertiesViewModel.h">
+      <DependentUpon>Core\Data\Models\SelectedItemsPropertiesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Data\Parameters\PropertiesPageNavigationParameter.h">
@@ -202,7 +220,6 @@
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Scripting.h" />
     <ClInclude Include="Core\Settings\GeneralSettings.h">
       <DependentUpon>Core\Settings\GeneralSettings.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -223,6 +240,10 @@
     </ClInclude>
     <ClInclude Include="Helpers\StringsHelper.h">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Helpers\UI\AppSystemBackdrop.h">
+      <DependentUpon>Helpers\UI\AppSystemBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Helpers\Win32Helper.h" />
@@ -289,6 +310,10 @@
       <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Properties\PropertiesGeneralPage.xaml.h">
+      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Properties\PropertiesRootPage.xaml.h">
       <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -335,6 +360,9 @@
     <Page Include="Views\Pages\Activities\ProcessesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -362,6 +390,18 @@
   <ItemGroup>
     <ClCompile Include="Converters\TransparencyConverter.cpp">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Items\BaseProperties.cpp">
+      <DependentUpon>Core\Data\Items\BaseProperties.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Items\ProcessProperties.cpp">
+      <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Models\SelectedItemsPropertiesViewModel.cpp">
+      <DependentUpon>Core\Data\Models\SelectedItemsPropertiesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Data\Parameters\PropertiesPageNavigationParameter.cpp">
@@ -420,6 +460,10 @@
     </ClCompile>
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Helpers\UI\AppSystemBackdrop.cpp">
+      <DependentUpon>Helpers\UI\AppSystemBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Helpers\Win32Helper.cpp" />
@@ -493,6 +537,10 @@
       <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Properties\PropertiesGeneralPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Pages\Properties\PropertiesRootPage.xaml.cpp">
       <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -512,6 +560,12 @@
     <ClCompile Include="Views\Pages\Settings\GeneralPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
       <SubType>Code</SubType>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
+      <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
     </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
@@ -553,6 +607,15 @@
     <Midl Include="Core\Data\Enums\Stretch.idl" />
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Data\Items\BaseProperties.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Data\Items\ProcessProperties.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
@@ -603,6 +666,9 @@
     <Midl Include="Core\Data\Items\ProcessItem.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Helpers\UI\AppSystemBackdrop.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -631,6 +697,10 @@
     </Midl>
     <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Properties\PropertiesGeneralPage.idl">
+      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Properties\PropertiesRootPage.idl">
       <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
