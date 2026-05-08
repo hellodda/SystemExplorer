@@ -28,7 +28,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
 
         auto propertiesWindow = WindowEx{};
         propertiesWindow.Closed(&ProcessPropertiesHelper::PropertiesWindows_Closed);
-        propertiesWindow.SystemBackdrop(Helpers::UI::AppSystemBackdrop{});
+        propertiesWindow.SystemBackdrop(Helpers::UI::AppSystemBackdrop{ true });
         propertiesWindow.Content(frame);
         propertiesWindow.IsMaximizable(false);
         propertiesWindow.IsMinimizable(false);

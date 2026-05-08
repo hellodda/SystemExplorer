@@ -72,7 +72,7 @@
 
         <!--  Main NavigationView  -->
         <NavigationView
-			x:Name="MainPropertiesWindowNavigationView"
+			x:Name="PropertiesRootWindowNavigationView"
 			Grid.Row="1"
 			IsBackButtonVisible="Collapsed"
 			IsPaneToggleButtonVisible="False"
@@ -130,7 +130,7 @@
                     </Grid.RowDefinitions>
 
                     <!--  Frame  -->
-                    <Frame x:Name="MainContentFrame" />
+                    <Frame Loaded="MainFrameLoaded" x:Name="MainContentFrame" />
 
                     <!--  Save/Cancel buttons  -->
                     <Grid

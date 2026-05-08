@@ -5,5 +5,10 @@ namespace SystemExplorer.Helpers.UI
     runtimeclass AppSystemBackdrop : Microsoft.UI.Xaml.Media.SystemBackdrop 
     {
         AppSystemBackdrop();
+        AppSystemBackdrop(Boolean enableWhenInactive);
+
+        Boolean EnableWhenInactive;
+
+        static Microsoft.UI.Xaml.DependencyProperty EnableWhenInactiveProperty{ get; };
     }
 }

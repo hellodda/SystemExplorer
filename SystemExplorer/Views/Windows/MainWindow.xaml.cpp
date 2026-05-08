@@ -32,7 +32,6 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
     {
         auto appearanceSettings = Core::Settings::UserSettings::Instance().AppearanceSettings();
 
-        this->SystemBackdrop(Helpers::UI::AppSystemBackdrop{});
         this->RootGrid().RequestedTheme(appearanceSettings.ApplicationTheme());
 
         winrt::SystemExplorer::Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(XamlToolkit::WinUI::Helpers::ColorHelper::ColorHelper::ToColor(appearanceSettings.AppThemeBackgroundColor()));

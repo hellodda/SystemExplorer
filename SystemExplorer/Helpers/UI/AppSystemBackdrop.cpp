@@ -24,7 +24,7 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 	}
 	AppSystemBackdrop::AppSystemBackdrop(bool enableWhenInactive)
 	{
-        isSecondaryWindow_ = enableWhenInactive;
+        EnableWhenInactive(enableWhenInactive);
 
         UserSettings::Instance().AppearanceSettings().SettingChanged([weak = get_weak()](auto& s, auto& a) {
             if (auto wrf = weak.get())
@@ -33,6 +33,16 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             }
         });
 	}
+
+    void AppSystemBackdrop::EnableWhenInactive(bool value) noexcept
+    {
+        SetValue(EnableWhenInactiveProperty, box_value(value));
+    }
+    bool AppSystemBackdrop::EnableWhenInactive() const noexcept
+    {
+        return unbox_value<bool>(GetValue(EnableWhenInactiveProperty));
+    }
+
     void AppSystemBackdrop::OnTargetConnected(ICompositionSupportsSystemBackdrop const& connectedTarget, XamlRoot const& xamlRoot)
     {
         if (target_)
@@ -44,6 +54,8 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
         root_ = xamlRoot;
 
         auto configuration = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
+        configuration.IsInputActive(EnableWhenInactive());
+
         controller_ = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
         controller_.SetSystemBackdropConfiguration(configuration);
         controller_.AddSystemBackdropTarget(connectedTarget);
@@ -68,6 +80,7 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
         base_type::OnDefaultSystemBackdropConfigurationChanged(target, xamlRoot);
 
         auto configuration = GetDefaultSystemBackdropConfiguration(target, xamlRoot);
+        configuration.IsInputActive(EnableWhenInactive());
 
         if (auto acrylicController = controller_.try_as<DesktopAcrylicController>())
         {
@@ -90,6 +103,8 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             controller_.Close();
 
             auto configuration = GetDefaultSystemBackdropConfiguration(target_, root_);
+            configuration.IsInputActive(EnableWhenInactive());
+
             auto newController = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
             newController.SetSystemBackdropConfiguration(configuration);
             newController.AddSystemBackdropTarget(target_);
@@ -107,6 +122,7 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             controller.FallbackColor(Windows::UI::ColorHelper::FromArgb(0x99, 0xd3, 0xd3, 0xd3));
             controller.TintOpacity(0.0f);
             controller.LuminosityOpacity(0.44f);
+            break;
         }
         case SystemBackdropTheme::Dark:
         {
@@ -114,14 +130,12 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             controller.FallbackColor(Windows::UI::ColorHelper::FromArgb(0xff, 0x20, 0x20, 0x20));
             controller.TintOpacity(0.0f);
             controller.LuminosityOpacity(0.64f);
+            break;
         }
         }
     }
     ISystemBackdropControllerWithTargets AppSystemBackdrop::getSystemBackdropController(BackdropMaterialType backdropType, SystemBackdropTheme theme)
     {
-        if (isSecondaryWindow_ && backdropType == BackdropMaterialType::MicaAlt)
-            backdropType = BackdropMaterialType::Mica;
-
         switch (backdropType)
         {   
         case winrt::SystemExplorer::Core::Data::Enums::BackdropMaterialType::Mica:

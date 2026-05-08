@@ -8,12 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:essential="using:WinUI3Package"
     xmlns:pages="using:SystemExplorer.Views.Pages"
-    xmlns:controls="using:XamlToolkit.WinUI.Controls"
+    xmlns:backdrop="using:SystemExplorer.Helpers.UI"
     mc:Ignorable="d"
     Title="SystemExplorer">
     
     <essential:WindowEx.SystemBackdrop>
-        <MicaBackdrop/>
+        <backdrop:AppSystemBackdrop EnableWhenInactive="True"/>
     </essential:WindowEx.SystemBackdrop>
 
     <Grid x:Name="RootGrid">
