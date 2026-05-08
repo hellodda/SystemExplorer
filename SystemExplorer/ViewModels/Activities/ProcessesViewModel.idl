@@ -15,13 +15,6 @@ namespace SystemExplorer.ViewModels.Activities
         UInt64 TotalIoRate;
         UInt64 TotalPrivateBytes;
 
-        void SortByPid();
-        void SortByCpu();
-        void SortByIoRate();
-        void SortByName(); 
-        void SortByPrivateBytes();
-
-
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ProcessItem> Processes { get; };
 
         

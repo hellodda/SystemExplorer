@@ -1,0 +1,11 @@
+namespace SystemExplorer.Xaml.Controls
+{
+    runtimeclass DataTable : Microsoft.UI.Xaml.Controls.Panel
+    {
+        DataTable();
+
+        Double ColumnSpacing;
+
+        static Microsoft.UI.Xaml.DependencyProperty ColumnSpacingProperty{ get; };
+    }
+}

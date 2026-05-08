@@ -1,0 +1,16 @@
+namespace SystemExplorer.Xaml.Controls
+{ 
+    [default_interface]
+    runtimeclass DataColumn : Microsoft.UI.Xaml.Controls.ContentControl
+    {
+        DataColumn();
+
+        Boolean CanResize;
+
+        static Microsoft.UI.Xaml.DependencyProperty CanResizeProperty{ get; };
+
+        Microsoft.UI.Xaml.GridLength DesiredWidth;
+
+        static Microsoft.UI.Xaml.DependencyProperty DesiredWidthProperty{ get; };
+    }
+}

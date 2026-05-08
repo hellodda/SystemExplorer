@@ -139,7 +139,6 @@
                     <controls:DataTable ColumnSpacing="0">
 
                         <controls:DataColumn
-                               Tapped="{x:Bind ViewModel.SortByName}"
                                CanResize="True"
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -156,7 +155,6 @@
                         </controls:DataColumn>
 
                         <controls:DataColumn
-                            Tapped="{x:Bind ViewModel.SortByPid}"
                              CanResize="True"
                              Background="Transparent"
                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -164,7 +162,7 @@
                             <TextBlock Text="PID" Margin="0 25 0 0" HorizontalAlignment="Right"/>
                         </controls:DataColumn>
 
-                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByCpu}"
+                        <controls:DataColumn
                                              CanResize="True"
                                              Background="Transparent"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -175,7 +173,7 @@
                             </StackPanel>
                         </controls:DataColumn>
 
-                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByIoRate}"
+                        <controls:DataColumn
                                              CanResize="True"
                                              Background="Transparent"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -186,7 +184,7 @@
                             </StackPanel>
                         </controls:DataColumn>
 
-                        <controls:DataColumn Tapped="{x:Bind ViewModel.SortByPrivateBytes}"
+                        <controls:DataColumn
                                              CanResize="True"
                                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                              BorderThickness="0,0,1,1">

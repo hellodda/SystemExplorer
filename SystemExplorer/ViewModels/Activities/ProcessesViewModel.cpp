@@ -90,17 +90,16 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     void ProcessesViewModel::applyTransformations()
     {
-        if (lastRawProcesses_.empty()) return;
+        namespace view = std::ranges::views;
 
-        namespace views = std::ranges::views;
+        auto activeProcesses = lastRawProcesses_ | view::filter([](const auto& p) {
+            return std::wstring_view(p.Name) != L"Idle";
+        });
 
-        float totalCpu = 0.0f;
+        float totalCpu = 0;
         uint64_t totalIo = 0, totalPrivateBytes = 0;
 
-        auto isNotIdle = [](const auto& p) { return std::wstring_view(p.Name) != L"Idle"; };
-
-        for (const auto& proc : lastRawProcesses_ | views::filter(isNotIdle))
-        {
+        for (const auto& proc : activeProcesses) {
             totalCpu += proc.CpuUsage;
             totalIo += proc.IoRate;
             totalPrivateBytes += proc.PrivateBytes;
@@ -110,68 +109,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         TotalIoRate(totalIo);
         TotalPrivateBytes(totalPrivateBytes);
 
-        std::wstring rawSearchLower;
-        if (!SearchString_.empty() && !searchRegex_.has_value())
-        {
-            rawSearchLower = SearchString_.c_str();
-            std::ranges::transform(rawSearchLower, rawSearchLower.begin(), ::towlower);
-        }
-
-        auto passesSearchFilter = [&](const ProcessNativeInformation& proc)
-        {
-            if (SearchString_.empty())
-                return true;
-
-            if (searchRegex_.has_value())
-            {
-                return std::regex_search(proc.Name, searchRegex_.value()) ||
-                    std::regex_search(std::to_wstring(proc.Pid), searchRegex_.value()) ||
-                    std::regex_search(proc.Description, searchRegex_.value());
-            }
-
-            auto icase_cmp = [](wchar_t a, wchar_t b) { return std::towlower(a) == std::towlower(b); };
-
-            if (std::search(proc.Name.begin(), proc.Name.end(), rawSearchLower.begin(), rawSearchLower.end(), icase_cmp) != proc.Name.end())
-                return true;
-
-            auto pidStr = std::to_wstring(proc.Pid);
-            if (std::search(pidStr.begin(), pidStr.end(), rawSearchLower.begin(), rawSearchLower.end(), icase_cmp) != pidStr.end())
-                return true;
-
-            return false;
-        };
-
-        std::vector<ProcessNativeInformation> viewList;
-        viewList.reserve(lastRawProcesses_.size());
-
-        for (const auto& proc : lastRawProcesses_ | views::filter(passesSearchFilter))
-        {
-            viewList.push_back(proc);
-        }
-
-        sortManager_.Sort(viewList, [](const auto& a, const auto& b, SortColumn col) -> std::partial_ordering
-        {
-            std::partial_ordering cmp = std::partial_ordering::equivalent;
-
-            switch (col)
-            {
-            case SortColumn::Name:         cmp = std::wstring_view(a.Name) <=> std::wstring_view(b.Name); break;
-            case SortColumn::Pid:          cmp = a.Pid <=> b.Pid; break;
-            case SortColumn::Cpu:          cmp = a.CpuUsage <=> b.CpuUsage; break;
-            case SortColumn::IoRate:       cmp = a.IoRate <=> b.IoRate; break;
-            case SortColumn::PrivateBytes: cmp = a.PrivateBytes <=> b.PrivateBytes; break;
-            case SortColumn::None:         break;
-            }
-
-            if (cmp == std::partial_ordering::equivalent)
-            {
-                return a.Pid <=> b.Pid;
-            }
-            return cmp;
-        });
-
         auto incomingPids = lastRawProcesses_
-            | views::transform(&ProcessNativeInformation::Pid)
+            | view::transform([](const auto& p) { return p.Pid; })
             | std::ranges::to<std::unordered_set<uint32_t>>();
 
         for (const auto& proc : lastRawProcesses_)
@@ -179,11 +118,9 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             if (auto it = uiCache_.find(proc.Pid); it != uiCache_.end())
             {
                 auto& uiObj = it->second;
-
                 if (uiObj.CpuUsage() != proc.CpuUsage) uiObj.CpuUsage(proc.CpuUsage);
                 if (uiObj.IoRate() != proc.IoRate) uiObj.IoRate(proc.IoRate);
                 if (uiObj.PrivateBytes() != proc.PrivateBytes) uiObj.PrivateBytes(proc.PrivateBytes);
-                if (uiObj.IsEfficiencyModeEnabled() != proc.IsEfficiencyModeEnabled) uiObj.IsEfficiencyModeEnabled(proc.IsEfficiencyModeEnabled);
             }
             else
             {
@@ -199,51 +136,25 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 newUiObj.Icon(converter_.Convert(proc.Icon));
 
                 uiCache_.emplace(proc.Pid, newUiObj);
+                Processes.Append(newUiObj);
             }
         }
 
-        std::erase_if(uiCache_, [&](const auto& pair) {
-            return !incomingPids.contains(pair.first);
-        });
-
-        std::vector<ProcessItem> newOrder;
-        newOrder.reserve(viewList.size());
-        for (const auto& nativeProc : viewList)
+        std::erase_if(uiCache_, [&](const auto& pair)
         {
-            newOrder.push_back(uiCache_[nativeProc.Pid]);
-        }
-
-        auto currentObservable = Processes();
-        bool needsReorder = (currentObservable.Size() != newOrder.size());
-
-        if (!needsReorder)
-        {
-            for (uint32_t i = 0; i < newOrder.size(); ++i)
+            const auto& [pid, uiObj] = pair;
+            if (!incomingPids.contains(pid))
             {
-                if (currentObservable.GetAt(i) != newOrder[i])
+                uint32_t index;
+                if (Processes.IndexOf(uiObj, index))
                 {
-                    needsReorder = true;
-                    break;
+                    Processes.RemoveAt(index);
                 }
+                return true;
             }
-        }
-
-        if (needsReorder)
-        {
-            auto currentSelected = SelectedProcess();
-            currentObservable.ReplaceAll(newOrder);
-            if (currentSelected) {
-                SelectedProcess(currentSelected);
-            }
-        }
+            return false;
+        });
     }
-
-    void ProcessesViewModel::SortByPid() { sortManager_.Toggle(SortColumn::Pid, Sorting::SortDirection::Ascending); applyTransformations(); }
-    void ProcessesViewModel::SortByName() { sortManager_.Toggle(SortColumn::Name, Sorting::SortDirection::Ascending); applyTransformations(); }
-    void ProcessesViewModel::SortByCpu() { sortManager_.Toggle(SortColumn::Cpu); applyTransformations(); }
-    void ProcessesViewModel::SortByIoRate() { sortManager_.Toggle(SortColumn::IoRate); applyTransformations(); }
-    void ProcessesViewModel::SortByPrivateBytes() { sortManager_.Toggle(SortColumn::PrivateBytes); applyTransformations(); }
-
 
     // commands impl
     IAsyncAction ProcessesViewModel::doTerminateProcessAsync()

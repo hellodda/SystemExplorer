@@ -45,6 +45,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Extensions\DependencyObjectExtensions.h" />
+    <ClInclude Include="Extensions\Predicates.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Xaml.def" />
@@ -85,6 +87,10 @@
     <Midl Include="Mvvm\ComponentModel\ObservableObject.idl">
       <Filter>Mvvm\ComponentModel</Filter>
     </Midl>
+    <Midl Include="Controls\DataTable\DataRow.idl" />
+    <Midl Include="Controls\DataTable\DataColumn.idl" />
+    <Midl Include="Controls\DataTable\DataTable.idl" />
+    <Midl Include="Controls\DataTable\SortDirection.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml">
@@ -102,5 +108,6 @@
     <Page Include="Themes\Generic.xaml">
       <Filter>Themes</Filter>
     </Page>
+    <Page Include="Controls\DataTable\DataColumn.xaml" />
   </ItemGroup>
 </Project>

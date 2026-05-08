@@ -20,6 +20,7 @@
         <x:String x:Key="XamlToolkitUrl">https://github.com/lgztx96/CommunityToolkit.WinUI</x:String>
         <x:String x:Key="MicrosoftWilUrl">https://github.com/microsoft/wil</x:String>
         <x:String x:Key="PhntUrl">https://github.com/winsiderss/phnt</x:String>
+        <x:String x:Key="DocumentationUrl">https://codewiki.google/github.com/hellodda/systemexplorer</x:String>
     </Page.Resources>
 
     <Grid Padding="20">
@@ -59,7 +60,9 @@
                           Description="Learn how to use the app"
                           IsClickEnabled="True"
                           IsActionIconVisible="False"
-                          HeaderIcon="{toolkit:FontIcon Glyph=&#xF7DB;}">
+                          HeaderIcon="{toolkit:FontIcon Glyph=&#xF7DB;}"
+                          Command="{x:Bind ViewModel.LaunchUriCommand}"
+                          CommandParameter="{StaticResource DocumentationUrl}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
 

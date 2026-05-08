@@ -28,8 +28,6 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     using namespace winrt::SystemExplorer::Core::System::Contracts;
     using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
 
-    enum class SortColumn { None, Name, Pid, Cpu, IoRate, PrivateBytes };
-
     struct ProcessesViewModel : ProcessesViewModelT<ProcessesViewModel, ::winrt::SystemExplorer::ViewModels::implementation::ViewModelBase>
     {
         ProcessesViewModel();
@@ -58,12 +56,6 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         WIL_NOTIFYING_PROPERTY(float, TotalCpuUsage, 0);
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalIoRate, 0);
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalPrivateBytes, 0);
-
-        void SortByPid();
-        void SortByCpu();
-        void SortByIoRate();
-        void SortByName();
-        void SortByPrivateBytes();
     private: // internal
         void applyTransformations();
         void updateProcessesList(std::vector<ProcessNativeInformation>& newProcesses);
@@ -74,7 +66,6 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         IAsyncAction doOpenProcessDetailsWindowAsync();
     private:
         Converters::HiconToBitmapSourceConverter converter_;
-        Core::Sorting::SortManager<SortColumn> sortManager_{ SortColumn::None, Core::Sorting::SortDirection::Ascending };
 
         std::shared_ptr<IProcessInformationProvider> provider_{ nullptr };
         std::shared_ptr<IProcessManager> manager_{ nullptr };

@@ -1,0 +1,8 @@
+namespace SystemExplorer.Xaml.Controls
+{
+    [default_interface]
+    runtimeclass DataRow : Microsoft.UI.Xaml.Controls.Panel
+    {
+        DataRow();
+    }
+}
