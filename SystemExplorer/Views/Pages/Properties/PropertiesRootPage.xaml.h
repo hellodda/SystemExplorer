@@ -15,7 +15,7 @@ namespace winrt::SystemExplorer::Views::Pages::Properties::implementation
     {
         PropertiesRootPage()
         {
-           
+            this->ViewModel.ItemName(L"Test");
         }
         IAsyncAction MainFrameLoaded(const auto&, const auto&)
         {

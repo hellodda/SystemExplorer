@@ -18,7 +18,7 @@ using namespace winrt::WinUI3Package;
 
 namespace winrt::SystemExplorer::Helpers::implementation
 {
-	void ProcessPropertiesHelper::OpenPropertiesWindow(ISystemItem const& item)
+	void ProcessPropertiesHelper::OpenPropertiesWindow(IInspectable const& item)
 	{
         if (!item)
             return;
@@ -46,7 +46,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
         //appWindow.SetIcon();
 
         frame.Navigate(
-            xaml_typename<SystemExplorer::Views::Pages::Properties::PropertiesRootPage>(),
+            xaml_typename<SystemExplorer::Views::Pages::Properties::PropertiesGeneralPage>(),
             PropertiesPageNavigationParameter
             {
                 item

@@ -9,13 +9,12 @@ using namespace winrt::SystemExplorer::Helpers;
 namespace winrt::SystemExplorer::Core::System
 {
     ProcessInformationProvider::ProcessInformationProvider()
-        : thread_
-        {
-            [this] { updateProcesses(); },
-            std::chrono::milliseconds(1000) 
-        }
     {
-
+        registry_ = thread_.Register([this]() {
+            updateProcesses();
+        });
+        registry_->Enable();
+        thread_.Start(std::chrono::milliseconds(500));
     }
 
     std::vector<ProcessNativeInformation> ProcessInformationProvider::GetAllProcesses()

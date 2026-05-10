@@ -2,6 +2,8 @@
 #include "../ViewModelBase.h"
 #include "ViewModels/Activities/ProcessesViewModel.g.h"
 
+#include <winrt/Windows.System.h>
+#include <winrt/Windows.Storage.h>
 #include <Converters/HiconToBitmapSourceConverter.h>
 
 #include <Core/Data/Items/ProcessItem.h>
@@ -18,6 +20,8 @@
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
     using namespace winrt::Windows::Foundation;
+    using namespace winrt::Windows::Storage;
+    using namespace winrt::Windows::System;
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Microsoft::UI::Xaml;
 
@@ -48,6 +52,15 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         wil::single_threaded_property<IAsyncRelayCommand> OpenProcessDetailsWindowCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
             co_await doOpenProcessDetailsWindowAsync();
         });
+        wil::single_threaded_property<IAsyncRelayCommand> SuspendProcessCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
+            co_return;
+        });
+        wil::single_threaded_property<IAsyncRelayCommand> OpenFileLocationCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
+            co_await doOpenProcessLocationAsync();
+        });
+        wil::single_threaded_property<IAsyncRelayCommand> SearchOnlineCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
+            co_await Launcher::LaunchUriAsync(Uri{ L"https://www.bing.com/search?q=" + SelectedProcess_.Name()});
+        });
 
         DECLARE_ONLY_SETTER(hstring, SearchString, L"");
         DECLARE_ONLY_SETTER(ProcessItem, SelectedProcess, nullptr);
@@ -63,6 +76,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         IAsyncAction doSetEfficiencyModeAsync();
         IAsyncAction doRestartProcessAsync();
         IAsyncAction doOpenProcessDetailsWindowAsync();
+        IAsyncAction doOpenProcessLocationAsync();
     private:
         Converters::HiconToBitmapSourceConverter converter_;
 

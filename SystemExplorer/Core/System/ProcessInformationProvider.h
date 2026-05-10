@@ -47,6 +47,7 @@ namespace winrt::SystemExplorer::Core::System
         
         void cleanupCache(std::unordered_set<uint32_t> const& currentTickPids);
     private:
+        std::shared_ptr<ProviderRegistration> registry_;
         ProviderThread thread_;
 
         wil::srwlock lock_;

@@ -1,5 +1,6 @@
 #pragma once
 #include "App.xaml.g.h"
+#include "Core/System/ProviderThread.h"
 #include "Core/Data/Models/AppModel.h"
 
 namespace winrt::SystemExplorer::implementation
@@ -26,3 +27,4 @@ namespace winrt::SystemExplorer
 {
     using CurrentApplication = implementation::App;
 }
+

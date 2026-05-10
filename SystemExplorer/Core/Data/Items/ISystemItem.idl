@@ -1,9 +1,0 @@
-namespace SystemExplorer.Core.Data.Items
-{
-    [version(1)]
-    [uuid(12345678-1234-1234-1234-1234567890AB)]
-    interface ISystemItem
-    {
-        
-    }
-}

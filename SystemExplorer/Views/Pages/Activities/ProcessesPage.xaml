@@ -28,7 +28,7 @@
 
         <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
             <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
-            <MenuFlyoutItem Text="Suspend" />
+            <MenuFlyoutItem Text="Suspend"  Command="{x:Bind ViewModel.SuspendProcessCommand}"/>
             <MenuFlyoutItem Text="Restart" Command="{x:Bind ViewModel.RestartProcessCommand}"/>
 
             <MenuFlyoutSeparator/>
@@ -39,10 +39,21 @@
 
             <MenuFlyoutSeparator/>
 
-            <MenuFlyoutItem Text="Go to detials" Command="{x:Bind ViewModel.OpenProcessDetailsWindowCommand}"/>
-            <MenuFlyoutItem Text="Open file location"/>
-            <MenuFlyoutItem Text="Search online"/>
-            <MenuFlyoutItem Text="Properties"/>
+            <MenuFlyoutItem Text="Open file location" Command="{x:Bind ViewModel.OpenFileLocationCommand}">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="L" Modifiers="Control"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Search online" Command="{x:Bind ViewModel.SearchOnlineCommand}">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="M" Modifiers="Control"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
+            <MenuFlyoutItem Text="Properties" Command="{x:Bind ViewModel.OpenProcessDetailsWindowCommand}">
+                <MenuFlyoutItem.KeyboardAccelerators>
+                    <KeyboardAccelerator Key="P" Modifiers="Control"/>
+                </MenuFlyoutItem.KeyboardAccelerators>
+            </MenuFlyoutItem>
         </MenuFlyout>
     </Page.Resources>
     

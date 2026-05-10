@@ -1,23 +1,50 @@
 #include "pch.h"
 #include "ProcessManager.h"
 #include "Utils.h"
+#include "Native/process.h"
 
 namespace winrt::SystemExplorer::Core::System
 {
 	void ProcessManager::Terminate(uint32_t pid)
 	{
 		if (pid <= 4) return;
-
-		auto handle = wil::unique_process_handle{ OpenProcess(
+		
+		wil::unique_handle handle;
+		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
+			&handle,
 			PROCESS_TERMINATE,
-			FALSE,
-			pid
-		) };
+			(HANDLE)pid
+		));
+		THROW_IF_NTSTATUS_FAILED(NtTerminateProcess(
+			handle.get(),
+			NULL
+		));
+	}
 
-		if (!handle.is_valid())
-			THROW_LAST_ERROR_MSG("Cannot open process");
+	void ProcessManager::Suspend(uint32_t pid)
+	{
+		wil::unique_handle handle;
+		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_TERMINATE,
+			(HANDLE)pid
+		));
+		THROW_IF_NTSTATUS_FAILED(NtSuspendProcess(
+			handle.get()
+		));
+	}
 
-		TerminateProcess(handle.get(), EXIT_SUCCESS);
+	void ProcessManager::Resume(uint32_t pid)
+	{
+		wil::unique_handle handle;
+		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_TERMINATE,
+			(HANDLE)pid
+		));
+		THROW_IF_NTSTATUS_FAILED(NtResumeProcess(
+			handle.get()
+		));
 	}
 
 	void ProcessManager::Restart(uint32_t pid)
@@ -36,49 +63,32 @@ namespace winrt::SystemExplorer::Core::System
 
 	void ProcessManager::EnableEfficiencyMode(uint32_t pid)
 	{
-		auto handle = wil::unique_process_handle{ OpenProcess(
-			PROCESS_SET_INFORMATION | PROCESS_QUERY_INFORMATION,
-			FALSE,
-			pid
-		) };
+		wil::unique_handle handle;
+		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_TERMINATE,
+			(HANDLE)pid
+		));
 
-		if (!handle.is_valid())
-			THROW_LAST_ERROR_MSG("Cannot open process");
-
-		PROCESS_POWER_THROTTLING_STATE state{};
-		state.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
-		state.ControlMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
-		state.StateMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
-
-		SetProcessInformation(
+		THROW_IF_NTSTATUS_FAILED(SeSetProcessPowerThrottlingState(
 			handle.get(),
-			ProcessPowerThrottling,
-			&state,
-			sizeof(state)
-		);
-
+			POWER_THROTTLING_PROCESS_EXECUTION_SPEED,
+			POWER_THROTTLING_PROCESS_EXECUTION_SPEED
+		));
 	}
 	void ProcessManager::DisableEfficiencyMode(uint32_t pid)
 	{
-		auto handle = wil::unique_process_handle{ OpenProcess(
-			PROCESS_SET_INFORMATION | PROCESS_QUERY_INFORMATION,
-			FALSE,
-			pid
-		) };
+		wil::unique_handle handle;
+		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_TERMINATE,
+			(HANDLE)pid
+		));
 
-		if (!handle.is_valid())
-			THROW_LAST_ERROR_MSG("Cannot open process");
-
-		PROCESS_POWER_THROTTLING_STATE state{};
-		state.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
-		state.ControlMask = PROCESS_POWER_THROTTLING_EXECUTION_SPEED;
-		state.StateMask = NULL;
-
-		SetProcessInformation(
+		THROW_IF_NTSTATUS_FAILED(SeSetProcessPowerThrottlingState(
 			handle.get(),
-			ProcessPowerThrottling,
-			&state,
-			sizeof(state)
-		);
+			POWER_THROTTLING_PROCESS_EXECUTION_SPEED,
+			POWER_THROTTLING_PROCESS_EXECUTION_SPEED
+		));
 	}
 }

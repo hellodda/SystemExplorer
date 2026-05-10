@@ -7,6 +7,7 @@
     xmlns:local="using:SystemExplorer.Views.Pages.Properties"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     Background="{ThemeResource App.Theme.BackgroundBrush}"
     HighContrastAdjustment="None"
     
@@ -31,8 +32,6 @@
 				Margin="4,4,0,0"
 				Background="Transparent"
 				BorderBrush="Transparent"
-				
-				CommandParameter="{x:Bind}"
 				IsEnabled="{x:Bind MainContentFrame.CanGoBack, Mode=OneWay}"
 				>
                 <Button.Resources>
@@ -57,15 +56,14 @@
 				Grid.Column="1"
 				HorizontalAlignment="Stretch"
 				VerticalAlignment="Stretch">
-                <!--<TextBlock
+                <TextBlock
 					x:Name="TitlebarFileNameTextBlock"
 					Margin="4,4,48,0"
 					VerticalAlignment="Center"
-					Style="{StaticResource App.Theme.CaptionTextBlockStyle}"
 					TextTrimming="CharacterEllipsis"
 					TextWrapping="NoWrap">
-					<Run Text="{helpers:ResourceString Name=Properties}" />
-                </TextBlock>-->
+					<Run Text="{x:Bind helpers:StringsHelper.Properties}" />
+                </TextBlock>
             </Border>
 
         </Grid>
@@ -83,44 +81,6 @@
 			PaneDisplayMode="Left"
 			>
 
-            <!--  Item Template  -->
-            <!--<NavigationView.MenuItemTemplate>
-                <DataTemplate x:DataType="dataitems:NavigationViewItemButtonStyleItem">
-                    <NavigationViewItem IsSelected="{x:Bind IsSelected, Mode=TwoWay}" Tag="{x:Bind ItemType, Mode=OneWay}">
-                        <NavigationViewItem.Content>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-
-                                -->
-            <!--  Icon  -->
-            <!--<Viewbox
-									Width="16"
-									Height="16"
-									VerticalAlignment="Center">
-                                    <controls:ThemedIcon IsFilled="{x:Bind IsSelected, Mode=OneWay}" Style="{x:Bind ThemedIconStyle, Mode=OneWay}" />
-                                </Viewbox>-->
-
-            <!--  Label  -->
-            <!--
-                                <TextBlock
-									x:Name="ItemNameLabelTextBlock"
-									Grid.Column="1"
-									Margin="8,0,0,0"
-									VerticalAlignment="Center"
-									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-									Style="{StaticResource App.Theme.BodyTextBlockStyle}"
-									Text="{x:Bind Name, Mode=OneWay}"
-									Visibility="{x:Bind IsCompact, Converter={StaticResource BoolToVisibilityInverseConverter}, Mode=OneWay}" />
-
-                            </Grid>
-                        </NavigationViewItem.Content>
-                    </NavigationViewItem>
-                </DataTemplate>
-            </NavigationView.MenuItemTemplate>-->
-
             <!--  NavigationView Content, Save/Cancel buttons  -->
             <NavigationView.Content>
                 <Grid>
@@ -131,35 +91,6 @@
 
                     <!--  Frame  -->
                     <Frame Loaded="MainFrameLoaded" x:Name="MainContentFrame" />
-
-                    <!--  Save/Cancel buttons  -->
-                    <Grid
-						Grid.Row="1"
-						Background="{ThemeResource CardBackgroundFillColorSecondaryBrush}"
-						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-						BorderThickness="0,1,0,0">
-                        <StackPanel
-							Margin="12,0,12,0"
-							HorizontalAlignment="Right"
-							Orientation="Horizontal"
-							Spacing="12">
-
-                            <!--<Button
-								x:Name="SaveChangesButton"
-								Width="96"
-								Command="{x:Bind MainPropertiesViewModel.SaveChangedPropertiesCommand, Mode=OneWay}"
-								Content="{helpers:ResourceString Name=Save}"
-								Style="{StaticResource AccentButtonStyle}" />
-
-                            <Button
-								x:Name="CancelChangesButton"
-								Width="96"
-								Command="{x:Bind MainPropertiesViewModel.CancelChangedPropertiesCommand, Mode=OneWay}"
-								Content="{helpers:ResourceString Name=Cancel}" />-->
-
-                        </StackPanel>
-                    </Grid>
-
                 </Grid>
             </NavigationView.Content>
 

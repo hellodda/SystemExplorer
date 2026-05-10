@@ -3,7 +3,6 @@
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
 #include "ViewModels/Activities/ProcessesViewModel.g.cpp"
 #endif
-#include <cwctype>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <ranges>
@@ -11,6 +10,7 @@
 #include <Core/System/ProcessInformationProvider.h>
 #include <Core/System/ProcessManager.h>
 #include <Core/System/Utils.h>
+#include <Core/System/Native/process.h>
 #include <Helpers/ProcessPropertiesHelper.h>
 
 using namespace winrt::SystemExplorer::Helpers;
@@ -189,5 +189,34 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
         ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
         co_return;
+    }
+
+    IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
+    {
+        wil::unique_handle handle;
+        THROW_IF_NTSTATUS_FAILED(SeOpenProcess(&handle, PROCESS_QUERY_INFORMATION, (HANDLE)SelectedProcess_.Pid()));
+        PWSTR exePathRaw = nullptr;
+        THROW_IF_NTSTATUS_FAILED(SeGetProcessImageFileNameWin32(handle.get(), &exePathRaw));
+        std::wstring exePath(exePathRaw);
+        try
+        {
+            auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(exePath.c_str());
+
+            auto folder = co_await file.GetParentAsync();
+
+            if (folder)
+            {
+                auto options = winrt::Windows::System::FolderLauncherOptions();
+                options.ItemsToSelect().Append(file);
+
+                co_await winrt::Windows::System::Launcher::LaunchFolderAsync(
+                    folder,
+                    options
+                );
+            }
+        }
+        catch (hresult_error const&)
+        {
+        }
     }
 }

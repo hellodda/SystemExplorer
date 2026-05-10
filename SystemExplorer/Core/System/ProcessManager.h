@@ -8,6 +8,8 @@ namespace winrt::SystemExplorer::Core::System
 	struct ProcessManager : IProcessManager
 	{
 		void Terminate(uint32_t pid) override;
+		void Suspend(uint32_t pid) override;
+		void Resume(uint32_t pid) override;
 		void Restart(uint32_t pid) override;
 		void EnableEfficiencyMode(uint32_t pid) override;
 		void DisableEfficiencyMode(uint32_t pid) override;

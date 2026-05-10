@@ -76,9 +76,6 @@
     <Midl Include="Core\Data\Items\AppThemeResourceItem.idl">
       <Filter>Core\Data\Items</Filter>
     </Midl>
-    <Midl Include="Core\Data\Items\ISystemItem.idl">
-      <Filter>Core\Data\Items</Filter>
-    </Midl>
     <Midl Include="Core\Data\Items\ProcessItem.idl">
       <Filter>Core\Data\Items</Filter>
     </Midl>
@@ -192,6 +189,7 @@
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
+    <ClCompile Include="Core\System\Native\process.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -258,6 +256,9 @@
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h">
       <Filter>Core\AI\Actions</Filter>
     </ClInclude>
+    <ClInclude Include="Core\System\Native\process.h" />
+    <ClInclude Include="Core\System\Native\sebase.h" />
+    <ClInclude Include="Core\System\Native\se.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

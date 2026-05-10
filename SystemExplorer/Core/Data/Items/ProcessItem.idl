@@ -1,10 +1,8 @@
-import "Core/Data/Items/ISystemItem.idl";
-
 namespace SystemExplorer.Core.Data.Items
 {
     [bindable]
     [default_interface]
-    runtimeclass ProcessItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged, ISystemItem
+    runtimeclass ProcessItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         ProcessItem();
       

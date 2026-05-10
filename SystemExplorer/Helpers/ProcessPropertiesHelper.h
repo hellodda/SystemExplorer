@@ -24,7 +24,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
     {
         ProcessPropertiesHelper() = default;
 
-        static void OpenPropertiesWindow(ISystemItem const& item);
+        static void OpenPropertiesWindow(IInspectable const& item);
     private:
 
         static void PropertiesWindows_Closed(IInspectable const& sender, WindowEventArgs const& args)

@@ -24,5 +24,4 @@
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <wil/cppwinrt_helpers.h>
 
-#include <SystemExplorer.Core.h>
 #include <winrt/SystemExplorer.Xaml.Controls>
