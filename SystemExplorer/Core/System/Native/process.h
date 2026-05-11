@@ -62,6 +62,11 @@ NTSTATUS SeGetProcessImageFileNameWin32(
 	_Out_ PWSTR* FileName
 );
 
+NTSTATUS SeIsProcessEfficiencyModeEnabled(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PBOOLEAN EfficiencyMode
+);
+
 #ifdef __cplusplus
 }
 #endif

@@ -26,7 +26,9 @@
 #define SE_CLANG_DIAGNOSTIC_POP()
 #endif
 
+#include <windows.h>
 #include <phnt_windows.h>
+#include <phnt_ntdef.h>
 #include <phnt.h>
 
 #endif

@@ -210,3 +210,24 @@ NTSTATUS SeGetProcessImageFileNameWin32(
 
 	return status;
 }
+
+NTSTATUS SeIsProcessEfficiencyModeEnabled(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PBOOLEAN EfficiencyMode
+)
+{
+	NTSTATUS status;
+	PROCESS_POWER_THROTTLING_STATE powerThrottlingState;
+	powerThrottlingState.Version = PROCESS_POWER_THROTTLING_CURRENT_VERSION;
+
+	status = SeGetProcessPowerThrottlingState(ProcessHandle, &powerThrottlingState);
+
+	if (NT_SUCCESS(status))
+	{
+		*EfficiencyMode = (powerThrottlingState.ControlMask & PROCESS_POWER_THROTTLING_EXECUTION_SPEED) &&
+			(powerThrottlingState.StateMask & PROCESS_POWER_THROTTLING_EXECUTION_SPEED);
+	}
+	*EfficiencyMode = FALSE;
+
+	return status;
+}
