@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef _PH_DLTMGR_H
-#define _PH_DLTMGR_H
-
 typedef struct _SE_SINGLE_DELTA
 {
     FLOAT Value;
