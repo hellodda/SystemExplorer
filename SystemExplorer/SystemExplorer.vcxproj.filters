@@ -34,7 +34,9 @@
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml">
       <Filter>Views\Pages\Settings</Filter>
     </Page>
-    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml" />
+    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml">
+      <Filter>Views\Pages\Properties</Filter>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -136,10 +138,18 @@
     <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
       <Filter>Views\Pages\Properties</Filter>
     </Midl>
-    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl" />
-    <Midl Include="Core\Data\Items\ProcessProperties.idl" />
-    <Midl Include="Core\Data\Items\BaseProperties.idl" />
-    <Midl Include="Helpers\UI\AppSystemBackdrop.idl" />
+    <Midl Include="Core\Data\Items\BaseProperties.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Helpers\UI\AppSystemBackdrop.idl">
+      <Filter>Helpers\UI</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Items\ProcessProperties.idl">
+      <Filter>Core\Data\Items</Filter>
+    </Midl>
+    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
+      <Filter>ViewModels\Properties</Filter>
+    </Midl>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -189,7 +199,34 @@
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Core\System\Native\process.c" />
+    <ClCompile Include="Core\System\Native\mapldr.c" />
+    <ClCompile Include="Core\System\Native\apiimport.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\error.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\mapldr.cpp">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\process.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\procproc.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\sesup.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\sebasesup.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\senative.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\System\Native\util.c">
+      <Filter>Core\System\Native</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -256,9 +293,45 @@
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h">
       <Filter>Core\AI\Actions</Filter>
     </ClInclude>
-    <ClInclude Include="Core\System\Native\process.h" />
-    <ClInclude Include="Core\System\Native\sebase.h" />
-    <ClInclude Include="Core\System\Native\se.h" />
+    <ClInclude Include="Core\System\Native\apiimport.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\dltmgr.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\error.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\mapldr.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\process.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\procproc.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\se.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native.h">
+      <Filter>Core\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\sebasesup.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\sebase.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\senative.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\util.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\System\Native\sesup.h">
+      <Filter>Core\System\Native</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -379,6 +452,15 @@
     </Filter>
     <Filter Include="SourceGenerators">
       <UniqueIdentifier>{f20f1dfc-a7fb-4a80-827e-08bfa2bf96c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\System\Native">
+      <UniqueIdentifier>{276b7dfc-29c1-4624-93fa-ae3940e4a31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Helpers\UI">
+      <UniqueIdentifier>{4b0da226-424d-448f-a2c2-5f4057b81312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ViewModels\Properties">
+      <UniqueIdentifier>{48af53fe-e6d1-4d37-b65f-830e5c07914d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -193,7 +193,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
     {
-        wil::unique_handle handle;
+     /*   wil::unique_handle handle;
         THROW_IF_NTSTATUS_FAILED(SeOpenProcess(&handle, PROCESS_QUERY_INFORMATION, (HANDLE)SelectedProcess_.Pid()));
         PWSTR exePathRaw = nullptr;
         THROW_IF_NTSTATUS_FAILED(SeGetProcessImageFileNameWin32(handle.get(), &exePathRaw));
@@ -217,6 +217,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
         catch (hresult_error const&)
         {
-        }
+        }*/
+		co_return;
     }
 }

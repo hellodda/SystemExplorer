@@ -24,6 +24,24 @@ NTSTATUS SeOpenProcess(
 	return status;
 }
 
+NTSTATUS SeOpenProcessToken(
+	_In_ HANDLE ProcessHandle,
+	_In_ ACCESS_MASK DesiredAccess,
+	_Out_ PHANDLE TokenHandle
+)
+{
+	NTSTATUS status;
+
+	status = NtOpenProcessToken(
+		ProcessHandle,
+		DesiredAccess,
+		TokenHandle
+	);
+
+	return status;
+}
+
+
 NTSTATUS SeGetProcessPowerThrottlingState(
 	_In_ HANDLE ProcessHandle,
 	_Out_ PPOWER_THROTTLING_PROCESS_STATE PowerThrottlingState
@@ -209,6 +227,24 @@ NTSTATUS SeGetProcessImageFileNameWin32(
 	_freea(fileName);
 
 	return status;
+}
+
+NTSTATUS SeGetProcessMitigationPolicy(
+	_In_ HANDLE ProcessHandle,
+	_In_ PROCESS_MITIGATION_POLICY Policy,
+	_Out_ PPROCESS_MITIGATION_POLICY_INFORMATION MitigationPolicy
+)
+{
+	memset(MitigationPolicy, 0, sizeof(PROCESS_MITIGATION_POLICY_INFORMATION));
+	MitigationPolicy->Policy = Policy;
+
+	return NtQueryInformationProcess(
+		ProcessHandle,
+		ProcessMitigationPolicy,
+		MitigationPolicy,
+		sizeof(PROCESS_MITIGATION_POLICY_INFORMATION),
+		NULL
+	);
 }
 
 NTSTATUS SeIsProcessEfficiencyModeEnabled(

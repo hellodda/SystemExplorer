@@ -1,4 +1,16 @@
+/*
+ * Copyright (c) 2026 SystemExplorer, All rights reserved.
+ *
+ * This file is part of System Explorer.
+ *
+ * Authors:
+ *
+ *     hellodda 2026
+ *
+ */
+
 #pragma once
+#include "se.h"
 
 #ifndef _PH_DLTMGR_H
 #define _PH_DLTMGR_H

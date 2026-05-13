@@ -7,36 +7,34 @@
  *
  *     hellodda 2026
  *
- *
  */
 
 #pragma once
 #include "se.h"
 
-static ULONG LastErrorValue;
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-NTSTATUS SeDosErrorToNtStatus(
-    _In_ ULONG DosError
+NTSTATUS SeGuardGrantSuppressedCallAccess(
+    _In_ HANDLE ProcessHandle,
+    _In_ PVOID VirtualAddress
 );
 
 FORCEINLINE
-ULONG SeGetLastError(
+NTSTATUS SeAcquireLoaderLock(
     VOID
 )
 {
-    return NtReadCurrentTebUlong(FIELD_OFFSET(TEB, LastErrorValue)); // NtCurrentTeb()->LastErrorValue
+    return RtlEnterCriticalSection(NtCurrentPeb()->LoaderLock);
 }
 
 FORCEINLINE
-NTSTATUS SeGetLastWin32ErrorAsNtStatus(
+NTSTATUS SeReleaseLoaderLock(
     VOID
 )
 {
-    return SeDosErrorToNtStatus(GetLastError());
+    return RtlLeaveCriticalSection(NtCurrentPeb()->LoaderLock);
 }
 
 #ifdef __cplusplus

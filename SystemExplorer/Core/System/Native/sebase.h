@@ -1,3 +1,14 @@
+/*
+ * Copyright (c) 2026 SystemExplorer, All rights reserved.
+ *
+ * This file is part of System Explorer.
+ *
+ * Authors:
+ *
+ *     hellodda 2026
+ *
+ */
+
 #pragma once
 
 #ifndef _SE_PHBASE_H

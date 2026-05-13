@@ -38,6 +38,9 @@
     <Filter Include="Themes">
       <UniqueIdentifier>{f23ca5ef-61ca-4fd0-ad8d-5ae192831e28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Extensions">
+      <UniqueIdentifier>{8a209a8d-b9f8-4ab1-ae06-99af3b5eb6b8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

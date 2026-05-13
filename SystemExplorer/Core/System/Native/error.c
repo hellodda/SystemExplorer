@@ -4,9 +4,8 @@ NTSTATUS SeDosErrorToNtStatus(
     _In_ ULONG DosError
 )
 {
-    
-    //if (NT_CUSTOMER(DosError))
-    //    return DosError;
+    if (NT_CUSTOMER(DosError))
+        return DosError;
 
     switch (DosError)
     {

@@ -4,57 +4,59 @@
 #include "Helpers/Win32Helper.h"
 #include "Helpers/Common.h"
 
+#include "Core/System/native.h"
 #include "Core/AI/Actions/ProcessesActionProvider.h"
-#include "Core/Services/ComRegistrationService.h"
 
-
-
-using namespace winrt::SystemExplorer::Helpers;
-using namespace winrt::SystemExplorer::Core;
-
-// potom pomenyayu
-LONG WINAPI PlatformExceptionFilter(
-    _In_ PEXCEPTION_POINTERS pExceptionInfo
+VOID SepEnablePrivileges(
+    VOID
 )
 {
-    const auto* record = pExceptionInfo->ExceptionRecord;
+    HANDLE tokenHandle;
 
-    LOG_NTSTATUS_MSG(
-        record->ExceptionCode,
-        "Platform Exception Filter Caught Address: 0x%p, Flags: %lu",
-        record->ExceptionAddress,
-        record->ExceptionFlags
-    );
+    if (NT_SUCCESS(SeOpenProcessToken(
+        NtCurrentProcess(),
+        TOKEN_ADJUST_PRIVILEGES,
+        &tokenHandle
+    )))
+    {
+        const LUID_AND_ATTRIBUTES privileges[] =
+        {
+            { RtlConvertUlongToLuid(SE_DEBUG_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_INC_BASE_PRIORITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_INC_WORKING_SET_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_LOAD_DRIVER_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_PROF_SINGLE_PROCESS_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_BACKUP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_RESTORE_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_SHUTDOWN_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_TAKE_OWNERSHIP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+            { RtlConvertUlongToLuid(SE_SECURITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        };
+        UCHAR privilegesBuffer[FIELD_OFFSET(TOKEN_PRIVILEGES, Privileges) + sizeof(privileges)];
+        PTOKEN_PRIVILEGES tokenPrivileges;
 
-    const auto errorDesc = Win32Helper::GetErrorMessage(record->ExceptionCode);
-    const auto appName = Win32Helper::GetLocalizedResource(IDS_APP_NAME);
+        tokenPrivileges = (PTOKEN_PRIVILEGES)privilegesBuffer;
+        tokenPrivileges->PrivilegeCount = RTL_NUMBER_OF(privileges);
+        memcpy(tokenPrivileges->Privileges, privileges, sizeof(privileges));
 
-    auto details = Win32Helper::GetLocalizedResource(IDS_EXCEPTION_DETAILS);
+        NtAdjustPrivilegesToken(
+            tokenHandle,
+            FALSE,
+            tokenPrivileges,
+            0,
+            NULL,
+            NULL
+        );
 
-    details += Format(Win32Helper::GetLocalizedResource(IDS_FAULTING_CODE).c_str(), record->ExceptionCode);
-    details += Format(Win32Helper::GetLocalizedResource(IDS_DESCRIPTION).c_str(), errorDesc.c_str());
-    details += Format(Win32Helper::GetLocalizedResource(IDS_INSTRUCTION_ADDRESS).c_str(), record->ExceptionAddress);
-
-    const auto finalMessage = Format(
-        Win32Helper::GetLocalizedResource(IDS_CRITICAL_ERROR).c_str(),
-        details.c_str()
-    );
-
-    MessageBoxW(
-        nullptr,
-        finalMessage.c_str(),
-        appName.c_str(),
-        MB_OK | MB_ICONERROR | MB_SETFOREGROUND | MB_TOPMOST
-    );
-
-    return EXCEPTION_EXECUTE_HANDLER;
+        NtClose(tokenHandle);
+    }
 }
 
-int APIENTRY wWinMain(
+INT APIENTRY wWinMain(
     _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPWSTR lpCmdLine,
-    _In_ int nCmdShow
+    _In_ INT nCmdShow
 )
 {
     UNREFERENCED_PARAMETER(hInstance);
@@ -64,13 +66,7 @@ int APIENTRY wWinMain(
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
-    // test
-    Services::ComRegistrationService::RegisterDynamicObject(
-        __uuidof(AI::Actions::implementation::ProcessesActionProvider),
-        winrt::make_self<AI::Actions::factory_implementation::ProcessesActionProviderFactory>()
-    );
-
-    SetUnhandledExceptionFilter(PlatformExceptionFilter);
+    SepEnablePrivileges();
 
 #ifdef DEBUG_E
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);

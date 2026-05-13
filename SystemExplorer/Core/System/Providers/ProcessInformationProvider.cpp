@@ -1,14 +1,12 @@
 #include "pch.h"
 #include "ProcessInformationProvider.h"
-#include <Helpers/Win32Helper.h>
 #include <unordered_set>
-#include "Native.h"
+#include "../Native/process.h"
+#include "../Native/procproc.h"
+#include "../Native/util.h"
+#include "../Utils.h"
 
-#include "Utils.h" // vremenno 
-
-using namespace winrt::SystemExplorer::Helpers;
-
-namespace winrt::SystemExplorer::Core::System
+namespace winrt::SystemExplorer::Core::System::Providers
 {
     ProcessInformationProvider::ProcessInformationProvider()
     {
@@ -32,10 +30,10 @@ namespace winrt::SystemExplorer::Core::System
 
     void ProcessInformationProvider::updateProcesses()
     {
-        auto currentSystemTime = Win32Helper::GetCurrentSystemTime();
+      /*  auto currentSystemTime = Win32Helper::GetCurrentSystemTime();
         auto currentTick = GetTickCount64();
 
-        auto buffer = nt::nt_safe_wrapper([](auto buffer, auto size, auto returnLength) {
+        auto buffer = Utils::nt_safe_wrapper([](auto buffer, auto size, auto returnLength) {
             return NtQuerySystemInformation(SystemProcessInformation, buffer, size, returnLength);
         });
 
@@ -44,7 +42,7 @@ namespace winrt::SystemExplorer::Core::System
 
         auto* pHead = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer.get());
 
-        for (auto& pInfo : nt::nt_make_range(pHead))
+        for (auto& pInfo : Utils::nt_make_range(pHead))
         {
             uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo.UniqueProcessId));
             currentTickPids.insert(pid);
@@ -55,7 +53,7 @@ namespace winrt::SystemExplorer::Core::System
             auto lock = lock_.lock_exclusive();
             activeProcesses_ = std::move(newActiveProcesses);
         }
-        cleanupCache(currentTickPids);
+        cleanupCache(currentTickPids);*/
     }
 
     ProcessNativeInformation ProcessInformationProvider::parseCacheProcess(
@@ -66,11 +64,13 @@ namespace winrt::SystemExplorer::Core::System
     )
     {
         ProcessNativeInformation pi{};
+       /* ProcessNativeInformation pi{};
         pi.Pid = pid;
         pi.ParentId = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(pInfo->InheritedFromUniqueProcessId));
         pi.PrivateBytes = static_cast<uint32_t>(pInfo->PrivatePageCount);
         pi.CpuUsage = 0.0f;
         pi.IoRate = 0;
+        pi.Status = Utils::GetProcessStatus(pInfo);
 
         auto currentIoCount = pInfo->ReadTransferCount.QuadPart + pInfo->WriteTransferCount.QuadPart + pInfo->OtherTransferCount.QuadPart;
         auto currentProcessTime = pInfo->KernelTime.QuadPart + pInfo->UserTime.QuadPart;
@@ -123,11 +123,11 @@ namespace winrt::SystemExplorer::Core::System
             newEntry.LastIoTransferCount = currentIoCount;
             newEntry.LastTickCount = currentTick;
             newEntry.IsActive = true;
-            newEntry.IsEfficiencyModeEnabled = Win32Helper::ProcessHelper::IsProcessEfficiencyModeEnabled(handle.get());
+            newEntry.IsEfficiencyModeEnabled = NativeProcess::IsProcessEfficiencyModeEnabled(handle.get());
             newEntry.LastStatusCheckTick = currentTick;
             newEntry.Name = Utils::ExtractProcessName(pInfo, pid);
 
-            newEntry.Description = Win32Helper::ProcessHelper::GetProcessDescription(handle.get());
+            newEntry.Description = NativeProcess::GetProcessDescription(handle.get());
             newEntry.Icon = std::move(Win32Helper::ProcessHelper::GetProcessIcon(handle.get()));
 
             auto& insertedEntry = (processCache_[pid] = std::move(newEntry));
@@ -136,7 +136,7 @@ namespace winrt::SystemExplorer::Core::System
             pi.Description = insertedEntry.Description.c_str();
             pi.Icon = insertedEntry.Icon.get();
             pi.IsEfficiencyModeEnabled = insertedEntry.IsEfficiencyModeEnabled;
-        }
+        }*/
         return pi;
     }
 

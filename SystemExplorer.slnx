@@ -4,6 +4,7 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="Common/Common.vcxitems" Id="8c87dc58-0dab-445f-84e3-60f76b93ee20" />
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
   </Project>
