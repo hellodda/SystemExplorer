@@ -14,7 +14,7 @@
     <ProjectCapability Include="SourceItemsFromImports" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="$(MSBuildThisFileDirectory)simplefactory.hpp.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)simplefactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)util\concepts.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)wilx.h" />
   </ItemGroup>
