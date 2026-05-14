@@ -199,7 +199,6 @@
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Core\System\Native\mapldr.c" />
     <ClCompile Include="Core\System\Native\apiimport.c">
       <Filter>Core\System\Native</Filter>
     </ClCompile>
@@ -227,6 +226,9 @@
     <ClCompile Include="Core\System\Native\util.c">
       <Filter>Core\System\Native</Filter>
     </ClCompile>
+    <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
+    <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
+    <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -332,6 +334,10 @@
     <ClInclude Include="Core\System\Native\sesup.h">
       <Filter>Core\System\Native</Filter>
     </ClInclude>
+    <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
+    <ClInclude Include="Core\System\Tools\AmsiScanner.h" />
+    <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
+    <ClInclude Include="Core\Web\Http\Base.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

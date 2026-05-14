@@ -54,5 +54,3 @@ typedef struct _SE_UINTPTR_DELTA
 #define SE_UINT32_DELTA_INIT { 0UL, 0UL }
 #define SE_UINT64_DELTA_INIT { 0ULL, 0ULL }
 #define SE_UINTPTR_DELTA_INIT { 0, 0 }
-
-#endif

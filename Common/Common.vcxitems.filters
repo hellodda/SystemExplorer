@@ -7,5 +7,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)util\concepts.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)simplefactory.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)wilx.h" />
   </ItemGroup>
 </Project>

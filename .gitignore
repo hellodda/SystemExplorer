@@ -361,3 +361,7 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/SystemExplorer/Core/AI/Tools
+/SystemExplorer/Core/Settings/AdvancedSettings.h
+/SystemExplorer/Core/Settings/AdvancedSettings.idl
+/SystemExplorer/Views/Pages/Settings/AdvancedPage.xaml

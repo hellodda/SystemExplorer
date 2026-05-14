@@ -166,6 +166,7 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\System\Tools\AmsiScanner.h" />
     <ClInclude Include="Converters\TransparencyConverter.h">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -261,6 +262,7 @@
     <ClInclude Include="Core\System\Native\util.h" />
     <ClInclude Include="Core\System\System.h" />
     <ClInclude Include="Core\System\Utils.h" />
+    <ClInclude Include="Core\Web\Http\Base.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
@@ -301,6 +303,7 @@
     <ClInclude Include="Core\System\ProcessInformationProvider.h" />
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
     <ClInclude Include="Core\System\ProcessManager.h" />
+    <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="resource.h" />
@@ -381,6 +384,7 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
+    <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -418,6 +422,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
     <ClCompile Include="Converters\TransparencyConverter.cpp">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -603,6 +608,7 @@
     <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
     <ClCompile Include="Core\System\ProcessManager.cpp" />
     <ClCompile Include="Core\System\ProviderThread.cpp" />
+    <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -686,6 +692,7 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
+    <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">

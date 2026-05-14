@@ -7,11 +7,16 @@
 #include "Core/System/native.h"
 #include "Core/AI/Actions/ProcessesActionProvider.h"
 
+#include "Core/AI/Tools/PeHeaderScaner.h"
+#include "Core/System/Tools/AmsiScanner.h"
+
+#include "Core/Web/Http/VirusTotalHttpClient.h" "
+
 VOID SepEnablePrivileges(
     VOID
 )
 {
-    HANDLE tokenHandle;
+	nt::unique_nt_handle tokenHandle;
 
     if (NT_SUCCESS(SeOpenProcessToken(
         NtCurrentProcess(),
@@ -33,22 +38,20 @@ VOID SepEnablePrivileges(
             { RtlConvertUlongToLuid(SE_SECURITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
         };
         UCHAR privilegesBuffer[FIELD_OFFSET(TOKEN_PRIVILEGES, Privileges) + sizeof(privileges)];
-        PTOKEN_PRIVILEGES tokenPrivileges;
+        PTOKEN_PRIVILEGES tokenPrivileges{};
 
         tokenPrivileges = (PTOKEN_PRIVILEGES)privilegesBuffer;
         tokenPrivileges->PrivilegeCount = RTL_NUMBER_OF(privileges);
         memcpy(tokenPrivileges->Privileges, privileges, sizeof(privileges));
 
         NtAdjustPrivilegesToken(
-            tokenHandle,
+            tokenHandle.get(),
             FALSE,
             tokenPrivileges,
             0,
             NULL,
             NULL
         );
-
-        NtClose(tokenHandle);
     }
 }
 
