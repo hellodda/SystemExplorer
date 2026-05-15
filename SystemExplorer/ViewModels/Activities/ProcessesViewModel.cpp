@@ -5,6 +5,9 @@
 #endif
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
+#include <winrt/Windows.Web.Http.Headers.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Data.Json.h>
 #include <ranges>
 #include <property.h>
 #include <Core/System/ProcessInformationProvider.h>
@@ -12,8 +15,10 @@
 #include <Core/System/Utils.h>
 #include <Core/System/Native/process.h>
 #include <Helpers/ProcessPropertiesHelper.h>
+#include <Helpers/Win32/Native/NativeProcess.h>
 
 using namespace winrt::SystemExplorer::Helpers;
+using namespace winrt::SystemExplorer::Helpers::Win32::Native;
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
@@ -76,8 +81,6 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 }
                 catch (const std::regex_error&) {}
             }
-
-            RAISE_PROPERTY_CHANGED;
             applyTransformations();
         }
     }
@@ -166,7 +169,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
     {
         auto pid = SelectedProcess_.Pid();
-        if (!Win32Helper::ProcessHelper::IsProcessEfficiencyModeEnabled(pid))
+        if (!NativeProcess::IsEfficiencyModeEnabled(pid))
         {
             manager_->EnableEfficiencyMode(pid);
         }
@@ -193,14 +196,11 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
     {
-     /*   wil::unique_handle handle;
-        THROW_IF_NTSTATUS_FAILED(SeOpenProcess(&handle, PROCESS_QUERY_INFORMATION, (HANDLE)SelectedProcess_.Pid()));
-        PWSTR exePathRaw = nullptr;
-        THROW_IF_NTSTATUS_FAILED(SeGetProcessImageFileNameWin32(handle.get(), &exePathRaw));
-        std::wstring exePath(exePathRaw);
+		using namespace winrt::Windows::Storage;
+
         try
         {
-            auto file = co_await winrt::Windows::Storage::StorageFile::GetFileFromPathAsync(exePath.c_str());
+            auto file = co_await StorageFile::GetFileFromPathAsync(NativeProcess::GetProcessImageName(SelectedProcess_.Pid()));
 
             auto folder = co_await file.GetParentAsync();
 
@@ -217,7 +217,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
         catch (hresult_error const&)
         {
-        }*/
+
+        }
 		co_return;
     }
 }

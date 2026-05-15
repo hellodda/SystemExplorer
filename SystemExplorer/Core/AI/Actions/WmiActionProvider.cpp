@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "WmiActionProvider.h"
 
-#include <Core/System/Management.h>
-
-using namespace winrt::SystemExplorer::Core::System::Management;
-
 namespace winrt::SystemExplorer::Core::AI::Actions::implementation
 {
 	IAsyncAction WmiActionProvider::InvokeAsync(ActionInvocationContext const& context)

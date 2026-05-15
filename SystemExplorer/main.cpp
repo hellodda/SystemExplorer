@@ -10,8 +10,6 @@
 #include "Core/AI/Tools/PeHeaderScaner.h"
 #include "Core/System/Tools/AmsiScanner.h"
 
-#include "Core/Web/Http/VirusTotalHttpClient.h" "
-
 VOID SepEnablePrivileges(
     VOID
 )

@@ -175,9 +175,6 @@
     <ClCompile Include="Core\Services\ComRegistrationService.cpp">
       <Filter>Core\Services</Filter>
     </ClCompile>
-    <ClCompile Include="Core\System\Management.cpp">
-      <Filter>Core\System</Filter>
-    </ClCompile>
     <ClCompile Include="Core\System\ProcessInformationProvider.cpp">
       <Filter>Core\System</Filter>
     </ClCompile>
@@ -229,6 +226,7 @@
     <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
     <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
     <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
+    <ClCompile Include="Helpers\Win32\Native\NativeProcess.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -264,9 +262,6 @@
     </ClInclude>
     <ClInclude Include="Core\Services\ISingletonService.h">
       <Filter>Core\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\System\Management.h">
-      <Filter>Core\System</Filter>
     </ClInclude>
     <ClInclude Include="Core\System\ProcessInformationProvider.h">
       <Filter>Core\System</Filter>
@@ -338,6 +333,7 @@
     <ClInclude Include="Core\System\Tools\AmsiScanner.h" />
     <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
     <ClInclude Include="Core\Web\Http\Base.h" />
+    <ClInclude Include="Helpers\Win32\Native\NativeProcess.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -484,12 +480,10 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
-    <None Include="EnumMapingGenerator.ps1">
-      <Filter>SourceGenerators</Filter>
-    </None>
-    <None Include="ResourceGenerator.ps1">
-      <Filter>SourceGenerators</Filter>
-    </None>
+    <None Include="Source Generators\EnumMapingGenerator.ps1" />
+    <None Include="Source Generators\ResourceGenerator.ps1" />
+    <None Include="Source Generators\JsonModelGenerator.ps1" />
+    <None Include="Source Generators\Scheme\AnalysisInfo.json" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw">

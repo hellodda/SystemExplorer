@@ -136,7 +136,13 @@
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell -ExecutionPolicy Bypass -Command "&amp; '$(ProjectDir)ResourceGenerator.ps1' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw' -OutputDir '$(ProjectDir)Helpers' -ClassName 'StringsHelper' -IdlNamespace 'SystemExplorer.Helpers' -GeneratedIncludePrefix 'Helpers'; &amp; '$(ProjectDir)EnumMapingGenerator.ps1' -ProjDir '$(ProjectDir)' -ReswFilePath '$(ProjectDir)Strings\en-US\Resources.resw'"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
@@ -156,6 +162,15 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
+    </PreBuildEvent>
+    <PreBuildEvent>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup Condition="'$(WindowsPackageType)'!='None' and Exists('Package.appxmanifest')">
     <AppxManifest Include="Package.appxmanifest">
@@ -239,7 +254,6 @@
       <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\System\Management.h" />
     <ClInclude Include="Core\System\Native.h" />
     <ClInclude Include="Core\System\Native\apiimport.h" />
     <ClInclude Include="Core\System\Native\dltmgr.h" />
@@ -296,6 +310,7 @@
       <DependentUpon>Core\Data\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Helpers\Win32\Native\NativeProcess.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -581,7 +596,6 @@
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\System\Management.cpp" />
     <ClCompile Include="Core\Data\Models\AppModel.cpp">
       <DependentUpon>Core\Data\Models\AppModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -598,6 +612,7 @@
       <DependentUpon>Core\Data\Items\ProcessItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Helpers\Win32\Native\NativeProcess.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
@@ -749,13 +764,14 @@
     <Midl Include="Core\Settings\UserSettings.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <None Include="Source Generators\EnumMapingGenerator.ps1" />
+    <None Include="Source Generators\JsonModelGenerator.ps1" />
+    <None Include="Source Generators\ResourceGenerator.ps1" />
+    <None Include="Source Generators\Scheme\AnalysisInfo.json" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
     <Text Include="AppSettings\registration.json">
       <FileType>Document</FileType>
     </Text>
-    <None Include="ResourceGenerator.ps1">
-      <FileType>Document</FileType>
-    </None>
     <Midl Include="Helpers\ProcessPropertiesHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -848,9 +864,6 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="EnumMapingGenerator.ps1">
-      <FileType>Document</FileType>
-    </None>
     <Text Include="readme.txt">
       <DeploymentContent>false</DeploymentContent>
     </Text>

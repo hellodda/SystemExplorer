@@ -7,7 +7,7 @@ namespace winrt::SystemExplorer::Core::Web::Http
 	{
 		HttpClientBase(hstring const& baseUrl)
 			: baseUrl_(baseUrl) {}
-	protected:
-		hstring baseUrl_;
+
+		hstring BaseUrl;
 	};
 }
