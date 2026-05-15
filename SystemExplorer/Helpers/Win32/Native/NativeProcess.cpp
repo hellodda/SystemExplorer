@@ -1,0 +1,44 @@
+#include "pch.h"
+#include "NativeProcess.h"
+#include <Core/System/Native/process.h>
+#include <Core/System/Native.h>
+
+namespace winrt::SystemExplorer::Helpers::Win32::Native
+{
+	bool NativeProcess::IsEfficiencyModeEnabled(uint64_t process)
+	{
+		nt::unique_nt_handle handle{ nullptr };
+		BOOLEAN isEnabled{ FALSE };
+
+		THROW_IF_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_QUERY_LIMITED_INFORMATION,
+			(HANDLE)process
+		));
+
+		THROW_IF_FAILED(SeIsProcessEfficiencyModeEnabled(
+			handle.get(),
+			&isEnabled
+		));
+		return isEnabled == TRUE;
+	}
+
+
+	std::wstring NativeProcess::GetProcessImageName(uint64_t process)
+	{
+		nt::unique_nt_handle handle{ nullptr };
+		PWSTR fileName{ nullptr };
+
+		THROW_IF_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_QUERY_LIMITED_INFORMATION,
+			(HANDLE)process
+		));
+
+		THROW_IF_FAILED(SeGetProcessImageFileNameWin32(
+			handle.get(),
+			&fileName
+		));
+		return fileName;
+	}
+}
