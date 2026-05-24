@@ -1,4 +1,7 @@
 #pragma once
+#define WIDEN2(x) L##x
+#define WIDEN(x) WIDEN2(#x)
+
 #define RAISE_PROPERTY_CHANGED RaisePropertyChanged(__FUNCTIONW__);
 
 #define PROPERTY_FIELD(NAME) NAME ## _
@@ -43,3 +46,18 @@ public: \
     } \
     DECLARE_PROPERTY_GETTER_NC(TYPE, NAME)
 
+
+#define NOTIFYING_SETTING(TYPE, NAME, DEFAULT)                      \
+    [[nodiscard]] TYPE NAME()                                       \
+    {                                                               \
+        return Get(WIDEN(NAME), DEFAULT);                           \
+    }                                                               \
+                                                                    \
+    void NAME(TYPE const& value)                                    \
+    {                                                               \
+        if (NAME() != value)                                        \
+        {                                                           \
+            Set(WIDEN(NAME), value);                                \
+            RaisePropertyChanged(WIDEN(NAME));                      \
+        }                                                           \
+    }

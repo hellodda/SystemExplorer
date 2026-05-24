@@ -4,23 +4,7 @@
 #include <Core/Serialization/SettingsBase.h>
 #include <factory.h>
 
-#define WIDEN2(x) L##x
-#define WIDEN(x) WIDEN2(#x)
 
-#define NOTIFYING_SETTING(TYPE, NAME, DEFAULT)                      \
-    [[nodiscard]] TYPE NAME()                                       \
-    {                                                               \
-        return Get(WIDEN(NAME), DEFAULT);                           \
-    }                                                               \
-                                                                    \
-    void NAME(TYPE const& value)                                    \
-    {                                                               \
-        if (NAME() != value)                                        \
-        {                                                           \
-            Set(WIDEN(NAME), value);                                \
-            RaisePropertyChanged(WIDEN(NAME));                      \
-        }                                                           \
-    }
 
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
