@@ -18,6 +18,7 @@
     xmlns:converters="using:SystemExplorer.Converters"
     xmlns:essential="using:WinUI3Package"
     xmlns:appstate="using:SystemExplorer.Core.Settings"
+    xmlns:enums="using:SystemExplorer.Core.Data.Enums"
     DataContext="{x:Bind ViewModel}"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
@@ -27,7 +28,7 @@
         <converters:StringFormatConverter x:Key="StringFormatConverter"/>
         <converters:TransparencyConverter x:Key="TransparencyConverter"/>
         <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        
+
         <CommandBarFlyout Placement="Right" x:Key="OptionsCommandBarFlyout">
 
             <AppBarButton Icon="Remote" 
@@ -49,9 +50,9 @@
                 <AppBarButton Label="Items size">
                     <AppBarButton.Flyout>
                         <MenuFlyout>
-                            <RadioMenuFlyoutItem Text="Small" GroupName="SizeGroup" />
-                            <RadioMenuFlyoutItem Text="Medium" GroupName="SizeGroup" IsChecked="True" />
-                            <RadioMenuFlyoutItem Text="Large" GroupName="SizeGroup" />
+                            <RadioMenuFlyoutItem Text="Small" GroupName="SizeGroup" Command="{x:Bind ViewModel.ChangeItemSizeCommand}" CommandParameter="{x:Bind enums:ItemSize.Small}"/>
+                            <RadioMenuFlyoutItem Text="Normal" GroupName="SizeGroup" Command="{x:Bind ViewModel.ChangeItemSizeCommand}" CommandParameter="{x:Bind enums:ItemSize.Normal}" IsChecked="True"/>
+                            <RadioMenuFlyoutItem Text="Large" GroupName="SizeGroup"  Command="{x:Bind ViewModel.ChangeItemSizeCommand}" CommandParameter="{x:Bind enums:ItemSize.Large}"/>
                         </MenuFlyout>
                     </AppBarButton.Flyout>
                 </AppBarButton>
@@ -202,6 +203,7 @@
                   ItemContainerTransitions="{x:Null}"
                   SelectedItem="{x:Bind ViewModel.SelectedProcess, Mode=TwoWay}"
                   ItemsSource="{x:Bind ViewModel.Processes}"
+                  
                   Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                   BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                   BorderThickness="1"
@@ -218,7 +220,7 @@
 
                         <labs:DataColumn
                                MinWidth="250"
-                               Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesNameColumnLastWidth, Mode=TwoWay}"
+                               Width="{x:Bind appstate:AppState.Instance.ProcessesNameColumnLastWidth, Mode=TwoWay}"
                                CanResize="True"
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -228,7 +230,7 @@
 
                         <labs:DataColumn
                                MinHeight="50"
-                               Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesStatusColumnLastWidth, Mode=TwoWay}"
+                               Width="{x:Bind appstate:AppState.Instance.ProcessesStatusColumnLastWidth, Mode=TwoWay}"
                                CanResize="True"
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -238,7 +240,7 @@
 
                         <labs:DataColumn
                              MinWidth="50"
-                             Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesPidColumnLastWidth, Mode=TwoWay}"
+                             Width="{x:Bind appstate:AppState.Instance.ProcessesPidColumnLastWidth, Mode=TwoWay}"
                              CanResize="True"
                              Background="Transparent"
                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -248,7 +250,7 @@
 
                         <labs:DataColumn
                             MinWidth="75"
-                            Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesCpuUsageColumnLastWidth, Mode=TwoWay}"
+                            Width="{x:Bind appstate:AppState.Instance.ProcessesCpuUsageColumnLastWidth, Mode=TwoWay}"
                             CanResize="True"
                             Background="Transparent"
                             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -261,7 +263,7 @@
 
                         <labs:DataColumn
                                 MinWidth="75"
-                                Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesIoRateColumnLastWidth, Mode=TwoWay}"
+                                Width="{x:Bind appstate:AppState.Instance.ProcessesIoRateColumnLastWidth, Mode=TwoWay}"
                                 CanResize="True"
                                 Background="Transparent"
                                 BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
@@ -274,7 +276,7 @@
 
                         <labs:DataColumn
                                 MinWidth="75"
-                                Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesPrivateBytesLastWidth, Mode=TwoWay}"
+                                Width="{x:Bind appstate:AppState.Instance.ProcessesPrivateBytesLastWidth, Mode=TwoWay}"
                                 CanResize="True"
                                 BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                 BorderThickness="0,0,1,1">
@@ -310,7 +312,7 @@
                             </Style>
 
                             <Style TargetType="TextBlock">
-                                <Setter Property="VerticalAlignment" Value="Center" />
+                                <Setter Property="VerticalAlignment" Value="Center"/>
                             </Style>
                         </labs:DataRow.Resources>
 
@@ -324,9 +326,11 @@
 
                         <Border>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Image Source="{x:Bind Icon}" Width="18" Height="18"/>
+                                <Image Source="{x:Bind Icon}"
+                                       Width="{x:Bind appstate:AppState.Instance.ItemIconSize, Mode=TwoWay}"
+                                       Height="{x:Bind appstate:AppState.Instance.ItemIconSize, Mode=TwoWay}"/>
                                 <TextBlock Text="{x:Bind Name}"
-                                           FontSize="13"
+                                           FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"
                                            TextTrimming="CharacterEllipsis"/>
                             </StackPanel>
                         </Border>
@@ -337,7 +341,6 @@
                                 <FontIcon
                                   HorizontalAlignment="Left"
                                   Foreground="{ThemeResource SystemFillColorSuccessBrush}"
-                                  FontSize="14"
                                   Glyph="&#xF1E8;"
                                   >
                                     <ToolTipService.ToolTip>
@@ -351,8 +354,8 @@
                         <Border>
                             <TextBlock
                                 HorizontalAlignment="Right"
-                                Text="{x:Bind Pid}"
-                                FontSize="13"/>
+                                FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"
+                                Text="{x:Bind Pid}"/>
                         </Border>
 
                         <Border>
@@ -361,7 +364,7 @@
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind CpuUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}%', Mode=OneWay}"
-                                       FontSize="13"/>
+                                       FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"/>
                         </Border>
 
                         <Border>
@@ -370,7 +373,7 @@
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind IoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}"
-                                       FontSize="13"/>
+                                       FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"/>
                         </Border>
 
                         <Border>
@@ -379,13 +382,13 @@
                             </Border.Background>
                             <TextBlock HorizontalAlignment="Right"
                                        Text="{x:Bind PrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}"
-                                       FontSize="13"/>
+                                       FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"/>
                         </Border>
 
                         <Border>
                             <TextBlock Text="{x:Bind Description}"
-                                       TextTrimming="CharacterEllipsis"
-                                       FontSize="13"/>
+                                       FontSize="{x:Bind appstate:AppState.Instance.ItemFontSize, Mode=TwoWay}"
+                                       TextTrimming="CharacterEllipsis"/>
                         </Border>
 
                     </labs:DataRow>

@@ -4,6 +4,25 @@
 #include <Core/Serialization/SettingsBase.h>
 #include <factory.h>
 
+#define WIDEN2(x) L##x
+#define WIDEN(x) WIDEN2(#x)
+
+#define NOTIFYING_SETTING(TYPE, NAME, DEFAULT)                      \
+    [[nodiscard]] TYPE NAME()                                       \
+    {                                                               \
+        return Get(WIDEN(NAME), DEFAULT);                           \
+    }                                                               \
+                                                                    \
+    void NAME(TYPE const& value)                                    \
+    {                                                               \
+        if (NAME() != value)                                        \
+        {                                                           \
+            Set(WIDEN(NAME), value);                                \
+            RaisePropertyChanged(WIDEN(NAME));                      \
+        }                                                           \
+    }
+
+
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
     struct AppState : AppStateT<AppState, Serialization::implementation::SettingsBase>
@@ -31,6 +50,9 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
 
         [[nodiscard]] int32_t ProcessesPrivateBytesLastWidth() { return Get(L"ProcessesPrivateBytesLastWidth", int32_t{ 50 }); }
         void ProcessesPrivateBytesLastWidth(int32_t value) { Set(L"ProcessesPrivateBytesLastWidth", value); }
+
+        NOTIFYING_SETTING(int32_t, ItemFontSize, 13);
+        NOTIFYING_SETTING(int32_t, ItemIconSize, 18);
     };
 }
 namespace winrt::SystemExplorer::Core::Settings::factory_implementation {

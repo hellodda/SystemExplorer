@@ -4,13 +4,18 @@ namespace SystemExplorer.Core.Settings
 {
     [bindable]
     [default_interface]
-    runtimeclass AppState : SystemExplorer.Core.Serialization.SettingsBase
+    runtimeclass AppState : SystemExplorer.Core.Serialization.SettingsBase, Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
+        static AppState Instance { get; };
+
         Int32 ProcessesNameColumnLastWidth;
         Int32 ProcessesStatusColumnLastWidth;
         Int32 ProcessesPidColumnLastWidth;
         Int32 ProcessesCpuUsageColumnLastWidth;
         Int32 ProcessesIoRateColumnLastWidth;
         Int32 ProcessesPrivateBytesLastWidth;
+
+        Int32 ItemIconSize;
+        Int32 ItemFontSize;
     }
 }

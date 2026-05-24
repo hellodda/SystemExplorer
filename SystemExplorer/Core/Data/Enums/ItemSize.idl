@@ -1,0 +1,9 @@
+namespace SystemExplorer.Core.Data.Enums
+{
+    enum ItemSize
+    {
+        Small,
+        Normal,
+        Large
+    };
+}

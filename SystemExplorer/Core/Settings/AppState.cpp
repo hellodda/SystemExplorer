@@ -6,5 +6,5 @@
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
-   
+
 }

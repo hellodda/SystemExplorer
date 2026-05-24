@@ -15,6 +15,11 @@ namespace SystemExplorer.ViewModels.Activities
         UInt64 TotalIoRate;
         UInt64 TotalPrivateBytes;
 
+        Int32 ItemIconSize;
+        Int32 ItemFontSize;
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ChangeItemSizeCommand { get; };
+
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ProcessItem> Processes { get; };
 
         

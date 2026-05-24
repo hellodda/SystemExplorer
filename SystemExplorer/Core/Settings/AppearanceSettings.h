@@ -57,6 +57,12 @@ namespace winrt::SystemExplorer::Core::Settings::implementation
 
         [[nodiscard]] int32_t ProcessesPrivateBytesLastWidth() { return Get(L"ProcessesPrivateBytesLastWidth", int32_t{ 50 }); }
         void ProcessesPrivateBytesLastWidth(int32_t value) { Set(L"ProcessesPrivateBytesLastWidth", value); }
+
+        [[nodiscard]] int32_t ItemFontSize() { return Get(L"ItemFontSize", int32_t{ 13 }); }
+        void ItemFontSize(int32_t value) { Set(L"ItemFontSize", value); }
+
+        [[nodiscard]] int32_t ItemIconSize() { return Get(L"ItemIconSize", int32_t{ 18 }); }
+        void ItemIconSize(int32_t value) { Set(L"ItemIconSize", value); }
     };
 }
 FACTORY(winrt::SystemExplorer::Core::Settings, AppearanceSettings);

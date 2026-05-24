@@ -147,6 +147,7 @@
     <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
       <Filter>ViewModels\Properties</Filter>
     </Midl>
+    <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Settings\AppState.idl" />
   </ItemGroup>
   <ItemGroup>

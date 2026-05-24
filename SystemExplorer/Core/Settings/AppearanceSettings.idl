@@ -28,5 +28,7 @@ namespace SystemExplorer.Core.Settings
         Int32 ProcessesIoRateColumnLastWidth;
         Int32 ProcessesPrivateBytesLastWidth;
         
+        Int32 ItemIconSize;
+        Int32 ItemFontSize;
     }
 }
