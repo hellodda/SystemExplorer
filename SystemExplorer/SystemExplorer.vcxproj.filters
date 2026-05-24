@@ -108,9 +108,6 @@
     <Midl Include="Core\Settings\UserSettings.idl">
       <Filter>Core\Settings</Filter>
     </Midl>
-    <Midl Include="Helpers\ProcessPropertiesHelper.idl">
-      <Filter>Helpers</Filter>
-    </Midl>
     <Midl Include="Helpers\StringsHelper.idl">
       <Filter>Helpers</Filter>
     </Midl>
@@ -188,9 +185,6 @@
     <ClCompile Include="Helpers\EnumHelper.cpp">
       <Filter>Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Helpers\Win32Helper.cpp">
-      <Filter>Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
@@ -234,6 +228,7 @@
     <ClCompile Include="Helpers\Win32\ShellHelper.cpp" />
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
     <ClCompile Include="Helpers\Win32\Native\NativeSystem.cpp" />
+    <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -286,9 +281,6 @@
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Helpers\EnumHelper.h">
-      <Filter>Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Helpers\Win32Helper.h">
       <Filter>Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Core\AI\Actions\WmiActionProvider.h">
@@ -347,6 +339,7 @@
     <ClInclude Include="Helpers\Win32\ShellHelper.h" />
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
     <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
+    <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -505,6 +498,7 @@
     <PRIResource Include="Strings\ru-RU\Resources.resw">
       <Filter>Strings\ru-RU</Filter>
     </PRIResource>
+    <PRIResource Include="Strings\hy-AM\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SystemExplorer.rc" />

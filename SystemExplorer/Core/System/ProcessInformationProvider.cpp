@@ -1,9 +1,10 @@
 #include "pch.h"
 #include "ProcessInformationProvider.h"
-#include <Helpers/Win32Helper.h>
+
 #include <unordered_set>
 #include "Native.h"
 #include <Helpers/Win32/Native/NativeProcess.h>
+#include <Helpers/Win32/Native/NativeSystem.h>
 #include <Helpers/Win32/ShellHelper.h>
 
 using namespace winrt::SystemExplorer::Helpers;
@@ -57,12 +58,13 @@ namespace winrt::SystemExplorer::Core::System
 
     void ProcessInformationProvider::updateProcesses()
     {
-        auto currentSystemTime = Win32Helper::GetCurrentSystemTime();
+        auto currentSystemTime = NativeSystem::GetCurrentSystemTime();
         auto currentTick = GetTickCount64();
 
-        auto buffer = nt::nt_safe_wrapper([](auto buffer, auto size, auto returnLength) {
+        auto buffer = nt::nt_safe_wrapper([](auto buffer, auto size, auto returnLength)
+        {
             return NtQuerySystemInformation(SystemProcessInformation, buffer, size, returnLength);
-            });
+        });
 
         std::vector<PSE_PROCESS_ITEM> newActiveProcesses;
         std::unordered_set<HANDLE> currentTickPids;
@@ -126,7 +128,7 @@ namespace winrt::SystemExplorer::Core::System
             bool iconSet = false;
             if (item->QueryHandle)
             {
-                PWSTR buffer = nullptr;
+                PWSTR buffer{ nullptr };
 
                 if (NT_SUCCESS(SeGetProcessImageFileNameWin32(item->QueryHandle, &buffer)) && buffer)
                 {
@@ -203,13 +205,13 @@ namespace winrt::SystemExplorer::Core::System
     {
         std::erase_if(processCache_, [&currentTickPids](auto& pair)
         {
-                if (!currentTickPids.contains(pair.first))
-                {
-                    SeDestroyProcessItem(pair.second.get());
+            if (!currentTickPids.contains(pair.first))
+            {
+                SeDestroyProcessItem(pair.second.get());
 
-                    return true;
-                }
-                return false;
+                return true;
+            }
+            return false;
         });
     }
 }

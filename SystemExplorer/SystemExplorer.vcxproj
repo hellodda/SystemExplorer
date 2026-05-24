@@ -133,7 +133,7 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
@@ -144,6 +144,12 @@
     <PreBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
     </PreBuildEvent>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;</AdditionalDependencies>
+    </Link>
+    <Link>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
@@ -161,6 +167,9 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;</AdditionalDependencies>
+      <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">powershell.exe -ExecutionPolicy Bypass -File "$(ProjectDir)Source Generators\JsonModelGenerator.ps1" -JsonPath "$(ProjectDir)Source Generators\Scheme\AnalysisInfo.json" -OutputDir "$(ProjectDir)Core\Data\Models\Json" -Namespace "winrt::SystemExplorer::Core::Data::Models::Json"</Command>
@@ -297,10 +306,6 @@
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
-    <ClInclude Include="Helpers\ProcessPropertiesHelper.h">
-      <DependentUpon>Helpers\ProcessPropertiesHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Helpers\StringsHelper.h">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -309,7 +314,6 @@
       <DependentUpon>Helpers\UI\AppSystemBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Helpers\Win32Helper.h" />
     <ClInclude Include="Core\Data\Models\AppModel.h">
       <DependentUpon>Core\Data\Models\AppModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -343,6 +347,7 @@
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
     <ClInclude Include="Core\System\ProcessManager.h" />
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
+    <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="resource.h" />
@@ -653,10 +658,6 @@
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Core\System\Mi\Management.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
-    <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp">
-      <DependentUpon>Helpers\ProcessPropertiesHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -665,7 +666,6 @@
       <DependentUpon>Helpers\UI\AppSystemBackdrop.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Helpers\Win32Helper.cpp" />
     <ClCompile Include="Helpers\Win32\ShellHelper.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -728,6 +728,7 @@
     <ClCompile Include="Core\System\ProcessManager.cpp" />
     <ClCompile Include="Core\System\ProviderThread.cpp" />
     <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
+    <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -885,9 +886,6 @@
     <Text Include="AppSettings\registration.json">
       <FileType>Document</FileType>
     </Text>
-    <Midl Include="Helpers\ProcessPropertiesHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Helpers\StringsHelper.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1015,6 +1013,7 @@
     <PRIResource Include="Strings\en-US\Resources.resw">
       <SubType>Designer</SubType>
     </PRIResource>
+    <PRIResource Include="Strings\hy-AM\Resources.resw" />
     <PRIResource Include="Strings\ru-RU\Resources.resw" />
   </ItemGroup>
   <ItemGroup>

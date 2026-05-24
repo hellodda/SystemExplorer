@@ -1,16 +1,11 @@
-﻿#pragma once
-
-#include "Helpers/ProcessPropertiesHelper.g.h"
+#pragma once
 
 #include <winrt/Windows.UI.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
-
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <Views/Pages/Properties/PropertiesRootPage.xaml.h>
 
-#include <factory.h>
-
-namespace winrt::SystemExplorer::Helpers::implementation
+namespace winrt::SystemExplorer::Helpers
 {
     using namespace winrt::WinUI3Package;
     using namespace winrt::Windows::UI::Xaml::Interop;
@@ -20,7 +15,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
     using namespace winrt::SystemExplorer::Core::Data::Items;
 
 
-    struct ProcessPropertiesHelper : ProcessPropertiesHelperT<ProcessPropertiesHelper>
+    struct ProcessPropertiesHelper
     {
         ProcessPropertiesHelper() = default;
 
@@ -33,4 +28,3 @@ namespace winrt::SystemExplorer::Helpers::implementation
         }
     };
 }
-FACTORY(winrt::SystemExplorer::Helpers, ProcessPropertiesHelper);

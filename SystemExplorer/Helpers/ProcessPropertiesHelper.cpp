@@ -1,9 +1,6 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "ProcessPropertiesHelper.h"
-#if __has_include("Helpers/ProcessPropertiesHelper.g.cpp")
-#include "Helpers/ProcessPropertiesHelper.g.cpp"
-#include "StringsHelper.h"
-#endif
+
 #include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>
 #include <Helpers/UI/AppSystemBackdrop.h>
 #include <App.xaml.h>
@@ -16,10 +13,10 @@ using namespace winrt::Microsoft::UI::Windowing;
 using namespace winrt::SystemExplorer::Core::Data::Parameters;
 using namespace winrt::WinUI3Package;
 
-namespace winrt::SystemExplorer::Helpers::implementation
+namespace winrt::SystemExplorer::Helpers
 {
-	void ProcessPropertiesHelper::OpenPropertiesWindow(IInspectable const& item)
-	{
+    void ProcessPropertiesHelper::OpenPropertiesWindow(IInspectable const& item)
+    {
         if (!item)
             return;
 
@@ -55,7 +52,7 @@ namespace winrt::SystemExplorer::Helpers::implementation
 
         POINT pointerPosition;
         if (!GetCursorPos(&pointerPosition))
-        {  
+        {
 
         }
 
@@ -81,5 +78,5 @@ namespace winrt::SystemExplorer::Helpers::implementation
 
         appWindow.Move(appWindowPos);
         propertiesWindow.Activate();
-	}
+    }
 }

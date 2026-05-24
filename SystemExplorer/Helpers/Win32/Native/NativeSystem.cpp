@@ -10,6 +10,19 @@ using namespace winrt::SystemExplorer::Core::Settings;
 
 namespace winrt::SystemExplorer::Helpers::Win32::Native
 {
+	uint64_t NativeSystem::GetCurrentSystemTime()
+	{
+		FILETIME idleTime{}, kernelTime{}, userTime{};
+
+		if (!GetSystemTimes(&idleTime, &kernelTime, &userTime))
+			return 0;
+		return std::bit_cast<uint64_t>(kernelTime) + std::bit_cast<uint64_t>(userTime);
+	}
+
+	///
+	/// Kernel actions impl \/ \/ \/
+	/// 
+
 	IAsyncActionWithProgress<int32_t> NativeSystem::Kernel::CreateLiveKernelMemoryDumpAsync(std::wstring const& filePath)
 	{
 		auto cancellationToken = co_await get_cancellation_token();
@@ -65,4 +78,6 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 
 		progress(100);
 	}
+
+	
 }
