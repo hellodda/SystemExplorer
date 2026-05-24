@@ -1,0 +1,16 @@
+import "Core/Serialization/SettingsBase.idl";
+
+namespace SystemExplorer.Core.Settings
+{
+    [bindable]
+    [default_interface]
+    runtimeclass AppState : SystemExplorer.Core.Serialization.SettingsBase
+    {
+        Int32 ProcessesNameColumnLastWidth;
+        Int32 ProcessesStatusColumnLastWidth;
+        Int32 ProcessesPidColumnLastWidth;
+        Int32 ProcessesCpuUsageColumnLastWidth;
+        Int32 ProcessesIoRateColumnLastWidth;
+        Int32 ProcessesPrivateBytesLastWidth;
+    }
+}

@@ -9,13 +9,15 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:behaviors="using:XamlToolkit.WinUI.Behaviors"
     xmlns:interactivity="using:XamlToolkit.WinUI.Interactivity"
-    xmlns:controls="using:XamlToolkit.Labs.WinUI"
+    xmlns:labs="using:XamlToolkit.Labs.WinUI"
     xmlns:models="using:SystemExplorer.Core.Data.Items"
     xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
     xmlns:helpers="using:SystemExplorer.Helpers"
     xmlns:tconverters="using:XamlToolkit.WinUI.Converters"
     xmlns:converters="using:SystemExplorer.Converters"
     xmlns:essential="using:WinUI3Package"
+    xmlns:appstate="using:SystemExplorer.Core.Settings"
     DataContext="{x:Bind ViewModel}"
     NavigationCacheMode="Required"
     mc:Ignorable="d">
@@ -26,6 +28,17 @@
         <converters:TransparencyConverter x:Key="TransparencyConverter"/>
         <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 
+        <CommandBarFlyout Placement="Right" x:Key="OptionsCommandBarFlyout">
+            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
+            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
+            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
+            <CommandBarFlyout.SecondaryCommands>
+                <AppBarButton IsEnabled="False" Label="Tree view" />
+                <AppBarButton IsEnabled="False" Label="Expand all" />
+                <AppBarButton IsEnabled="False" Label="Collapse all" />
+            </CommandBarFlyout.SecondaryCommands>
+        </CommandBarFlyout>
+
         <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
             <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
             <MenuFlyoutItem Text="Suspend"  Command="{x:Bind ViewModel.SuspendProcessCommand}"/>
@@ -34,8 +47,31 @@
             <MenuFlyoutSeparator/>
 
             <MenuFlyoutItem Text="Efficiency mode" Command="{x:Bind ViewModel.EfficiencyModeCommand}"/>
+
             <MenuFlyoutItem Text="Debug"/>
-            <MenuFlyoutItem Text="Create memory dump file"/>
+
+            <MenuFlyoutSubItem Text="Create memory dump file">
+                <MenuFlyoutItem Text="Minimal" Command="{x:Bind ViewModel.DumpProcessMemoryCommand}">
+                    <MenuFlyoutItem.CommandParameter>
+                        <x:Int32>0</x:Int32>
+                    </MenuFlyoutItem.CommandParameter>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Limited" Command="{x:Bind ViewModel.DumpProcessMemoryCommand}">
+                    <MenuFlyoutItem.CommandParameter>
+                        <x:Int32>4353</x:Int32>
+                    </MenuFlyoutItem.CommandParameter>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Normal" Command="{x:Bind ViewModel.DumpProcessMemoryCommand}">
+                    <MenuFlyoutItem.CommandParameter>
+                        <x:Int32>137477</x:Int32>
+                    </MenuFlyoutItem.CommandParameter>
+                </MenuFlyoutItem>
+                <MenuFlyoutItem Text="Full" Command="{x:Bind ViewModel.DumpProcessMemoryCommand}">
+                    <MenuFlyoutItem.CommandParameter>
+                        <x:Int32>2</x:Int32>
+                    </MenuFlyoutItem.CommandParameter>
+                </MenuFlyoutItem>
+            </MenuFlyoutSubItem>
 
             <MenuFlyoutSeparator/>
 
@@ -63,6 +99,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+      
+        
         <Border Height="55"
                 Padding="12"
                 Grid.Row="0"
@@ -124,7 +162,7 @@
                     
                     <Button Background="Transparent"
                             BorderThickness="0"
-                            >
+                            Flyout="{StaticResource OptionsCommandBarFlyout}">
                         <FontIcon Glyph="&#xE712;"/>
                     </Button>
                 </StackPanel>
@@ -147,81 +185,93 @@
                         <behaviors:StickyHeaderBehavior />
                     </interactivity:Interaction.Behaviors>
 
-                    <controls:DataTable ColumnSpacing="0">
+                    <labs:DataTable ColumnSpacing="0">
 
-                        <controls:DataColumn
+                        <labs:DataColumn
+                               MinWidth="250"
+                               Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesNameColumnLastWidth, Mode=TwoWay}"
                                CanResize="True"
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                BorderThickness="0,0,1,1">
                             <TextBlock Text="{x:Bind helpers:StringsHelper.Name}" Margin="0 25 0 0" HorizontalAlignment="Left"/>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
+                        <labs:DataColumn
+                               MinHeight="50"
+                               Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesStatusColumnLastWidth, Mode=TwoWay}"
                                CanResize="True"
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                BorderThickness="0,0,1,1">
                             <TextBlock Text="Status" Margin="0 25 0 0" HorizontalAlignment="Left"/>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
+                        <labs:DataColumn
+                             MinWidth="50"
+                             Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesPidColumnLastWidth, Mode=TwoWay}"
                              CanResize="True"
                              Background="Transparent"
                              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                              BorderThickness="0,0,1,1">
                             <TextBlock Text="PID" Margin="0 25 0 0" HorizontalAlignment="Right"/>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
-                                             CanResize="True"
-                                             Background="Transparent"
-                                             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
-                                             BorderThickness="0,0,1,1">
+                        <labs:DataColumn
+                            MinWidth="75"
+                            Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesCpuUsageColumnLastWidth, Mode=TwoWay}"
+                            CanResize="True"
+                            Background="Transparent"
+                            BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                            BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind ViewModel.TotalCpuUsage, Converter={StaticResource StringFormatConverter}, ConverterParameter='{}{0}%', Mode=OneWay}" />
                                 <TextBlock Text="{x:Bind helpers:StringsHelper.Cpu}" HorizontalAlignment="Right"/>
                             </StackPanel>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
-                                             CanResize="True"
-                                             Background="Transparent"
-                                             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
-                                             BorderThickness="0,0,1,1">
+                        <labs:DataColumn
+                                MinWidth="75"
+                                Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesIoRateColumnLastWidth, Mode=TwoWay}"
+                                CanResize="True"
+                                Background="Transparent"
+                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind ViewModel.TotalIoRate, Mode=OneWay, Converter={StaticResource SizeConverter}, ConverterParameter='/s'}" HorizontalAlignment="Right"/>
                                 <TextBlock Text="{x:Bind helpers:StringsHelper.IoRate}" HorizontalAlignment="Right"/>
                             </StackPanel>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
-                                             CanResize="True"
-                                             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
-                                             BorderThickness="0,0,1,1">
+                        <labs:DataColumn
+                                MinWidth="75"
+                                Width="{x:Bind appstate:UserSettings.Instance.AppearanceSettings.ProcessesPrivateBytesLastWidth, Mode=TwoWay}"
+                                CanResize="True"
+                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                BorderThickness="0,0,1,1">
                             <StackPanel Spacing="5" HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind ViewModel.TotalPrivateBytes, Mode=OneWay, Converter={StaticResource SizeConverter}}" HorizontalAlignment="Right"/>
                                 <TextBlock Text="{x:Bind helpers:StringsHelper.PrivateBytes}"/>
                             </StackPanel>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                        <controls:DataColumn
+                        <labs:DataColumn
                                        Width="2550"
                                        BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                        BorderThickness="0,0,1,1">
                             <TextBlock Text="{x:Bind helpers:StringsHelper.Description}" Margin="0 25 0 0" HorizontalAlignment="Left"/>
-                        </controls:DataColumn>
+                        </labs:DataColumn>
 
-                    </controls:DataTable>
+                    </labs:DataTable>
                 </Border>
             </ListView.Header>
 
             <ListView.ItemTemplate>
                 <DataTemplate x:DataType="models:ProcessItem">
-                    <controls:DataRow HorizontalAlignment="Stretch"
+                    <labs:DataRow HorizontalAlignment="Stretch"
                                       Background="Transparent"
                                       ContextFlyout="{StaticResource ProcessMenuFlyout}">
-                        <controls:DataRow.Resources>
+                        <labs:DataRow.Resources>
                             <Style TargetType="Border">
                                 <Setter Property="BorderBrush" Value="{ThemeResource DividerStrokeColorDefaultBrush}" />
                                 <Setter Property="BorderThickness" Value="0,0,1,0" />
@@ -233,7 +283,7 @@
                             <Style TargetType="TextBlock">
                                 <Setter Property="VerticalAlignment" Value="Center" />
                             </Style>
-                        </controls:DataRow.Resources>
+                        </labs:DataRow.Resources>
 
                         <interactivity:Interaction.Behaviors>
                             <interactivity:EventTriggerBehavior EventName="DoubleTapped">
@@ -245,7 +295,7 @@
 
                         <Border>
                             <StackPanel Orientation="Horizontal" Spacing="10">
-                                <Image Source="{x:Bind Icon, Mode=OneWay}" Width="18" Height="18"/>
+                                <Image Source="{x:Bind Icon}" Width="18" Height="18"/>
                                 <TextBlock Text="{x:Bind Name}"
                                            FontSize="13"
                                            TextTrimming="CharacterEllipsis"/>
@@ -309,7 +359,7 @@
                                        FontSize="13"/>
                         </Border>
 
-                    </controls:DataRow>
+                    </labs:DataRow>
                 </DataTemplate>
             </ListView.ItemTemplate>
 

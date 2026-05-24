@@ -7,19 +7,20 @@
 #pragma comment(lib, "Shlwapi.lib")
 #pragma comment(lib, "Windowscodecs.lib")
 
-namespace winrt::SystemExplorer::Converters
+namespace winrt::SystemExplorer::Converters::Native
 {
-	HiconToBitmapSourceConverter::HiconToBitmapSourceConverter()
+	SoftwareBitmapSource HiconToBitmapSourceConverter::Convert(wil::unique_hicon icon)
 	{
-		initialize();
-	}
-	SoftwareBitmapSource HiconToBitmapSourceConverter::Convert(HICON icon)
-	{
-		if (!icon) return nullptr; 
+		if (!icon.is_valid()) return nullptr; 
+
+		std::call_once(initializeFlag_, []()
+		{
+			initialize();
+		});
 		
 		com_ptr<IWICBitmap> wicBitmap;
 		THROW_IF_FAILED(wicImagingFactory_->CreateBitmapFromHICON(
-			icon,
+			icon.get(),
 			wicBitmap.put()
 		));
 

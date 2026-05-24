@@ -5,12 +5,17 @@ namespace winrt::SystemExplorer::Core::Diagnostics
 {
 	AsyncFileLogger::~AsyncFileLogger()
 	{
+		isInitialized_ = false;
+
 		if (isRunning_)
 		{
 			isRunning_ = false;
-			cv_.notify_one();
 			if (worker_.joinable())
+			{
+				worker_.request_stop();
+				cv_.notify_all();
 				worker_.join();
+			}
 		}
 	}
 	void AsyncFileLogger::Initialize(std::filesystem::path const& path)
@@ -45,7 +50,7 @@ namespace winrt::SystemExplorer::Core::Diagnostics
 	void AsyncFileLogger::Log(std::wstring const&& message)
 	{
 		if (!isInitialized_)
-			throw winrt::hresult_error(E_FAIL, L"Logger not initialized.");
+			return;
 		{
 			std::lock_guard lock(mutex_);
 			logBuffer_.push_back(std::move(message));

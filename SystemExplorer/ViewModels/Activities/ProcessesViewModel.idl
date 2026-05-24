@@ -23,6 +23,7 @@ namespace SystemExplorer.ViewModels.Activities
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartProcessCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand EfficiencyModeCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SearchOnlineCommand { get; };
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand DumpProcessMemoryCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand DebugProcessCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CreateDumpFileCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenFileLocationCommand { get; };

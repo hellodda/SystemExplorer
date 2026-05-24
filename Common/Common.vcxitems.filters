@@ -9,5 +9,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)util\concepts.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)simplefactory.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)wilx.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)thread_safe_queue.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)thread_pool.h" />
   </ItemGroup>
 </Project>

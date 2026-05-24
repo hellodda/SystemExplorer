@@ -1,56 +1,95 @@
 ﻿#include "pch.h"
 #include "ProcessesViewModel.h"
+
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
 #include "ViewModels/Activities/ProcessesViewModel.g.cpp"
 #endif
+
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
-#include <winrt/Windows.Web.Http.Headers.h>
 #include <winrt/Windows.Storage.h>
-#include <winrt/Windows.Data.Json.h>
 #include <ranges>
 #include <property.h>
+
 #include <Core/System/ProcessInformationProvider.h>
 #include <Core/System/ProcessManager.h>
 #include <Core/System/Utils.h>
-#include <Core/System/Native/process.h>
+#include <Core/System/Native.h>
+#include <Converters/Native/HiconToBitmapSourceConverter.h>
 #include <Helpers/ProcessPropertiesHelper.h>
 #include <Helpers/Win32/Native/NativeProcess.h>
+#include <Helpers/Win32/ShellHelper.h>
+#include <winrt/Microsoft.Windows.Storage.Pickers.h>
+#include <App.xaml.h>
+
+using namespace winrt::Microsoft::Windows::Storage::Pickers;
 
 using namespace winrt::SystemExplorer::Helpers;
+using namespace winrt::SystemExplorer::Helpers::Win32;
 using namespace winrt::SystemExplorer::Helpers::Win32::Native;
+using namespace winrt::SystemExplorer::Converters::Native;
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
+    namespace
+    {
+        void UpdateProcessItemValues(ProcessItem& target, _In_ const PSE_PROCESS_ITEM source)
+        {
+            if (target.CpuUsage() != source->CpuUsage) target.CpuUsage(source->CpuUsage);
+            if (target.IoRate() != source->IoReadDelta.Delta) target.IoRate(source->IoReadDelta.Delta);
+            if (target.PrivateBytes() != source->VmCounters.PrivateUsage) target.PrivateBytes(source->VmCounters.PrivateUsage);
+        }
+
+        ProcessItem CreateProcessItemFromNativeSource(_In_ const PSE_PROCESS_ITEM source)
+        {
+            ProcessItem item;
+            item.Pid(reinterpret_cast<uint64_t>(source->ProcessId));
+            item.ParentId(reinterpret_cast<uint64_t>(source->ParentProcessId));
+
+            if (source->ProcessName) item.Name(source->ProcessName);
+            if (source->FileName) item.Description(source->FileName);
+
+            item.CpuUsage(source->CpuUsage);
+            item.IoRate(source->IoReadDelta.Delta);
+            item.PrivateBytes(source->VmCounters.PrivateUsage);
+            item.IsEfficiencyModeEnabled(source->IsPowerThrottling);
+
+            auto icon = ShellHelper::GetIconByIndex(source->SmallIconIndex);
+            item.Icon(HiconToBitmapSourceConverter::Convert(std::move(icon)));
+
+            return item;
+        }
+    }
+
     ProcessesViewModel::ProcessesViewModel()
     {
         provider_ = std::make_shared<ProcessInformationProvider>();
         manager_ = std::make_shared<ProcessManager>();
 
-        auto speed = std::chrono::milliseconds(Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs());
+        const auto updateSpeed = std::chrono::milliseconds(
+            Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs()
+        );
 
-        pullTimer_.Interval(speed);
-        provider_->Thread().SetInterval(speed);
+        pullTimer_.Interval(updateSpeed);
+        provider_->Thread().SetInterval(updateSpeed);
 
-        pullTimer_.Tick([this](auto const&, auto const&)
+        pullTimer_.Tick([this](const auto&, const auto&)
         {
-            auto newProcesses = provider_->GetAllProcesses();
-            updateProcessesList(newProcesses);
+            auto currentProcesses = provider_->GetAllProcesses();
+            updateProcessesList(currentProcesses);
         });
         pullTimer_.Start();
 
-        Core::Settings::UserSettings::Instance().GeneralSettings().SettingChanged([weak_this = this->get_weak()](auto const&, auto const& args)
-        {
-            if (auto strong_this = weak_this.get())
+        Core::Settings::UserSettings::Instance().GeneralSettings().SettingChanged(
+            [weakThis = this->get_weak()](auto const&, auto const& args)
             {
-                if (args.SettingName() == L"RealTimeUpdateSpeedMs")
+                if (auto sharedThis = weakThis.get(); sharedThis && args.SettingName() == L"RealTimeUpdateSpeedMs")
                 {
-                    auto value = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
-                    strong_this->pullTimer_.Interval(value);
-                    strong_this->provider_->Thread().SetInterval(value);
+                    const auto newSpeed = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
+                    sharedThis->pullTimer_.Interval(newSpeed);
+                    sharedThis->provider_->Thread().SetInterval(newSpeed);
                 }
-            }
-        });
+            });
     }
 
     void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
@@ -76,8 +115,12 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             {
                 try
                 {
-                    searchRegex_.emplace(SearchString_.c_str(),
-                        std::regex_constants::icase | std::regex_constants::ECMAScript | std::regex_constants::optimize);
+                    searchRegex_.emplace(
+                        SearchString_.c_str(),
+                        std::regex_constants::icase |
+                        std::regex_constants::ECMAScript |
+                        std::regex_constants::optimize
+                    );
                 }
                 catch (const std::regex_error&) {}
             }
@@ -85,7 +128,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
     }
 
-    void ProcessesViewModel::updateProcessesList(std::vector<ProcessNativeInformation>& newProcesses)
+    void ProcessesViewModel::updateProcessesList(std::vector<PSE_PROCESS_ITEM>& newProcesses)
     {
         lastRawProcesses_ = std::move(newProcesses);
         applyTransformations();
@@ -93,132 +136,162 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     void ProcessesViewModel::applyTransformations()
     {
-        namespace view = std::ranges::views;
+        std::unordered_set<uint32_t> activePids;
+        activePids.reserve(lastRawProcesses_.size());
 
-        auto activeProcesses = lastRawProcesses_ | view::filter([](const auto& p) {
-            return std::wstring_view(p.Name) != L"Idle";
-        });
+        updateMetricsAndCache(activePids);
+        pruneDeadProcesses(activePids);
+    }
 
-        float totalCpu = 0;
-        uint64_t totalIo = 0, totalPrivateBytes = 0;
+    void ProcessesViewModel::updateMetricsAndCache(std::unordered_set<uint32_t>& outActivePids)
+    {
+        float totalCpu{ 0.0f };
+        uint64_t totalIo{ 0 };
+        uint64_t totalPrivateBytes{ 0 };
 
-        for (const auto& proc : activeProcesses) {
-            totalCpu += proc.CpuUsage;
-            totalIo += proc.IoRate;
-            totalPrivateBytes += proc.PrivateBytes;
+        for (const auto& process : lastRawProcesses_)
+        {
+            const auto pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(process->ProcessId));
+            outActivePids.insert(pid);
+
+            if (process->ProcessName && std::wstring_view(process->ProcessName) != L"Idle")
+            {
+                totalCpu += process->CpuUsage;
+                totalIo += process->IoReadDelta.Delta;
+                totalPrivateBytes += process->VmCounters.PrivateUsage;
+            }
+
+            if (auto it = itemCache_.find(pid); it != itemCache_.end())
+            {
+                UpdateProcessItemValues(it->second, process);
+            }
+            else
+            {
+                auto processItem = CreateProcessItemFromNativeSource(process);
+                itemCache_.emplace(pid, processItem);
+                Processes.Append(processItem);
+            }
         }
 
         TotalCpuUsage(std::round(totalCpu * 10.0f) / 10.0f);
         TotalIoRate(totalIo);
         TotalPrivateBytes(totalPrivateBytes);
+    }
 
-        auto incomingPids = lastRawProcesses_
-            | view::transform([](const auto& p) { return p.Pid; })
-            | std::ranges::to<std::unordered_set<uint32_t>>();
-
-        for (const auto& proc : lastRawProcesses_)
-        {
-            if (auto it = uiCache_.find(proc.Pid); it != uiCache_.end())
+    void ProcessesViewModel::pruneDeadProcesses(std::unordered_set<uint32_t> const& activePids)
+    {
+        std::erase_if(itemCache_, [&](auto const& cacheEntry)
             {
-                auto& uiObj = it->second;
-                if (uiObj.CpuUsage() != proc.CpuUsage) uiObj.CpuUsage(proc.CpuUsage);
-                if (uiObj.IoRate() != proc.IoRate) uiObj.IoRate(proc.IoRate);
-                if (uiObj.PrivateBytes() != proc.PrivateBytes) uiObj.PrivateBytes(proc.PrivateBytes);
-            }
-            else
-            {
-                ProcessItem newUiObj;
-                newUiObj.Pid(proc.Pid);
-                newUiObj.ParentId(proc.ParentId);
-                newUiObj.Name(proc.Name);
-                newUiObj.Description(proc.Description);
-                newUiObj.CpuUsage(proc.CpuUsage);
-                newUiObj.IoRate(proc.IoRate);
-                newUiObj.PrivateBytes(proc.PrivateBytes);
-                newUiObj.IsEfficiencyModeEnabled(proc.IsEfficiencyModeEnabled);
-                newUiObj.Icon(converter_.Convert(proc.Icon));
-
-                uiCache_.emplace(proc.Pid, newUiObj);
-                Processes.Append(newUiObj);
-            }
-        }
-
-        std::erase_if(uiCache_, [&](const auto& pair)
-        {
-            const auto& [pid, uiObj] = pair;
-            if (!incomingPids.contains(pid))
-            {
-                uint32_t index;
-                if (Processes.IndexOf(uiObj, index))
+                const auto& [pid, uiItem] = cacheEntry;
+                if (!activePids.contains(pid))
                 {
-                    Processes.RemoveAt(index);
+                    if (uint32_t index; Processes.IndexOf(uiItem, index))
+                    {
+                        Processes.RemoveAt(index);
+                    }
+                    return true;
                 }
-                return true;
-            }
-            return false;
-        });
+                return false;
+            });
     }
 
     // commands impl
     IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
     {
-        manager_->Terminate(SelectedProcess_.Pid());
-        co_return;
+        if (!SelectedProcess_) co_return;
+        const auto pid = SelectedProcess_.Pid();
+
+        try
+        {
+            manager_->Terminate(pid);
+        }
+        catch (const wil::ResultException&) {}
     }
 
     IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
     {
-        auto pid = SelectedProcess_.Pid();
-        if (!NativeProcess::IsEfficiencyModeEnabled(pid))
+        if (!SelectedProcess_) co_return;
+        const auto pid = SelectedProcess_.Pid();
+
+        try
         {
-            manager_->EnableEfficiencyMode(pid);
+            if (!NativeProcess::IsEfficiencyModeEnabled(pid))
+            {
+                manager_->EnableEfficiencyMode(pid);
+            }
+            else
+            {
+                manager_->DisableEfficiencyMode(pid);
+            }
         }
-        else
-        {
-            manager_->DisableEfficiencyMode(pid);
-        }
-        co_return;
+        catch (const wil::ResultException&) {}
     }
 
     IAsyncAction ProcessesViewModel::doRestartProcessAsync()
     {
+        if (!SelectedProcess_) co_return;
         manager_->Restart(SelectedProcess_.Pid());
         co_return;
     }
+
     IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
     {
-        if (!SelectedProcess_)
-            co_return;
-
-        ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
+        if (SelectedProcess_)
+        {
+            ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
+        }
         co_return;
     }
 
     IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
     {
-		using namespace winrt::Windows::Storage;
+        using namespace winrt::Windows::Storage;
+        if (!SelectedProcess_) co_return;
 
         try
         {
-            auto file = co_await StorageFile::GetFileFromPathAsync(NativeProcess::GetProcessImageName(SelectedProcess_.Pid()));
+            const auto path = NativeProcess::GetProcessImageName(SelectedProcess_.Pid());
+            auto targetFile = co_await StorageFile::GetFileFromPathAsync(path);
 
-            auto folder = co_await file.GetParentAsync();
-
-            if (folder)
+            if (auto parentFolder = co_await targetFile.GetParentAsync())
             {
-                auto options = winrt::Windows::System::FolderLauncherOptions();
-                options.ItemsToSelect().Append(file);
+                winrt::Windows::System::FolderLauncherOptions options;
+                options.ItemsToSelect().Append(targetFile);
 
-                co_await winrt::Windows::System::Launcher::LaunchFolderAsync(
-                    folder,
-                    options
-                );
+                co_await winrt::Windows::System::Launcher::LaunchFolderAsync(parentFolder, options);
             }
         }
-        catch (hresult_error const&)
-        {
+        catch (const hresult_error&) {}
+        catch (const wil::ResultException&) {}
+    }
 
+    IAsyncAction ProcessesViewModel::doDumpProcessMemoryAsync(MINIDUMP_TYPE dumpType)
+    {
+        if (!SelectedProcess_) co_return;
+        const auto pid = SelectedProcess_.Pid();
+        const auto processName = SelectedProcess_.Name();
+
+        auto processItem = provider_->GetProcess(pid);
+        if (!processItem) co_return;
+
+        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetWindowId() };
+
+        picker.SuggestedFileName(processName + L"_memorydump");
+        picker.DefaultFileExtension(L".dmp");
+
+        if (auto savedFile = co_await picker.PickSaveFileAsync())
+        {
+            try
+            {
+                SeCreateDumpFileProcess(savedFile.Path().c_str(), processItem, dumpType);
+            }
+            catch (...) {}
         }
-		co_return;
+    }
+
+    IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)
+    {
+        MessageBox(NULL, message.c_str(), L"Action failed", MB_OK | MB_ICONERROR);
+        co_return;
     }
 }

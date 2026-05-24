@@ -1,5 +1,43 @@
 #include "sebasesup.h"
 
+//NTSTATUS SeGetLastWin32ErrorAsNtStatus(
+//    VOID
+//)
+//{
+//    return SeDosErrorToNtStatus(SeGetLastError());
+//}
+
+
+BOOLEAN SeWriteUnicodeDecoder(
+    _Inout_ PSE_UNICODE_DECODER Decoder,
+    _In_ ULONG CodeUnit
+)
+{
+    switch (Decoder->Encoding)
+    {
+    case SE_UNICODE_UTF8:
+        if (Decoder->InputCount >= 4)
+            return FALSE;
+        Decoder->u.Utf8.Input[Decoder->InputCount] = (UCHAR)CodeUnit;
+        Decoder->InputCount++;
+        return TRUE;
+    case SE_UNICODE_UTF16:
+        if (Decoder->InputCount >= 2)
+            return FALSE;
+        Decoder->u.Utf16.Input[Decoder->InputCount] = (USHORT)CodeUnit;
+        Decoder->InputCount++;
+        return TRUE;
+    case SE_UNICODE_UTF32:
+        if (Decoder->InputCount >= 1)
+            return FALSE;
+        Decoder->u.Utf32.Input = CodeUnit;
+        Decoder->InputCount = 1;
+        return TRUE;
+    default:
+        //SeRaiseStatus(STATUS_UNSUCCESSFUL);
+    }
+}
+
 ULONG64 SeReadTimeStampCounter(
     VOID
 )

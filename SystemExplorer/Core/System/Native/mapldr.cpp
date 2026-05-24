@@ -1,11 +1,10 @@
 #include "se.h"
 
-extern "C" {
 #include "mapldr.h"
 #include "sebasesup.h"
 #include "senative.h"
 #include "process.h"
-}
+
 
 #include <string>
 #include <string_view>
@@ -446,6 +445,24 @@ PVOID SeGetDllBaseProcedureAddress(
     return exportAddress;
 }
 
+PVOID SeGetDllBaseProcedureAddressZ(
+    _In_ PCWSTR DllName,
+    _In_opt_ PCSTR ProcedureName,
+    _In_opt_ USHORT ProcedureNumber
+)
+{
+    PVOID baseAddress;
+
+    if (!(baseAddress = SeGetLoaderEntryDllBase(NULL, DllName)))
+        return NULL;
+
+    return SeGetDllBaseProcedureAddress(
+        baseAddress,
+        ProcedureName,
+        ProcedureNumber
+    );
+}
+
 PVOID SeLoadLibrary(
     _In_ PCWSTR FileName
 )
@@ -492,26 +509,28 @@ PVOID SeGetLoaderEntryDllBase(
 )
 {
     PLDR_DATA_TABLE_ENTRY entry;
-    PVOID baseAddress;
+    PVOID baseAddress = NULL;
+
+    if (!BaseDllName)
+        return NULL;
 
     SeAcquireLoaderLock();
 
-    std::hash<std::wstring> hasher;
+    UNICODE_STRING uBaseName;
+    RtlInitUnicodeString(&uBaseName, BaseDllName);
 
-    size_t baseNameHash = hasher(BaseDllName);
-
-    entry = SeFindLoaderEntryNameHash(baseNameHash);
-
-    if (entry)
-        baseAddress = entry->DllBase;
-    else
-        baseAddress = NULL;
+    ULONG baseNameHash{ 0 };
+    if (NT_SUCCESS(RtlHashUnicodeString(&uBaseName, TRUE, HASH_STRING_ALGORITHM_DEFAULT, &baseNameHash)))
+    {
+        entry = SeFindLoaderEntryNameHash(baseNameHash);
+        if (entry)
+            baseAddress = entry->DllBase;
+    }
 
     SeReleaseLoaderLock();
 
     return baseAddress;
 }
-
 
 NTSTATUS SeLoadResource(
     _In_ PVOID DllBase,

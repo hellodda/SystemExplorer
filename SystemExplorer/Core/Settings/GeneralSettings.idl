@@ -9,5 +9,14 @@ namespace SystemExplorer.Core.Settings
         
         UInt16 RealTimeUpdateSpeedMs;
         String StartPage;
+        
+        Boolean MemoryDumpCaptureHypervisorPages;
+        Boolean MemoryDumpAbortIfInsufficientMemory;
+        Boolean MemoryDumpIncludeNonessentialPages;
+        Boolean MemoryDumpCaptureUserPages;
+
+        Boolean AppWindowAlwaysOnTop;
+        Boolean AppWindowMinimizeOnUse;
+        Boolean AppWindowHideWhenMinimized;
     }
 }

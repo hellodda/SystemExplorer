@@ -6,7 +6,7 @@ namespace winrt::SystemExplorer::Core::Web::Http
 	struct HttpClientBase : Windows::Web::Http::HttpClient
 	{
 		HttpClientBase(hstring const& baseUrl)
-			: baseUrl_(baseUrl) {}
+			: BaseUrl(baseUrl) {}
 
 		hstring BaseUrl;
 	};

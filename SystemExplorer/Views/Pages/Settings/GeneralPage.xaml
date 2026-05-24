@@ -12,10 +12,11 @@
     xmlns:essential="using:WinUI3Package"
     xmlns:items="using:SystemExplorer.Core.Data.Items"
     xmlns:helpers="using:SystemExplorer.Helpers"
+    xmlns:settings="using:SystemExplorer.Core.Settings"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     >
-
+    <!-- kostil 3000 -->
     <Grid Padding="20">
         <StackPanel>
             <TextBlock FontSize="26"
@@ -68,7 +69,21 @@
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
                                       Description="Specify the default behavior of the System Explorer window.">
                     <xtc:SettingsExpander.Items>
-
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Always on top"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Minimize on use"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Hide when minimized"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
@@ -77,7 +92,26 @@
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
                                       Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
                     <xtc:SettingsExpander.Items>
-
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpAbortIfInsufficientMemory, Mode=TwoWay}" Content="Abort if insufficient memory"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox x:Name="CaptureHypervisorPagesCheckBox" IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureHypervisorPages, Mode=TwoWay}" Content="Capture Hypervisor pages"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpIncludeNonessentialPages, Mode=TwoWay}" IsEnabled="{x:Bind CaptureHypervisorPagesCheckBox.IsChecked.Value, Mode=OneWay}" Content="Include nonessential pages"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureUserPages, Mode=TwoWay}" Content="Capture user pages"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>

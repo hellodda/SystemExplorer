@@ -66,6 +66,16 @@ NTSTATUS SeSetProcessPowerThrottlingState(
     _In_ ULONG StateMask
 );
 
+NTSTATUS SeGetProcessErrorMode(
+    _In_ HANDLE ProcessHandle,
+    _Out_ PULONG ErrorMode
+); 
+
+NTSTATUS SeSetProcessErrorMode(
+    _In_ HANDLE ProcessHandle,
+    _In_ ULONG ErrorMode
+);
+
 NTSTATUS SeIsProcessEfficiencyModeEnabled(
     _In_ HANDLE ProcessHandle,
     _Out_ PBOOLEAN EfficiencyMode
@@ -77,6 +87,11 @@ NTSTATUS SeSuspendProcess(
 
 NTSTATUS SeResumeProcess(
     _In_ HANDLE ProcessHandle
+);
+
+NTSTATUS SeGetProcessIsWow64(
+    _In_ HANDLE ProcessHandle,
+    _Out_ PBOOLEAN IsWow64Process
 );
 
 #ifdef __cplusplus

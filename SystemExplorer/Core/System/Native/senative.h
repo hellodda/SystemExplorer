@@ -37,6 +37,14 @@ NTSTATUS SeReleaseLoaderLock(
     return RtlLeaveCriticalSection(NtCurrentPeb()->LoaderLock);
 }
 
+FORCEINLINE
+BOOLEAN SeIsDebuggerPresent(
+    VOID
+)
+{
+    return NtCurrentPeb()->BeingDebugged;
+}
+
 #ifdef __cplusplus
 }
 #endif

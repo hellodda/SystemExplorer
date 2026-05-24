@@ -3,6 +3,10 @@
 #if __has_include("ViewModels/RootViewModel.g.cpp")
 #include "ViewModels/RootViewModel.g.cpp"
 #endif
+#include "../App.xaml.h"
+#include "../Helpers/Win32/Native/NativeSystem.h"
+
+#include <winrt/Microsoft.Windows.Storage.Pickers.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
@@ -29,18 +33,38 @@ namespace winrt::SystemExplorer::ViewModels::implementation
 
         try
         {
-            return BitmapImage{ winrt::Windows::Foundation::Uri{ source } };
+            return BitmapImage{ Uri{ source } };
         }
         catch (...)
         {
             return nullptr;
         }
     }
-    float implementation::RootViewModel::AppThemeBackgroundImageOpacity() const noexcept
+    float RootViewModel::AppThemeBackgroundImageOpacity() const noexcept
     {
         return settings_.AppThemeBackgroundImageOpacity();
     }
-    void RootViewModel::onSettingChanged(Windows::Foundation::IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args)
+
+    IAsyncAction RootViewModel::doCreateLiveKernelMemoryDumpAsync()
+    {
+        using namespace winrt::Microsoft::Windows::Storage::Pickers;
+        using namespace winrt::SystemExplorer::Helpers::Win32::Native;
+
+        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetWindowId() };
+        picker.SuggestedFileName(L"KERNEL");
+        picker.DefaultFileExtension(L".dmp");
+
+        if (auto savedFile = co_await picker.PickSaveFileAsync())
+        {
+            try
+            {
+                co_await NativeSystem::Kernel::CreateLiveKernelMemoryDumpAsync(savedFile.Path().c_str());
+            }
+            catch (...) {}
+        }
+    }
+
+    void RootViewModel::onSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args)
     {
         if (args.SettingName() == L"AppThemeBackgroundImageFit")
         {

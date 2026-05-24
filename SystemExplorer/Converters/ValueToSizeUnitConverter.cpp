@@ -24,7 +24,8 @@ namespace winrt::SystemExplorer::Converters::implementation
         auto length = swprintf_s(buffer, L"%.1f %ls%ls",
             size,
             units[unitIndex],
-            suffix.data());
+            suffix.data()
+        );
 
         if (length > 0)
         {

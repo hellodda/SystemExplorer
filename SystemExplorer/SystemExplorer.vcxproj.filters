@@ -150,13 +150,11 @@
     <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
       <Filter>ViewModels\Properties</Filter>
     </Midl>
+    <Midl Include="Core\Settings\AppState.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Converters\HiconToBitmapSourceConverter.cpp">
-      <Filter>Converters</Filter>
-    </ClCompile>
     <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
@@ -227,15 +225,21 @@
     <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
     <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
     <ClCompile Include="Helpers\Win32\Native\NativeProcess.cpp" />
+    <ClCompile Include="Core\System\Native\guisup.c" />
+    <ClCompile Include="Core\System\Native\file.c" />
+    <ClCompile Include="Core\System\Native\symprv.c" />
+    <ClCompile Include="Core\System\Mi\Management.cpp" />
+    <ClCompile Include="Core\System\Native\dump.c" />
+    <ClCompile Include="Core\System\Native\basestring.cpp" />
+    <ClCompile Include="Helpers\Win32\ShellHelper.cpp" />
+    <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
+    <ClCompile Include="Helpers\Win32\Native\NativeSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="property.h" />
-    <ClInclude Include="Converters\HiconToBitmapSourceConverter.h">
-      <Filter>Converters</Filter>
-    </ClInclude>
     <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h">
       <Filter>Core\AI\Actions</Filter>
     </ClInclude>
@@ -334,6 +338,15 @@
     <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
     <ClInclude Include="Core\Web\Http\Base.h" />
     <ClInclude Include="Helpers\Win32\Native\NativeProcess.h" />
+    <ClInclude Include="Core\System\Native\guisup.h" />
+    <ClInclude Include="Core\System\Native\file.h" />
+    <ClInclude Include="Core\System\Native\symprv.h" />
+    <ClInclude Include="Core\System\Mi\Management.h" />
+    <ClInclude Include="Core\System\Native\dump.h" />
+    <ClInclude Include="Core\System\Native\basestring.h" />
+    <ClInclude Include="Helpers\Win32\ShellHelper.h" />
+    <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

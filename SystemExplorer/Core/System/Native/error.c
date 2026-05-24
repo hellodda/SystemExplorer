@@ -97,3 +97,13 @@ NTSTATUS SeDosErrorToNtStatus(
     }
     }
 }
+
+ULONG SeNtStatusToDosError(
+    _In_ NTSTATUS Status
+)
+{
+    if (NT_NTWIN32(Status))
+        return WIN32_FROM_NTSTATUS(Status);
+    else
+        return RtlNtStatusToDosErrorNoTeb(Status);
+}

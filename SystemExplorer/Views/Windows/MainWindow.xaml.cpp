@@ -9,6 +9,7 @@
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
+using namespace winrt::Microsoft::UI::Xaml::Controls;
 using namespace winrt::WinUI3Package;
 
 namespace winrt::SystemExplorer::Views::Windows::implementation
@@ -23,6 +24,45 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         Core::Settings::UserSettings::Instance().AppearanceSettings().SettingChanged([this](auto& sender, auto& args) {
             this->OnApplicationThemeSettingChanged(sender, args);
         });
+
+        MenuFlyoutItem restartAsAdminFlyoutItem{};
+        restartAsAdminFlyoutItem.Text(L"Restart as admin");
+
+        restartAsAdminFlyoutItem.Click([](auto&, auto&) {
+            wchar_t exePath[MAX_PATH];
+            if (GetModuleFileNameW(nullptr, exePath, MAX_PATH) == 0)
+            {
+                return; // Ошибка получения пути
+            }
+
+
+            SHELLEXECUTEINFOW sei = { sizeof(sei) };
+            sei.lpVerb = L"runas";     // Ключевой параметр для запроса прав администратора
+            sei.lpFile = exePath;
+            sei.hwnd = nullptr;        // Можно передать HWND главного окна, чтобы окно UAC было модальным к нему
+            sei.nShow = SW_NORMAL;
+
+            // 3. Запускаем новый процесс
+            if (ShellExecuteExW(&sei))
+            {
+                winrt::Microsoft::UI::Xaml::Application::Current().Exit();
+            }
+            else
+            {
+                // Ошибка: пользователь мог нажать "Нет" в окне UAC (ERROR_CANCELLED)
+                DWORD errorCode = GetLastError();
+                if (errorCode == ERROR_CANCELLED)
+                {
+                    // Обработка отмены (например, показать Flyout или InfoBar)
+                }
+            }
+        });
+
+        FontIcon icon{};
+        icon.Glyph(L"\uF305");
+        restartAsAdminFlyoutItem.Icon(icon);
+
+        Menu().Items().InsertAt(1, restartAsAdminFlyoutItem);
 
         LoadSettings();
     }

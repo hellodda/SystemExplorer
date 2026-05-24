@@ -99,17 +99,22 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 
         if (args.SettingName() == L"BackdropMaterial")
         {
-            controller_.RemoveAllSystemBackdropTargets();
-            controller_.Close();
+            if (controller_)
+            {
+                controller_.RemoveAllSystemBackdropTargets();
+                controller_.Close();
+            }
 
             auto configuration = GetDefaultSystemBackdropConfiguration(target_, root_);
             configuration.IsInputActive(EnableWhenInactive());
 
-            auto newController = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
-            newController.SetSystemBackdropConfiguration(configuration);
-            newController.AddSystemBackdropTarget(target_);
-
-            controller_ = newController;
+            controller_ = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
+            
+            if (controller_)
+            {
+                controller_.SetSystemBackdropConfiguration(configuration);
+                controller_.AddSystemBackdropTarget(target_);
+            }
         }
 	}
     void AppSystemBackdrop::setThinAcrylicBackdropProperties(DesktopAcrylicController const& controller, SystemBackdropTheme theme)

@@ -60,7 +60,16 @@
                     Content="{x:Bind helpers:StringsHelper.System}"
                     Tag=""
                     Icon="{toolkit:FontIcon Glyph=&#xE770;}"
-                    />
+                    >
+                    <NavigationViewItem.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutSubItem Text="Create live kernel dump file">
+                                <MenuFlyoutItem Text="Full live krenel dump" Command="{x:Bind ViewModel.CreateLiveKernelMemoryDumpCommand}"/>
+                                <MenuFlyoutItem Text="Kernel stacks memory dump"/>
+                            </MenuFlyoutSubItem>
+                        </MenuFlyout>
+                    </NavigationViewItem.ContextFlyout>
+                </NavigationViewItem>
 
                 <NavigationViewItem
                     Content="{x:Bind helpers:StringsHelper.Activities}"

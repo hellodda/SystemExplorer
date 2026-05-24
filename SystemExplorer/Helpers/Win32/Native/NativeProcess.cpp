@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "NativeProcess.h"
-#include <Core/System/Native/process.h>
 #include <Core/System/Native.h>
 
 namespace winrt::SystemExplorer::Helpers::Win32::Native
@@ -40,5 +39,32 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 			&fileName
 		));
 		return fileName;
+	}
+
+	wil::unique_hicon NativeProcess::GetProcessIcon(std::wstring const& fileName)
+	{
+		wil::unique_hicon icon{ nullptr };
+
+		if (!SeExtractIcon(fileName.c_str(), &icon, NULL))
+		{
+			SHSTOCKICONINFO sii{};
+			sii.cbSize = sizeof(sii);
+
+			if 
+			(
+				SUCCEEDED(
+					SHGetStockIconInfo(
+						SIID_APPLICATION,
+						SHGSI_ICON | SHGSI_LARGEICON,
+						&sii
+					)
+				)
+			)
+			{
+				icon.reset(sii.hIcon);
+			}
+		}
+
+		return icon;
 	}
 }

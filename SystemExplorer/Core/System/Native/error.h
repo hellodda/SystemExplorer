@@ -23,6 +23,10 @@ NTSTATUS SeDosErrorToNtStatus(
     _In_ ULONG DosError
 );
 
+ULONG SeNtStatusToDosError(
+    _In_ NTSTATUS Status
+);
+
 FORCEINLINE
 ULONG SeGetLastError(
     VOID

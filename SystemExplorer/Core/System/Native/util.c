@@ -50,3 +50,53 @@ NTSTATUS SeGetFileVersionInfo(
 
     return status;
 }
+
+_Success_(return)
+BOOLEAN SeShowTaskDialog(
+    _In_ const TASKDIALOGCONFIG * Config,
+    _Out_opt_ PULONG Button,
+    _Out_opt_ PULONG RadioButton,
+    _Out_opt_ PBOOLEAN FlagChecked
+)
+{
+    HRESULT status;
+    LONG button;
+    LONG radio;
+    BOOL selected;
+
+    status = TaskDialogIndirect(
+        Config,
+        &button,
+        &radio,
+        &selected
+    );
+
+    if (HR_SUCCESS(status))
+    {
+        if (Button) *Button = button;
+        if (RadioButton) *RadioButton = radio;
+        if (FlagChecked) *FlagChecked = !!selected;
+        return TRUE;
+    }
+
+    return FALSE; 
+}
+
+LCID SeGetSystemDefaultLCID(
+    VOID
+)
+{
+    LCID localeId = LOCALE_SYSTEM_DEFAULT;
+
+    if (NT_SUCCESS(NtQueryDefaultLocale(FALSE, &localeId)))
+        return localeId;
+
+    return MAKELCID(MAKELANGID(LANG_ENGLISH, SUBLANG_ENGLISH_US), SORT_DEFAULT);
+}
+
+LANGID SeGetSystemDefaultLangID(
+    VOID
+)
+{
+    return LANGIDFROMLCID(SeGetSystemDefaultLCID());
+}

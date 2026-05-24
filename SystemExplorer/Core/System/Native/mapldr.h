@@ -72,6 +72,12 @@ PVOID SeGetDllBaseProcedureAddress(
     _In_opt_ USHORT ProcedureNumber
 );
 
+PVOID SeGetDllBaseProcedureAddressZ(
+    _In_ PCWSTR DllName,
+    _In_opt_ PCSTR ProcedureName,
+    _In_opt_ USHORT ProcedureNumber
+);
+
 PVOID SeLoadLibrary(
     _In_ PCWSTR FileName
 );

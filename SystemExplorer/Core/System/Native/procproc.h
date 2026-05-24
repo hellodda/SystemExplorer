@@ -144,7 +144,7 @@ typedef struct _SE_PROCESS_ITEM
 	ULONG HardFaultCount; // since WIN7
 } SE_PROCESS_ITEM, * PSE_PROCESS_ITEM;
 
-typedef struct _PH_PROCESS_RECORD
+typedef struct _SE_PROCESS_RECORD
 {
 	LIST_ENTRY ListEntry;
 	LONG RefCount;
@@ -161,4 +161,4 @@ typedef struct _PH_PROCESS_RECORD
 	PWSTR FileName;
 	PWSTR CommandLine;
 	PWSTR UserName;
-} PH_PROCESS_RECORD, * PPH_PROCESS_RECORD;
+} SE_PROCESS_RECORD, * PSE_PROCESS_RECORD;

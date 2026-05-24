@@ -13,12 +13,81 @@
 
 #include "se.h"
 #include "sesup.h"
+#include "error.h"
 
 static HANDLE SeHeapHandle = NULL;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+#define SE_UNICODE_BYTE_ORDER_MARK 0xfeff
+#define SE_UNICODE_MAX_CODE_POINT 0x10ffff
+#define SE_UNICODE_REPLACEMENT_CHARACTER 0xfffd
+
+#define SE_UNICODE_UTF16_TO_HIGH_SURROGATE(CodePoint) ((USHORT)((CodePoint) >> 10) + 0xd7c0)
+#define SE_UNICODE_UTF16_TO_LOW_SURROGATE(CodePoint) ((USHORT)((CodePoint) & 0x3ff) + 0xdc00)
+#define SE_UNICODE_UTF16_IS_HIGH_SURROGATE(CodeUnit) ((CodeUnit) >= 0xd800 && (CodeUnit) <= 0xdbff)
+#define SE_UNICODE_UTF16_IS_LOW_SURROGATE(CodeUnit) ((CodeUnit) >= 0xdc00 && (CodeUnit) <= 0xdfff)
+#define SE_UNICODE_UTF16_TO_CODE_POINT(HighSurrogate, LowSurrogate) (((ULONG)(HighSurrogate) << 10) + (ULONG)(LowSurrogate) - 0x35fdc00)
+
+#define SE_UNICODE_UTF8 0
+#define SE_UNICODE_UTF16 1
+#define SE_UNICODE_UTF32 2
+
+typedef struct _SE_UNICODE_DECODER
+{
+    UCHAR Encoding; 
+    UCHAR State;
+    UCHAR InputCount;
+    UCHAR Reserved;
+    union
+    {
+        UCHAR Utf8[4];
+        USHORT Utf16[2];
+        ULONG Utf32;
+    } Input;
+    union
+    {
+        struct
+        {
+            UCHAR Input[4];
+            UCHAR CodeUnit1;
+            UCHAR CodeUnit2;
+            UCHAR CodeUnit3;
+            UCHAR CodeUnit4;
+        } Utf8;
+        struct
+        {
+            USHORT Input[2];
+            USHORT CodeUnit;
+        } Utf16;
+        struct
+        {
+            ULONG Input;
+        } Utf32;
+    } u;
+} SE_UNICODE_DECODER, * PSE_UNICODE_DECODER;
+
+FORCEINLINE
+VOID
+SeInitializeUnicodeDecoder(
+    _Out_ PSE_UNICODE_DECODER Decoder,
+    _In_ UCHAR Encoding
+)
+{
+    memset(Decoder, 0, sizeof(SE_UNICODE_DECODER));
+    Decoder->Encoding = Encoding;
+}
+
+BOOLEAN SeWriteUnicodeDecoder(
+    _Inout_ PSE_UNICODE_DECODER Decoder,
+    _In_ ULONG CodeUnit
+);
+
+NTSTATUS SeGetLastWin32ErrorAsNtStatus(
+    VOID
+);
 
 ULONG64 SeReadTimeStampCounter(
     VOID

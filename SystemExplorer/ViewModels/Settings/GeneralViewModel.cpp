@@ -23,24 +23,24 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
 	void GeneralViewModel::SelectedRealTimeUpdateSpeedIndex(int32_t const& value) noexcept
 	{
-		uint16_t updateSpeed{ 1500 };
+		uint16_t updateSpeed{ 750 };
 
 		switch (value)
 		{
 		case 0: // high
-			updateSpeed = 15;
+			updateSpeed = 500;
 			break;
 		case 1: // def
-			updateSpeed = 1000;
+			updateSpeed = 750;
 			break;
 		case 2: // low
 			updateSpeed = 2500;
 			break;
 		case 3: // suspend
-			updateSpeed = 9999;
+			updateSpeed = 10000;
 			break;
 		default:
-			updateSpeed = 1500;
+			updateSpeed = 750;
 			break;
 		}
 		Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs(updateSpeed);

@@ -10,10 +10,27 @@ EXTERN_C_START
 #include "Native/process.h"
 #include "Native/procproc.h"
 #include "Native/sebasesup.h"
+#include "Native/guisup.h"
+#include "Native/file.h"
+#include "Native/symprv.h"
+#include "Native/dump.h"
 
 EXTERN_C_END
 
 #include "../../../Common/wilx.h"
+
+inline void SeDestroyProcessItem(
+    _In_  PSE_PROCESS_ITEM Item
+)
+{
+    if (Item->ProcessName) free((void*)Item->ProcessName);
+    if (Item->FileName) free((void*)Item->FileName);
+    if (Item->CommandLine) free((void*)Item->CommandLine);
+    if (Item->QueryHandle) CloseHandle(Item->QueryHandle);
+}
+
+using unique_process_item = wilx::unique_any<&SeDestroyProcessItem>;
+
 
 namespace nt
 {

@@ -1,4 +1,5 @@
 #pragma once
+#include <random>
 
 template <typename T, typename Pred>
 int32_t IndexOf(winrt::Windows::Foundation::Collections::IVector<T> const& vector, Pred&& pred)
@@ -9,27 +10,6 @@ int32_t IndexOf(winrt::Windows::Foundation::Collections::IVector<T> const& vecto
             return static_cast<int32_t>(i);
     }
     return -1;
-}
-
-inline std::wstring Format(PCWSTR fmt, ...)
-{
-    if (!fmt) return L"";
-
-    va_list args;
-    va_start(args, fmt);
-
-    int size = _vscwprintf(fmt, args);
-    va_end(args);
-
-    if (size <= 0) return L"";
-
-    std::wstring result(size, L'\0');
-
-    va_start(args, fmt);
-    vswprintf_s(result.data(), result.size() + 1, fmt, args);
-    va_end(args);
-
-    return result;
 }
 
 inline std::wstring NarrowToWide(PCSTR narrowStr)
@@ -67,4 +47,26 @@ winrt::Windows::Foundation::Collections::IVector<T> ViewToVector(winrt::Windows:
         return nullptr;
 
     return winrt::single_threaded_vector(std::vector<T>(view.begin(), view.end()));
+}
+
+#include <winrt/Windows.Storage.h>
+
+inline winrt::hstring SeGetCurrentAppXPath()
+{
+    return winrt::Windows::Storage::ApplicationData::Current().LocalFolder().Path();
+}
+
+inline std::wstring SeRandomString(int32_t length)
+{
+    WCHAR alphastring[16]{ L"" };
+    const wchar_t charset[] = L"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, sizeof(charset) / sizeof(wchar_t) - 2);
+
+    for (int i = 0; i < length; ++i)
+    {
+        alphastring[i] = charset[dis(gen)];
+    }
+    alphastring[length] = L'\0';
 }

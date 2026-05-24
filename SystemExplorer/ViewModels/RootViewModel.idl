@@ -14,5 +14,8 @@ namespace SystemExplorer.ViewModels
         Microsoft.UI.Xaml.VerticalAlignment AppThemeBackgroundImageVerticalAlignment { get; };
         Microsoft.UI.Xaml.HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment { get; };
         Single AppThemeBackgroundImageOpacity { get; };
+
+
+        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CreateLiveKernelMemoryDumpCommand { get; };
     }
 }

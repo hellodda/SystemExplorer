@@ -1,14 +1,300 @@
 #include "pch.h"
 #include "App.xaml.h"
-#include "resource.h"
-#include "Helpers/Win32Helper.h"
-#include "Helpers/Common.h"
-
 #include "Core/System/native.h"
-#include "Core/AI/Actions/ProcessesActionProvider.h"
+#include "Helpers/Common.h"
+#include <CommCtrl.h>
+#include <shlobj.h>
+#include <winsta.h>
+#include <stacktrace>
+#include <Core/System/Native/util.h>
+#include <Core/System/Native/senative.h>
 
-#include "Core/AI/Tools/PeHeaderScaner.h"
-#include "Core/System/Tools/AmsiScanner.h"
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
+
+#define DEBUG
+//#define DEBUG_E
+
+#pragma region Error Reporting
+
+typedef enum _SE_TRIAGE_DUMP_TYPE
+{
+    SeTriageDumpTypeMinimal,
+    SeTriageDumpTypeNormal,
+    SeTriageDumpTypeFull,
+} SE_TRIAGE_DUMP_TYPE;
+
+static LPTOP_LEVEL_EXCEPTION_FILTER SepPreviousUnhandledExceptionFilter{ NULL };
+
+VOID SepCreateUnhandledExceptionCrashDump(
+    _In_ PEXCEPTION_POINTERS ExceptionInfo,
+    _In_ SE_TRIAGE_DUMP_TYPE DumpType
+)
+{
+    std::wstring baseDir;
+    baseDir = SeGetCurrentAppXPath();
+    baseDir += L"\\CrashDump";
+
+    std::wstring win32CreatePath = baseDir;
+    if (win32CreatePath.size() > 2 && win32CreatePath[1] == L':')
+    {
+        win32CreatePath = L"\\\\?\\" + win32CreatePath;
+    }
+    CreateDirectoryW(win32CreatePath.c_str(), NULL);
+
+    std::wstring fileName = baseDir + L"\\SystemExplorer_" + SeRandomString(9) + L"_Dump.dmp";
+    if (fileName.size() > 2 && fileName[1] == L':')
+    {
+        fileName = L"\\\\?\\" + fileName;
+    }
+
+    wil::unique_hfile fileHandle{ CreateFileW(
+        fileName.c_str(),
+        GENERIC_WRITE,
+        FILE_SHARE_WRITE,
+        NULL,
+        CREATE_ALWAYS,          
+        FILE_ATTRIBUTE_NORMAL,
+        NULL
+    ) };
+
+    if (fileHandle.is_valid())
+    {
+        MINIDUMP_EXCEPTION_INFORMATION exceptionInfo;
+        ULONG dumpType = SeTriageDumpTypeMinimal;
+
+        exceptionInfo.ThreadId = HandleToUlong(NtCurrentThreadId());
+        exceptionInfo.ExceptionPointers = ExceptionInfo;
+        exceptionInfo.ClientPointers = TRUE;
+
+        switch (DumpType)
+        {
+        case SeTriageDumpTypeMinimal:
+            dumpType =
+                MiniDumpWithDataSegs |
+                MiniDumpWithUnloadedModules |
+                MiniDumpWithProcessThreadData |
+                MiniDumpWithThreadInfo |
+                MiniDumpIgnoreInaccessibleMemory;
+            break;
+        case SeTriageDumpTypeNormal:
+            dumpType =
+                MiniDumpWithDataSegs |
+                MiniDumpWithHandleData |
+                MiniDumpScanMemory |
+                MiniDumpWithUnloadedModules |
+                MiniDumpWithProcessThreadData |
+                MiniDumpWithFullMemoryInfo |
+                MiniDumpWithThreadInfo |
+                MiniDumpIgnoreInaccessibleMemory |
+                MiniDumpWithTokenInformation;
+            break;
+        case SeTriageDumpTypeFull:
+            dumpType =
+                MiniDumpWithDataSegs |
+                MiniDumpWithFullMemory |
+                MiniDumpWithHandleData |
+                MiniDumpWithUnloadedModules |
+                MiniDumpWithIndirectlyReferencedMemory |
+                MiniDumpWithProcessThreadData |
+                MiniDumpWithFullMemoryInfo |
+                MiniDumpWithThreadInfo |
+                MiniDumpIgnoreInaccessibleMemory |
+                MiniDumpWithTokenInformation |
+                MiniDumpWithAvxXStateContext;
+            break;
+        }
+
+        SeWriteMiniDumpProcess(
+            NtCurrentProcess(),
+            NtCurrentProcessId(),
+            fileHandle.get(),
+            static_cast<MINIDUMP_TYPE>(dumpType),
+            &exceptionInfo,
+            NULL,
+            NULL
+        );
+    }
+}
+
+LONG CALLBACK SepUnhandledExceptionCallback(
+    _In_ PEXCEPTION_POINTERS ExceptionInfo
+)
+{
+    std::wstring errorMessage;
+    std::wstring message;
+
+#ifdef DEBUG
+    std::stacktrace trace = std::stacktrace::current(1);
+    std::string stacktrace = std::to_string(trace);
+#endif // DEBUG
+
+
+    LONG result;
+
+    if (SeIsDebuggerPresent())
+    {
+        return EXCEPTION_CONTINUE_SEARCH;
+    }
+
+    if (NT_SUCCESS(SeIsInteractiveUserSession()))
+    {
+        TASKDIALOGCONFIG config = { sizeof(TASKDIALOGCONFIG) };
+        TASKDIALOG_BUTTON buttons[6] =
+        {
+            { 101, L"Full\nA complete dump of the process, rarely needed most of the time." },
+            { 102, L"Normal\nFor most purposes, this dump file is the most useful." },
+            { 103, L"Minimal\nA very limited dump with limited data." },
+            { 104, L"Restart\nRestart the application." },
+            { 105, L"Ignore" },
+            { 106, L"Exit " },
+        };
+
+        //if (NT_NTWIN32(ExceptionInfo->ExceptionRecord->ExceptionCode))
+        //    errorMessage = SeGetStatusMessage(0, SeNtStatusToDosError(ExceptionInfo->ExceptionRecord->ExceptionCode));
+        //else
+        //    errorMessage = PhGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);
+
+        message = std::format(
+            L"0x{:08X} ({})",
+            ExceptionInfo->ExceptionRecord->ExceptionCode,
+            errorMessage
+        );
+
+        config.dwFlags = TDF_ALLOW_DIALOG_CANCELLATION | TDF_USE_COMMAND_LINKS | TDF_EXPAND_FOOTER_AREA;
+        config.pszWindowTitle = L"System Explorer InDev";
+        config.pszMainIcon = TD_ERROR_ICON;
+        config.pszMainInstruction = L"System Explorer has crashed :(";
+        config.cButtons = RTL_NUMBER_OF(buttons);
+        config.pButtons = buttons;
+        config.nDefaultButton = 106;
+        config.cxWidth = 250;
+        config.pszContent = message.c_str();
+#ifdef DEBUG
+        config.pszExpandedInformation = std::wstring(stacktrace.begin(), stacktrace.end()).c_str();
+#endif
+
+        if (SeShowTaskDialog(&config, (ULONG*)&result, NULL, NULL))
+        {
+            switch (result)
+            {
+            case 101:
+                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeFull);
+                break;
+            case 102:
+                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeNormal);
+                break;
+            case 103:
+                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeMinimal);
+                break;
+            case 104:
+            {
+                // restart impl
+            }
+            break;
+            case 105:
+            {
+                return EXCEPTION_CONTINUE_EXECUTION;
+            }
+            break;
+            }
+        }
+        else
+        {
+
+        }
+    }
+    else
+    {
+        ULONG response;
+        std::wstring title;
+
+        /*     if (NT_NTWIN32(ExceptionInfo->ExceptionRecord->ExceptionCode))
+                 errorMessage = PhGetStatusMessage(0, PhNtStatusToDosError(ExceptionInfo->ExceptionRecord->ExceptionCode));
+             else
+                 errorMessage = PhGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);*/
+
+        title = L"System Informer has crashed :(";
+
+#ifdef DEBUG
+        message = std::format(
+            L"{}\r\n0x{:08X} ({})\r\n{}",
+            title,
+            ExceptionInfo->ExceptionRecord->ExceptionCode,
+            errorMessage,
+            std::wstring(stacktrace.begin(), stacktrace.end())
+        );
+#else
+        message = std::format(
+            L"{}\r\n0x{:08X} ({})",
+            title,
+            ExceptionInfo->ExceptionRecord->ExceptionCode,
+            errorMessage
+        );
+#endif
+        //if (WinStationSendMessageW(
+        //    SERVERNAME_CURRENT,
+        //    USER_SHARED_DATA->ActiveConsoleId, // RtlGetActiveConsoleId
+        //    title.data(),
+        //    (ULONG)title.size(),
+        //    message.data(),
+        //    (ULONG)message.size(),
+        //    MB_OKCANCEL | MB_ICONERROR,
+        //    30,
+        //    &response,
+        //    FALSE
+        //))
+        //{
+
+        //}
+    }
+    return SepPreviousUnhandledExceptionFilter(ExceptionInfo);
+}
+
+#pragma endregion
+
+VOID SeInitializeCommonControls(
+    VOID
+)
+{
+    INITCOMMONCONTROLSEX icex;
+
+    icex.dwSize = sizeof(INITCOMMONCONTROLSEX);
+    icex.dwICC =
+        ICC_LISTVIEW_CLASSES |
+        ICC_TREEVIEW_CLASSES |
+        ICC_BAR_CLASSES |
+        ICC_TAB_CLASSES |
+        ICC_PROGRESS_CLASS |
+        ICC_COOL_CLASSES |
+        ICC_STANDARD_CLASSES |
+        ICC_LINK_CLASS
+        ;
+
+    InitCommonControlsEx(&icex);
+}
+
+NTSTATUS SeInitializeExceptionPolicy(
+    VOID
+)
+{
+#if PHNT_MINIMAL_ERRORMODE
+    ULONG errorMode;
+
+    if (NT_SUCCESS(SeGetProcessErrorMode(NtCurrentProcess(), &errorMode)))
+    {
+        ClearFlag(errorMode, SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
+        SeSetProcessErrorMode(NtCurrentProcess(), errorMode);
+    }
+#else
+    SeSetProcessErrorMode(NtCurrentProcess(), 0);
+#endif
+    SepPreviousUnhandledExceptionFilter = SetUnhandledExceptionFilter(SepUnhandledExceptionCallback);
+
+    return STATUS_SUCCESS;
+}
 
 VOID SepEnablePrivileges(
     VOID
@@ -53,6 +339,8 @@ VOID SepEnablePrivileges(
     }
 }
 
+#include "Core/System/Wmi/Management.h"
+
 INT APIENTRY wWinMain(
     _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -65,9 +353,11 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
-    winrt::init_apartment(winrt::apartment_type::single_threaded);
-
+    SeInitializeCommonControls();
+    SeInitializeExceptionPolicy();
     SepEnablePrivileges();
+
+    winrt::init_apartment(winrt::apartment_type::single_threaded);
 
 #ifdef DEBUG_E
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);

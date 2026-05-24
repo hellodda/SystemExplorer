@@ -20,5 +20,13 @@ namespace SystemExplorer.Core.Settings
         String AppThemeBackgroundColor;
         String AppThemeBackgroundImageSource;
         Single AppThemeBackgroundImageOpacity;
+
+        Int32 ProcessesNameColumnLastWidth;
+        Int32 ProcessesStatusColumnLastWidth;
+        Int32 ProcessesPidColumnLastWidth;
+        Int32 ProcessesCpuUsageColumnLastWidth;
+        Int32 ProcessesIoRateColumnLastWidth;
+        Int32 ProcessesPrivateBytesLastWidth;
+        
     }
 }

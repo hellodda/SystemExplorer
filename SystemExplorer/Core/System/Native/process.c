@@ -37,7 +37,6 @@ NTSTATUS SeOpenProcessToken(
 		DesiredAccess,
 		TokenHandle
 	);
-
 	return status;
 }
 
@@ -264,6 +263,56 @@ NTSTATUS SeIsProcessEfficiencyModeEnabled(
 			(powerThrottlingState.StateMask & PROCESS_POWER_THROTTLING_EXECUTION_SPEED);
 	}
 	*EfficiencyMode = FALSE;
+
+	return status;
+}
+NTSTATUS SeGetProcessErrorMode(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PULONG ErrorMode
+)
+{
+	return NtQueryInformationProcess(
+		ProcessHandle,
+		ProcessDefaultHardErrorMode,
+		ErrorMode,
+		sizeof(ULONG),
+		NULL
+	);
+}
+
+NTSTATUS SeSetProcessErrorMode(
+	_In_ HANDLE ProcessHandle,
+	_In_ ULONG ErrorMode
+)
+{
+	return NtSetInformationProcess(
+		ProcessHandle,
+		ProcessDefaultHardErrorMode,
+		&ErrorMode,
+		sizeof(ULONG)
+	);
+}
+
+NTSTATUS SeGetProcessIsWow64(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PBOOLEAN IsWow64Process
+)
+{
+	NTSTATUS status;
+	ULONG_PTR wow64;
+
+	status = NtQueryInformationProcess(
+		ProcessHandle,
+		ProcessWow64Information,
+		&wow64,
+		sizeof(ULONG_PTR),
+		NULL
+	);
+
+	if (NT_SUCCESS(status))
+	{
+		*IsWow64Process = !!wow64;
+	}
 
 	return status;
 }

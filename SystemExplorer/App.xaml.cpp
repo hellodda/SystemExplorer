@@ -8,18 +8,15 @@
 #include "Core/Settings/UserSettings.h"
 #include "Core/Services/AppResourcesService.h"
 #include "Core/Diagnostics/AsyncFileLogger.h"
-#include <Core/Serialization/functional.h>
 #include <wil/result_macros.h>
+#include <winrt/Microsoft.UI.Windowing.h>
 
-#include <winrt/Windows.AI.Actions.h>
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::SystemExplorer::implementation
 {
-	WindowEx App::window_{ nullptr };
-    AppModel App::appModel_{};
 
     App::App()
     {
@@ -45,5 +42,10 @@ namespace winrt::SystemExplorer::implementation
 
         window_ = make<Views::Windows::implementation::MainWindow>();
         window_.Activate();
+    }
+
+    Microsoft::UI::WindowId App::GetWindowId() noexcept
+    {
+        return window_.AppWindow().Id();
     }
 }
