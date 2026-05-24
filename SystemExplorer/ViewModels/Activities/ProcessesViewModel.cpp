@@ -33,14 +33,14 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
     namespace
     {
-        void UpdateProcessItemValues(ProcessItem& target, _In_ const PSE_PROCESS_ITEM source)
+        void UpdateProcessItemValues(ProcessItem& target, native::shared_process_item const& source)
         {
             if (target.CpuUsage() != source->CpuUsage) target.CpuUsage(source->CpuUsage);
             if (target.IoRate() != source->IoReadDelta.Delta) target.IoRate(source->IoReadDelta.Delta);
             if (target.PrivateBytes() != source->VmCounters.PrivateUsage) target.PrivateBytes(source->VmCounters.PrivateUsage);
         }
 
-        ProcessItem CreateProcessItemFromNativeSource(_In_ const PSE_PROCESS_ITEM source)
+        ProcessItem CreateProcessItemFromNativeSource(const native::shared_process_item& source)
         {
             ProcessItem item;
             item.Pid(reinterpret_cast<uint64_t>(source->ProcessId));
@@ -128,7 +128,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
     }
 
-    void ProcessesViewModel::updateProcessesList(std::vector<PSE_PROCESS_ITEM>& newProcesses)
+    void ProcessesViewModel::updateProcessesList(std::vector<native::shared_process_item>& newProcesses)
     {
         lastRawProcesses_ = std::move(newProcesses);
         applyTransformations();
@@ -268,6 +268,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     IAsyncAction ProcessesViewModel::doDumpProcessMemoryAsync(MINIDUMP_TYPE dumpType)
     {
         if (!SelectedProcess_) co_return;
+
         const auto pid = SelectedProcess_.Pid();
         const auto processName = SelectedProcess_.Name();
 
@@ -283,7 +284,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         {
             try
             {
-                SeCreateDumpFileProcess(savedFile.Path().c_str(), processItem, dumpType);
+                SeCreateDumpFileProcess(savedFile.Path().c_str(), processItem.get(), dumpType);
             }
             catch (...) {}
         }

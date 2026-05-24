@@ -8,7 +8,7 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 {
 	bool NativeProcess::IsEfficiencyModeEnabled(uint64_t process)
 	{
-		nt::unique_nt_handle handle{ nullptr };
+		native::unique_nt_handle handle{ nullptr };
 		BOOLEAN isEnabled{ FALSE };
 
 		THROW_IF_FAILED(SeOpenProcess(
@@ -27,7 +27,7 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 
 	std::wstring NativeProcess::GetProcessImageName(uint64_t process)
 	{
-		nt::unique_nt_handle handle{ nullptr };
+		native::unique_nt_handle handle{ nullptr };
 		PWSTR fileName{ nullptr };
 
 		THROW_IF_FAILED(SeOpenProcess(

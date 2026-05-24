@@ -2,6 +2,8 @@
 #include "System.h"
 #include "ProviderThread.h"
 #include "Native/procproc.h"
+#include "Native.h"
+
 #include <unordered_set>
 #include <wil/resource.h> 
 
@@ -15,17 +17,17 @@ namespace winrt::SystemExplorer::Core::System
     struct ProcessInformationProvider
     {
         ProcessInformationProvider();
-        ~ProcessInformationProvider();
+        ~ProcessInformationProvider() = default;
 
-        std::vector<PSE_PROCESS_ITEM> GetAllProcesses();
-        PSE_PROCESS_ITEM GetProcess(uint32_t pid);
+        std::vector<native::shared_process_item> GetAllProcesses();
+        native::shared_process_item GetProcess(uint32_t pid);
 
         ProviderThread& Thread();
 
     private:
         void updateProcesses();
 
-        PSE_PROCESS_ITEM parseCacheProcess(
+        native::shared_process_item parseCacheProcess(
             _In_ PSYSTEM_PROCESS_INFORMATION pInfo,
             IN HANDLE pid,
             IN uint64_t currentSystemTime,
@@ -39,19 +41,21 @@ namespace winrt::SystemExplorer::Core::System
             DeltaStruct->Delta = NewValue - DeltaStruct->Value;
             DeltaStruct->Value = NewValue;
         }
+
         inline void UpdateDelta32(PSE_UINT32_DELTA DeltaStruct, ULONG NewValue)
         {
             DeltaStruct->Delta = NewValue - DeltaStruct->Value;
             DeltaStruct->Value = NewValue;
         }
+
     private:
         std::shared_ptr<ProviderRegistration> registry_;
         ProviderThread thread_;
 
         wil::srwlock lock_;
 
-        std::vector<PSE_PROCESS_ITEM> activeProcesses_;
-        std::unordered_map<HANDLE, std::unique_ptr<SE_PROCESS_ITEM>> processCache_;
+        std::vector<native::shared_process_item> activeProcesses_;
+        std::unordered_map<HANDLE, native::shared_process_item> processCache_;
 
         uint64_t lastSystemTime_{ 0 };
     };

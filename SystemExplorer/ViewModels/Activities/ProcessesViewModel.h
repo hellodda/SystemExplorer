@@ -79,7 +79,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         WIL_NOTIFYING_PROPERTY(uint64_t, TotalPrivateBytes, 0);
     private: // internal
         void applyTransformations();
-        void updateProcessesList(std::vector<PSE_PROCESS_ITEM>& newProcesses);
+        void updateProcessesList(std::vector<native::shared_process_item>& newProcesses);
         void updateMetricsAndCache(std::unordered_set<uint32_t>& outActivePids);
         void pruneDeadProcesses(std::unordered_set<uint32_t> const& activePids);
         
@@ -97,7 +97,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         std::unordered_map<uint32_t, ProcessItem> itemCache_;
         DispatcherTimer pullTimer_;
 
-        std::vector<PSE_PROCESS_ITEM> lastRawProcesses_;
+        std::vector<native::shared_process_item> lastRawProcesses_;
         std::optional<std::wregex> searchRegex_;
     };
 }

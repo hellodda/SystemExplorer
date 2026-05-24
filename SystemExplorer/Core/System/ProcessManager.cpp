@@ -10,7 +10,7 @@ namespace winrt::SystemExplorer::Core::System
 	{
 		if (pid <= 4) return;
 		
-		nt::unique_nt_handle handle;
+		native::unique_nt_handle handle;
 		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
 			&handle,
 			PROCESS_TERMINATE,
@@ -24,7 +24,7 @@ namespace winrt::SystemExplorer::Core::System
 
 	void ProcessManager::Suspend(uint32_t pid)
 	{
-		nt::unique_nt_handle handle;
+		native::unique_nt_handle handle;
 		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
 			&handle,
 			PROCESS_TERMINATE,
@@ -37,7 +37,7 @@ namespace winrt::SystemExplorer::Core::System
 
 	void ProcessManager::Resume(uint32_t pid)
 	{
-		nt::unique_nt_handle handle;
+		native::unique_nt_handle handle;
 		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
 			&handle,
 			PROCESS_TERMINATE,
@@ -50,7 +50,7 @@ namespace winrt::SystemExplorer::Core::System
 
 	void ProcessManager::Restart(uint32_t pid)
 	{
-		auto handle = nt::unique_nt_handle{ OpenProcess(
+		auto handle = native::unique_nt_handle{ OpenProcess(
 			PROCESS_QUERY_INFORMATION | PROCESS_TERMINATE,
 			FALSE,
 			pid
@@ -64,7 +64,7 @@ namespace winrt::SystemExplorer::Core::System
 
 	void ProcessManager::EnableEfficiencyMode(uint32_t pid)
 	{
-		nt::unique_nt_handle handle;
+		native::unique_nt_handle handle;
 		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
 			&handle,
 			PROCESS_TERMINATE,
@@ -79,7 +79,7 @@ namespace winrt::SystemExplorer::Core::System
 	}
 	void ProcessManager::DisableEfficiencyMode(uint32_t pid)
 	{
-		nt::unique_nt_handle handle;
+		native::unique_nt_handle handle;
 		THROW_IF_NTSTATUS_FAILED(SeOpenProcess(
 			&handle,
 			PROCESS_TERMINATE,

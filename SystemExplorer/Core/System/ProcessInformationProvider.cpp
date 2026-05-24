@@ -2,6 +2,7 @@
 #include "ProcessInformationProvider.h"
 
 #include <unordered_set>
+
 #include "Native.h"
 #include <Helpers/Win32/Native/NativeProcess.h>
 #include <Helpers/Win32/Native/NativeSystem.h>
@@ -22,31 +23,19 @@ namespace winrt::SystemExplorer::Core::System
         thread_.Start(std::chrono::milliseconds(1000));
     }
 
-    ProcessInformationProvider::~ProcessInformationProvider()
-    {
-        auto lock = lock_.lock_exclusive();
-        for (auto& [pid, item] : processCache_)
-        {
-            if (item->ProcessName) free((void*)item->ProcessName);
-            if (item->FileName) free((void*)item->FileName);
-            if (item->CommandLine) free((void*)item->CommandLine);
-            if (item->QueryHandle) CloseHandle(item->QueryHandle);
-        }
-    }
-
-    std::vector<PSE_PROCESS_ITEM> ProcessInformationProvider::GetAllProcesses()
+    std::vector<native::shared_process_item> ProcessInformationProvider::GetAllProcesses()
     {
         auto lock = lock_.lock_shared();
         return activeProcesses_;
     }
 
-    PSE_PROCESS_ITEM ProcessInformationProvider::GetProcess(uint32_t pid)
+    native::shared_process_item ProcessInformationProvider::GetProcess(uint32_t pid)
     {
         auto lock = lock_.lock_shared();
 
         auto it = std::ranges::find(activeProcesses_, pid, [](const auto& proc) {
             return static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(proc->ProcessId));
-        });
+            });
 
         return it != activeProcesses_.end() ? *it : nullptr;
     }
@@ -61,17 +50,17 @@ namespace winrt::SystemExplorer::Core::System
         auto currentSystemTime = NativeSystem::GetCurrentSystemTime();
         auto currentTick = GetTickCount64();
 
-        auto buffer = nt::nt_safe_wrapper([](auto buffer, auto size, auto returnLength)
+        auto buffer = native::nt_safe_wrapper([](auto buffer, auto size, auto returnLength)
         {
             return NtQuerySystemInformation(SystemProcessInformation, buffer, size, returnLength);
         });
 
-        std::vector<PSE_PROCESS_ITEM> newActiveProcesses;
+        std::vector<native::shared_process_item> newActiveProcesses;
         std::unordered_set<HANDLE> currentTickPids;
 
         auto* pHead = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer.get());
 
-        for (auto& pInfo : nt::nt_make_range(pHead))
+        for (auto& pInfo : native::nt_make_range(pHead))
         {
             HANDLE pid = reinterpret_cast<HANDLE>(pInfo.UniqueProcessId);
             currentTickPids.insert(pid);
@@ -88,7 +77,7 @@ namespace winrt::SystemExplorer::Core::System
         cleanupCache(currentTickPids);
     }
 
-    PSE_PROCESS_ITEM ProcessInformationProvider::parseCacheProcess(
+    native::shared_process_item ProcessInformationProvider::parseCacheProcess(
         _In_ PSYSTEM_PROCESS_INFORMATION Process,
         IN HANDLE pid,
         IN uint64_t currentSystemTime,
@@ -96,17 +85,15 @@ namespace winrt::SystemExplorer::Core::System
     )
     {
         auto it = processCache_.find(pid);
-        SE_PROCESS_ITEM* item{ nullptr };
+        native::shared_process_item item;
 
         if (it != processCache_.end() && it->second->CreateTime.QuadPart == Process->CreateTime.QuadPart)
         {
-            item = it->second.get();
+            item = it->second;
         }
         else
         {
-            auto newItem = std::make_unique<SE_PROCESS_ITEM>();
-            RtlZeroMemory(newItem.get(), sizeof(SE_PROCESS_ITEM));
-            item = newItem.get();
+            item = std::shared_ptr<SE_PROCESS_ITEM>(new SE_PROCESS_ITEM{}, native::details::process_item_deleter{});
 
             item->ProcessId = pid;
             item->ParentProcessId = reinterpret_cast<HANDLE>(Process->InheritedFromUniqueProcessId);
@@ -132,12 +119,9 @@ namespace winrt::SystemExplorer::Core::System
 
                 if (NT_SUCCESS(SeGetProcessImageFileNameWin32(item->QueryHandle, &buffer)) && buffer)
                 {
-                    item->FileName = _wcsdup(buffer); 
-
+                    item->FileName = _wcsdup(buffer);
                     item->SmallIconIndex = ShellHelper::GetIconIndex(item->FileName);
-                    
                     iconSet = true;
-
                     free(buffer);
                 }
             }
@@ -145,7 +129,6 @@ namespace winrt::SystemExplorer::Core::System
             {
                 item->SmallIconIndex = ShellHelper::GetDefaultIconIndex();
             }
-
 
             item->IoReadDelta.Value = Process->ReadTransferCount.QuadPart;
             item->IoWriteDelta.Value = Process->WriteTransferCount.QuadPart;
@@ -157,7 +140,7 @@ namespace winrt::SystemExplorer::Core::System
             item->CpuKernelDelta.Value = Process->KernelTime.QuadPart;
             item->CpuUserDelta.Value = Process->UserTime.QuadPart;
 
-            processCache_[pid] = std::move(newItem);
+            processCache_[pid] = item;
         }
 
         item->State = 1;
@@ -166,8 +149,6 @@ namespace winrt::SystemExplorer::Core::System
         item->WorkingSetPrivateSize = Process->PrivatePageCount;
         item->PeakNumberOfThreads = max(item->PeakNumberOfThreads, Process->NumberOfThreads);
         item->VmCounters = *(PVM_COUNTERS_EX)&Process->PeakVirtualSize;
-        item->IoCounters = *(PIO_COUNTERS)&Process->ReadOperationCount;;
-
         item->IoCounters = (Process->ReadOperationCount.QuadPart > 0) ? *reinterpret_cast<PIO_COUNTERS>(&Process->ReadOperationCount) : IO_COUNTERS{};
 
         UpdateDelta(&item->CpuKernelDelta, Process->KernelTime.QuadPart);
@@ -203,15 +184,9 @@ namespace winrt::SystemExplorer::Core::System
 
     void ProcessInformationProvider::cleanupCache(std::unordered_set<HANDLE> const& currentTickPids)
     {
-        std::erase_if(processCache_, [&currentTickPids](auto& pair)
+        std::erase_if(processCache_, [&currentTickPids](const auto& pair)
         {
-            if (!currentTickPids.contains(pair.first))
-            {
-                SeDestroyProcessItem(pair.second.get());
-
-                return true;
-            }
-            return false;
+            return !currentTickPids.contains(pair.first);
         });
     }
 }

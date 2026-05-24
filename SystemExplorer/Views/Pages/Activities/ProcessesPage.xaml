@@ -27,15 +27,44 @@
         <converters:StringFormatConverter x:Key="StringFormatConverter"/>
         <converters:TransparencyConverter x:Key="TransparencyConverter"/>
         <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-
+        
         <CommandBarFlyout Placement="Right" x:Key="OptionsCommandBarFlyout">
-            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
-            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
-            <AppBarButton IsEnabled="False" Label="Conect to" Icon="Remote" ToolTipService.ToolTip="InDev" />
+
+            <AppBarButton Icon="Remote" 
+                  Label="Connect to" 
+                  IsEnabled="False" 
+                  ToolTipService.ToolTip="InDev" />
+
+            <AppBarButton Icon="Remote" 
+                  Label="Connect to" 
+                  IsEnabled="False" 
+                  ToolTipService.ToolTip="InDev" />
+
+            <AppBarButton Icon="Remote" 
+                  Label="Connect to" 
+                  IsEnabled="False" 
+                  ToolTipService.ToolTip="InDev" />
+
             <CommandBarFlyout.SecondaryCommands>
-                <AppBarButton IsEnabled="False" Label="Tree view" />
-                <AppBarButton IsEnabled="False" Label="Expand all" />
-                <AppBarButton IsEnabled="False" Label="Collapse all" />
+                <AppBarButton Label="Items size">
+                    <AppBarButton.Flyout>
+                        <MenuFlyout>
+                            <RadioMenuFlyoutItem Text="Small" GroupName="SizeGroup" />
+                            <RadioMenuFlyoutItem Text="Medium" GroupName="SizeGroup" IsChecked="True" />
+                            <RadioMenuFlyoutItem Text="Large" GroupName="SizeGroup" />
+                        </MenuFlyout>
+                    </AppBarButton.Flyout>
+                </AppBarButton>
+                
+                <AppBarToggleButton Label="Tree view" 
+                            IsEnabled="False" />
+                
+                <AppBarSeparator />
+
+                <AppBarButton Label="Expand all" 
+                      IsEnabled="False" />
+                <AppBarButton Label="Collapse all" 
+                      IsEnabled="False" />
             </CommandBarFlyout.SecondaryCommands>
         </CommandBarFlyout>
 

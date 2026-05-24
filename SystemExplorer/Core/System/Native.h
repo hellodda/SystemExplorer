@@ -19,21 +19,32 @@ EXTERN_C_END
 
 #include "../../../Common/wilx.h"
 
-inline void SeDestroyProcessItem(
-    _In_  PSE_PROCESS_ITEM Item
-)
+
+namespace native
 {
-    if (Item->ProcessName) free((void*)Item->ProcessName);
-    if (Item->FileName) free((void*)Item->FileName);
-    if (Item->CommandLine) free((void*)Item->CommandLine);
-    if (Item->QueryHandle) CloseHandle(Item->QueryHandle);
-}
+    namespace details
+    {
+        inline void destroy_process_item(
+            _In_  PSE_PROCESS_ITEM Item
+        )
+        {
+            if (Item->ProcessName) free((PVOID)Item->ProcessName);
+            if (Item->FileName) free((PVOID)Item->FileName);
+            if (Item->CommandLine) free((PVOID)Item->CommandLine);
+            if (Item->QueryHandle) NtClose(Item->QueryHandle);
+        }
 
-using unique_process_item = wilx::unique_any<&SeDestroyProcessItem>;
+        struct process_item_deleter
+        {
+            void operator()(PSE_PROCESS_ITEM ptr) const
+            {
+                if (ptr) destroy_process_item(ptr);
+            }
+        };
+    }
 
-
-namespace nt
-{
+    using shared_process_item = std::shared_ptr<SE_PROCESS_ITEM>;
+    using unique_process_item = std::unique_ptr<SE_PROCESS_ITEM, details::process_item_deleter>;
 	using unique_nt_handle = wilx::unique_any<&NtClose>;
 
 	constexpr inline bool is_valid(HANDLE handle)

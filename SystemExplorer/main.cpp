@@ -301,7 +301,7 @@ VOID SepEnablePrivileges(
     VOID
 )
 {
-	nt::unique_nt_handle tokenHandle;
+	native::unique_nt_handle tokenHandle;
 
     if (NT_SUCCESS(SeOpenProcessToken(
         NtCurrentProcess(),
