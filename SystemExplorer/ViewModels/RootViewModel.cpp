@@ -50,7 +50,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
         using namespace winrt::Microsoft::Windows::Storage::Pickers;
         using namespace winrt::SystemExplorer::Helpers::Win32::Native;
 
-        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetWindowId() };
+        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetCurrentWindowId() };
         picker.SuggestedFileName(L"KERNEL");
         picker.DefaultFileExtension(L".dmp");
 

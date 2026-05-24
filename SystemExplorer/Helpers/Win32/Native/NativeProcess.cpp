@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "NativeProcess.h"
+#include "../ShellHelper.h"
+
 #include <Core/System/Native.h>
 
 namespace winrt::SystemExplorer::Helpers::Win32::Native
@@ -47,24 +49,9 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 
 		if (!SeExtractIcon(fileName.c_str(), &icon, NULL))
 		{
-			SHSTOCKICONINFO sii{};
-			sii.cbSize = sizeof(sii);
+			icon = ShellHelper::GetIconBySIID(SIID_APPLICATION);
 
-			if 
-			(
-				SUCCEEDED(
-					SHGetStockIconInfo(
-						SIID_APPLICATION,
-						SHGSI_ICON | SHGSI_LARGEICON,
-						&sii
-					)
-				)
-			)
-			{
-				icon.reset(sii.hIcon);
-			}
 		}
-
 		return icon;
 	}
 }

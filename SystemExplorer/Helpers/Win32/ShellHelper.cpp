@@ -39,6 +39,24 @@ namespace winrt::SystemExplorer::Helpers::Win32
         return wil::unique_hicon{ ImageList_GetIcon(himl, index, ILD_TRANSPARENT) };
     }
 
+    wil::unique_hicon ShellHelper::GetIconBySIID(SHSTOCKICONID siid)
+    {
+        SHSTOCKICONINFO sii{};
+        sii.cbSize = sizeof(sii);
+
+        if (SUCCEEDED(
+            SHGetStockIconInfo(
+                siid,
+                SHGSI_ICON | SHGSI_LARGEICON,
+                &sii
+            )
+        ))
+        {
+            return wil::unique_hicon{ sii.hIcon };
+        }
+        return nullptr;
+    }
+
     int ShellHelper::GetDefaultIconIndex()
     {
         static int defaultIndex = []()

@@ -274,7 +274,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         auto processItem = provider_->GetProcess(pid);
         if (!processItem) co_return;
 
-        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetWindowId() };
+        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetCurrentWindowId() };
 
         picker.SuggestedFileName(processName + L"_memorydump");
         picker.DefaultFileExtension(L".dmp");

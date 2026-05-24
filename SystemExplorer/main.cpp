@@ -9,6 +9,7 @@
 #include <Core/System/Native/util.h>
 #include <Core/System/Native/senative.h>
 
+// potom uberu v manifest
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
@@ -155,7 +156,7 @@ LONG CALLBACK SepUnhandledExceptionCallback(
         //if (NT_NTWIN32(ExceptionInfo->ExceptionRecord->ExceptionCode))
         //    errorMessage = SeGetStatusMessage(0, SeNtStatusToDosError(ExceptionInfo->ExceptionRecord->ExceptionCode));
         //else
-        //    errorMessage = PhGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);
+        //    errorMessage = SeGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);
 
         message = std::format(
             L"0x{:08X} ({})",
@@ -212,9 +213,9 @@ LONG CALLBACK SepUnhandledExceptionCallback(
         std::wstring title;
 
         /*     if (NT_NTWIN32(ExceptionInfo->ExceptionRecord->ExceptionCode))
-                 errorMessage = PhGetStatusMessage(0, PhNtStatusToDosError(ExceptionInfo->ExceptionRecord->ExceptionCode));
+                 errorMessage = SeGetStatusMessage(0, SeNtStatusToDosError(ExceptionInfo->ExceptionRecord->ExceptionCode));
              else
-                 errorMessage = PhGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);*/
+                 errorMessage = SeGetStatusMessage(ExceptionInfo->ExceptionRecord->ExceptionCode, 0);*/
 
         title = L"System Informer has crashed :(";
 
@@ -338,8 +339,6 @@ VOID SepEnablePrivileges(
         );
     }
 }
-
-#include "Core/System/Wmi/Management.h"
 
 INT APIENTRY wWinMain(
     _In_ HINSTANCE hInstance,

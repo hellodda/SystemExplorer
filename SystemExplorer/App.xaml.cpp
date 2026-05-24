@@ -44,7 +44,7 @@ namespace winrt::SystemExplorer::implementation
         window_.Activate();
     }
 
-    Microsoft::UI::WindowId App::GetWindowId() noexcept
+    Microsoft::UI::WindowId App::GetCurrentWindowId() noexcept
     {
         return window_.AppWindow().Id();
     }

@@ -18,7 +18,7 @@ namespace winrt::SystemExplorer::implementation
 
         void OnLaunched(LaunchActivatedEventArgs const&);
 
-        static Microsoft::UI::WindowId GetWindowId() noexcept;
+        static Microsoft::UI::WindowId GetCurrentWindowId() noexcept;
 
         [[nodiscard]] static AppModel AppModel() { return appModel_; }
 		[[nodiscard]] static WindowEx Window() { return window_; }
