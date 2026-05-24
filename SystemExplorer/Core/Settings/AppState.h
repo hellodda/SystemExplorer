@@ -3,9 +3,7 @@
 #include "Core/Settings/AppState.g.h"
 #include <Core/Serialization/SettingsBase.h>
 #include <factory.h>
-
-
-
+#include <property.h>
 
 namespace winrt::SystemExplorer::Core::Settings::implementation
 {
