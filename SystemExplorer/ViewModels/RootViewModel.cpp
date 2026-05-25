@@ -5,26 +5,36 @@
 #endif
 #include "../App.xaml.h"
 #include "../Helpers/Win32/Native/NativeSystem.h"
-
+#include "../Core/Settings/UserSettings.h"
 #include <winrt/Microsoft.Windows.Storage.Pickers.h>
+
+using namespace winrt::SystemExplorer::Core::Settings;
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
+    RootViewModel::RootViewModel()
+    {
+        UserSettings::Instance().AppearanceSettings().SettingChanged([this](auto& sender, auto& args)
+        {
+            onSettingChanged(sender, args);
+        });
+    }
+
     Stretch RootViewModel::AppThemeBackgroundImageFit() const noexcept
     {
-        return static_cast<Stretch>(settings_.AppThemeBackgroundImageFit());
+        return static_cast<Stretch>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageFit());
     }
     VerticalAlignment RootViewModel::AppThemeBackgroundImageVerticalAlignment() const noexcept
     {
-        return static_cast<VerticalAlignment>(settings_.AppThemeBackgroundImageVerticalAlignment());
+        return static_cast<VerticalAlignment>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageVerticalAlignment());
     }
     HorizontalAlignment RootViewModel::AppThemeBackgroundImageHorizontalAlignment() const noexcept
     {
-        return static_cast<HorizontalAlignment>(settings_.AppThemeBackgroundImageHorizontalAlignment());
+        return static_cast<HorizontalAlignment>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageHorizontalAlignment());
     }
     ImageSource RootViewModel::AppThemeBackgroundImageSource() const noexcept
     {
-        auto source = settings_.AppThemeBackgroundImageSource();
+        auto source = UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageSource();
         
         if (source.empty())
         {
@@ -42,7 +52,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     }
     float RootViewModel::AppThemeBackgroundImageOpacity() const noexcept
     {
-        return settings_.AppThemeBackgroundImageOpacity();
+        return UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageOpacity();
     }
 
     IAsyncAction RootViewModel::doCreateLiveKernelMemoryDumpAsync()
@@ -64,7 +74,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
         }
     }
 
-    void RootViewModel::onSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args)
+    void RootViewModel::onSettingChanged(IInspectable const& sender, Data::EventArguments::SettingChangedEventArgs const& args)
     {
         if (args.SettingName() == L"AppThemeBackgroundImageFit")
         {

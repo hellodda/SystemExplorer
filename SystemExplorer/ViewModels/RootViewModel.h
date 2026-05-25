@@ -2,10 +2,8 @@
 
 #include "ViewModels/RootViewModel.g.h"
 #include "ViewModelBase.h"
+#include "../Core/Data/EventArguments/SettingChangedEventArgs.h"
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
-#include <Core/Settings/AppearanceSettings.h>
-#include <Core/Settings/UserSettings.h>
-
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation
@@ -21,18 +19,13 @@ namespace winrt::SystemExplorer::ViewModels::implementation
 
     struct RootViewModel : RootViewModelT<RootViewModel, ViewModelBase>
     {
-        RootViewModel()
-        {
-            settings_.SettingChanged([this](auto& sender, auto& args) {
-                onSettingChanged(sender, args);
-            });
-        }
+        RootViewModel();
 
         wil::single_threaded_property<IAsyncRelayCommand> CreateLiveKernelMemoryDumpCommand = AsyncRelayCommandFactory::Make([this](auto&) -> IAsyncAction {
             co_await doCreateLiveKernelMemoryDumpAsync();
         });
 
-
+        // kkk
         Stretch AppThemeBackgroundImageFit() const noexcept;
         VerticalAlignment AppThemeBackgroundImageVerticalAlignment() const noexcept;
         HorizontalAlignment AppThemeBackgroundImageHorizontalAlignment() const noexcept;
@@ -42,10 +35,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
     private:
         IAsyncAction doCreateLiveKernelMemoryDumpAsync();
     private:
-        void onSettingChanged(Windows::Foundation::IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
-
-        winrt::SystemExplorer::Core::Settings::AppearanceSettings settings_ =
-           winrt::SystemExplorer::Core::Settings::UserSettings::Instance().AppearanceSettings();
+        void onSettingChanged(IInspectable const& sender, Data::EventArguments::SettingChangedEventArgs const& args);
     };
 }
 FACTORY(winrt::SystemExplorer::ViewModels, RootViewModel);

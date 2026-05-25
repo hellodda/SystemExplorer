@@ -8,12 +8,12 @@
 #include <stacktrace>
 #include <Core/System/Native/util.h>
 #include <Core/System/Native/senative.h>
+#include <winrt/Microsoft.Windows.AppLifecycle.h>
 
 // potom uberu v manifest
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-
 
 #define DEBUG
 //#define DEBUG_E
@@ -192,7 +192,9 @@ LONG CALLBACK SepUnhandledExceptionCallback(
                 break;
             case 104:
             {
-                // restart impl
+                using namespace winrt::Microsoft::Windows::AppLifecycle;
+
+                AppInstance::Restart(L"");
             }
             break;
             case 105:
@@ -352,11 +354,11 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
+    winrt::init_apartment(winrt::apartment_type::single_threaded);
+
     SeInitializeCommonControls();
     SeInitializeExceptionPolicy();
     SepEnablePrivileges();
-
-    winrt::init_apartment(winrt::apartment_type::single_threaded);
 
 #ifdef DEBUG_E
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);

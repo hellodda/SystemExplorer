@@ -3,7 +3,6 @@
 
 #pragma comment(lib, "mi.lib")
 #pragma comment(lib, "delayimp.lib")
-#pragma comment(linker, "/DELAYLOAD:mi.dll")
 
 namespace winrt::SystemExplorer::Core::System::Management
 {

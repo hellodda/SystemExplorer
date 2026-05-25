@@ -71,7 +71,10 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 		configuration.Options.IncludeUserSpaceMemory =
 			settings.MemoryDumpCaptureUserPages();
 
-		native::thread_pool<>::global().enqueue(SepCreateLiveKernelDump, &configuration).wait();
+		native::thread_pool<>::global().enqueue([&configuration]()
+		{
+			LOG_IF_NTSTATUS_FAILED_MSG(SepCreateLiveKernelDump(&configuration), "Live kernel dump failed");
+		}).wait();
 
 		if (cancellationToken())
 			throw hresult_canceled{};
