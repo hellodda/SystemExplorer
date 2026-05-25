@@ -78,7 +78,11 @@
                 <Frame x:Name="SettingsFrame" x:FieldModifier="Public" Loaded="SettingsFrameLoaded">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
-                            <NavigationThemeTransition />
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <DrillInNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
                         </TransitionCollection>
                     </Frame.ContentTransitions>
                 </Frame>

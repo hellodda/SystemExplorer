@@ -4,7 +4,6 @@
 #include "Views/Pages/Settings/SettingsRootPage.g.cpp"
 #endif
 #include <winrt/Windows.UI.Xaml.Interop.h>
-#include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
 
 using namespace winrt;
 using namespace winrt::Microsoft::UI::Xaml;
@@ -29,13 +28,10 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     {
         if (auto item = args.SelectedItem())
         {
-            auto transitionInfo = winrt::Microsoft::UI::Xaml::Media::Animation::SlideNavigationTransitionInfo{};
-            transitionInfo.Effect(winrt::Microsoft::UI::Xaml::Media::Animation::SlideNavigationTransitionEffect::FromRight);
-
             if (auto pageStr = item.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Tag())
             {
                 TypeName typeName{ *pageStr.try_as<hstring>(), TypeKind::Custom };
-                SettingsFrame().Navigate(typeName, nullptr, transitionInfo);
+                SettingsFrame().Navigate(typeName, nullptr);
             }
         }
         co_return;
