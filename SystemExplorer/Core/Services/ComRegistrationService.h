@@ -5,7 +5,7 @@ namespace winrt::SystemExplorer::Core::Services
 {
 	struct ComRegistrationService
 	{
-        static void RegisterDynamicObject(guid guid, winrt::com_ptr<IClassFactory> factory);
+        static void RegisterDynamicObject(guid const& guid, winrt::com_ptr<IClassFactory> factory);
 	};
 }
 

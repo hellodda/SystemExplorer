@@ -189,7 +189,7 @@
     <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
       <Filter>Core\AI\Actions</Filter>
     </ClCompile>
-    <ClCompile Include="Core\System\Native\apiimport.c">
+    <ClCompile Include="Core\System\Native\apiimport.cpp">
       <Filter>Core\System\Native</Filter>
     </ClCompile>
     <ClCompile Include="Core\System\Native\error.c">

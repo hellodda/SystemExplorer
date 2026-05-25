@@ -34,12 +34,6 @@ namespace winrt::SystemExplorer::implementation
 
     void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
     {
-        auto appDataPath = winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalCacheFolder().Path();
-
-		Core::Diagnostics::AsyncFileLogger::Instance().Initialize(appDataPath.c_str() + std::wstring(L"\\SystemExplorer.log"));
-
-        wil::SetResultLoggingCallback(WilResultLoggingCallBack);
-
         window_ = make<Views::Windows::implementation::MainWindow>();
         window_.Activate();
     }

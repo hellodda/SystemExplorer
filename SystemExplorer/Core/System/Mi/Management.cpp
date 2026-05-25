@@ -8,13 +8,13 @@ namespace winrt::SystemExplorer::Core::System::Management
 {
     inline void check_miresult(MI_Result result)
     {
-        if (result != MI_RESULT_OK)
+        if (result = MI_RESULT_FAILED)
         {
-            throw winrt::hresult_error(E_FAIL);
+            THROW_HR(E_FAIL);
         }
     }
 
-    static mi_variant MiValueToStdVariant(MI_Type type, _In_ const MI_Value* value)
+    [[nodiscard]] static mi_variant mi_value_to_variant(MI_Type type, _In_ const MI_Value* value)
     {
         if (!value) return std::monostate{};
 
@@ -63,7 +63,7 @@ namespace winrt::SystemExplorer::Core::System::Management
             {
                 if (name && name[0] != L'_')
                 {
-                    properties.emplace_back(name, MiValueToStdVariant(type, &value));
+                    properties.emplace_back(name, mi_value_to_variant(type, &value));
                 }
             }
         }
@@ -80,7 +80,7 @@ namespace winrt::SystemExplorer::Core::System::Management
 
         if (MI_Instance_GetElement(instance_.get(), name.c_str(), &value, &type, &flags, nullptr) == MI_RESULT_OK)
         {
-            return { name, MiValueToStdVariant(type, &value) };
+            return { name, mi_value_to_variant(type, &value) };
         }
         return { name, std::monostate{} };
     }
@@ -154,7 +154,7 @@ namespace winrt::SystemExplorer::Core::System::Management
     concurrency::task<std::vector<ManagementClassObject>> ManagementConnection::ExecuteQueryAsync(winrt::hstring const& query)
     {
         if (!session_) [[unlikely]]
-            throw winrt::hresult_error(E_POINTER);
+            THROW_HR_MSG(E_POINTER, "Session is nullptr.");
 
         auto state = new async_state();
         state->operation.reset(new MI_Operation{});

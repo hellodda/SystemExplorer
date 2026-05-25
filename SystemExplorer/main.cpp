@@ -9,6 +9,9 @@
 #include <Core/System/Native/util.h>
 #include <Core/System/Native/senative.h>
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
+#include <winrt/Microsoft.Windows.Storage.h>
+
+#include "Core/Diagnostics/AsyncFileLogger.h"
 
 // potom uberu v manifest
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
@@ -16,6 +19,7 @@ name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
 processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #define DEBUG
+//#define SE_MINIMAL_ERRORMODE
 //#define DEBUG_E
 
 #pragma region Error Reporting
@@ -29,7 +33,7 @@ typedef enum _SE_TRIAGE_DUMP_TYPE
 
 static LPTOP_LEVEL_EXCEPTION_FILTER SepPreviousUnhandledExceptionFilter{ NULL };
 
-VOID SepCreateUnhandledExceptionCrashDump(
+void SepCreateUnhandledExceptionCrashDump(
     _In_ PEXCEPTION_POINTERS ExceptionInfo,
     _In_ SE_TRIAGE_DUMP_TYPE DumpType
 )
@@ -43,7 +47,7 @@ VOID SepCreateUnhandledExceptionCrashDump(
     {
         win32CreatePath = L"\\\\?\\" + win32CreatePath;
     }
-    CreateDirectoryW(win32CreatePath.c_str(), NULL);
+    THROW_IF_WIN32_BOOL_FALSE(CreateDirectoryW(win32CreatePath.c_str(), NULL));
 
     std::wstring fileName = baseDir + L"\\SystemExplorer_" + SeRandomString(9) + L"_Dump.dmp";
     if (fileName.size() > 2 && fileName[1] == L':')
@@ -64,7 +68,7 @@ VOID SepCreateUnhandledExceptionCrashDump(
     if (fileHandle.is_valid())
     {
         MINIDUMP_EXCEPTION_INFORMATION exceptionInfo;
-        ULONG dumpType = SeTriageDumpTypeMinimal;
+        ULONG dumpType{ SeTriageDumpTypeMinimal };
 
         exceptionInfo.ThreadId = HandleToUlong(NtCurrentThreadId());
         exceptionInfo.ExceptionPointers = ExceptionInfo;
@@ -118,6 +122,8 @@ VOID SepCreateUnhandledExceptionCrashDump(
             NULL
         );
     }
+    else
+      THROW_WIN32(GetLastError());
 }
 
 LONG CALLBACK SepUnhandledExceptionCallback(
@@ -134,7 +140,6 @@ LONG CALLBACK SepUnhandledExceptionCallback(
 
 
     LONG result;
-
     if (SeIsDebuggerPresent())
     {
         return EXCEPTION_CONTINUE_SEARCH;
@@ -258,9 +263,16 @@ LONG CALLBACK SepUnhandledExceptionCallback(
 
 #pragma endregion
 
-VOID SeInitializeCommonControls(
-    VOID
-)
+void InitializeLogger()
+{
+    auto appCachePath = winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalCacheFolder().Path();
+
+    winrt::SystemExplorer::Core::Diagnostics::AsyncFileLogger::Instance().Initialize(appCachePath.c_str() + std::wstring(L"\\SystemExplorer.log"));
+
+    wil::SetResultLoggingCallback(WilResultLoggingCallBack);
+}
+
+void InitializeCommonControls()
 {
     INITCOMMONCONTROLSEX icex;
 
@@ -276,70 +288,73 @@ VOID SeInitializeCommonControls(
         ICC_LINK_CLASS
         ;
 
-    InitCommonControlsEx(&icex);
+    THROW_IF_WIN32_BOOL_FALSE_MSG(
+        InitCommonControlsEx(&icex),
+        "Failed to initialize common controls."
+    );
 }
 
-NTSTATUS SeInitializeExceptionPolicy(
-    VOID
-)
+void InitializeExceptionPolicy()
 {
-#if PHNT_MINIMAL_ERRORMODE
+#if SE_MINIMAL_ERRORMODE
     ULONG errorMode;
 
     if (NT_SUCCESS(SeGetProcessErrorMode(NtCurrentProcess(), &errorMode)))
     {
         ClearFlag(errorMode, SEM_FAILCRITICALERRORS | SEM_NOGPFAULTERRORBOX | SEM_NOOPENFILEERRORBOX);
-        SeSetProcessErrorMode(NtCurrentProcess(), errorMode);
-    }
-#else
-    SeSetProcessErrorMode(NtCurrentProcess(), 0);
-#endif
-    SepPreviousUnhandledExceptionFilter = SetUnhandledExceptionFilter(SepUnhandledExceptionCallback);
 
-    return STATUS_SUCCESS;
-}
-
-VOID SepEnablePrivileges(
-    VOID
-)
-{
-	native::unique_nt_handle tokenHandle;
-
-    if (NT_SUCCESS(SeOpenProcessToken(
-        NtCurrentProcess(),
-        TOKEN_ADJUST_PRIVILEGES,
-        &tokenHandle
-    )))
-    {
-        const LUID_AND_ATTRIBUTES privileges[] =
-        {
-            { RtlConvertUlongToLuid(SE_DEBUG_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_INC_BASE_PRIORITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_INC_WORKING_SET_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_LOAD_DRIVER_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_PROF_SINGLE_PROCESS_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_BACKUP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_RESTORE_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_SHUTDOWN_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_TAKE_OWNERSHIP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-            { RtlConvertUlongToLuid(SE_SECURITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
-        };
-        UCHAR privilegesBuffer[FIELD_OFFSET(TOKEN_PRIVILEGES, Privileges) + sizeof(privileges)];
-        PTOKEN_PRIVILEGES tokenPrivileges{};
-
-        tokenPrivileges = (PTOKEN_PRIVILEGES)privilegesBuffer;
-        tokenPrivileges->PrivilegeCount = RTL_NUMBER_OF(privileges);
-        memcpy(tokenPrivileges->Privileges, privileges, sizeof(privileges));
-
-        NtAdjustPrivilegesToken(
-            tokenHandle.get(),
-            FALSE,
-            tokenPrivileges,
-            0,
-            NULL,
-            NULL
+        LOG_IF_NTSTATUS_FAILED_MSG(
+            SeSetProcessErrorMode(NtCurrentProcess(), errorMode),
+            "Failed to set current process error mode to minimal"
         );
     }
+#else
+    THROW_IF_NTSTATUS_FAILED_MSG(
+        SeSetProcessErrorMode(NtCurrentProcess(), 0),
+        "Failed to set current process error mode to 0"
+    );
+#endif
+    SepPreviousUnhandledExceptionFilter = SetUnhandledExceptionFilter(SepUnhandledExceptionCallback);
+}
+
+void EnablePrivileges()
+{
+	native::unique_nt_handle token;
+
+    THROW_IF_FAILED(SeOpenProcessToken(
+        NtCurrentProcess(),
+        TOKEN_ADJUST_PRIVILEGES,
+        &token
+    ));
+
+    const LUID_AND_ATTRIBUTES privileges[] =
+    {
+        { RtlConvertUlongToLuid(SE_DEBUG_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_INC_BASE_PRIORITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_INC_WORKING_SET_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_LOAD_DRIVER_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_PROF_SINGLE_PROCESS_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_BACKUP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_RESTORE_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_SHUTDOWN_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_TAKE_OWNERSHIP_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+        { RtlConvertUlongToLuid(SE_SECURITY_PRIVILEGE), SE_PRIVILEGE_ENABLED },
+    };
+    UCHAR privilegesBuffer[FIELD_OFFSET(TOKEN_PRIVILEGES, Privileges) + sizeof(privileges)];
+    PTOKEN_PRIVILEGES tokenPrivileges{};
+
+    tokenPrivileges = (PTOKEN_PRIVILEGES)privilegesBuffer;
+    tokenPrivileges->PrivilegeCount = RTL_NUMBER_OF(privileges);
+    memcpy(tokenPrivileges->Privileges, privileges, sizeof(privileges));
+
+    THROW_IF_NTSTATUS_FAILED_MSG(NtAdjustPrivilegesToken(
+        token.get(),
+        FALSE,
+        tokenPrivileges,
+        0,
+        NULL,
+        NULL
+    ), "Failed to apply privileges");
 }
 
 INT APIENTRY wWinMain(
@@ -356,9 +371,14 @@ INT APIENTRY wWinMain(
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
-    SeInitializeCommonControls();
-    SeInitializeExceptionPolicy();
-    SepEnablePrivileges();
+    InitializeLogger();
+    try
+    {
+        InitializeCommonControls();
+        InitializeExceptionPolicy();
+        EnablePrivileges();
+    }
+    CATCH_LOG()
 
 #ifdef DEBUG_E
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);
