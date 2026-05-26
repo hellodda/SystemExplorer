@@ -24,18 +24,18 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
 #pragma region Error Reporting
 
-typedef enum _SE_TRIAGE_DUMP_TYPE
+typedef enum _TRIAGE_DUMP_TYPE
 {
-    SeTriageDumpTypeMinimal,
-    SeTriageDumpTypeNormal,
-    SeTriageDumpTypeFull,
-} SE_TRIAGE_DUMP_TYPE;
+    TriageDumpTypeMinimal,
+    TriageDumpTypeNormal,
+    TriageDumpTypeFull,
+} TRIAGE_DUMP_TYPE;
 
-static LPTOP_LEVEL_EXCEPTION_FILTER SepPreviousUnhandledExceptionFilter{ NULL };
+static LPTOP_LEVEL_EXCEPTION_FILTER PreviousUnhandledExceptionFilter{ NULL };
 
-void SepCreateUnhandledExceptionCrashDump(
+void CreateUnhandledExceptionCrashDump(
     _In_ PEXCEPTION_POINTERS ExceptionInfo,
-    _In_ SE_TRIAGE_DUMP_TYPE DumpType
+    _In_ TRIAGE_DUMP_TYPE DumpType
 )
 {
     std::wstring baseDir;
@@ -68,7 +68,7 @@ void SepCreateUnhandledExceptionCrashDump(
     if (fileHandle.is_valid())
     {
         MINIDUMP_EXCEPTION_INFORMATION exceptionInfo;
-        ULONG dumpType{ SeTriageDumpTypeMinimal };
+        ULONG dumpType{ TriageDumpTypeMinimal };
 
         exceptionInfo.ThreadId = HandleToUlong(NtCurrentThreadId());
         exceptionInfo.ExceptionPointers = ExceptionInfo;
@@ -76,7 +76,7 @@ void SepCreateUnhandledExceptionCrashDump(
 
         switch (DumpType)
         {
-        case SeTriageDumpTypeMinimal:
+        case TriageDumpTypeMinimal:
             dumpType =
                 MiniDumpWithDataSegs |
                 MiniDumpWithUnloadedModules |
@@ -84,7 +84,7 @@ void SepCreateUnhandledExceptionCrashDump(
                 MiniDumpWithThreadInfo |
                 MiniDumpIgnoreInaccessibleMemory;
             break;
-        case SeTriageDumpTypeNormal:
+        case TriageDumpTypeNormal:
             dumpType =
                 MiniDumpWithDataSegs |
                 MiniDumpWithHandleData |
@@ -96,7 +96,7 @@ void SepCreateUnhandledExceptionCrashDump(
                 MiniDumpIgnoreInaccessibleMemory |
                 MiniDumpWithTokenInformation;
             break;
-        case SeTriageDumpTypeFull:
+        case TriageDumpTypeFull:
             dumpType =
                 MiniDumpWithDataSegs |
                 MiniDumpWithFullMemory |
@@ -126,7 +126,7 @@ void SepCreateUnhandledExceptionCrashDump(
       THROW_WIN32(GetLastError());
 }
 
-LONG CALLBACK SepUnhandledExceptionCallback(
+LONG CALLBACK UnhandledExceptionCallback(
     _In_ PEXCEPTION_POINTERS ExceptionInfo
 )
 {
@@ -187,13 +187,13 @@ LONG CALLBACK SepUnhandledExceptionCallback(
             switch (result)
             {
             case 101:
-                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeFull);
+                CreateUnhandledExceptionCrashDump(ExceptionInfo, TriageDumpTypeFull);
                 break;
             case 102:
-                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeNormal);
+                CreateUnhandledExceptionCrashDump(ExceptionInfo, TriageDumpTypeNormal);
                 break;
             case 103:
-                SepCreateUnhandledExceptionCrashDump(ExceptionInfo, SeTriageDumpTypeMinimal);
+                CreateUnhandledExceptionCrashDump(ExceptionInfo, TriageDumpTypeMinimal);
                 break;
             case 104:
             {
@@ -258,7 +258,7 @@ LONG CALLBACK SepUnhandledExceptionCallback(
 
         //}
     }
-    return SepPreviousUnhandledExceptionFilter(ExceptionInfo);
+    return PreviousUnhandledExceptionFilter(ExceptionInfo);
 }
 
 #pragma endregion
@@ -314,7 +314,7 @@ void InitializeExceptionPolicy()
         "Failed to set current process error mode to 0"
     );
 #endif
-    SepPreviousUnhandledExceptionFilter = SetUnhandledExceptionFilter(SepUnhandledExceptionCallback);
+    PreviousUnhandledExceptionFilter = SetUnhandledExceptionFilter(UnhandledExceptionCallback);
 }
 
 void EnablePrivileges()
@@ -357,6 +357,8 @@ void EnablePrivileges()
     ), "Failed to apply privileges");
 }
 
+#include "Helpers/UI/DesktopNotification.h"
+
 INT APIENTRY wWinMain(
     _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -370,6 +372,13 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(nCmdShow);
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
+
+    auto args = winrt::SystemExplorer::Helpers::UI::DesktopNotificationArgs{};
+    args.Tag = L"xz";
+    args.Title = L"test notification";
+    args.Message = L"test message";
+
+    winrt::SystemExplorer::Helpers::UI::DesktopNotification::SendNotification(args, nullptr);
 
     InitializeLogger();
     try

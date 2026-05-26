@@ -200,6 +200,7 @@
     <ClInclude Include="Core\System\Native\guisup.h" />
     <ClInclude Include="Core\System\Native\dump.h" />
     <ClInclude Include="Core\System\Native\symprv.h" />
+    <ClInclude Include="Core\System\Test\process.h" />
     <ClInclude Include="Core\System\Tools\AmsiScanner.h" />
     <ClInclude Include="Converters\TransparencyConverter.h">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
@@ -297,6 +298,7 @@
     <ClInclude Include="Core\System\Utils.h" />
     <ClInclude Include="Core\System\Mi\Management.h" />
     <ClInclude Include="Core\Web\Http\Base.h" />
+    <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
     <ClInclude Include="Helpers\EnumHelper.h" />
@@ -333,6 +335,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
+    <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -645,6 +648,7 @@
     </ClCompile>
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Core\System\Mi\Management.cpp" />
+    <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
       <DependentUpon>Helpers\StringsHelper.idl</DependentUpon>

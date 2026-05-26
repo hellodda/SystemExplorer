@@ -230,6 +230,7 @@
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
     <ClCompile Include="Helpers\Win32\Native\NativeSystem.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
+    <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -341,6 +342,9 @@
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
     <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
+    <ClInclude Include="Core\System\Test\process.h" />
+    <ClInclude Include="Helpers\UI\DesktopNotification.h" />
+    <ClInclude Include="Helpers\SeExeUtils.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
