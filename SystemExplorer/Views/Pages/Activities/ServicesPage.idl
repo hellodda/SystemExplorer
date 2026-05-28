@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Activities
+{
+    [default_interface] runtimeclass ServicesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ServicesPage();
+    }
+}

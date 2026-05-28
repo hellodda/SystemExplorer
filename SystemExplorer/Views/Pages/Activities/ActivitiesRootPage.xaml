@@ -48,6 +48,7 @@
             <NavigationView.MenuItems>
 
                 <NavigationViewItem x:Name="ProcessesNavItem" Content="{x:Bind helpers:StringsHelper.Processes}"
+                                    Tag="SystemExplorer.Views.Pages.Activities.ProcessesPage"
                                     Icon="{tookit:FontIcon Glyph=&#xECAA;}"/>
 
                 <NavigationViewItem Content="App history"
@@ -57,6 +58,7 @@
                                     Icon="{tookit:FontIcon Glyph=&#xE716;}"/>
 
                 <NavigationViewItem Content="Services"
+                                    Tag="SystemExplorer.Views.Pages.Activities.ServicesPage"
                                     Icon="{tookit:FontIcon Glyph=&#xEA86;}"/>
 
             </NavigationView.MenuItems>
