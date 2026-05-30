@@ -365,3 +365,7 @@ FodyWeavers.xsd
 /SystemExplorer/Core/Settings/AdvancedSettings.h
 /SystemExplorer/Core/Settings/AdvancedSettings.idl
 /SystemExplorer/Views/Pages/Settings/AdvancedPage.xaml
+/SystemExplorer/Controls/DataTable.cpp
+/SystemExplorer/Controls/DataTable.h
+/SystemExplorer/Controls/PerformanceGraph.cpp
+/SystemExplorer/Controls/PerformanceGraph.h
