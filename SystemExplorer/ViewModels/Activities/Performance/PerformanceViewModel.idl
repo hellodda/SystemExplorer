@@ -1,0 +1,12 @@
+import "Core/Data/Items/PerformanceNavigationViewItem.idl";
+
+namespace SystemExplorer.ViewModels.Activities.Performance
+{
+    [bindable]
+    [default_interface] runtimeclass PerformanceViewModel 
+    {
+        PerformanceViewModel();
+
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.PerformanceNavigationViewItem> NavigationViewItems { get; };
+    }
+}

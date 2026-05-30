@@ -51,6 +51,10 @@
                                     Tag="SystemExplorer.Views.Pages.Activities.ProcessesPage"
                                     Icon="{tookit:FontIcon Glyph=&#xECAA;}"/>
 
+                <NavigationViewItem Content="Performance"
+                                    Tag="SystemExplorer.Views.Pages.Activities.Performance.PerformanceRootPage"
+                                    Icon="{tookit:FontIcon Glyph=&#xE9D9;}"/>
+
                 <NavigationViewItem Content="App history"
                                     Icon="{tookit:FontIcon Glyph=&#xE81C;}"/>
 

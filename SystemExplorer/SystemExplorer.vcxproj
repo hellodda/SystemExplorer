@@ -191,6 +191,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Core\Data\Items\PerformanceNavigationViewItem.h">
+      <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Settings\AppState.h">
       <DependentUpon>Core\Settings\AppState.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -298,6 +302,7 @@
     <ClInclude Include="Core\System\Utils.h" />
     <ClInclude Include="Core\System\Mi\Management.h" />
     <ClInclude Include="Core\Web\Http\Base.h" />
+    <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
@@ -345,10 +350,15 @@
     <ClInclude Include="Core\System\ProcessManager.h" />
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
+    <ClInclude Include="Controls\PerformanceGraph.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Helpers\Win32\ShellHelper.h" />
+    <ClInclude Include="ViewModels\Activities\Performance\PerformanceViewModel.h">
+      <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ViewModels\Activities\ProcessesViewModel.h">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -375,6 +385,10 @@
     </ClInclude>
     <ClInclude Include="Views\Pages\Activities\ActivitiesRootPage.xaml.h">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml.h">
+      <DependentUpon>Views\Pages\Activities\Performance\PerformanceRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Views\Pages\Activities\ProcessesPage.xaml.h">
@@ -437,6 +451,9 @@
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Activities\ProcessesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -472,6 +489,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
+    <ClCompile Include="Core\Data\Items\PerformanceNavigationViewItem.cpp">
+      <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Settings\AppState.cpp">
       <DependentUpon>Core\Settings\AppState.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -655,6 +676,7 @@
     </ClCompile>
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Core\System\Mi\Management.cpp" />
+    <ClCompile Include="Controls\DataTable.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
@@ -728,6 +750,11 @@
     <ClCompile Include="Core\System\ProviderThread.cpp" />
     <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
+    <ClCompile Include="Controls\PerformanceGraph.cpp" />
+    <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
+      <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -754,6 +781,10 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\ActivitiesRootPage.xaml.cpp">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Activities\Performance\PerformanceRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\ProcessesPage.xaml.cpp">
@@ -845,6 +876,9 @@
     <Midl Include="Core\Data\Items\BaseProperties.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Data\Items\ProcessProperties.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -902,6 +936,9 @@
     <Midl Include="Helpers\UI\AppSystemBackdrop.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <Midl Include="ViewModels\Activities\Performance\PerformanceViewModel.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -922,6 +959,10 @@
     </Midl>
     <Midl Include="Views\Pages\Activities\ActivitiesRootPage.idl">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Activities\Performance\PerformanceRootPage.idl">
+      <DependentUpon>Views\Pages\Activities\Performance\PerformanceRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Activities\ProcessesPage.idl">

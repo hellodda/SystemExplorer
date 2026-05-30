@@ -1,0 +1,11 @@
+import "ViewModels/Activities/Performance/PerformanceViewModel.idl";
+
+namespace SystemExplorer.Views.Pages.Activities.Performance
+{
+    [default_interface] runtimeclass PerformanceRootPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        PerformanceRootPage();
+
+        SystemExplorer.ViewModels.Activities.Performance.PerformanceViewModel ViewModel { get; };
+    }
+}

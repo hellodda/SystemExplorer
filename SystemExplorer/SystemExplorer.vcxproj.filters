@@ -37,6 +37,8 @@
     <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml">
       <Filter>Views\Pages\Properties</Filter>
     </Page>
+    <Page Include="Views\Pages\Activities\ServicesPage.xaml" />
+    <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -149,6 +151,8 @@
     </Midl>
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Settings\AppState.idl" />
+    <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl" />
+    <Midl Include="ViewModels\Activities\Performance\PerformanceViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -231,6 +235,8 @@
     <ClCompile Include="Helpers\Win32\Native\NativeSystem.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
+    <ClCompile Include="Controls\DataTable.cpp" />
+    <ClCompile Include="Controls\PerformanceGraph.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -345,6 +351,8 @@
     <ClInclude Include="Core\System\Test\process.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="Helpers\SeExeUtils.h" />
+    <ClInclude Include="Controls\DataTable.h" />
+    <ClInclude Include="Controls\PerformanceGraph.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

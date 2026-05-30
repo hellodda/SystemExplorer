@@ -9,5 +9,8 @@ using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
-   
+    ServicesPage::ServicesPage()
+    {
+        InitializeComponent();
+    }
 }

@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass PerformanceNavigationViewItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        PerformanceNavigationViewItem();
+
+        String Header;
+        String Description;
+        String SubDescription;
+    }
+}

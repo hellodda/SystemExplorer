@@ -6,6 +6,23 @@
 #include <unknwn.h>
 #include <restrictederrorinfo.h>
 #include <hstring.h>
+#include <winrt/Windows.Foundation.h>
+
+#pragma region winrt extensions
+
+namespace winrt 
+{
+    inline hstring to_hstring(Windows::Foundation::IInspectable const& value)
+    {
+        if (!value) return L"null";
+        if (auto stringable = value.try_as<Windows::Foundation::IStringable>()) {
+            return stringable.ToString();
+        }
+        return L"Object (Unknown type)";
+    }
+}
+
+#pragma endregion
 
 #undef GetCurrentTime
 #include <winrt/SystemExplorer.h>
@@ -17,7 +34,6 @@
 #include <winrt/XamlToolkit.WinUI.Rive.h>
 #include <winrt/XamlToolkit.WinUI.Converters.h>
 #include <winrt/WinUI3Package.h>
-#include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.ApplicationModel.Activation.h>
 #include <winrt/Microsoft.UI.Composition.h>

@@ -6,13 +6,11 @@
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
+    using namespace winrt::Windows::Foundation;
+
     struct ServicesPage : ServicesPageT<ServicesPage>
     {
-        ServicesPage()
-        {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
-        }
+        ServicesPage();
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Pages::Activities, ServicesPage);
