@@ -11,6 +11,7 @@ namespace winrt::SystemExplorer::Core::Data::Items::implementation
         PerformanceNavigationViewItem() = default;
 
         wil::single_threaded_rw_property<hstring> Header;
+        wil::single_threaded_rw_property<hstring> PageName;
 
         WIL_NOTIFYING_PROPERTY(hstring, Description, L"");
         WIL_NOTIFYING_PROPERTY(hstring, SubDescription, L"");

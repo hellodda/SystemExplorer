@@ -12,7 +12,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     {
         auto appDataPath = winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalCacheFolder().Path();
         auto logFilePath = hstring(appDataPath + L"SystemExplorer.log");
-
+        
         if (!logFilePath.empty())
         {
             co_await Launcher::LaunchUriAsync(Uri{ hstring{ L"file:///" } + logFilePath });

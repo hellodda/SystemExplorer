@@ -52,16 +52,20 @@
                                     Icon="{tookit:FontIcon Glyph=&#xECAA;}"/>
 
                 <NavigationViewItem Content="Performance"
+                                    IsEnabled="True"
                                     Tag="SystemExplorer.Views.Pages.Activities.Performance.PerformanceRootPage"
                                     Icon="{tookit:FontIcon Glyph=&#xE9D9;}"/>
 
                 <NavigationViewItem Content="App history"
+                                    IsEnabled="False"
                                     Icon="{tookit:FontIcon Glyph=&#xE81C;}"/>
 
                 <NavigationViewItem Content="Users"
+                                    IsEnabled="False"
                                     Icon="{tookit:FontIcon Glyph=&#xE716;}"/>
 
                 <NavigationViewItem Content="Services"
+                                    IsEnabled="False"
                                     Tag="SystemExplorer.Views.Pages.Activities.ServicesPage"
                                     Icon="{tookit:FontIcon Glyph=&#xEA86;}"/>
 

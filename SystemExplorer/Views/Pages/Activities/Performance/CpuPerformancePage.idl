@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Activities.Performance
+{
+    [default_interface] runtimeclass CpuPerformancePage : Microsoft.UI.Xaml.Controls.Page
+    {
+        CpuPerformancePage();
+    }
+}

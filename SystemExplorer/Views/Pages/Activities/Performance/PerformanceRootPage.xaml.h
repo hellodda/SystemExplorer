@@ -5,14 +5,19 @@
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::Performance::implementation
 {
+    using namespace winrt::Microsoft::UI::Xaml::Controls;
+    using namespace winrt::Microsoft::UI::Xaml;
+
+    using namespace winrt::Windows::Foundation;
+
     struct PerformanceRootPage : PerformanceRootPageT<PerformanceRootPage>
     {
         PerformanceRootPage()
         {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
             InitializeComponent();
         }
+        IAsyncAction PerformanceNavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args);
+
         wil::single_threaded_property<ViewModels::Activities::Performance::PerformanceViewModel> ViewModel;
     };
 }

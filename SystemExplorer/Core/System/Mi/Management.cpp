@@ -8,7 +8,7 @@ namespace winrt::SystemExplorer::Core::System::Management
 {
     inline void check_miresult(MI_Result result)
     {
-        if (result = MI_RESULT_FAILED)
+        if (result == MI_RESULT_FAILED)
         {
             THROW_HR(E_FAIL);
         }
@@ -63,7 +63,14 @@ namespace winrt::SystemExplorer::Core::System::Management
             {
                 if (name && name[0] != L'_')
                 {
-                    properties.emplace_back(name, mi_value_to_variant(type, &value));
+                    if (flags & MI_FLAG_NULL)
+                    {
+                        properties.emplace_back(name, std::monostate{});
+                    }
+                    else
+                    {
+                        properties.emplace_back(name, mi_value_to_variant(type, &value));
+                    }
                 }
             }
         }

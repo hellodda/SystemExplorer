@@ -16,15 +16,15 @@ namespace winrt::SystemExplorer::Core::Services
 	{
         AppLanguageService();
 
-        IVector<AppLanguageItem> SupportedLanguages() noexcept;
+        [[nodiscard]] static IVector<AppLanguageItem> SupportedLanguages() noexcept;
 
-        AppLanguageItem PreferredLanguage() noexcept;
+        [[nodiscard]] static AppLanguageItem PreferredLanguage() noexcept;
 
-        bool IsPreferredLanguageRtl();
+        [[nodiscard]] static bool IsPreferredLanguageRtl();
 
-        bool TryChange(int32_t index);
+        [[nodiscard]] static bool TryChange(int32_t index);
 
-        bool TryChange(winrt::hstring const& code);
+        [[nodiscard]] static bool TryChange(winrt::hstring const& code);
 
 	};
 }
