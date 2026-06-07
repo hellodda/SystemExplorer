@@ -102,7 +102,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             TerminateProcessCommand.NotifyCanExecuteChanged();
             EfficiencyModeCommand.NotifyCanExecuteChanged();
 
-            RAISE_PROPERTY_CHANGED;
+            RaisePropertyChanged(L"SelectedProcess");
         }
     }
 

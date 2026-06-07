@@ -39,6 +39,7 @@
     </Page>
     <Page Include="Views\Pages\Activities\ServicesPage.xaml" />
     <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml" />
+    <Page Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -237,6 +238,8 @@
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Controls\DataTable.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
+    <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
+    <ClCompile Include="Core\AI\Tools\ProcessDescriptionGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -353,6 +356,8 @@
     <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
+    <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
+    <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

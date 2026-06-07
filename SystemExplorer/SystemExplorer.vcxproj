@@ -303,6 +303,7 @@
     <ClInclude Include="Core\System\Mi\Management.h" />
     <ClInclude Include="Core\Web\Http\Base.h" />
     <ClInclude Include="Controls\DataTable.h" />
+    <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
@@ -351,6 +352,7 @@
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
+    <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="resource.h" />
@@ -385,6 +387,10 @@
     </ClInclude>
     <ClInclude Include="Views\Pages\Activities\ActivitiesRootPage.xaml.h">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml.h">
+      <DependentUpon>Views\Pages\Activities\Performance\CpuPerformancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml.h">
@@ -449,6 +455,9 @@
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml">
@@ -677,6 +686,7 @@
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Core\System\Mi\Management.cpp" />
     <ClCompile Include="Controls\DataTable.cpp" />
+    <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
@@ -751,6 +761,7 @@
     <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
+    <ClCompile Include="Core\AI\Tools\ProcessDescriptionGenerator.cpp" />
     <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -781,6 +792,10 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\ActivitiesRootPage.xaml.cpp">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml.cpp">
+      <DependentUpon>Views\Pages\Activities\Performance\CpuPerformancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml.cpp">
@@ -959,6 +974,10 @@
     </Midl>
     <Midl Include="Views\Pages\Activities\ActivitiesRootPage.idl">
       <DependentUpon>Views\Pages\Activities\ActivitiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Activities\Performance\CpuPerformancePage.idl">
+      <DependentUpon>Views\Pages\Activities\Performance\CpuPerformancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Activities\Performance\PerformanceRootPage.idl">
