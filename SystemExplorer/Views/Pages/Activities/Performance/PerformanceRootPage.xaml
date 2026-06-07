@@ -22,7 +22,7 @@
              CornerRadius="8,0,0,0"
              Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
              BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
-             BorderThickness="1,1,1,0">
+             BorderThickness="1,1,1,1">
 
             <Grid VerticalAlignment="Center">
 
@@ -49,8 +49,8 @@
 
                     <Rectangle Height="30" 
                         Width="1"
-                     Fill="{ThemeResource DividerStrokeColorDefaultBrush}" 
-                     VerticalAlignment="Center"/>
+                        Fill="{ThemeResource DividerStrokeColorDefaultBrush}" 
+                        VerticalAlignment="Center"/>
 
                     <Button Background="Transparent"
                          BorderThickness="0">
@@ -71,7 +71,9 @@
             PaneDisplayMode="Left"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
-            BorderThickness="1">
+            BorderThickness="1"
+            OpenPaneLength="255"
+            SelectionChanged="PerformanceNavViewSelectionChanged">
 
             <NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
@@ -101,19 +103,15 @@
                                     StrokeEndLineCap="Square"/>
                             </Canvas>
                         </Grid>
-                      
+
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="{x:Bind Header}"/>
+                            <TextBlock Text="{x:Bind Header}" TextTrimming="CharacterEllipsis"/>
                             <TextBlock Text="{x:Bind Description, Mode=OneWay}" FontSize="10" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                             <TextBlock Text="{x:Bind SubDescription, Mode=OneWay}" FontSize="10" Foreground="{ThemeResource TextFillColorSecondaryBrush}"/>
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
             </NavigationView.MenuItemTemplate>
-
-            <NavigationView.MenuItems>
-  
-            </NavigationView.MenuItems>
 
             <Grid>
                 <Frame x:Name="ActivitiesFrame" x:FieldModifier="Public">

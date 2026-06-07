@@ -17,6 +17,12 @@ namespace winrt::SystemExplorer::Core::AI::Actions::implementation
 	}
 	IAsyncAction WmiActionProvider::queryWqlAction(ActionInvocationContext const& context)
 	{
+		for (auto const& inputEntity : context.GetInputEntities())
+		{
+			
+		}
+
+
 		context.Result(ActionInvocationResult::Unsupported);
 		co_return;
 	}

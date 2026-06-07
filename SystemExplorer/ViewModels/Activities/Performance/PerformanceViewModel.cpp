@@ -3,14 +3,19 @@
 #if __has_include("ViewModels/Activities/Performance/PerformanceViewModel.g.cpp")
 #include "ViewModels/Activities/Performance/PerformanceViewModel.g.cpp"
 #endif
+#include <Views/Pages/Activities/Performance/CpuPerformancePage.xaml.h>
+#include <winrt/Windows.UI.Xaml.Interop.h>
 
 namespace winrt::SystemExplorer::ViewModels::Activities::Performance::implementation
 {
 	PerformanceViewModel::PerformanceViewModel()
 	{
+
+
         PerformanceNavigationViewItem cpuItem;
         cpuItem.Header(L"CPU");
         cpuItem.Description(L"4% 1.65 GHz");
+        cpuItem.PageName(xaml_typename<Views::Pages::Activities::Performance::CpuPerformancePage>().Name);
         NavigationViewItems.Append(cpuItem);
 
         // 2. Memory

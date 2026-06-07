@@ -7,5 +7,7 @@ namespace SystemExplorer.Core.Data.Items
         String Header;
         String Description;
         String SubDescription;
+
+        String PageName;
     }
 }

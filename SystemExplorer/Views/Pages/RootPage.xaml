@@ -31,7 +31,7 @@
             Grid.Row="0"
             x:Name="AppTitleBar"
             Title="System Explorer"
-            Subtitle="InDev"
+            Subtitle="Diplomayin editon"
             Height="48"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
