@@ -1,24 +1,17 @@
 #pragma once
 
-// C++/WinRT и WIL
 #include <winrt/base.h>
 #include <wil/result.h>
 #include <wil/com.h>
-
-// WinUI 3
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Xaml.Input.h>
 #include <winrt/Microsoft.UI.Input.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
-#include <microsoft.ui.xaml.media.dxinterop.h> // Для ISwapChainPanelNative
-
-// DirectX
+#include <microsoft.ui.xaml.media.dxinterop.h> 
 #include <d3d11_4.h>
-#include <dxgi1_3.h> // Для IDXGISwapChain2
+#include <dxgi1_3.h> 
 #include <d2d1_3.h>
 #include <dwrite.h>
-
-// STD
 #include <vector>
 #include <string>
 #include <functional>
@@ -26,7 +19,6 @@
 #include <sstream>
 #include <cmath>
 #include <algorithm>
-
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "dxgi.lib")
 #pragma comment(lib, "d2d1.lib")
