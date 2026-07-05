@@ -6,11 +6,12 @@
 #include <shlobj.h>
 #include <winsta.h>
 #include <stacktrace>
+#include <Core/Plugins/PluginServer.h>
 #include <Core/System/Native/util.h>
 #include <Core/System/Native/senative.h>
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <winrt/Microsoft.Windows.Storage.h>
-
+#include <Helpers/Win32/Native/NativeProcess.h>
 #include "Core/Diagnostics/AsyncFileLogger.h"
 
 // potom uberu v manifest
@@ -21,7 +22,6 @@ processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #define DEBUG
 //#define SE_MINIMAL_ERRORMODE
 //#define DEBUG_E
-
 #pragma region Error Reporting
 
 typedef enum _TRIAGE_DUMP_TYPE
@@ -357,7 +357,13 @@ void EnablePrivileges()
     ), "Failed to apply privileges");
 }
 
-#include "Helpers/UI/DesktopNotification.h"
+void StartAlpcServer()
+{
+    THROW_IF_NTSTATUS_FAILED_MSG(
+        g_server.Start(),
+        "Failed to initialize the ALPC server. Plugin functionality will be unavailable."
+    );
+}
 
 INT APIENTRY wWinMain(
     _In_ HINSTANCE hInstance,
@@ -373,19 +379,13 @@ INT APIENTRY wWinMain(
 
     winrt::init_apartment(winrt::apartment_type::single_threaded);
 
-    auto args = winrt::SystemExplorer::Helpers::UI::DesktopNotificationArgs{};
-    args.Tag = L"xz";
-    args.Title = L"test notification";
-    args.Message = L"test message";
-
-    winrt::SystemExplorer::Helpers::UI::DesktopNotification::SendNotification(args, nullptr);
-
     InitializeLogger();
     try
     {
         InitializeCommonControls();
         InitializeExceptionPolicy();
         EnablePrivileges();
+        StartAlpcServer();
     }
     CATCH_LOG()
 
@@ -393,10 +393,48 @@ INT APIENTRY wWinMain(
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);
 #endif 
 
+    g_server.Map(ALPC_CMD_ECHO, { 
+        .MinVersion = ALPC_API_VERSION_IGNORE,
+        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
+        {
+            Beep(1000, 1000);
+        } 
+    });
+
+
+    g_server.Map(ALPC_CMD_TERMINATE_PROCESS, {
+        .MinVersion = ALPC_API_VERSION_IGNORE,
+        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
+        {
+            auto pid = request.ReadAs<uint32_t>();
+            try
+            {
+                winrt::SystemExplorer::Helpers::Win32::Native::NativeProcess::TerminateProcess(pid.value());
+                Beep(1000, 1000);
+                response.Status(STATUS_SUCCESS);
+            }
+            catch (...)
+            {
+                response.Status(STATUS_ACCESS_DENIED);
+            }
+        }
+    });
+
+    g_server.Map(ALPC_CMD_GET_PROCESSES_SERVICE, {
+        .MinVersion = ALPC_API_VERSION_IGNORE,
+        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
+        {
+            if (request.Version() < ALPC_API_VERSION_V1)
+                response.Status(STATUS_NOT_IMPLEMENTED);
+            else
+                response.Status(STATUS_SUCCESS);
+        }
+    });
+
     winrt::Microsoft::UI::Xaml::Application::Start([](auto&&)
     {
         winrt::make<winrt::SystemExplorer::implementation::App>();
     });
 
-    return 0;
+    return EXIT_SUCCESS;
 }

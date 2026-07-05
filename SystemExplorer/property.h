@@ -1,6 +1,6 @@
 #pragma once
-#define WIDEN2(x) L##x
-#define WIDEN(x) WIDEN2(#x)
+#define WIDEN_(x) L##x
+#define WIDEN(x) WIDEN_(#x)
 
 #define RAISE_PROPERTY_CHANGED RaisePropertyChanged(__FUNCTIONW__);
 

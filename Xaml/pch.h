@@ -7,7 +7,12 @@
 // Undefine GetCurrentTime macro to prevent
 // conflict with Storyboard::GetCurrentTime
 #undef GetCurrentTime
-
+#include <winrt/XamlToolkit.WinUI.h>
+#include <winrt/XamlToolkit.Labs.WinUI.h>
+#include <winrt/XamlToolkit.WinUI.Controls.h>
+#include <winrt/XamlToolkit.WinUI.Helpers.h>
+#include <winrt/XamlToolkit.WinUI.Rive.h>
+#include <winrt/XamlToolkit.WinUI.Converters.h>
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.ApplicationModel.Activation.h>

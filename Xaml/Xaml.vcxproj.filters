@@ -59,10 +59,6 @@
     <Text Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
-    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
-  </ItemGroup>
-  <ItemGroup>
     <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl">
       <Filter>Common\Attach</Filter>
     </Midl>

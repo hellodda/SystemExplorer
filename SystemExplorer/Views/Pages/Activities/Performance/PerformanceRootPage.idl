@@ -7,5 +7,7 @@ namespace SystemExplorer.Views.Pages.Activities.Performance
         PerformanceRootPage();
 
         SystemExplorer.ViewModels.Activities.Performance.PerformanceViewModel ViewModel { get; };
+
+        Microsoft.UI.Xaml.Controls.NavigationView PerformanceNavView { get; };
     }
 }

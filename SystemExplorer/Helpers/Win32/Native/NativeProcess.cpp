@@ -54,4 +54,20 @@ namespace winrt::SystemExplorer::Helpers::Win32::Native
 		}
 		return icon;
 	}
+
+	void NativeProcess::TerminateProcess(uint32_t pid)
+	{
+		native::unique_nt_handle handle{ nullptr };
+
+		THROW_IF_FAILED(SeOpenProcess(
+			&handle,
+			PROCESS_QUERY_LIMITED_INFORMATION,
+			(HANDLE)pid
+		));
+
+		THROW_IF_FAILED(NtTerminateProcess(
+			handle.get(),
+			EXIT_SUCCESS
+		));
+	}
 }

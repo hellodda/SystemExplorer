@@ -69,7 +69,7 @@
             </CommandBarFlyout.SecondaryCommands>
         </CommandBarFlyout>
 
-        <MenuFlyout x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
+        <MenuFlyout x:Name="ProcessMenuFlyoutObject" x:Key="ProcessMenuFlyout" Opened="ProcessMenuFlyoutOpened">
             <MenuFlyoutItem Text="End task" Command="{x:Bind ViewModel.TerminateProcessCommand}"/>
             <MenuFlyoutItem Text="Suspend"  Command="{x:Bind ViewModel.SuspendProcessCommand}"/>
             <MenuFlyoutItem Text="Restart" Command="{x:Bind ViewModel.RestartProcessCommand}"/>
@@ -322,6 +322,8 @@
                                     Command="{Binding DataContext.OpenProcessDetailsWindowCommand, ElementName=RootPage}"
                                     CommandParameter="{x:Bind}"/>
                             </interactivity:EventTriggerBehavior>
+
+                       
                         </interactivity:Interaction.Behaviors>
 
                         <Border>

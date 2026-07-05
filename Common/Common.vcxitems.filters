@@ -11,5 +11,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)wilx.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)thread_safe_queue.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)thread_pool.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)cache.h" />
   </ItemGroup>
 </Project>

@@ -11,8 +11,6 @@
 #include <ranges>
 #include <property.h>
 
-
-
 #include <Core/System/ProcessInformationProvider.h>
 #include <Core/System/ProcessManager.h>
 #include <Core/System/Utils.h>
@@ -25,7 +23,6 @@
 #include <App.xaml.h>
 
 using namespace winrt::Microsoft::Windows::Storage::Pickers;
-
 using namespace winrt::SystemExplorer::Helpers;
 using namespace winrt::SystemExplorer::Helpers::Win32;
 using namespace winrt::SystemExplorer::Helpers::Win32::Native;
@@ -84,14 +81,14 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
         Core::Settings::UserSettings::Instance().GeneralSettings().SettingChanged(
             [weakThis = this->get_weak()](auto const&, auto const& args)
+        {
+            if (auto sharedThis = weakThis.get(); sharedThis && args.SettingName() == L"RealTimeUpdateSpeedMs")
             {
-                if (auto sharedThis = weakThis.get(); sharedThis && args.SettingName() == L"RealTimeUpdateSpeedMs")
-                {
-                    const auto newSpeed = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
-                    sharedThis->pullTimer_.Interval(newSpeed);
-                    sharedThis->provider_->Thread().SetInterval(newSpeed);
-                }
-            });
+                const auto newSpeed = std::chrono::milliseconds(unbox_value<uint16_t>(args.NewValue()));
+                sharedThis->pullTimer_.Interval(newSpeed);
+                sharedThis->provider_->Thread().SetInterval(newSpeed);
+            }
+        });
     }
 
     void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
@@ -138,14 +135,14 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     void ProcessesViewModel::applyTransformations()
     {
-        std::unordered_set<uint32_t> activePids;
+        absl::flat_hash_set<uint32_t> activePids;
         activePids.reserve(lastRawProcesses_.size());
 
         updateMetricsAndCache(activePids);
         pruneDeadProcesses(activePids);
     }
 
-    void ProcessesViewModel::updateMetricsAndCache(std::unordered_set<uint32_t>& outActivePids)
+    void ProcessesViewModel::updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids)
     {
         float totalCpu{ 0.0f };
         uint64_t totalIo{ 0 };
@@ -163,16 +160,16 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 totalPrivateBytes += process->VmCounters.PrivateUsage;
             }
 
-            if (auto it = itemCache_.find(pid); it != itemCache_.end())
-            {
-                UpdateProcessItemValues(it->second, process);
-            }
-            else
-            {
-                auto processItem = CreateProcessItemFromNativeSource(process);
-                itemCache_.emplace(pid, processItem);
-                Processes.Append(processItem);
-            }
+            auto processItem = itemCache_.find_or_create(pid,
+                [](ProcessItem const& item) { return item != nullptr; },
+                [this, &process]() {
+                    auto newItem = CreateProcessItemFromNativeSource(process);
+                    Processes.Append(newItem);
+                    return newItem;
+                }
+            );
+
+            UpdateProcessItemValues(processItem, process);
         }
 
         TotalCpuUsage(std::round(totalCpu * 10.0f) / 10.0f);
@@ -180,21 +177,42 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         TotalPrivateBytes(totalPrivateBytes);
     }
 
-    void ProcessesViewModel::pruneDeadProcesses(std::unordered_set<uint32_t> const& activePids)
+    void ProcessesViewModel::pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids)
     {
-        std::erase_if(itemCache_, [&](auto const& cacheEntry)
+        auto now = std::chrono::steady_clock::now();
+        const auto gracePeriod = std::chrono::milliseconds(1500);
+
+        uint32_t count = Processes.Size();
+        for (uint32_t i = 0; i < count; ++i)
+        {
+            auto item = Processes.GetAt(i);
+            uint32_t pid = static_cast<uint32_t>(item.Pid());
+
+            if (!activePids.contains(pid) && !item.IsTerminated())
             {
-                const auto& [pid, uiItem] = cacheEntry;
-                if (!activePids.contains(pid))
+                item.IsTerminated(true);
+                deadProcesses_[pid] = now;
+            }
+        }
+
+        absl::erase_if(deadProcesses_, [&activePids, now, gracePeriod](const auto& pair) {
+            uint32_t pid = pair.first;
+            return activePids.contains(pid) || (now - pair.second >= gracePeriod);
+        });
+
+        absl::flat_hash_set<uint32_t> cacheRetentionPids(activePids);
+        for (const auto& [pid, _] : deadProcesses_)
+        {
+            cacheRetentionPids.insert(pid);
+        }
+
+        itemCache_.purge_inactive(cacheRetentionPids, [this](ProcessItem const& uiItem)
+        {
+                if (uint32_t index; Processes.IndexOf(uiItem, index))
                 {
-                    if (uint32_t index; Processes.IndexOf(uiItem, index))
-                    {
-                        Processes.RemoveAt(index);
-                    }
-                    return true;
+                    Processes.RemoveAt(index);
                 }
-                return false;
-            });
+        });
     }
 
     // commands impl

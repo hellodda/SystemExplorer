@@ -62,6 +62,11 @@
                                     Icon="{tookit:FontIcon Glyph=&#xE790;}"
                                     />
 
+                <NavigationViewItem Content="Developer tools"
+                                    Tag="SystemExplorer.Views.Pages.Settings.DeveloperToolsPage"
+                                    Icon="{tookit:FontIcon Glyph=&#xEC7A;}"
+                                    />
+
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Advanced}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage"
                                     Icon="{tookit:FontIcon Glyph=&#xF1AD;}"

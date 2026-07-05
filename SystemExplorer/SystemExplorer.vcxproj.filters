@@ -40,6 +40,7 @@
     <Page Include="Views\Pages\Activities\ServicesPage.xaml" />
     <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml" />
     <Page Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml" />
+    <Page Include="Views\Pages\Settings\DeveloperToolsPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -221,7 +222,6 @@
     <ClCompile Include="Core\System\Native\util.c">
       <Filter>Core\System\Native</Filter>
     </ClCompile>
-    <ClCompile Include="Core\AI\Tools\PeHeaderScaner.cpp" />
     <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
     <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
     <ClCompile Include="Helpers\Win32\Native\NativeProcess.cpp" />
@@ -236,10 +236,9 @@
     <ClCompile Include="Helpers\Win32\Native\NativeSystem.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
-    <ClCompile Include="Controls\DataTable.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
     <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
-    <ClCompile Include="Core\AI\Tools\ProcessDescriptionGenerator.cpp" />
+    <ClCompile Include="Core\Plugins\PluginServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -351,13 +350,15 @@
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
     <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
-    <ClInclude Include="Core\System\Test\process.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
     <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
+    <ClInclude Include="Core\Plugins\PluginServer.h" />
+    <ClInclude Include="Core\System\N2\DeltaUtils.h" />
+    <ClInclude Include="Core\System\N2\base.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -503,11 +504,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="SystemExplorer_TemporaryKey.pfx" />
     <None Include="Source Generators\EnumMapingGenerator.ps1" />
     <None Include="Source Generators\ResourceGenerator.ps1" />
     <None Include="Source Generators\JsonModelGenerator.ps1" />
     <None Include="Source Generators\Scheme\AnalysisInfo.json" />
+    <None Include="SystemExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw">

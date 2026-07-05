@@ -2,15 +2,12 @@
 #include "System.h"
 #include "ProviderThread.h"
 #include "Native/procproc.h"
+#include "../../../Common/cache.h"
 #include "Native.h"
-
-#include <unordered_set>
 #include <wil/resource.h> 
 
 #pragma comment(lib, "ntdll.lib")
 #pragma comment(lib, "version.lib")
-
-
 
 namespace winrt::SystemExplorer::Core::System
 {
@@ -33,21 +30,6 @@ namespace winrt::SystemExplorer::Core::System
             IN uint64_t currentSystemTime,
             IN uint64_t currentTick
         );
-
-        void cleanupCache(std::unordered_set<HANDLE> const& currentTickPids);
-
-        inline void UpdateDelta(PSE_UINT64_DELTA DeltaStruct, ULONGLONG NewValue)
-        {
-            DeltaStruct->Delta = NewValue - DeltaStruct->Value;
-            DeltaStruct->Value = NewValue;
-        }
-
-        inline void UpdateDelta32(PSE_UINT32_DELTA DeltaStruct, ULONG NewValue)
-        {
-            DeltaStruct->Delta = NewValue - DeltaStruct->Value;
-            DeltaStruct->Value = NewValue;
-        }
-
     private:
         std::shared_ptr<ProviderRegistration> registry_;
         ProviderThread thread_;
@@ -55,7 +37,7 @@ namespace winrt::SystemExplorer::Core::System
         wil::srwlock lock_;
 
         std::vector<native::shared_process_item> activeProcesses_;
-        std::unordered_map<HANDLE, native::shared_process_item> processCache_;
+        utils::cache_tracker<HANDLE, native::shared_process_item> processCache_;
 
         uint64_t lastSystemTime_{ 0 };
     };

@@ -10,6 +10,7 @@ namespace SystemExplorer.Core.Data.Items
         UInt32 ParentId;
         UInt32 IoRate;
         UInt32 PrivateBytes;
+        Boolean IsTerminated;
         Boolean IsEfficiencyModeEnabled;
         Single CpuUsage;
         String Name;

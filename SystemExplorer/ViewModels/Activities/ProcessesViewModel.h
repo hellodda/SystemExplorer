@@ -14,6 +14,8 @@
 #include <property.h>
 #include <regex>
 
+#include "../../../Common/cache.h"
+
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
     using namespace winrt::Windows::Foundation;
@@ -37,7 +39,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         wil::single_threaded_property<IAsyncRelayCommand> TerminateProcessCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
             co_await doTerminateProcessAsync();
         }, [this](auto&&) -> bool {
-            return SelectedProcess_ != nullptr;
+                return SelectedProcess_ != nullptr;
         });
 
         wil::single_threaded_property<IAsyncRelayCommand> EfficiencyModeCommand = AsyncRelayCommandFactory::Make([this](auto&&) -> IAsyncAction {
@@ -111,9 +113,9 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     private: // internal
         void applyTransformations();
         void updateProcessesList(std::vector<native::shared_process_item>& newProcesses);
-        void updateMetricsAndCache(std::unordered_set<uint32_t>& outActivePids);
-        void pruneDeadProcesses(std::unordered_set<uint32_t> const& activePids);
-        
+        void updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids);
+        void pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids);
+
         IAsyncAction showErrorDialogAsync(hstring const& message);
     private: // commands
         IAsyncAction doTerminateProcessAsync();
@@ -125,7 +127,10 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     private:
         std::shared_ptr<ProcessInformationProvider> provider_{ nullptr };
         std::shared_ptr<IProcessManager> manager_{ nullptr };
-        std::unordered_map<uint32_t, ProcessItem> itemCache_;
+
+        utils::cache_tracker<uint32_t, ProcessItem> itemCache_;
+        absl::flat_hash_map<uint32_t, std::chrono::steady_clock::time_point> deadProcesses_;
+
         DispatcherTimer pullTimer_;
 
         std::vector<native::shared_process_item> lastRawProcesses_;

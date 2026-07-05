@@ -7,7 +7,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:items="using:SystemExplorer.Core.Data.Items"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
+    xmlns:converters="using:XamlToolkit.WinUI.Converters"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -114,13 +120,17 @@
             </NavigationView.MenuItemTemplate>
 
             <Grid>
-                <Frame x:Name="ActivitiesFrame" x:FieldModifier="Public">
-                    <Frame.ContentTransitions>
-                        <TransitionCollection>
-                            <NavigationThemeTransition />
-                        </TransitionCollection>
-                    </Frame.ContentTransitions>
-                </Frame>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <controls:PropertySizer HorizontalAlignment="Left"
+                                        Maximum="500"
+                                        Minimum="50"
+                                        Binding="{x:Bind PerformanceNavView.OpenPaneLength, Mode=TwoWay}"
+                                        Visibility="{x:Bind PerformanceNavView.IsPaneOpen, Mode=OneWay, Converter={StaticResource BoolToVisibilityConverter}}"/>
+                <Frame Grid.Column="1" x:Name="ActivitiesFrame"/>
             </Grid>
         </NavigationView>
     </Grid>

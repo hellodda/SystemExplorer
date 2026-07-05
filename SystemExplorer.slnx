@@ -4,12 +4,18 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Project Path="Alpc/Alpc.vcxproj" Id="91b40cc9-9757-49b3-818c-a0eda34f371b">
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="Common/Common.vcxitems" Id="8c87dc58-0dab-445f-84e3-60f76b93ee20" />
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
   </Project>
   <Project Path="Tests/Tests.vcxproj" Id="0768550d-4404-46f6-813c-729bff25f942">
     <Deploy />
+  </Project>
+  <Project Path="VirusTotalPlugin/VirusTotalPlugin.vcxproj" Id="7eb8843d-4ff9-4f39-9d3b-6ba2252d8daa">
+    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="Xaml/Xaml.vcxproj" Id="7389541c-a0b0-495d-8ae6-388b1761c371" />
 </Solution>

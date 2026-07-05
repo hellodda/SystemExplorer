@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.DeveloperToolsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:xtl="using:XamlToolkit.Labs.WinUI"
+    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <StackPanel>
+            <TextBlock FontSize="26" Margin="0 10 0 0" Text="Developer tools"/>
+
+            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
+                <xtc:SettingsExpander Header="Benchmarks"
+                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xF42F;}">
+                    <TextBlock Text="Last benchmark: 19:44.01.02.2026"/>
+                    <xtc:SettingsExpander.Items>
+                        <xtc:SettingsCard>
+
+                        </xtc:SettingsCard>
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
+            </xaml:SimpleSettingsGroup>
+        </StackPanel>
+    </Grid>
+</Page>

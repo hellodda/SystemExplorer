@@ -1,9 +1,7 @@
 #include "pch.h"
 #include "ProcessInformationProvider.h"
-
-#include <unordered_set>
-
 #include "Native.h"
+#include "N2/DeltaUtils.h"
 #include <Helpers/Win32/Native/NativeProcess.h>
 #include <Helpers/Win32/Native/NativeSystem.h>
 #include <Helpers/Win32/ShellHelper.h>
@@ -18,7 +16,7 @@ namespace winrt::SystemExplorer::Core::System
     {
         registry_ = thread_.Register([this]() {
             updateProcesses();
-        });
+            });
         registry_->Enable();
         thread_.Start(std::chrono::milliseconds(1000));
     }
@@ -33,9 +31,10 @@ namespace winrt::SystemExplorer::Core::System
     {
         auto lock = lock_.lock_shared();
 
-        auto it = std::ranges::find(activeProcesses_, pid, [](const auto& proc) {
+        auto it = std::ranges::find(activeProcesses_, pid, [](const auto& proc)
+        {
             return static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(proc->ProcessId));
-            });
+        });
 
         return it != activeProcesses_.end() ? *it : nullptr;
     }
@@ -56,7 +55,9 @@ namespace winrt::SystemExplorer::Core::System
         });
 
         std::vector<native::shared_process_item> newActiveProcesses;
-        std::unordered_set<HANDLE> currentTickPids;
+        absl::flat_hash_set<HANDLE> currentTickPids;
+
+        currentTickPids.reserve(processCache_.size());
 
         auto* pHead = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(buffer.get());
 
@@ -73,8 +74,7 @@ namespace winrt::SystemExplorer::Core::System
             activeProcesses_ = std::move(newActiveProcesses);
             lastSystemTime_ = currentSystemTime;
         }
-
-        cleanupCache(currentTickPids);
+        processCache_.purge_inactive(currentTickPids);
     }
 
     native::shared_process_item ProcessInformationProvider::parseCacheProcess(
@@ -84,64 +84,58 @@ namespace winrt::SystemExplorer::Core::System
         IN uint64_t currentTick
     )
     {
-        auto it = processCache_.find(pid);
-        native::shared_process_item item;
+        native::shared_process_item item = processCache_.find_or_create(
+            pid,
+            [Process](const native::shared_process_item& existingItem) {
+                return existingItem->CreateTime.QuadPart == Process->CreateTime.QuadPart;
+            },
+            [pid, Process]() {
+                auto newItem = std::shared_ptr<SE_PROCESS_ITEM>(new SE_PROCESS_ITEM{}, native::details::process_item_deleter{});
 
-        if (it != processCache_.end() && it->second->CreateTime.QuadPart == Process->CreateTime.QuadPart)
-        {
-            item = it->second;
-        }
-        else
-        {
-            item = std::shared_ptr<SE_PROCESS_ITEM>(new SE_PROCESS_ITEM{}, native::details::process_item_deleter{});
+                newItem->ProcessId = pid;
+                newItem->ParentProcessId = reinterpret_cast<HANDLE>(Process->InheritedFromUniqueProcessId);
+                newItem->CreateTime = Process->CreateTime;
+                newItem->SessionId = Process->SessionId;
+                newItem->BasePriority = Process->BasePriority;
 
-            item->ProcessId = pid;
-            item->ParentProcessId = reinterpret_cast<HANDLE>(Process->InheritedFromUniqueProcessId);
-            item->CreateTime = Process->CreateTime;
-            item->SessionId = Process->SessionId;
-            item->BasePriority = Process->BasePriority;
-
-            auto extractedName = static_cast<PWCH>(Process->ImageName.Buffer);
-            if (extractedName)
-            {
-                item->ProcessName = _wcsdup(extractedName);
-            }
-
-            SeOpenProcess(&item->QueryHandle,
-                PROCESS_QUERY_LIMITED_INFORMATION,
-                pid
-            );
-
-            bool iconSet = false;
-            if (item->QueryHandle)
-            {
-                PWSTR buffer{ nullptr };
-
-                if (NT_SUCCESS(SeGetProcessImageFileNameWin32(item->QueryHandle, &buffer)) && buffer)
+                auto extractedName = static_cast<PWCH>(Process->ImageName.Buffer);
+                if (extractedName)
                 {
-                    item->FileName = _wcsdup(buffer);
-                    item->SmallIconIndex = ShellHelper::GetIconIndex(item->FileName);
-                    iconSet = true;
-                    free(buffer);
+                    newItem->ProcessName = _wcsdup(extractedName);
                 }
+
+                SeOpenProcess(&newItem->QueryHandle, PROCESS_QUERY_LIMITED_INFORMATION, pid);
+
+                bool iconSet = false;
+                if (newItem->QueryHandle)
+                {
+                    PWSTR buffer{ nullptr };
+
+                    if (NT_SUCCESS(SeGetProcessImageFileNameWin32(newItem->QueryHandle, &buffer)) && buffer)
+                    {
+                        newItem->FileName = _wcsdup(buffer);
+                        newItem->SmallIconIndex = ShellHelper::GetIconIndex(newItem->FileName);
+                        iconSet = true;
+                        free(buffer);
+                    }
+                }
+                if (!iconSet)
+                {
+                    newItem->SmallIconIndex = ShellHelper::GetDefaultIconIndex();
+                }
+
+                newItem->IoReadDelta.Value = Process->ReadTransferCount.QuadPart;
+                newItem->IoWriteDelta.Value = Process->WriteTransferCount.QuadPart;
+                newItem->IoOtherDelta.Value = Process->OtherTransferCount.QuadPart;
+                newItem->IoReadCountDelta.Value = Process->ReadOperationCount.QuadPart;
+                newItem->IoWriteCountDelta.Value = Process->WriteOperationCount.QuadPart;
+                newItem->IoOtherCountDelta.Value = Process->OtherOperationCount.QuadPart;
+                newItem->CpuKernelDelta.Value = Process->KernelTime.QuadPart;
+                newItem->CpuUserDelta.Value = Process->UserTime.QuadPart;
+
+                return newItem;
             }
-            if (!iconSet)
-            {
-                item->SmallIconIndex = ShellHelper::GetDefaultIconIndex();
-            }
-
-            item->IoReadDelta.Value = Process->ReadTransferCount.QuadPart;
-            item->IoWriteDelta.Value = Process->WriteTransferCount.QuadPart;
-            item->IoOtherDelta.Value = Process->OtherTransferCount.QuadPart;
-            item->IoReadCountDelta.Value = Process->ReadOperationCount.QuadPart;
-            item->IoWriteCountDelta.Value = Process->WriteOperationCount.QuadPart;
-            item->IoOtherCountDelta.Value = Process->OtherOperationCount.QuadPart;
-
-            item->CpuKernelDelta.Value = Process->KernelTime.QuadPart;
-            item->CpuUserDelta.Value = Process->UserTime.QuadPart;
-
-            processCache_[pid] = item;
-        }
+        );
 
         item->State = 1;
         item->NumberOfThreads = Process->NumberOfThreads;
@@ -151,18 +145,19 @@ namespace winrt::SystemExplorer::Core::System
         item->VmCounters = *(PVM_COUNTERS_EX)&Process->PeakVirtualSize;
         item->IoCounters = (Process->ReadOperationCount.QuadPart > 0) ? *reinterpret_cast<PIO_COUNTERS>(&Process->ReadOperationCount) : IO_COUNTERS{};
 
-        UpdateDelta(&item->CpuKernelDelta, Process->KernelTime.QuadPart);
-        UpdateDelta(&item->CpuUserDelta, Process->UserTime.QuadPart);
+        native::deltamgr::Update(&item->CpuKernelDelta, Process->KernelTime.QuadPart);
+        native::deltamgr::Update(&item->CpuUserDelta, Process->UserTime.QuadPart);
+
         item->KernelTime = Process->KernelTime;
         item->UserTime = Process->UserTime;
 
-        UpdateDelta(&item->IoReadDelta, Process->ReadTransferCount.QuadPart);
-        UpdateDelta(&item->IoWriteDelta, Process->WriteTransferCount.QuadPart);
-        UpdateDelta(&item->IoOtherDelta, Process->OtherTransferCount.QuadPart);
-        UpdateDelta(&item->IoReadCountDelta, Process->ReadOperationCount.QuadPart);
-        UpdateDelta(&item->IoWriteCountDelta, Process->WriteOperationCount.QuadPart);
-        UpdateDelta(&item->IoOtherCountDelta, Process->OtherOperationCount.QuadPart);
-        UpdateDelta32(&item->PageFaultsDelta, Process->PageFaultCount);
+        native::deltamgr::Update(&item->IoReadDelta, Process->ReadTransferCount.QuadPart);
+        native::deltamgr::Update(&item->IoWriteDelta, Process->WriteTransferCount.QuadPart);
+        native::deltamgr::Update(&item->IoOtherDelta, Process->OtherTransferCount.QuadPart);
+        native::deltamgr::Update(&item->IoReadCountDelta, Process->ReadOperationCount.QuadPart);
+        native::deltamgr::Update(&item->IoWriteCountDelta, Process->WriteOperationCount.QuadPart);
+        native::deltamgr::Update(&item->IoOtherCountDelta, Process->OtherOperationCount.QuadPart);
+        native::deltamgr::Update(&item->PageFaultsDelta, Process->PageFaultCount);
 
         auto sysDelta = currentSystemTime - lastSystemTime_;
         if (sysDelta > 0 && lastSystemTime_ > 0)
@@ -180,13 +175,5 @@ namespace winrt::SystemExplorer::Core::System
         }
 
         return item;
-    }
-
-    void ProcessInformationProvider::cleanupCache(std::unordered_set<HANDLE> const& currentTickPids)
-    {
-        std::erase_if(processCache_, [&currentTickPids](const auto& pair)
-        {
-            return !currentTickPids.contains(pair.first);
-        });
     }
 }
