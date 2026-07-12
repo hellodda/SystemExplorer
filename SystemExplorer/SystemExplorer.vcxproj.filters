@@ -239,6 +239,8 @@
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
     <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
     <ClCompile Include="Core\Plugins\PluginServer.cpp" />
+    <ClCompile Include="Core\Settings\SharedSettings.cpp" />
+    <ClCompile Include="Core\EMS\EmsHost.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -359,6 +361,8 @@
     <ClInclude Include="Core\Plugins\PluginServer.h" />
     <ClInclude Include="Core\System\N2\DeltaUtils.h" />
     <ClInclude Include="Core\System\N2\base.h" />
+    <ClInclude Include="Core\Settings\SharedSettings.h" />
+    <ClInclude Include="Core\EMS\EmsHost.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

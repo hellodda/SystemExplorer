@@ -1,5 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Package
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
@@ -34,46 +33,53 @@
     <Resource Language="x-generate"/>
   </Resources>
 
-  <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="$targetentrypoint$">
-      <uap:VisualElements
-        DisplayName="SystemExplorer"
-        Description="SystemExplorer"
-        BackgroundColor="transparent"
-        Square150x150Logo="Assets\Square150x150Logo.png"
-        Square44x44Logo="Assets\Square44x44Logo.png">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
-        <uap:SplashScreen Image="Assets\SplashScreen.png" />
-      </uap:VisualElements>
+	<Applications>
+		<Application Id="App"
+		  Executable="$targetnametoken$.exe"
+		  EntryPoint="$targetentrypoint$">
+			<uap:VisualElements
+			  DisplayName="SystemExplorer"
+			  Description="SystemExplorer"
+			  BackgroundColor="transparent"
+			  Square150x150Logo="Assets\Square150x150Logo.png"
+			  Square44x44Logo="Assets\Square44x44Logo.png">
+				<uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
+				<uap:SplashScreen Image="Assets\SplashScreen.png" />
+			</uap:VisualElements>
 
+			<Extensions>
+				<com2:Extension Category="windows.comServer">
+					<com2:ComServer>
+						<com3:ExeServer Executable="SystemExplorer.exe" DisplayName="System Explorer">
+							<com:Class Id="9f46d58d-dffa-4c00-85c2-bffb13bdcb6a" DisplayName="ProcessesActionProvider" />
+						</com3:ExeServer>
+					</com2:ComServer>
+				</com2:Extension>
+				<uap3:Extension Category="windows.appExtension">
+					<uap3:AppExtension Name="com.microsoft.windows.ai.actions"
+									 Id="SystemExplorerAIActionExtension"
+									 PublicFolder="AppSettings"
+									 DisplayName="SystemExplorer Action">
+						<uap3:Properties>
+							<Registration>registration.json</Registration>
+						</uap3:Properties>
+					</uap3:AppExtension>
+				</uap3:Extension>
+			</Extensions>
+		</Application>
+	</Applications>
 
-		<Extensions>
-			<com2:Extension Category="windows.comServer">
-				<com2:ComServer>
-					<com3:ExeServer Executable="SystemExplorer.exe" DisplayName="System Explorer">
-						<com:Class Id="9f46d58d-dffa-4c00-85c2-bffb13bdcb6a" DisplayName="ProcessesActionProvider" />
-					</com3:ExeServer>
-				</com2:ComServer>
-			</com2:Extension>
+	<Extensions>
+		<Extension Category="windows.publisherCacheFolders">
+			<PublisherCacheFolders>
+				<Folder Name="WinXXX_Profiles" />
+			</PublisherCacheFolders>
+		</Extension>
+	</Extensions>
 
-			<uap3:Extension Category="windows.appExtension">
-				<uap3:AppExtension Name="com.microsoft.windows.ai.actions"
-								   Id="SystemExplorerAIActionExtension"
-								   PublicFolder="AppSettings"
-								   DisplayName="SystemExplorer Action">
-					<uap3:Properties>
-						<Registration>registration.json</Registration>
-					</uap3:Properties>
-				</uap3:AppExtension>
-			</uap3:Extension>
-		</Extensions>
-    </Application>
-  </Applications>
-
-  <Capabilities>
-    <rescap:Capability Name="runFullTrust" />
-    <systemai:Capability Name="systemAIModels"/>
-  </Capabilities>
+	<Capabilities>
+		<rescap:Capability Name="runFullTrust" />
+		<systemai:Capability Name="systemAIModels"/>
+	</Capabilities>
 </Package>
+

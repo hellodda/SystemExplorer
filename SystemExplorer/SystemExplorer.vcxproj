@@ -116,7 +116,7 @@
       <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
       <WarningLevel>Level4</WarningLevel>
       <LanguageStandard Condition="'$(VisualStudioVersion)' &gt;= '18.0'">stdcpplatest</LanguageStandard>
-      <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpp17</LanguageStandard>
+      <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpplatest</LanguageStandard>
       <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
     </ClCompile>
   </ItemDefinitionGroup>
@@ -124,14 +124,14 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
@@ -161,9 +161,9 @@
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -306,6 +306,7 @@
     <ClInclude Include="Core\Web\Http\Base.h" />
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
+    <ClInclude Include="Core\EMS\EmsHost.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
@@ -358,6 +359,7 @@
     <ClInclude Include="Core\Plugins\PluginServer.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
+    <ClInclude Include="Core\Settings\SharedSettings.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Helpers\Win32\ShellHelper.h" />
     <ClInclude Include="ViewModels\Activities\Performance\PerformanceViewModel.h">
@@ -696,6 +698,7 @@
     <ClCompile Include="Core\System\Utils.cpp" />
     <ClCompile Include="Core\System\Mi\Management.cpp" />
     <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
+    <ClCompile Include="Core\EMS\EmsHost.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
@@ -770,6 +773,7 @@
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
     <ClCompile Include="Core\Plugins\PluginServer.cpp" />
+    <ClCompile Include="Core\Settings\SharedSettings.cpp" />
     <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>

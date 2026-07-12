@@ -1,161 +1,44 @@
-#include <alpc.h>
-#include <alpcplus.h>
-#include <iostream>
+#include <ems.h>
 
-alpc::PluginInformation g_information;
-alpc::PluginClient g_client;
-
-void initPlugin()
+_Success_(return == EXIT_SUCCESS)
+INT wmain()
 {
-	g_information.Author = L"Test Author";
-	g_information.Name = L"Syste";
-	g_information.Version = 1;
+	EMS_MODULE_CONNECT moduleConnect;
+	HANDLE portHandle;
 
-	g_client = alpc::PluginClient{ g_information };
-}
+	EmsConnectToHost(&portHandle, &moduleConnect);
 
-int main()
-{
-	initPlugin();
+	EMS_API_MESSAGE shutdownMessage;
+	EmsInitializeMessage(&shutdownMessage, EmsApiModuleShutdown);
+	shutdownMessage.Client.ModuleShutdown.Reason = EmsReasonComplited;
 
-	try
+	EMS_API_MESSAGE getDriverSettingMessage;
+	EmsInitializeMessage(&getDriverSettingMessage, EmsApiGetSetting);
+	getDriverSettingMessage.Client.GetSetting.Type = EmsGetExplorerAdvancedSettings;
+
+	EmsSendMessage(&portHandle, &getDriverSettingMessage);
+	
+	if (getDriverSettingMessage.Client.GetSetting.Value.AdvancedSettings.UseDriverAsDataSource == TRUE)
 	{
-		uint32_t commandId = 100;
 
-		while (true)
-		{
-			std::wstring text;
-
-			std::wcout << L"[>] Enter button text (exit to close): ";
-
-			std::getline(std::wcin, text);
-
-			if (text == L"exit")
-				break;
-
-			if (text.empty())
-				continue;
-
-
-			BUTTON_INFORMATION information{};
-
-			information.CommandId = commandId++;
-			information.Location = BUTTON_LOCATION::blProcessesListMenuFlyout;
-
-			wcsncpy_s(
-				information.Text,
-				ARRAYSIZE(information.Text),
-				text.c_str(),
-				_TRUNCATE
-			);
-
-			std::wstring tooltip = text + L" Tooltip";
-
-			wcsncpy_s(
-				information.TooltipSuggestionText,
-				ARRAYSIZE(information.TooltipSuggestionText),
-				tooltip.c_str(),
-				_TRUNCATE
-			);
-
-
-			g_client.SendCommandAsync(
-				ALPC_CMD_CREATE_BUTTON,
-				information
-			).get();
-
-
-			std::wcout
-				<< L"[>] Button created: "
-				<< text
-				<< std::endl;
-		}
 	}
-	catch (const std::exception& e)
+	EMS_EXPLORER_SETTINGS settings;
+
+
+	EmsSendMessage(portHandle, &shutdownMessage);
+
+	auto handle = OpenProcess(NULL, NULL, NULL);
+
+	if (handle == INVALID_HANDLE_VALUE)
 	{
-		std::cout << "[>] failed: " << e.what() << std::endl;
-	}
-	catch (...)
-	{
-		std::cout << "[>] unknown error" << std::endl;
+		EMS_API_MESSAGE report;
+		EmsInitializeMessage(&report, EmsApiSendDebugStatus);
+		report.Client.SetDebugStatus.Message = L"Failed open process";
+		report.Client.SetDebugStatus.Warning.Win32 = GetLastError();
 	}
 
 	return 0;
 }
-//
-//PLUGIN_INFORMATION g_information;
-//HANDLE g_connection;
-//
-//
-//NTSTATUS initPlugin()
-//{
-//    ZeroMemory(&g_information, sizeof(g_information));
-//
-//    wcsncpy_s(
-//        g_information.Author,
-//        ARRAYSIZE(g_information.Author),
-//        L"Test Author",
-//        _TRUNCATE
-//    );
-//
-//    wcsncpy_s(
-//        g_information.Name,
-//        ARRAYSIZE(g_information.Name),
-//        L"Sys",
-//        _TRUNCATE
-//    );
-//
-//    g_information.Version = 1;
-//
-//    return AlpcPluginStartup(
-//        &g_connection,
-//        &g_information
-//    );
-//}
-//
-//
-//int main()
-//{
-//    NTSTATUS status = initPlugin();
-//
-//    if (!NT_SUCCESS(status))
-//    {
-//        printf("[X] Plugin initialization failed: 0x%X\n", status);
-//        return -1;
-//    }
-//
-//
-//    printf("[>_] Plugin Test\n");
-//    printf("[>_] Enter PID: ");
-//
-//
-//    uint32_t pid;
-//
-//    if (scanf_s("%u", &pid) != 1)
-//    {
-//        printf("[X] Invalid PID\n");
-//        return -1;
-//    }
-//
-//    ALPC_RESPONSE_MESSAGE response =
-//        AlpcSendCommand(
-//            &g_connection,
-//            ALPC_CMD_ECHO,
-//            &pid,
-//            sizeof(pid)
-//        );
-//
-//
-//    if (NT_SUCCESS(response.Status))
-//    {
-//        printf("[+] Success\n");
-//    }
-//    else
-//    {
-//        printf(
-//            "[X] Failed. NTSTATUS: 0x%X\n",
-//            response.Status
-//        );
-//    }
-//    return 0;
-//}
+
+
+

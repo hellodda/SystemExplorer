@@ -14,6 +14,7 @@
 #include <Helpers/Win32/Native/NativeProcess.h>
 #include "Core/Diagnostics/AsyncFileLogger.h"
 
+
 // potom uberu v manifest
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
@@ -377,8 +378,6 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
-    winrt::init_apartment(winrt::apartment_type::single_threaded);
-
     InitializeLogger();
     try
     {
@@ -435,6 +434,8 @@ INT APIENTRY wWinMain(
     {
         winrt::make<winrt::SystemExplorer::implementation::App>();
     });
+
+
 
     return EXIT_SUCCESS;
 }

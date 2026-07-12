@@ -110,4 +110,8 @@
     <Page Include="Controls\DataTable\DataColumn.xaml" />
     <Page Include="Styles\PropertyStyles.xaml" />
   </ItemGroup>
+  <ItemGroup>
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natvis" />
+    <Natvis Include="$(MSBuildThisFileDirectory)..\..\natvis\wil.natstepfilter" />
+  </ItemGroup>
 </Project>
