@@ -25,7 +25,6 @@ namespace utils
             return newItem;
         }
 
-
         template <typename TEvictCallback>
         void purge_inactive(const absl::flat_hash_set<TKey>& activeKeys, TEvictCallback&& onEvict)
         {

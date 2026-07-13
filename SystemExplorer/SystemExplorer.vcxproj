@@ -356,10 +356,16 @@
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
-    <ClInclude Include="Core\Plugins\PluginServer.h" />
     <ClInclude Include="property.h" />
     <ClInclude Include="Core\System\ProviderThread.h" />
-    <ClInclude Include="Core\Settings\SharedSettings.h" />
+    <ClInclude Include="Core\Settings\SharedSettings.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="Helpers\Win32\ShellHelper.h" />
     <ClInclude Include="ViewModels\Activities\Performance\PerformanceViewModel.h">
@@ -772,8 +778,14 @@
     <ClCompile Include="Core\System\ProviderThread.cpp" />
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
-    <ClCompile Include="Core\Plugins\PluginServer.cpp" />
-    <ClCompile Include="Core\Settings\SharedSettings.cpp" />
+    <ClCompile Include="Core\Settings\SharedSettings.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>

@@ -8,15 +8,12 @@
   <Project Path="Ems/Ems.vcxproj" Id="f804537c-a4a2-41d0-8497-40cbe83edccc">
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
-  <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
-    <Deploy />
-  </Project>
-  <Project Path="SystemExplorerDriver/SystemExplorerDriver.vcxproj">
+  <Project Path="KernelExplorer/KernelExplorer.vcxproj">
     <Platform Solution="*|x86" Project="x64" />
     <Deploy />
   </Project>
-  <Project Path="VirusTotalPlugin/VirusTotalPlugin.vcxproj" Id="7eb8843d-4ff9-4f39-9d3b-6ba2252d8daa">
-    <Platform Solution="*|ARM64" Project="x64" />
+  <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
+    <Deploy />
   </Project>
   <Project Path="Xaml/Xaml.vcxproj" Id="7389541c-a0b0-495d-8ae6-388b1761c371" />
 </Solution>

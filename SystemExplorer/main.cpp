@@ -6,7 +6,6 @@
 #include <shlobj.h>
 #include <winsta.h>
 #include <stacktrace>
-#include <Core/Plugins/PluginServer.h>
 #include <Core/System/Native/util.h>
 #include <Core/System/Native/senative.h>
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
@@ -358,12 +357,9 @@ void EnablePrivileges()
     ), "Failed to apply privileges");
 }
 
-void StartAlpcServer()
+void StartEmsServer()
 {
-    THROW_IF_NTSTATUS_FAILED_MSG(
-        g_server.Start(),
-        "Failed to initialize the ALPC server. Plugin functionality will be unavailable."
-    );
+  
 }
 
 INT APIENTRY wWinMain(
@@ -384,7 +380,7 @@ INT APIENTRY wWinMain(
         InitializeCommonControls();
         InitializeExceptionPolicy();
         EnablePrivileges();
-        StartAlpcServer();
+        StartEmsServer();
     }
     CATCH_LOG()
 
@@ -392,50 +388,10 @@ INT APIENTRY wWinMain(
     RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);
 #endif 
 
-    g_server.Map(ALPC_CMD_ECHO, { 
-        .MinVersion = ALPC_API_VERSION_IGNORE,
-        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
-        {
-            Beep(1000, 1000);
-        } 
-    });
-
-
-    g_server.Map(ALPC_CMD_TERMINATE_PROCESS, {
-        .MinVersion = ALPC_API_VERSION_IGNORE,
-        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
-        {
-            auto pid = request.ReadAs<uint32_t>();
-            try
-            {
-                winrt::SystemExplorer::Helpers::Win32::Native::NativeProcess::TerminateProcess(pid.value());
-                Beep(1000, 1000);
-                response.Status(STATUS_SUCCESS);
-            }
-            catch (...)
-            {
-                response.Status(STATUS_ACCESS_DENIED);
-            }
-        }
-    });
-
-    g_server.Map(ALPC_CMD_GET_PROCESSES_SERVICE, {
-        .MinVersion = ALPC_API_VERSION_IGNORE,
-        .Callback = [](alpc::AlpcRequestMessage const& request, alpc::AlpcResponseMessage& response)
-        {
-            if (request.Version() < ALPC_API_VERSION_V1)
-                response.Status(STATUS_NOT_IMPLEMENTED);
-            else
-                response.Status(STATUS_SUCCESS);
-        }
-    });
-
     winrt::Microsoft::UI::Xaml::Application::Start([](auto&&)
     {
         winrt::make<winrt::SystemExplorer::implementation::App>();
     });
-
-
 
     return EXIT_SUCCESS;
 }

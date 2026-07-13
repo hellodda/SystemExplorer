@@ -1,3 +1,10 @@
+//
+//
+// Explorer Modular System (EMS) V1
+//						     By Hellodda
+//
+
+
 #pragma once
 #include "emsmsgdef.h"
 

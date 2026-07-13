@@ -1,5 +1,4 @@
 #pragma once
-#include <alpc.h>
 #include <shared_mutex>
 #include <winrt/Windows.Foundation.h>
 #include <memory>
@@ -13,7 +12,7 @@
 
 namespace winrt::SystemExplorer::Core::Plugins
 {
-    struct AlpcContext
+   /* struct AlpcContext
     {
         ALPC_REQUEST_MESSAGE Request{};
         ALPC_RESPONSE_MESSAGE Response{};
@@ -106,7 +105,7 @@ namespace winrt::SystemExplorer::Core::Plugins
 
         std::unordered_map<uint32_t, std::vector<RequestHandler>> routes_;
         std::shared_mutex routesMutex_;
-    };
+    };*/
 }
 
-extern winrt::SystemExplorer::Core::Plugins::PluginServer g_server;
+//extern winrt::SystemExplorer::Core::Plugins::PluginServer g_server;
