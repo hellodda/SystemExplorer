@@ -15,10 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ems.h">
+    <ClInclude Include="include\ems.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
-    <ClInclude Include="emsmsgdef.h">
+    <ClInclude Include="include\emsmsgdef.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ems.h" />
-    <ClInclude Include="emsmsgdef.h" />
+    <ClInclude Include="include\ems.h" />
+    <ClInclude Include="include\emsmsgdef.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ems.c" />
