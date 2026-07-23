@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "AppModel.h"
 #if __has_include("Core/Data/Models/AppModel.g.cpp")
 #include "Core/Data/Models/AppModel.g.cpp"

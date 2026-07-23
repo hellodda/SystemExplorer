@@ -13,7 +13,16 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     {
         SettingsRootPage()
         {
+            InitializeComponent();
 
+            auto vector = winrt::single_threaded_vector<winrt::Windows::Foundation::IInspectable>();
+
+            // 2. Упаковываем строки с помощью box_value и добавляем в вектор
+            vector.Append(winrt::box_value(L"Main"));
+            vector.Append(winrt::box_value(L"Remote access"));
+
+            // Теперь XAML без проблем примет этот список
+            SettingsBreadcrumbBar().ItemsSource(vector);
         }
         IAsyncAction SettingsFrameLoaded(IInspectable const& sender, RoutedEventArgs const& args);
         IAsyncAction SettingsNavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args);

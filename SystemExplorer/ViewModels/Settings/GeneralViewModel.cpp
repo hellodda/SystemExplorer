@@ -1,11 +1,12 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "GeneralViewModel.h"
 #if __has_include("ViewModels/Settings/GeneralViewModel.g.cpp")
 #include "ViewModels/Settings/GeneralViewModel.g.cpp"
 #endif
 #include <Helpers/StringsHelper.h>
 #include <Core/Services/AppLanguageService.h>
-#include <Core/Settings/UserSettings.h>
+#include <Core/Settings/Settings.h>
 
 using namespace winrt::SystemExplorer::Core::Services;
 using namespace winrt::SystemExplorer::Helpers;
@@ -43,7 +44,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 			updateSpeed = 750;
 			break;
 		}
-		Core::Settings::UserSettings::Instance().GeneralSettings().RealTimeUpdateSpeedMs(updateSpeed);
+		Core::Settings::UserSettings::GeneralSettings.RealTimeUpdateSpeedMs(updateSpeed);
 	}
 
 	void GeneralViewModel::SelectedAppLanguageIndex(int32_t const& value) noexcept

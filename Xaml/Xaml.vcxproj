@@ -178,6 +178,10 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Selectors\ItemTemplateSelector.h">
+      <DependentUpon>Selectors\ItemTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\Attach\StoreNavigationViewItemAttach.cpp">
@@ -232,6 +236,10 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="Selectors\ItemTemplateSelector.cpp">
+      <DependentUpon>Selectors\ItemTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -278,6 +286,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Mvvm\Input\RelayCommand.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Selectors\ItemTemplateSelector.idl">
       <SubType>Designer</SubType>
     </Midl>
   </ItemGroup>

@@ -116,6 +116,15 @@ namespace winrt::SystemExplorer::Core::System::Management
         unique_mi_instance instance_{};
     };
 
+    struct ManagementConnectionOptions
+    {
+        winrt::hstring ConnectionNamespace;
+        winrt::hstring User;
+        winrt::hstring Password;
+        winrt::hstring Protocol;
+        winrt::hstring Port;
+    };
+
     struct ManagementConnection
     {
         ManagementConnection(winrt::hstring const& connectionNamespace)
@@ -135,6 +144,15 @@ namespace winrt::SystemExplorer::Core::System::Management
             initialize();
         }
 
+        ManagementConnection(
+            ManagementConnectionOptions const& options
+        )
+            : options_(options)
+        {
+            initialize();
+        }
+
+
         ~ManagementConnection() = default; 
 
         [[nodiscard]] concurrency::task<std::vector<ManagementClassObject>> ExecuteQueryAsync(winrt::hstring const& query);
@@ -144,6 +162,8 @@ namespace winrt::SystemExplorer::Core::System::Management
     private:
         unique_mi_application app_{};
         unique_mi_session session_{};
+
+        ManagementConnectionOptions options_{};
 
         winrt::hstring connectionNamespace_{};
         winrt::hstring user_{};

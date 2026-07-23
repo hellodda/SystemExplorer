@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.EmsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:xtl="using:XamlToolkit.Labs.WinUI"
+    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel>
+            <xaml:SimpleSettingsGroup>
+
+                <xtc:SettingsCard Header="Исползовать EMS модули"
+                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
+                                  Description="EMS модули выступают в качестве расширений приложения">
+                    <ToggleSwitch IsOn="True"/>
+                </xtc:SettingsCard>
+
+                <xtc:SettingsExpander
+                       Header="EMS модули"
+                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE71D;}"
+                       Description="Версия: 1.0">
+                    <StackPanel Spacing="8" Orientation="Horizontal">
+                        <FontIcon Foreground="{ThemeResource SystemFillColorSuccessBrush}" FontSize="14" Glyph="&#xEC26;"/>
+                        <TextBlock Text="1 | Подключение"/>
+                    </StackPanel>
+
+                    <xtc:SettingsExpander.Items>
+                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xF158;}" Header="System Explorer VirusTotal Extension" Description="Author: Hellodda, Version: 1.0">
+                            <ToggleSwitch IsOn="True"/>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xF158;}" Header="System Explorer AMSI Scan Tools" Description="Author: Hellodda, Version: 2.1">
+                            <ToggleSwitch IsOn="False"/>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xEA39;}" Header="System Explorer Local AI Model" Description="Author: Hellodda, Version: Experimental">
+                            <ToggleSwitch IsOn="False" IsEnabled="False"/>
+                        </xtc:SettingsCard>
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
+
+                <xtc:SettingsCard Header="Разрешить подключение только доверенным модулям"
+                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xE705;}"
+                                  Description="Только доверенные EMS модули могут подключиться к хосту в целях безопасности">
+                    <ToggleSwitch IsOn="True"/>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+            <xaml:SimpleSettingsGroup Header="Дополнительно">
+                <xtc:SettingsCard Header="Разрешить полный доступ всем модулям (Не безопасно)"
+                     HeaderIcon="{toolkit:FontIcon Glyph=&#xE72E;}"
+                     Description="Все модули могут исползовать защищенные API">
+                    <ToggleSwitch IsOn="False"/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Исползовать прямые вызовы (Не безопасно)"
+                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEF90;}"
+                      Description="Ускоряет передачу сообщений EMS модулей между хостом">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <StackPanel.ChildrenTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition FromVerticalOffset="50" />
+                    <RepositionThemeTransition IsStaggeringEnabled="False" />
+                </TransitionCollection>
+            </StackPanel.ChildrenTransitions>
+        </StackPanel>
+    </Grid>
+</Page>

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "PropertiesPageNavigationParameter.h"
 #if __has_include("Core/Data/Parameters/PropertiesPageNavigationParameter.g.cpp")
 #include "Core/Data/Parameters/PropertiesPageNavigationParameter.g.cpp"

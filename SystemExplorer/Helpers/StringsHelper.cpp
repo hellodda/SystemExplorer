@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "StringsHelper.h"
 
 #if __has_include("Helpers/StringsHelper.g.cpp")

@@ -148,14 +148,14 @@ namespace winrt::SystemExplorer::Core::System::Management
             MI_UserCredentials creds{};
             creds.authenticationType = MI_AUTH_TYPE_DEFAULT;
             creds.credentials.usernamePassword.domain = const_cast<MI_Char*>(L"");
-            creds.credentials.usernamePassword.username = const_cast<MI_Char*>(user_.c_str());
-            creds.credentials.usernamePassword.password = const_cast<MI_Char*>(password_.c_str());
+            creds.credentials.usernamePassword.username = const_cast<MI_Char*>(options_.User.c_str());
+            creds.credentials.usernamePassword.password = const_cast<MI_Char*>(options_.Password.c_str());
 
             check_miresult(MI_DestinationOptions_AddDestinationCredentials(options.get(), &creds));
         }
 
         session_.reset(new MI_Session{});
-        check_miresult(MI_Application_NewSession(app_.get(), nullptr, nullptr, options.get(), nullptr, nullptr, session_.get()));
+        check_miresult(MI_Application_NewSession(app_.get(), options_.Protocol.c_str(), options_.Port.c_str(), options.get(), nullptr, nullptr, session_.get()));
     }
 
     concurrency::task<std::vector<ManagementClassObject>> ManagementConnection::ExecuteQueryAsync(winrt::hstring const& query)

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.RemoteAccessSessionPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:xtl="using:XamlToolkit.Labs.WinUI"
+    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <StackPanel>
+            <TextBlock FontSize="26" Margin="0 10 0 0" Text="Главная > Удаленный доступ > WIN-T1UUBJJ7V8I"/>
+
+            <Grid Margin="0 -10 0 0">
+              
+            </Grid>
+
+            <xaml:SimpleSettingsGroup Margin="0 -30 0 0" Header="Аутентификация и учетные данные">
+                <xtc:SettingsCard Header="Тип аутентификации"
+                                  Description="Механизм проверки подлинности">
+                    <ComboBox SelectedIndex="5">
+                        <ComboBoxItem Content="CredSSP"/>
+                        <ComboBoxItem Content="Kerberos"/>
+                        <ComboBoxItem Content="NTLM"/>
+                        <ComboBoxItem Content="Базовая"/>
+                        <ComboBoxItem Content="По SSL-сертификату"/>
+                        <ComboBoxItem Content="По умолчанию"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Уровень олицетворения"
+                                  Description="Определяет что серверу разрешено делать с вашим токеном">
+                    <ComboBox SelectedIndex="0">
+                        <ComboBoxItem Content="Identify"/>
+                        <ComboBoxItem Content="Impersonate"/>
+                        <ComboBoxItem Content="Delegate"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Защита трафика">
+                <xtc:SettingsCard Header="Конфиденциальность пакетов"
+                                  Description="Содержимое SOAP-сообщений шифруется на уровне протокола WS-Man">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Целостность пакетов"
+                                  Description="Пакеты не шифруются полностью, но подписываются. Гарантирует, что данные не были изменены злоумышленником посередине">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Проверка Центра Сертификации"
+                                  Description="Клиент будет подключаться даже к серверам с самоподписанными SSL-сертификатами">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Проверка имени хоста"
+                                  Description="клиент проигнорирует ситуацию, когда вы подключаетесь по IP (например, 192.168.1.10), а в сертификате сервера указано имя server.domain.local">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Проверка отзыва"
+                                  Description="Требовать проверку сертификата сервера по спискам отзыва (CRL)">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Транспорт и маршрутизация">
+                <xtc:SettingsCard Header="Транспортный протокол">
+                    <ComboBox SelectedIndex="1">
+                        <ComboBoxItem Content="HTTP"/>
+                        <ComboBoxItem Content="HTTPS (рекомендуеться)"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="URL-префикс">
+                  
+                </xtc:SettingsCard>
+                <xtc:SettingsCard Header="Порт SPN">
+                    <ToggleSwitch/>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Ограничения и таймауты">
+                
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Настройки прокси">
+                <xtc:SettingsCard Header="Тип прокси">
+                    <ComboBox SelectedIndex="1">
+                        <ComboBoxItem Content="WinHTTP"/>
+                        <ComboBoxItem Content="Нет"/>
+                        <ComboBoxItem Content="Авто"/>
+                    </ComboBox>
+                </xtc:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+        </StackPanel>
+    </Grid>
+</Page>

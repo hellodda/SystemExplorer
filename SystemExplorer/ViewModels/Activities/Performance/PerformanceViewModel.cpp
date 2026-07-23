@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "PerformanceViewModel.h"
 #if __has_include("ViewModels/Activities/Performance/PerformanceViewModel.g.cpp")
 #include "ViewModels/Activities/Performance/PerformanceViewModel.g.cpp"

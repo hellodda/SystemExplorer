@@ -6,6 +6,7 @@
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 
+
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
     using namespace winrt::Microsoft::UI::Xaml;

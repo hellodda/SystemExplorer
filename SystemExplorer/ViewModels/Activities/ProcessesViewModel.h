@@ -5,7 +5,6 @@
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.Storage.h>
 #include <Core/Data/Items/ProcessItem.h>
-#include <Core/Settings/UserSettings.h>
 #include <Core/System/System.h>
 #include <Core/System/ProcessInformationProvider.h> 
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
@@ -14,7 +13,7 @@
 #include <property.h>
 #include <regex>
 
-#include "../../../Common/cache.h"
+//#include "../../../Common/cache.h"
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
@@ -113,8 +112,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     private: // internal
         void applyTransformations();
         void updateProcessesList(std::vector<native::shared_process_item>& newProcesses);
-        void updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids);
-        void pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids);
+      /*  void updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids);
+        void pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids);*/
 
         IAsyncAction showErrorDialogAsync(hstring const& message);
     private: // commands
@@ -128,8 +127,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         std::shared_ptr<ProcessInformationProvider> provider_{ nullptr };
         std::shared_ptr<IProcessManager> manager_{ nullptr };
 
-        utils::cache_tracker<uint32_t, ProcessItem> itemCache_;
-        absl::flat_hash_map<uint32_t, std::chrono::steady_clock::time_point> deadProcesses_;
+        //utils::cache_tracker<uint32_t, ProcessItem> itemCache_;
+       /* absl::flat_hash_map<uint32_t, std::chrono::steady_clock::time_point> deadProcesses_;*/
 
         DispatcherTimer pullTimer_;
 

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "ProcessesViewModel.h"
 
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
@@ -135,85 +136,85 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     void ProcessesViewModel::applyTransformations()
     {
-        absl::flat_hash_set<uint32_t> activePids;
-        activePids.reserve(lastRawProcesses_.size());
+        //absl::flat_hash_set<uint32_t> activePids;
+        //activePids.reserve(lastRawProcesses_.size());
 
-        updateMetricsAndCache(activePids);
-        pruneDeadProcesses(activePids);
+        //updateMetricsAndCache(activePids);
+        //pruneDeadProcesses(activePids);
     }
 
-    void ProcessesViewModel::updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids)
-    {
-        float totalCpu{ 0.0f };
-        uint64_t totalIo{ 0 };
-        uint64_t totalPrivateBytes{ 0 };
+    //void ProcessesViewModel::updateMetricsAndCache(absl::flat_hash_set<uint32_t>& outActivePids)
+    //{
+    //    float totalCpu{ 0.0f };
+    //    uint64_t totalIo{ 0 };
+    //    uint64_t totalPrivateBytes{ 0 };
 
-        for (const auto& process : lastRawProcesses_)
-        {
-            const auto pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(process->ProcessId));
-            outActivePids.insert(pid);
+    //    for (const auto& process : lastRawProcesses_)
+    //    {
+    //        const auto pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(process->ProcessId));
+    //        outActivePids.insert(pid);
 
-            if (process->ProcessName && std::wstring_view(process->ProcessName) != L"Idle")
-            {
-                totalCpu += process->CpuUsage;
-                totalIo += process->IoReadDelta.Delta;
-                totalPrivateBytes += process->VmCounters.PrivateUsage;
-            }
+    //        if (process->ProcessName && std::wstring_view(process->ProcessName) != L"Idle")
+    //        {
+    //            totalCpu += process->CpuUsage;
+    //            totalIo += process->IoReadDelta.Delta;
+    //            totalPrivateBytes += process->VmCounters.PrivateUsage;
+    //        }
 
-            auto processItem = itemCache_.find_or_create(pid,
-                [](ProcessItem const& item) { return item != nullptr; },
-                [this, &process]() {
-                    auto newItem = CreateProcessItemFromNativeSource(process);
-                    Processes.Append(newItem);
-                    return newItem;
-                }
-            );
+    //        auto processItem = itemCache_.find_or_create(pid,
+    //            [](ProcessItem const& item) { return item != nullptr; },
+    //            [this, &process]() {
+    //                auto newItem = CreateProcessItemFromNativeSource(process);
+    //                Processes.Append(newItem);
+    //                return newItem;
+    //            }
+    //        );
 
-            UpdateProcessItemValues(processItem, process);
-        }
+    //        UpdateProcessItemValues(processItem, process);
+    //    }
 
-        TotalCpuUsage(std::round(totalCpu * 10.0f) / 10.0f);
-        TotalIoRate(totalIo);
-        TotalPrivateBytes(totalPrivateBytes);
-    }
+    //    TotalCpuUsage(std::round(totalCpu * 10.0f) / 10.0f);
+    //    TotalIoRate(totalIo);
+    //    TotalPrivateBytes(totalPrivateBytes);
+    //}
 
-    void ProcessesViewModel::pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids)
-    {
-        auto now = std::chrono::steady_clock::now();
-        const auto gracePeriod = std::chrono::milliseconds(1500);
+    //void ProcessesViewModel::pruneDeadProcesses(absl::flat_hash_set<uint32_t> const& activePids)
+    //{
+    //    auto now = std::chrono::steady_clock::now();
+    //    const auto gracePeriod = std::chrono::milliseconds(1500);
 
-        uint32_t count = Processes.Size();
-        for (uint32_t i = 0; i < count; ++i)
-        {
-            auto item = Processes.GetAt(i);
-            uint32_t pid = static_cast<uint32_t>(item.Pid());
+    //    uint32_t count = Processes.Size();
+    //    for (uint32_t i = 0; i < count; ++i)
+    //    {
+    //        auto item = Processes.GetAt(i);
+    //        uint32_t pid = static_cast<uint32_t>(item.Pid());
 
-            if (!activePids.contains(pid) && !item.IsTerminated())
-            {
-                item.IsTerminated(true);
-                deadProcesses_[pid] = now;
-            }
-        }
+    //        if (!activePids.contains(pid) && !item.IsTerminated())
+    //        {
+    //            item.IsTerminated(true);
+    //            deadProcesses_[pid] = now;
+    //        }
+    //    }
 
-        absl::erase_if(deadProcesses_, [&activePids, now, gracePeriod](const auto& pair) {
-            uint32_t pid = pair.first;
-            return activePids.contains(pid) || (now - pair.second >= gracePeriod);
-        });
+    //    absl::erase_if(deadProcesses_, [&activePids, now, gracePeriod](const auto& pair) {
+    //        uint32_t pid = pair.first;
+    //        return activePids.contains(pid) || (now - pair.second >= gracePeriod);
+    //    });
 
-        absl::flat_hash_set<uint32_t> cacheRetentionPids(activePids);
-        for (const auto& [pid, _] : deadProcesses_)
-        {
-            cacheRetentionPids.insert(pid);
-        }
+    //    absl::flat_hash_set<uint32_t> cacheRetentionPids(activePids);
+    //    for (const auto& [pid, _] : deadProcesses_)
+    //    {
+    //        cacheRetentionPids.insert(pid);
+    //    }
 
-        itemCache_.purge_inactive(cacheRetentionPids, [this](ProcessItem const& uiItem)
-        {
-                if (uint32_t index; Processes.IndexOf(uiItem, index))
-                {
-                    Processes.RemoveAt(index);
-                }
-        });
-    }
+    //    itemCache_.purge_inactive(cacheRetentionPids, [this](ProcessItem const& uiItem)
+    //    {
+    //            if (uint32_t index; Processes.IndexOf(uiItem, index))
+    //            {
+    //                Processes.RemoveAt(index);
+    //            }
+    //    });
+    //}
 
     // commands impl
     IAsyncAction ProcessesViewModel::doTerminateProcessAsync()

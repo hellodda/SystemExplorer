@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "AdvancedViewModel.h"
 #if __has_include("ViewModels/Settings/AdvancedViewModel.g.cpp")
 #include "ViewModels/Settings/AdvancedViewModel.g.cpp"

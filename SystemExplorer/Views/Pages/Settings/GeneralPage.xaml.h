@@ -13,6 +13,9 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         {
             InitializeComponent();
         }
+        winrt::Windows::Foundation::IAsyncAction TEST(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&);
+        winrt::Windows::Foundation::IAsyncAction TEST1(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&);
+
         wil::single_threaded_property<ViewModels::Settings::GeneralViewModel> ViewModel;
     };
 }

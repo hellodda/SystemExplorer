@@ -8,6 +8,9 @@
   <Project Path="Ems/Ems.vcxproj" Id="f804537c-a4a2-41d0-8497-40cbe83edccc">
     <Platform Solution="*|ARM64" Project="x64" />
   </Project>
+  <Project Path="ExplorerCore/ExplorerCore.vcxproj" Id="690786f8-7577-4da2-8bab-29db73ddc618">
+    <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
   <Project Path="KernelExplorer/KernelExplorer.vcxproj">
     <Platform Solution="*|x86" Project="x64" />
     <Deploy />

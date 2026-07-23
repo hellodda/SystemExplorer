@@ -41,6 +41,9 @@
     <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml" />
     <Page Include="Views\Pages\Activities\Performance\CpuPerformancePage.xaml" />
     <Page Include="Views\Pages\Settings\DeveloperToolsPage.xaml" />
+    <Page Include="Views\Pages\Settings\RemoteAccessPage.xaml" />
+    <Page Include="Views\Pages\Settings\EmsPage.xaml" />
+    <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -91,27 +94,6 @@
     <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
       <Filter>Core\Data\Parameters</Filter>
     </Midl>
-    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl">
-      <Filter>Core\Serialization</Filter>
-    </Midl>
-    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl">
-      <Filter>Core\Serialization</Filter>
-    </Midl>
-    <Midl Include="Core\Serialization\SettingsBase.idl">
-      <Filter>Core\Serialization</Filter>
-    </Midl>
-    <Midl Include="Core\Settings\AdvancedSettings.idl">
-      <Filter>Core\Settings</Filter>
-    </Midl>
-    <Midl Include="Core\Settings\AppearanceSettings.idl">
-      <Filter>Core\Settings</Filter>
-    </Midl>
-    <Midl Include="Core\Settings\GeneralSettings.idl">
-      <Filter>Core\Settings</Filter>
-    </Midl>
-    <Midl Include="Core\Settings\UserSettings.idl">
-      <Filter>Core\Settings</Filter>
-    </Midl>
     <Midl Include="Helpers\StringsHelper.idl">
       <Filter>Helpers</Filter>
     </Midl>
@@ -139,22 +121,16 @@
     <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
       <Filter>Views\Pages\Properties</Filter>
     </Midl>
-    <Midl Include="Core\Data\Items\BaseProperties.idl">
-      <Filter>Core\Data\Items</Filter>
-    </Midl>
     <Midl Include="Helpers\UI\AppSystemBackdrop.idl">
       <Filter>Helpers\UI</Filter>
     </Midl>
     <Midl Include="Core\Data\Items\ProcessProperties.idl">
       <Filter>Core\Data\Items</Filter>
     </Midl>
-    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
-      <Filter>ViewModels\Properties</Filter>
-    </Midl>
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
-    <Midl Include="Core\Settings\AppState.idl" />
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl" />
     <Midl Include="ViewModels\Activities\Performance\PerformanceViewModel.idl" />
+    <Midl Include="Core\Data\Items\RemoteComputerItem.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -172,9 +148,6 @@
       <Filter>Core\Services</Filter>
     </ClCompile>
     <ClCompile Include="Core\Services\AppResourcesService.cpp">
-      <Filter>Core\Services</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Services\ComRegistrationService.cpp">
       <Filter>Core\Services</Filter>
     </ClCompile>
     <ClCompile Include="Core\System\ProcessInformationProvider.cpp">
@@ -258,19 +231,10 @@
     <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h">
       <Filter>Core\Diagnostics</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Serialization\functional.h">
-      <Filter>Core\Serialization</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Services\AppLanguageService.h">
       <Filter>Core\Services</Filter>
     </ClInclude>
     <ClInclude Include="Core\Services\AppResourcesService.h">
-      <Filter>Core\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Services\ComRegistrationService.h">
-      <Filter>Core\Services</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Services\ISingletonService.h">
       <Filter>Core\Services</Filter>
     </ClInclude>
     <ClInclude Include="Core\System\ProcessInformationProvider.h">
@@ -361,6 +325,10 @@
     <ClInclude Include="Core\System\N2\base.h" />
     <ClInclude Include="Core\Settings\SharedSettings.h" />
     <ClInclude Include="Core\EMS\EmsHost.h" />
+    <ClInclude Include="Core\System\ISystemDataSource.h" />
+    <ClInclude Include="Core\Settings\Settings.h" />
+    <ClInclude Include="wil_cppwinrt_module.h" />
+    <ClInclude Include="winrt_module_imports.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -384,6 +352,7 @@
     <Image Include="Assets\LockScreenLogo.scale-200.png">
       <Filter>Assets</Filter>
     </Image>
+    <Image Include="Assets\waves.jpg" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">
@@ -510,6 +479,10 @@
     <None Include="Source Generators\ResourceGenerator.ps1" />
     <None Include="Source Generators\JsonModelGenerator.ps1" />
     <None Include="Source Generators\Scheme\AnalysisInfo.json" />
+    <None Include="Core\Settings\default.json" />
+    <None Include="vcpkg.json" />
+    <None Include="vcpkg-configuration.json" />
+    <None Include="SettingsInfoData.json" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

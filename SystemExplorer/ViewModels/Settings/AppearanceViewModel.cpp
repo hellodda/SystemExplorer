@@ -1,9 +1,12 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "AppearanceViewModel.h"
 
 #if __has_include("ViewModels/Settings/AppearanceViewModel.g.cpp")
 #include "ViewModels/Settings/AppearanceViewModel.g.cpp"
 #endif
+
+#include <Core/Settings/Settings.h>
 
 #include <Helpers/StringsHelper.h>
 #include <Helpers/EnumHelper.h>
@@ -56,7 +59,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         if (value >= 0 && value < static_cast<int32_t>(themes.size()))
         {
             SelectedAppThemeIndex_ = value;
-            settings_.ApplicationTheme(themes[value]);
+            Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme(themes[value]);
             RAISE_PROPERTY_CHANGED;
         }
     }
@@ -73,13 +76,13 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     hstring AppearanceViewModel::AppThemeBackgroundColor() const noexcept
     {
-        return settings_.AppThemeBackgroundColor();
+        return Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor();
     }
 
     void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept
     {
         Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(ColorHelper::ToColor(value));
-        settings_.AppThemeBackgroundColor(value);
+        Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor(value);
     }
 
     void AppearanceViewModel::SelectedBackdropMaterial(IInspectable const& value) noexcept
@@ -87,52 +90,52 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         if (SelectedBackdropMaterial_ != value)
         {
             SelectedBackdropMaterial_ = value;
-            settings_.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
+            Core::Settings::UserSettings::AppearanceSettings.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
             RAISE_PROPERTY_CHANGED;
         }
     }
 
     hstring AppearanceViewModel::AppThemeBackgroundImageSource() const noexcept
     {
-        return settings_.AppThemeBackgroundImageSource();
+        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource();
     }
 
     void AppearanceViewModel::AppThemeBackgroundImageSource(hstring const& value) noexcept
     {
         AppThemeBackgroundImageSource_ = value;
-        settings_.AppThemeBackgroundImageSource(value);
+        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource(value);
         RAISE_PROPERTY_CHANGED;
     }
 
     float AppearanceViewModel::AppThemeBackgroundImageOpacity() const noexcept
     {
-        return settings_.AppThemeBackgroundImageOpacity();
+        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity();
     }
 
     void AppearanceViewModel::AppThemeBackgroundImageOpacity(float const& value) noexcept
     {
-        settings_.AppThemeBackgroundImageOpacity(value);
+        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity(value);
         RAISE_PROPERTY_CHANGED;
     }
 
     void AppearanceViewModel::SelectedImageStretchType(IInspectable const& value) noexcept
     {
-        settings_.AppThemeBackgroundImageFit(EnumHelper::Map<Data::Enums::Stretch>(unbox_value<hstring>(value)));
+        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit(EnumHelper::Map<Data::Enums::Stretch>(unbox_value<hstring>(value)));
     }
 
     void AppearanceViewModel::SelectedImageVerticalAlignmentType(IInspectable const& value) noexcept
     {
-        settings_.AppThemeBackgroundImageVerticalAlignment(EnumHelper::Map<Data::Enums::VerticalAlignment>(unbox_value<hstring>(value)));
+        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment(EnumHelper::Map<Data::Enums::VerticalAlignment>(unbox_value<hstring>(value)));
     }
 
     void AppearanceViewModel::SelectedImageHorizontalAlignmentType(IInspectable const& value) noexcept
     {
-        settings_.AppThemeBackgroundImageHorizontalAlignment(EnumHelper::Map<Data::Enums::HorizontalAlignment>(unbox_value<hstring>(value)));
+        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment(EnumHelper::Map<Data::Enums::HorizontalAlignment>(unbox_value<hstring>(value)));
     }
 
     void AppearanceViewModel::updateSelectedAppTheme()
     {
-        auto theme = settings_.ApplicationTheme();
+        auto theme = Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme;
         int32_t index = (theme == ElementTheme::Light) ? 0 : (theme == ElementTheme::Dark ? 1 : 2);
         SelectedAppThemeIndex(index);
     }
@@ -192,21 +195,21 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     void AppearanceViewModel::updateSelectedBackdropMaterial()
     {
-        SetIndexFromSetting(BackdropMaterialTypes, settings_.BackdropMaterial(), &AppearanceViewModel::SelectedBackdropMaterialIndex);
+        //SetIndexFromSetting(BackdropMaterialTypes, Core::Settings::UserSettings::AppearanceSettings.Application, &AppearanceViewModel::SelectedBackdropMaterialIndex);
     }
 
     void AppearanceViewModel::updateSelectedImageStretch()
     {
-        SetIndexFromSetting(ImageStretchTypes, settings_.AppThemeBackgroundImageFit(), &AppearanceViewModel::SelectedImageStretchTypeIndex);
+        SetIndexFromSetting(ImageStretchTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit, &AppearanceViewModel::SelectedImageStretchTypeIndex);
     }
 
     void AppearanceViewModel::updateSelectedImageVerticalAlignmentType()
     {
-        SetIndexFromSetting(ImageVerticalAlignmentTypes, settings_.AppThemeBackgroundImageVerticalAlignment(), &AppearanceViewModel::SelectedImageVerticalAlignmentTypeIndex);
+        SetIndexFromSetting(ImageVerticalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment, &AppearanceViewModel::SelectedImageVerticalAlignmentTypeIndex);
     }
 
     void AppearanceViewModel::updateSelectedImageHorizontalAlignmentType()
     {
-        SetIndexFromSetting(ImageHorizontalAlignmentTypes, settings_.AppThemeBackgroundImageHorizontalAlignment(), &AppearanceViewModel::SelectedImageHorizontalAlignmentTypeIndex);
+        SetIndexFromSetting(ImageHorizontalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment, &AppearanceViewModel::SelectedImageHorizontalAlignmentTypeIndex);
     }
 }

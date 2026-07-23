@@ -7,7 +7,6 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
-#include <Core/Settings/UserSettings.h>
 #include <Helpers/EnumHelper.h>
 #include <App.xaml.h>
 #include <factory.h>
@@ -59,9 +58,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         wil::single_threaded_notifying_property<int32_t> SelectedImageStretchTypeIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageVerticalAlignmentTypeIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageHorizontalAlignmentTypeIndex;
-
-    private:
-        Core::Settings::IAppearanceSettings settings_ = Core::Settings::UserSettings::Instance().AppearanceSettings();
     private:
         IAsyncAction doSelectImageAsync();
 

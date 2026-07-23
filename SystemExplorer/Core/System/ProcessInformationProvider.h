@@ -2,8 +2,9 @@
 #include "System.h"
 #include "ProviderThread.h"
 #include "Native/procproc.h"
-#include "../../../Common/cache.h"
+//#include "../../../Common/cache.h"
 #include "Native.h"
+#include "ISystemDataSource.h"
 #include <wil/resource.h> 
 
 #pragma comment(lib, "ntdll.lib")
@@ -31,13 +32,14 @@ namespace winrt::SystemExplorer::Core::System
             IN uint64_t currentTick
         );
     private:
+        std::unique_ptr<ISystemProcessDataSource> dataSource_{ nullptr };
         std::shared_ptr<ProviderRegistration> registry_;
         ProviderThread thread_;
 
         wil::srwlock lock_;
 
         std::vector<native::shared_process_item> activeProcesses_;
-        utils::cache_tracker<HANDLE, native::shared_process_item> processCache_;
+        //utils::cache_tracker<HANDLE, native::shared_process_item> processCache_;
 
         uint64_t lastSystemTime_{ 0 };
     };

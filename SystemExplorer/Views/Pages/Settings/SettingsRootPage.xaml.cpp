@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "SettingsRootPage.xaml.h"
 #if __has_include("Views/Pages/Settings/SettingsRootPage.g.cpp")
 #include "Views/Pages/Settings/SettingsRootPage.g.cpp"

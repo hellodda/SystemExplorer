@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Settings
+{
+    [default_interface] runtimeclass EmsPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        EmsPage();
+    }
+}

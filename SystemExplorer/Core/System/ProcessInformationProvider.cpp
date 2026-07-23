@@ -46,7 +46,7 @@ namespace winrt::SystemExplorer::Core::System
 
     void ProcessInformationProvider::updateProcesses()
     {
-        auto currentSystemTime = NativeSystem::GetCurrentSystemTime();
+      /*  auto currentSystemTime = NativeSystem::GetCurrentSystemTime();
         auto currentTick = GetTickCount64();
 
         auto buffer = native::nt_safe_wrapper([](auto buffer, auto size, auto returnLength)
@@ -74,7 +74,8 @@ namespace winrt::SystemExplorer::Core::System
             activeProcesses_ = std::move(newActiveProcesses);
             lastSystemTime_ = currentSystemTime;
         }
-        processCache_.purge_inactive(currentTickPids);
+        processCache_.purge_inactive(currentTickPids);*/
+        //dataSource_->QueryProcesses();
     }
 
     native::shared_process_item ProcessInformationProvider::parseCacheProcess(
@@ -84,7 +85,7 @@ namespace winrt::SystemExplorer::Core::System
         IN uint64_t currentTick
     )
     {
-        native::shared_process_item item = processCache_.find_or_create(
+       /* native::shared_process_item item = processCache_.find_or_create(
             pid,
             [Process](const native::shared_process_item& existingItem) {
                 return existingItem->CreateTime.QuadPart == Process->CreateTime.QuadPart;
@@ -172,8 +173,8 @@ namespace winrt::SystemExplorer::Core::System
         else if (lastSystemTime_ == 0)
         {
             item->CpuUsage = 0.0f;
-        }
+        }*/
 
-        return item;
+        return std::shared_ptr<SE_PROCESS_ITEM>(new SE_PROCESS_ITEM{}, native::details::process_item_deleter{});
     }
 }

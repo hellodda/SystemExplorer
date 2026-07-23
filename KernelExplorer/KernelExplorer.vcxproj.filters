@@ -30,6 +30,12 @@
     <ClCompile Include="kseflt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ksedyn.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ksedyndata.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kseapi.h">
@@ -53,5 +59,25 @@
     <ClInclude Include="comms_handlers.c">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="sestatus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ksedyn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ksebase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ksedyndata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ksemsgdyn.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <MessageCompile Include="sestatus.mc">
+      <Filter>Driver Files</Filter>
+    </MessageCompile>
   </ItemGroup>
 </Project>

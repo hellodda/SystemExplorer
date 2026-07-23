@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "EnumHelper.h"
 #include <stdexcept>
 #include <winrt/SystemExplorer.Helpers.h>

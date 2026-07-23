@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "RootPage.xaml.h"
 #if __has_include("Views/Pages/RootPage.g.cpp")
 #include "Views/Pages/RootPage.g.cpp"

@@ -113,17 +113,27 @@
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ksedyndata.c" />
+    <ClCompile Include="ksedyn.c" />
     <ClCompile Include="kseflt.c" />
     <ClCompile Include="main.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\comms.h" />
     <ClInclude Include="comms_handlers.c" />
+    <ClInclude Include="include\ksebase.h" />
+    <ClInclude Include="include\ksedyn.h" />
+    <ClInclude Include="include\ksedyndata.h" />
     <ClInclude Include="include\kseflt.h" />
     <ClInclude Include="include\kse.h" />
     <ClInclude Include="include\kseapi.h" />
     <ClInclude Include="include\ksemsg.h" />
     <ClInclude Include="include\ksemsgdefs.h" />
+    <ClInclude Include="include\ksemsgdyn.h" />
+    <ClInclude Include="sestatus.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <MessageCompile Include="sestatus.mc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

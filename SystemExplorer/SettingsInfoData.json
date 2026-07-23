@@ -1,0 +1,22 @@
+{
+  "General": [
+    {
+      "SettingId": "Language",
+      "SettingName": "Language",
+      "Tags": [
+        "Globalization",
+        "Languages"
+      ]
+    },
+    {
+      "SettingId": "RealTimeUpdateSpeed",
+      "SettingName": "RealTimeUpdateSpeed",
+      "Tags": [
+        "Monitoring",
+        "Processes",
+        "Services",
+        "Network"
+      ]
+    }
+  ]
+}

@@ -31,16 +31,29 @@
             Grid.Row="0"
             x:Name="AppTitleBar"
             Title="System Explorer"
-            Subtitle="Diplomayin editon"
+            Subtitle="WIN-T1UUBJJ7V8I"
             Height="48"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            IsTabStop="True">
+            IsTabStop="True"
+            >
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
             </TitleBar.IconSource>
-        </TitleBar>
 
+            <TitleBar.Content>
+                <AutoSuggestBox 
+                    x:Name="TitleBarSearchBox"
+                    QueryIcon="Find"
+                    Width="400"
+                    MinWidth="250"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"/>
+            </TitleBar.Content>
+        </TitleBar>
+        <!--TextChanged="SearchBox_TextChanged"-->
+          <!--SuggestionChosen="SearchBox_SuggestionChosen"-->
+         <!--QuerySubmitted="SearchBox_QuerySubmitted"-->
         <NavigationView
                  Grid.Row="1"
                  x:Name="NavView"

@@ -45,6 +45,19 @@
 
             </NavigationView.Resources>
 
+            <NavigationView.Header>
+                <BreadcrumbBar x:Name="SettingsBreadcrumbBar" x:FieldModifier="Public" Margin="-36,-12,0,0">
+                    <BreadcrumbBar.Resources>
+                        <x:Double x:Key="BreadcrumbBarChevronFontSize">18</x:Double>
+
+                        <Style TargetType="BreadcrumbBarItem">
+                            <Setter Property="FontSize" Value="26"/>
+                            <Setter Property="FontWeight" Value="SemiBold"/>
+                        </Style>
+                    </BreadcrumbBar.Resources>
+                </BreadcrumbBar>
+            </NavigationView.Header>
+
             <NavigationView.MenuItems>
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
@@ -62,11 +75,6 @@
                                     Icon="{tookit:FontIcon Glyph=&#xE790;}"
                                     />
 
-                <NavigationViewItem Content="Developer tools"
-                                    Tag="SystemExplorer.Views.Pages.Settings.DeveloperToolsPage"
-                                    Icon="{tookit:FontIcon Glyph=&#xEC7A;}"
-                                    />
-
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Advanced}"
                                     Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage"
                                     Icon="{tookit:FontIcon Glyph=&#xF1AD;}"
@@ -79,7 +87,8 @@
 
             </NavigationView.MenuItems>
 
-            <ScrollView>
+
+            <ScrollView Padding="20 0 20 0">
                 <Frame x:Name="SettingsFrame" x:FieldModifier="Public" Loaded="SettingsFrameLoaded">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
@@ -92,6 +101,8 @@
                     </Frame.ContentTransitions>
                 </Frame>
             </ScrollView>
+
+
         </NavigationView>
     </Grid>
 </Page>

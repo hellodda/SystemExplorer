@@ -90,6 +90,7 @@
     <Midl Include="Controls\DataTable\DataColumn.idl" />
     <Midl Include="Controls\DataTable\DataTable.idl" />
     <Midl Include="Controls\DataTable\SortDirection.idl" />
+    <Midl Include="Selectors\ItemTemplateSelector.idl" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml">

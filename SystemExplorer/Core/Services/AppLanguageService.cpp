@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "AppLanguageService.h"
 
 #include <Helpers/Common.h>

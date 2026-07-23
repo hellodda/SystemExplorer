@@ -124,14 +124,14 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
@@ -161,9 +161,9 @@
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -196,10 +196,14 @@
       <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Settings\AppState.h">
-      <DependentUpon>Core\Settings\AppState.idl</DependentUpon>
+    <ClInclude Include="Core\Data\Items\RemoteComputerItem.h">
+      <DependentUpon>Core\Data\Items\RemoteComputerItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Settings\Settings.h" />
+    <ClInclude Include="winrt_module_imports.h" />
+    <ClInclude Include="wil_cppwinrt_module.h" />
+    <ClInclude Include="Core\System\ISystemDataSource.h" />
     <ClInclude Include="Core\System\N2\base.h" />
     <ClInclude Include="Core\System\N2\DeltaUtils.h" />
     <ClInclude Include="Core\System\Native\basestring.h" />
@@ -212,23 +216,14 @@
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Data\Items\BaseProperties.h">
-      <DependentUpon>Core\Data\Items\BaseProperties.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Core\Data\Items\ProcessProperties.h">
       <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Data\Models\SelectedItemsPropertiesViewModel.h">
-      <DependentUpon>Core\Data\Models\SelectedItemsPropertiesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Data\Parameters\PropertiesPageNavigationParameter.h">
       <DependentUpon>Core\Data\Parameters\PropertiesPageNavigationParameter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Services\ComRegistrationService.h" />
     <ClInclude Include="Converters\StringFormatConverter.h">
       <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -238,13 +233,8 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
-    <ClInclude Include="Core\Serialization\functional.h" />
     <ClInclude Include="Core\Services\AppLanguageService.h" />
     <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
-    <ClInclude Include="Core\Serialization\DefaultJsonSettingsSerializer.h">
-      <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Converters\HexToColorConverter.h">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -254,30 +244,9 @@
       <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Serialization\SettingsBase.h">
-      <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Services\ISingletonService.h" />
-    <ClInclude Include="Core\Settings\AdvancedSettings.h">
-      <DependentUpon>Core\Settings\AdvancedSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Settings\AppearanceSettings.h">
-      <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Converters\StringToBrushConverter.h">
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Settings\GeneralSettings.h">
-      <DependentUpon>Core\Settings\GeneralSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Settings\UserSettings.h">
-      <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\System\Native.h" />
@@ -416,6 +385,10 @@
       <DependentUpon>Views\Pages\Activities\ServicesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessSessionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\DeveloperToolsPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -444,8 +417,16 @@
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\EmsPage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\EmsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\GeneralPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\RemoteAccessPage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Views\Windows\MainWindow.xaml.h">
@@ -484,6 +465,9 @@
     <Page Include="Views\Pages\Activities\ServicesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Settings\DeveloperToolsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -502,7 +486,13 @@
     <Page Include="Views\Pages\Settings\AppearancePage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Settings\EmsPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Pages\Settings\GeneralPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Settings\RemoteAccessPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Windows\MainWindow.xaml" />
@@ -520,8 +510,8 @@
       <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\Settings\AppState.cpp">
-      <DependentUpon>Core\Settings\AppState.idl</DependentUpon>
+    <ClCompile Include="Core\Data\Items\RemoteComputerItem.cpp">
+      <DependentUpon>Core\Data\Items\RemoteComputerItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Native\basestring.cpp">
@@ -569,23 +559,14 @@
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\Data\Items\BaseProperties.cpp">
-      <DependentUpon>Core\Data\Items\BaseProperties.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Core\Data\Items\ProcessProperties.cpp">
       <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Data\Models\SelectedItemsPropertiesViewModel.cpp">
-      <DependentUpon>Core\Data\Models\SelectedItemsPropertiesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Data\Parameters\PropertiesPageNavigationParameter.cpp">
       <DependentUpon>Core\Data\Parameters\PropertiesPageNavigationParameter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\Services\ComRegistrationService.cpp" />
     <ClCompile Include="Converters\StringFormatConverter.cpp">
       <DependentUpon>Converters\StringFormatConverter.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -596,10 +577,6 @@
     </ClCompile>
     <ClCompile Include="Core\Services\AppLanguageService.cpp" />
     <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
-    <ClCompile Include="Core\Serialization\DefaultJsonSettingsSerializer.cpp">
-      <DependentUpon>Core\Serialization\DefaultJsonSettingsSerializer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Converters\HexToColorConverter.cpp">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -607,26 +584,6 @@
     </ClCompile>
     <ClCompile Include="Core\Data\EventArguments\SettingChangedEventArgs.cpp">
       <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Serialization\SettingsBase.cpp">
-      <DependentUpon>Core\Serialization\SettingsBase.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Settings\AdvancedSettings.cpp">
-      <DependentUpon>Core\Settings\AdvancedSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Settings\AppearanceSettings.cpp">
-      <DependentUpon>Core\Settings\AppearanceSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Settings\GeneralSettings.cpp">
-      <DependentUpon>Core\Settings\GeneralSettings.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Settings\UserSettings.cpp">
-      <DependentUpon>Core\Settings\UserSettings.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Native\apiimport.cpp">
@@ -834,6 +791,10 @@
       <DependentUpon>Views\Pages\Activities\ServicesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessSessionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Pages\Settings\DeveloperToolsPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -862,6 +823,10 @@
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\EmsPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\EmsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Pages\Settings\GeneralPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -871,6 +836,10 @@
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\RemoteAccessPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
@@ -916,48 +885,27 @@
     <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Data\Items\BaseProperties.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Items\ProcessProperties.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Data\Models\SelectedItemsPropertiesViewModel.idl">
+    <Midl Include="Core\Data\Items\RemoteComputerItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Serialization\DefaultJsonSettingsSerializer.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Serialization\SettingsBase.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Settings\AdvancedSettings.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Settings\AppearanceSettings.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Serialization\IJsonSettingsSerializer.idl" />
-    <Midl Include="Core\Settings\AppState.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Settings\GeneralSettings.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Core\Settings\UserSettings.idl">
-      <SubType>Designer</SubType>
-    </Midl>
+    <None Include="Core\Settings\default.json" />
+    <None Include="SettingsInfoData.json" />
     <None Include="Source Generators\EnumMapingGenerator.ps1" />
     <None Include="Source Generators\JsonModelGenerator.ps1" />
     <None Include="Source Generators\ResourceGenerator.ps1" />
     <None Include="Source Generators\Scheme\AnalysisInfo.json" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
+    <None Include="vcpkg-configuration.json" />
+    <None Include="vcpkg.json" />
     <Text Include="AppSettings\registration.json">
       <FileType>Document</FileType>
     </Text>
@@ -1020,6 +968,10 @@
       <DependentUpon>Views\Pages\Activities\ServicesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Views\Pages\Settings\RemoteAccessSessionPage.idl">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessSessionPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="Views\Pages\Settings\DeveloperToolsPage.idl">
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -1047,8 +999,16 @@
       <DependentUpon>Views\Pages\Settings\AppearancePage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Views\Pages\Settings\EmsPage.idl">
+      <DependentUpon>Views\Pages\Settings\EmsPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="Views\Pages\Settings\GeneralPage.idl">
       <DependentUpon>Views\Pages\Settings\GeneralPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Settings\RemoteAccessPage.idl">
+      <DependentUpon>Views\Pages\Settings\RemoteAccessPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Windows\MainWindow.idl">
@@ -1080,6 +1040,7 @@
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Image Include="Assets\StoreLogo.png" />
+    <Image Include="Assets\waves.jpg" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <!--
@@ -1099,6 +1060,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ExplorerCore\ExplorerCore.vcxproj">
+      <Project>{690786f8-7577-4da2-8bab-29db73ddc618}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\Xaml\Xaml.vcxproj">
       <Project>{7389541c-a0b0-495d-8ae6-388b1761c371}</Project>
     </ProjectReference>
@@ -1139,9 +1103,10 @@
   </PropertyGroup>
   <PropertyGroup Label="Vcpkg">
     <VcpkgEnabled>true</VcpkgEnabled>
-    <PackageCertificateThumbprint>C9AF8FD16914B51D65770ED08E87233FE4310143</PackageCertificateThumbprint>
+    <PackageCertificateThumbprint>79C7B56D573394FD97A28BAA18630BA587D81A6C</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateKeyFile>SystemExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,11 +17,9 @@
         <xconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     </Page.Resources>
     
-    <Grid Padding="20">
+    <Grid>
         <StackPanel>
-            <TextBlock FontSize="26" Margin="0 10 0 0" Text="{x:Bind helpers:StringsHelper.Advanced}"/>
-
-            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
+            <xaml:SimpleSettingsGroup>
                 <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.ExportSettings}"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE8B5;}"
                       IsClickEnabled="True"
@@ -43,27 +41,6 @@
                       Command="{x:Bind ViewModel.OpenSettingsFileCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
-                <xtc:SettingsExpander
-                     Header="Plugins"
-                     HeaderIcon="{toolkit:FontIcon Glyph=&#xE71D;}">
-
-                    <StackPanel Spacing="8" Orientation="Horizontal">
-                        <FontIcon Foreground="{ThemeResource SystemFillColorSuccessBrush}" FontSize="14" Glyph="&#xEC26;"/>
-                        <TextBlock Text="1 | Connections"/>
-                    </StackPanel>
-                    
-                    <xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xF158;}" Header="System Explorer VirusTotal Extension" Description="Author: Hellodda, Version: 1.0">
-                            <ToggleSwitch IsOn="True"/>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xF158;}" Header="System Explorer AMSI Scan Tools" Description="Author: Hellodda, Version: 2.1">
-                            <ToggleSwitch IsOn="False"/>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xEA39;}" Header="System Explorer Local AI Model" Description="Author: Hellodda, Version: Experimental">
-                            <ToggleSwitch IsOn="False" IsEnabled="False"/>
-                        </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>
-                </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
 
             <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.ExperimentalFunctions}">

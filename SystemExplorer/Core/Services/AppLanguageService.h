@@ -1,6 +1,4 @@
 #pragma once
-#include "ISingletonService.h"
-
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Globalization.h> 
 #include <Core/Data/Items/AppLanguageItem.h> 
@@ -12,10 +10,8 @@ namespace winrt::SystemExplorer::Core::Services
 
     using namespace winrt::SystemExplorer::Core::Data::Items;
 
-	struct AppLanguageService : ISingletonService<AppLanguageService>
+	struct AppLanguageService
 	{
-        AppLanguageService();
-
         [[nodiscard]] static IVector<AppLanguageItem> SupportedLanguages() noexcept;
 
         [[nodiscard]] static AppLanguageItem PreferredLanguage() noexcept;
@@ -25,7 +21,6 @@ namespace winrt::SystemExplorer::Core::Services
         [[nodiscard]] static bool TryChange(int32_t index);
 
         [[nodiscard]] static bool TryChange(winrt::hstring const& code);
-
 	};
 }
 

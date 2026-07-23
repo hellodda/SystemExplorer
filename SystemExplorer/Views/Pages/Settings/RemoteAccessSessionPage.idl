@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Settings
+{
+    [default_interface] runtimeclass RemoteAccessSessionPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        RemoteAccessSessionPage();
+    }
+}

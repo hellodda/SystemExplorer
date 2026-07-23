@@ -16,14 +16,9 @@
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     >
-    <!-- kostil 3000 -->
-    <Grid Padding="20">
+    <Grid>
         <StackPanel>
-            <TextBlock FontSize="26"
-                       Margin="0 10 0 0"
-                       Text="{x:Bind helpers:StringsHelper.General}"/>
-
-            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
+            <xaml:SimpleSettingsGroup>
                 <xtc:SettingsCard
                     Header="{x:Bind helpers:StringsHelper.Language}"
                     Description="Select the application language"
@@ -65,6 +60,23 @@
                               ItemsSource="{x:Bind ViewModel.StartPages}"
                               essential:ComboBoxHelper.AcrylicWorkaround="True"/>
                 </xtc:SettingsCard>
+
+                <xtc:SettingsCard Header="Удаленный доступ"
+                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xE8AF;}"
+                                  Description="Управление и мониторинг удаленных компьютеров"
+                                  Click="TEST"
+                                  IsClickEnabled="True">
+
+                </xtc:SettingsCard>
+
+                <xtc:SettingsCard Header="EMS модули-расширения"
+                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
+                                  Description="Управление хостом модулей EMS"
+                                  Click="TEST1"
+                                  IsClickEnabled="True">
+
+                </xtc:SettingsCard>
+
                 <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.WindowManagement}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
                                       Description="Specify the default behavior of the System Explorer window.">
@@ -114,6 +126,12 @@
                         </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
                 </xtc:SettingsExpander>
+
+                <xtc:SettingsCard Header="Инструменты разработчика"
+                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEC7A;}"
+                      IsClickEnabled="True">
+
+                </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
             <xaml:SimpleSettingsGroup
                 Header="{x:Bind helpers:StringsHelper.ResetSettings}">

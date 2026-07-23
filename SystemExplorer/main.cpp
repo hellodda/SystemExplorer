@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "App.xaml.h"
 #include "Core/System/native.h"
 #include "Helpers/Common.h"

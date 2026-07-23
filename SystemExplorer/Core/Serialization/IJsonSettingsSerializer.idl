@@ -1,9 +1,0 @@
-namespace SystemExplorer.Core.Serialization
-{
-    interface IJsonSettingsSerializer
-    {
-        String ExportSettingsToJson();
-        void ImportSettingsFromJson(String json);
-    };
-
-}

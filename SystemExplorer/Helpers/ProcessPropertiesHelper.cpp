@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "ProcessPropertiesHelper.h"
 
 #include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>

@@ -1,0 +1,7 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass RemoteComputerItem 
+    {
+        RemoteComputerItem();
+    }
+}
