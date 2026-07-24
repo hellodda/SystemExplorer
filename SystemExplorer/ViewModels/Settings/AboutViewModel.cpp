@@ -4,8 +4,6 @@
 #if __has_include("ViewModels/Settings/AboutViewModel.g.cpp")
 #include "ViewModels/Settings/AboutViewModel.g.cpp"
 #endif
-#include <winrt/Windows.Storage.h>
-#include <winrt/Microsoft.Windows.Storage.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {

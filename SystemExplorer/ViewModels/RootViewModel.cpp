@@ -6,36 +6,55 @@
 #endif
 #include "../App.xaml.h"
 #include "../Helpers/Win32/Native/NativeSystem.h"
-#include "../Core/Settings/UserSettings.h"
-#include <winrt/Microsoft.Windows.Storage.Pickers.h>
-
-using namespace winrt::SystemExplorer::Core::Settings;
+#include "../Core/Settings/Settings.h"
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
     RootViewModel::RootViewModel()
     {
-        UserSettings::Instance().AppearanceSettings().SettingChanged([this](auto& sender, auto& args)
+        Core::Settings::UserSettings::AppearanceSettings.SettingChanged([this](std::string_view name, eil::generic_t value)
         {
-            onSettingChanged(sender, args);
+            if (name == "AppThemeBackgroundImageFit")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageFit");
+            }
+            else if (name == "AppThemeBackgroundImageVerticalAlignment")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageVerticalAlignment");
+            }
+            else if (name == "AppThemeBackgroundImageHorizontalAlignment")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageHorizontalAlignment");
+            }
+            else if (name == "AppThemeBackgroundImageSource")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageSource");
+            }
+            else if (name == "AppThemeBackgroundImageOpacity")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
+            }
         });
     }
 
     Stretch RootViewModel::AppThemeBackgroundImageFit() const noexcept
     {
-        return static_cast<Stretch>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageFit());
+        return static_cast<Stretch>(Core::Settings::UserSettings::AppearanceSettings().AppThemeBackgroundImageFit());
     }
+
     VerticalAlignment RootViewModel::AppThemeBackgroundImageVerticalAlignment() const noexcept
     {
-        return static_cast<VerticalAlignment>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageVerticalAlignment());
+        return static_cast<VerticalAlignment>(Core::Settings::UserSettings::AppearanceSettings().AppThemeBackgroundImageVerticalAlignment());
     }
+
     HorizontalAlignment RootViewModel::AppThemeBackgroundImageHorizontalAlignment() const noexcept
     {
-        return static_cast<HorizontalAlignment>(UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageHorizontalAlignment());
+        return static_cast<HorizontalAlignment>(Core::Settings::UserSettings::AppearanceSettings().AppThemeBackgroundImageHorizontalAlignment());
     }
+
     ImageSource RootViewModel::AppThemeBackgroundImageSource() const noexcept
     {
-        auto source = UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageSource();
+        auto source = Core::Settings::UserSettings::AppearanceSettings().AppThemeBackgroundImageSource();
         
         if (source.empty())
         {
@@ -51,9 +70,10 @@ namespace winrt::SystemExplorer::ViewModels::implementation
             return nullptr;
         }
     }
+
     float RootViewModel::AppThemeBackgroundImageOpacity() const noexcept
     {
-        return UserSettings::Instance().AppearanceSettings().AppThemeBackgroundImageOpacity();
+        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity();
     }
 
     IAsyncAction RootViewModel::doCreateLiveKernelMemoryDumpAsync()
@@ -72,30 +92,6 @@ namespace winrt::SystemExplorer::ViewModels::implementation
                 co_await NativeSystem::Kernel::CreateLiveKernelMemoryDumpAsync(savedFile.Path().c_str());
             }
             catch (...) {}
-        }
-    }
-
-    void RootViewModel::onSettingChanged(IInspectable const& sender, Data::EventArguments::SettingChangedEventArgs const& args)
-    {
-        if (args.SettingName() == L"AppThemeBackgroundImageFit")
-        {
-            RaisePropertyChanged(L"AppThemeBackgroundImageFit");
-        }
-        else if (args.SettingName() == L"AppThemeBackgroundImageVerticalAlignment")
-        {
-            RaisePropertyChanged(L"AppThemeBackgroundImageVerticalAlignment");
-        }
-        else if (args.SettingName() == L"AppThemeBackgroundImageHorizontalAlignment")
-        {
-            RaisePropertyChanged(L"AppThemeBackgroundImageHorizontalAlignment");
-        }
-        else if (args.SettingName() == L"AppThemeBackgroundImageSource")
-        {
-            RaisePropertyChanged(L"AppThemeBackgroundImageSource");
-        }
-        else if (args.SettingName() == L"AppThemeBackgroundImageOpacity")
-        {
-            RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
         }
     }
 }

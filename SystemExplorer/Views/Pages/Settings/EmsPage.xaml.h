@@ -6,11 +6,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     struct EmsPage : EmsPageT<EmsPage>
     {
-        EmsPage()
-        {
-         
-        }
-
+        EmsPage() = default;
     };
 }
 

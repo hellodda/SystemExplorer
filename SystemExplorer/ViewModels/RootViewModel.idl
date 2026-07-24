@@ -1,11 +1,8 @@
-
 import "ViewModels/ViewModelBase.idl";
 
 namespace SystemExplorer.ViewModels
 {
-    [bindable]
-    [default_interface]
-    runtimeclass RootViewModel : ViewModelBase
+    [default_interface] runtimeclass RootViewModel : ViewModelBase
     {
         RootViewModel();
 

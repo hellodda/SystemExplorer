@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.props')" />
@@ -240,10 +240,6 @@
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Data\EventArguments\SettingChangedEventArgs.h">
-      <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h" />
     <ClInclude Include="Converters\StringToBrushConverter.h">
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
@@ -393,18 +389,6 @@
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Views\Pages\Properties\BasePropertiesPage.h">
-      <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Views\Pages\Properties\PropertiesGeneralPage.xaml.h">
-      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Views\Pages\Properties\PropertiesRootPage.xaml.h">
-      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\AboutPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\AboutPage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -469,12 +453,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Settings\DeveloperToolsPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml">
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Settings\AboutPage.xaml">
@@ -580,10 +558,6 @@
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Converters\HexToColorConverter.cpp">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Data\EventArguments\SettingChangedEventArgs.cpp">
-      <DependentUpon>Core\Data\EventArguments\SettingChangedEventArgs.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\System\Native\apiimport.cpp">
@@ -747,10 +721,12 @@
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.cpp">
       <DependentUpon>ViewModels\Activities\ProcessesViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
     <ClCompile Include="ViewModels\Settings\AboutViewModel.cpp">
       <DependentUpon>ViewModels\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -797,18 +773,6 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\DeveloperToolsPage.xaml.cpp">
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Views\Pages\Properties\BasePropertiesPage.cpp">
-      <DependentUpon>Views\Pages\Properties\BasePropertiesPage.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Views\Pages\Properties\PropertiesGeneralPage.xaml.cpp">
-      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Views\Pages\Properties\PropertiesRootPage.xaml.cpp">
-      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\AboutPage.xaml.cpp">
@@ -882,9 +846,6 @@
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Data\Enums\Stretch.idl" />
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
-    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -974,17 +935,6 @@
     </Midl>
     <Midl Include="Views\Pages\Settings\DeveloperToolsPage.idl">
       <DependentUpon>Views\Pages\Settings\DeveloperToolsPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Views\Pages\Properties\PropertiesGeneralPage.idl">
-      <DependentUpon>Views\Pages\Properties\PropertiesGeneralPage.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Midl>
-    <Midl Include="Views\Pages\Properties\PropertiesRootPage.idl">
-      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
     <Midl Include="Views\Pages\Settings\AboutPage.idl">
@@ -1106,7 +1056,7 @@
     <PackageCertificateThumbprint>79C7B56D573394FD97A28BAA18630BA587D81A6C</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateKeyFile>SystemExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+    <VcpkgEnableManifest>false</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

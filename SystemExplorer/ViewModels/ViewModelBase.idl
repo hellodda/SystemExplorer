@@ -1,8 +1,6 @@
 namespace SystemExplorer.ViewModels
 {
-    [bindable]
-    [default_interface]
-    unsealed runtimeclass ViewModelBase : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    [default_interface] unsealed runtimeclass ViewModelBase : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
     {
         ViewModelBase();
     }

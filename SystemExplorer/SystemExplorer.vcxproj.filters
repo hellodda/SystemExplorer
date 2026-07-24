@@ -25,17 +25,11 @@
     <Page Include="Views\Pages\Activities\ProcessesPage.xaml">
       <Filter>Views\Pages\Activities</Filter>
     </Page>
-    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
-      <Filter>Views\Pages\Properties</Filter>
-    </Page>
     <Page Include="Views\Pages\RootPage.xaml">
       <Filter>Views\Pages</Filter>
     </Page>
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml">
       <Filter>Views\Pages\Settings</Filter>
-    </Page>
-    <Page Include="Views\Pages\Properties\PropertiesGeneralPage.xaml">
-      <Filter>Views\Pages\Properties</Filter>
     </Page>
     <Page Include="Views\Pages\Activities\ServicesPage.xaml" />
     <Page Include="Views\Pages\Activities\Performance\PerformanceRootPage.xaml" />
@@ -76,9 +70,6 @@
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl">
       <Filter>Core\Data\Enums</Filter>
     </Midl>
-    <Midl Include="Core\Data\EventArguments\SettingChangedEventArgs.idl">
-      <Filter>Core\Data\EventArguments</Filter>
-    </Midl>
     <Midl Include="Core\Data\Items\AppLanguageItem.idl">
       <Filter>Core\Data\Items</Filter>
     </Midl>
@@ -117,9 +108,6 @@
     </Midl>
     <Midl Include="ViewModels\Activities\ProcessesViewModel.idl">
       <Filter>ViewModels\Activities</Filter>
-    </Midl>
-    <Midl Include="Views\Pages\Properties\BasePropertiesPage.idl">
-      <Filter>Views\Pages\Properties</Filter>
     </Midl>
     <Midl Include="Helpers\UI\AppSystemBackdrop.idl">
       <Filter>Helpers\UI</Filter>
@@ -213,6 +201,8 @@
     <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
     <ClCompile Include="Core\Settings\SharedSettings.cpp" />
     <ClCompile Include="Core\EMS\EmsHost.cpp" />
+    <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
+    <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />

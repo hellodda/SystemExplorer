@@ -6,23 +6,13 @@
 #  include "module.g.cpp"
 #endif
 #include "Views/Windows/MainWindow.xaml.h"
-#include "Core/Settings/UserSettings.h"
-#include "Core/Services/AppResourcesService.h"
-#include "Core/Diagnostics/AsyncFileLogger.h"
-#include <wil/result_macros.h>
-#include <winrt/Microsoft.UI.Windowing.h>
-
-
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::SystemExplorer::implementation
 {
-
     App::App()
     {
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
-        UnhandledException([](IInspectable const&, UnhandledExceptionEventArgs const& e)
+        UnhandledException([](winrt::IInspectable const&, winrt::UnhandledExceptionEventArgs const& e)
         {
             if (IsDebuggerPresent())
             {
@@ -33,13 +23,13 @@ namespace winrt::SystemExplorer::implementation
 #endif
     }
 
-    void App::OnLaunched([[maybe_unused]] LaunchActivatedEventArgs const& e)
+    void App::OnLaunched([[maybe_unused]] winrt::LaunchActivatedEventArgs const& e)
     {
         window_ = make<Views::Windows::implementation::MainWindow>();
         window_.Activate();
     }
 
-    Microsoft::UI::WindowId App::GetCurrentWindowId() noexcept
+    winrt::WindowId App::GetCurrentWindowId() noexcept
     {
         return window_.AppWindow().Id();
     }

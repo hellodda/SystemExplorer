@@ -6,12 +6,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     struct RemoteAccessPage : RemoteAccessPageT<RemoteAccessPage>
     {
-        RemoteAccessPage()
-        {
-          
-        }
-
-        winrt::Windows::Foundation::IAsyncAction BtnClicked(winrt::Windows::Foundation::IInspectable const&, winrt::Microsoft::UI::Xaml::RoutedEventArgs const&);
+        RemoteAccessPage() = default;
     };
 }
 

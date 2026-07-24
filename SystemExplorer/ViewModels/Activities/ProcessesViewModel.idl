@@ -3,25 +3,22 @@ import "Core/Data/Items/ProcessItem.idl";
 
 namespace SystemExplorer.ViewModels.Activities
 {
-    [bindable]
-    [default_interface]
-    runtimeclass ProcessesViewModel : SystemExplorer.ViewModels.ViewModelBase
+    [default_interface] runtimeclass ProcessesViewModel : SystemExplorer.ViewModels.ViewModelBase
     {
         ProcessesViewModel();
         
-        SystemExplorer.Core.Data.Items.ProcessItem SelectedProcess;
+        SystemExplorer.Core.Data.Items.ProcessItem SelectedProcess { get; set; };
 
-        Single TotalCpuUsage;
-        UInt64 TotalIoRate;
-        UInt64 TotalPrivateBytes;
+        Single TotalCpuUsage { get; set; };
+        UInt64 TotalIoRate { get; set; };
+        UInt64 TotalPrivateBytes { get; set; };
 
-        Int32 ItemIconSize;
-        Int32 ItemFontSize;
+        Int32 ItemIconSize { get; set; };
+        Int32 ItemFontSize { get; set; };
 
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ChangeItemSizeCommand { get; };
 
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ProcessItem> Processes { get; };
-
         
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };
         SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SuspendProcessCommand { get; };

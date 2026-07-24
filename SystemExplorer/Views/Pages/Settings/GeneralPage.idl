@@ -2,8 +2,7 @@ import "ViewModels/Settings/GeneralViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
-    [default_interface]
-    runtimeclass GeneralPage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass GeneralPage : Microsoft.UI.Xaml.Controls.Page
     {
         GeneralPage();
 

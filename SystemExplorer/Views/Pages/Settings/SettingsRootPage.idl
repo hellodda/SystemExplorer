@@ -1,7 +1,6 @@
 namespace SystemExplorer.Views.Pages.Settings
 {
-    [default_interface]
-    runtimeclass SettingsRootPage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass SettingsRootPage : Microsoft.UI.Xaml.Controls.Page
     {
         SettingsRootPage();
     }

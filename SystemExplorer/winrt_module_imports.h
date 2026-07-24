@@ -2,6 +2,8 @@
 
 #ifdef __INTELLISENSE__
 
+#include <winrt/Microsoft.Windows.Storage.Pickers.h>
+
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Foundation.Metadata.h>
@@ -9,18 +11,28 @@
 #include <winrt/Windows.UI.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Graphics.Imaging.h>
+#include <winrt/Windows.System.h>
+#include <winrt/Windows.Storage.h>
+#include <winrt/Windows.Storage.Pickers.h>
+#include <winrt/Windows.Storage.Streams.h>
 
 #include <winrt/Microsoft.UI.h>
+#include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Microsoft.UI.Text.h>
 #include <winrt/Microsoft.UI.Xaml.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
+#include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
 #include <winrt/Microsoft.UI.Xaml.Hosting.h>
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#include <winrt/Microsoft.Windows.Storage.Pickers.h>
+#include <winrt/Microsoft.Windows.Storage.h>
 
+#include <winrt/SystemExplorer.Xaml.h>
+#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <winrt/XamlToolkit.WinUI.h>
 #include <winrt/XamlToolkit.WinUI.Converters.h>
 #include <winrt/XamlToolkit.WinUI.Helpers.h>
@@ -39,23 +51,34 @@ import winrt.Windows.Foundation.Numerics;
 import winrt.Windows.UI;
 import winrt.Windows.UI.Xaml.Interop;
 import winrt.Windows.Graphics.Imaging;
+import winrt.Windows.System;
+import winrt.Windows.Storage;
+import winrt.Windows.Storage.Storage.Pickers;
+import winrt.Windows.Storage.Storage.Streams;
 
 import winrt.Microsoft.UI;
+import winrt.Microsoft.UI.Windowing;
 import winrt.Microsoft.UI.Dispatching;
 import winrt.Microsoft.UI.Text;
 import winrt.Microsoft.UI.Xaml;
 import winrt.Microsoft.UI.Xaml.Media;
+import winrt.Microsoft.UI.Xaml.Media.Imaging;
 import winrt.Microsoft.UI.Xaml.Controls;
 import winrt.Microsoft.UI.Xaml.Hosting;
 import winrt.Microsoft.UI.Xaml.Markup;
 import winrt.Microsoft.UI.Xaml.Shapes;
 import winrt.Microsoft.UI.Xaml.XamlTypeInfo;
+import winrt.Microsoft.Windows.Storage.Pickers;
+import winrt.Microsoft.Windows.Storage;
 
 import winrt.XamlToolkit.WinUI;
 import winrt.XamlToolkit.WinUI.Converters;
 import winrt.XamlToolkit.WinUI.Helpers;
 import winrt.XamlToolkit.WinUI.Controls;
 import winrt.XamlToolkit.WinUI.Animations;
+
+import winrt.SystemExplorer.Xaml;
+import winrt.SystemExplorer.Xaml.Mvvm.Input;
 
 #include <wil_cppwinrt_module.h>
 #endif

@@ -6,11 +6,9 @@
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
-    using namespace winrt::Windows::Foundation;
-
     struct ServicesPage : ServicesPageT<ServicesPage>
     {
-        ServicesPage();
+        ServicesPage() = default;
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Pages::Activities, ServicesPage);

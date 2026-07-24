@@ -1,36 +1,31 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "ActivitiesRootPage.xaml.h"
 #if __has_include("Views/Pages/Activities/ActivitiesRootPage.g.cpp")
 #include "Views/Pages/Activities/ActivitiesRootPage.g.cpp"
 #endif
-#include <Core/Settings/UserSettings.h>
-#include <winrt/Windows.UI.Xaml.Interop.h>
-#include <winrt/Microsoft.UI.Xaml.Media.Animation.h>
-
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
-using namespace winrt::Windows::UI::Xaml::Interop;
-
+#include <Core/Settings/Settings.h>
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
-    IAsyncAction ActivitiesRootPage::ActivitiesFrameLoaded(IInspectable const& sender, RoutedEventArgs const& args)
+    winrt::IAsyncAction ActivitiesRootPage::ActivitiesFrameLoaded(winrt::IInspectable const& sender, winrt::RoutedEventArgs const& args)
     {
         if (ActivitiesFrame().Content() == nullptr)
         {
-            auto startPage = Core::Settings::UserSettings::Instance().GeneralSettings().StartPage();
+            auto startPage = Core::Settings::UserSettings::GeneralSettings.StartPage();
             auto startPageFull = L"SystemExplorer.Views.Pages.Activities." + startPage;
 
             ActivitiesFrame().Navigate(TypeName{ startPageFull, TypeKind::Metadata });
         }
         co_return;
     }
-    IAsyncAction ActivitiesRootPage::ActivitiesNavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args)
+
+    winrt::IAsyncAction ActivitiesRootPage::ActivitiesNavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args)
     {
         if (auto item = args.SelectedItem())
         {
-            auto transitionInfo = winrt::Microsoft::UI::Xaml::Media::Animation::SlideNavigationTransitionInfo{};
-            transitionInfo.Effect(winrt::Microsoft::UI::Xaml::Media::Animation::SlideNavigationTransitionEffect::FromRight);
+            auto transitionInfo = winrt::SlideNavigationTransitionInfo{};
+            transitionInfo.Effect(winrt::SlideNavigationTransitionEffect::FromRight);
 
             if (auto pageStr = item.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Tag())
             {

@@ -2,8 +2,7 @@ import "ViewModels/Settings/AdvancedViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
-    [default_interface]
-    runtimeclass AdvancedPage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass AdvancedPage : Microsoft.UI.Xaml.Controls.Page
     {
         AdvancedPage();
 

@@ -6,3 +6,6 @@
 #include <absl/container/flat_hash_set.h>
 #include <absl/hash/hash.h>
 #include <glaze/glaze.hpp>
+
+#include <EIL/fast_event.h>
+#include <EIL/settings.h>

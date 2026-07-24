@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "ViewModels/ViewModelBase.g.h"
-#include <wil/cppwinrt_authoring.h>
+
 #include <factory.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation

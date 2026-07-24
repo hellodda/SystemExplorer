@@ -5,15 +5,7 @@
 #include "Views/Pages/RootPage.g.cpp"
 #endif
 #include "Activities/ProcessesPage.xaml.h"
-#include <winrt/Windows.UI.Xaml.Interop.h>
 #include "Settings/SettingsRootPage.xaml.h"
- 
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
-using namespace winrt::Windows::Foundation;
-using namespace winrt::Microsoft::UI::Xaml;
-using namespace winrt::Microsoft::UI::Xaml::Controls;
-using namespace Windows::UI::Xaml::Interop;
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
 {
@@ -24,18 +16,18 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
         NavFrame().Navigate(xaml_typename<Activities::ActivitiesRootPage>());
     }
 
-	IAsyncAction RootPage::NavViewSelectionChanged(NavigationView const& sender, NavigationViewSelectionChangedEventArgs const& args)
+	IAsyncAction RootPage::NavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args)
 	{
         if (auto item = args.SelectedItem())
         {
-            if (auto pageTag = item.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Tag())
+            if (auto pageTag = item.as<winrt::FrameworkElement>().Tag())
             {
-				auto pageTagStr = pageTag.try_as<hstring>();
+				auto pageTagStr = pageTag.try_as<winrt::hstring>();
 
                 if (pageTagStr == L"Settings")
 					pageTagStr = xaml_typename<SystemExplorer::Views::Pages::Settings::SettingsRootPage>().Name;
                 
-                TypeName typeName{ pageTagStr.value(), TypeKind::Custom };
+                winrt::TypeName typeName{ pageTagStr.value(), winrt::TypeKind::Custom };
                 NavFrame().Navigate(typeName);
             }
         }

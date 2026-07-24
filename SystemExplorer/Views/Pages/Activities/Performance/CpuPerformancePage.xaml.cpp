@@ -1,12 +1,11 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "CpuPerformancePage.xaml.h"
 #if __has_include("Views/Pages/Activities/Performance/CpuPerformancePage.g.cpp")
 #include "Views/Pages/Activities/Performance/CpuPerformancePage.g.cpp"
 #endif
 #include  <Helpers/UI/DesktopNotification.h>
 
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::Performance::implementation
 {

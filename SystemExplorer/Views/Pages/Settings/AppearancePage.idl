@@ -2,8 +2,7 @@ import "ViewModels/Settings/AppearanceViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
-    [default_interface]
-    runtimeclass AppearancePage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass AppearancePage : Microsoft.UI.Xaml.Controls.Page
     {
         AppearancePage();
 

@@ -6,10 +6,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     struct RemoteAccessSessionPage : RemoteAccessSessionPageT<RemoteAccessSessionPage>
     {
-        RemoteAccessSessionPage()
-        {
-
-        }
+        RemoteAccessSessionPage() = default;
     };
 }
 

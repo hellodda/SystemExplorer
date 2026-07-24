@@ -6,10 +6,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     struct DeveloperToolsPage : DeveloperToolsPageT<DeveloperToolsPage>
     {
-        DeveloperToolsPage()
-        {
-          
-        }
+        DeveloperToolsPage() = default;
     };
 }
 

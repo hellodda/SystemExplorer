@@ -239,8 +239,6 @@ namespace eil
 
         std::wstring get_wstring() const
         {
-            // ИСПРАВЛЕНИЕ: Используем правильную конвертацию вместо наивного копирования итераторов,
-            // которое ломало не-ASCII символы
             return eil::details::to_utf16(get_string());
         }
 
@@ -378,12 +376,12 @@ namespace eil
 
             if (isChanged)
             {
-                SettingChaged.invoke(key, eil::generic_t{ value });
+                SettingChanged.invoke(key, eil::generic_t{ value });
             }
         }
 
     public:
-        event_t SettingChaged;
+        event_t SettingChanged;
 
         settings_base()
         {

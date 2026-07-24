@@ -2,8 +2,7 @@ import "ViewModels/Activities/ProcessesViewModel.idl";
 
 namespace SystemExplorer.Views.Pages.Activities
 {
-    [default_interface]
-    runtimeclass ProcessesPage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass ProcessesPage : Microsoft.UI.Xaml.Controls.Page
     {
         ProcessesPage();
 

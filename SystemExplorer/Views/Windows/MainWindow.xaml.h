@@ -1,20 +1,18 @@
 #pragma once
 #include "Views/Windows/MainWindow.g.h"
-#include <winrt/Microsoft.UI.Windowing.h>
-#include <Core/Settings/UserSettings.h>
-#include <Core/Services/AppResourcesService.h>
 #include <factory.h>
 
-namespace winrt::SystemExplorer::Views::Windows::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Microsoft::UI::Windowing;
+}
 
+namespace winrt::SystemExplorer::Views::Windows::implementation
+{
     struct MainWindow : MainWindowT<MainWindow>
     {
         MainWindow();
-        void LoadSettings();
-        void OnApplicationThemeSettingChanged(IInspectable const& sender, Core::Data::EventArguments::SettingChangedEventArgs const& args);
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Windows, MainWindow);

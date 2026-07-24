@@ -2,9 +2,7 @@ import "Core/Settings/AdvancedSettings.idl";
 
 namespace SystemExplorer.ViewModels.Settings
 {
-    [bindable]
-    [default_interface]
-    runtimeclass AdvancedViewModel 
+    [default_interface] runtimeclass AdvancedViewModel 
     {
         AdvancedViewModel();
 

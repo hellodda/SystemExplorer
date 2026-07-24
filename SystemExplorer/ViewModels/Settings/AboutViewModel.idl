@@ -1,8 +1,6 @@
 namespace SystemExplorer.ViewModels.Settings
 {
-    [bindable]
-    [default_interface]
-    runtimeclass AboutViewModel 
+    [default_interface] runtimeclass AboutViewModel 
     {
         AboutViewModel();
 

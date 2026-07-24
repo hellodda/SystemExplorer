@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "ProcessesPage.xaml.h"
 #if __has_include("Views/Pages/Activities/ProcessesPage.g.cpp")
 #include "Views/Pages/Activities/ProcessesPage.g.cpp"
@@ -7,20 +8,14 @@
 #include <ViewModels/Activities/ProcessesViewModel.h>
 #include <Helpers/ProcessPropertiesHelper.h>
 
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
-using namespace winrt::Microsoft::UI::Xaml::Controls;
-
-using namespace winrt::XamlToolkit::Labs::WinUI;
-
 
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
-    IAsyncAction ProcessesPage::ProcessMenuFlyoutOpened(IInspectable const& sender, IInspectable const&)
+    winrt::IAsyncAction ProcessesPage::ProcessMenuFlyoutOpened(winrt::IInspectable const& sender, winrt::IInspectable const&)
     {
-        if (auto flyout = sender.try_as<MenuFlyout>())
+        if (auto flyout = sender.try_as<winrt::MenuFlyout>())
         {
-            if (auto targetElement = flyout.Target().try_as<FrameworkElement>())
+            if (auto targetElement = flyout.Target().try_as<winrt::FrameworkElement>())
             {
                 auto dataContext = targetElement.DataContext();
 

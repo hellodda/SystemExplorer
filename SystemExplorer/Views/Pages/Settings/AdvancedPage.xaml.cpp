@@ -5,9 +5,6 @@
 #include "Views/Pages/Settings/AdvancedPage.g.cpp"
 #endif
 
-using namespace winrt;
-using namespace winrt::Microsoft::UI::Xaml;
-
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
   
