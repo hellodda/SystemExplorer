@@ -1,6 +1,5 @@
 import "ViewModels/ViewModelBase.idl";
 
-import "Core/Settings/AppearanceSettings.idl";
 import "Core/Data/Items/AppThemeResourceItem.idl";
 
 namespace SystemExplorer.ViewModels.Settings

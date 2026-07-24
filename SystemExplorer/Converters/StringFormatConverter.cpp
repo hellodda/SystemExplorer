@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "StringFormatConverter.h"
 #if __has_include("Converters/StringFormatConverter.g.cpp")
 #include "Converters/StringFormatConverter.g.cpp"

@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.Widgets.2.0.5\build\native\Microsoft.WindowsAppSDK.Widgets.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Widgets.2.0.5\build\native\Microsoft.WindowsAppSDK.Widgets.props')" />
@@ -13,7 +14,6 @@
   <Import Project="..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.props" Condition="Exists('..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props')" />
-  <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props')" />
   <PropertyGroup Label="Globals">
     <CppWinRTOptimized>true</CppWinRTOptimized>
     <CppWinRTRootNamespaceAutoMerge>true</CppWinRTRootNamespaceAutoMerge>
@@ -38,6 +38,8 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <CppWinRTUsePrefixes>false</CppWinRTUsePrefixes>
     <CppWinRTLibs>true</CppWinRTLibs>
+    <CppWinRTBuildModule>true</CppWinRTBuildModule>
+    <BuildStlModules>true</BuildStlModules>
     <CppWinRTProjectLanguage>C++/WinRT</CppWinRTProjectLanguage>
     <WindowsAppSdkAutoInitialize>true</WindowsAppSdkAutoInitialize>
   </PropertyGroup>
@@ -203,21 +205,13 @@
     <ClInclude Include="Core\Settings\Settings.h" />
     <ClInclude Include="winrt_module_imports.h" />
     <ClInclude Include="wil_cppwinrt_module.h" />
-    <ClInclude Include="Core\System\ISystemDataSource.h" />
-    <ClInclude Include="Core\System\N2\base.h" />
-    <ClInclude Include="Core\System\N2\DeltaUtils.h" />
     <ClInclude Include="Core\System\Native\basestring.h" />
     <ClInclude Include="Core\System\Native\file.h" />
     <ClInclude Include="Core\System\Native\guisup.h" />
     <ClInclude Include="Core\System\Native\dump.h" />
     <ClInclude Include="Core\System\Native\symprv.h" />
-    <ClInclude Include="Core\System\Tools\AmsiScanner.h" />
     <ClInclude Include="Converters\TransparencyConverter.h">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Core\Data\Items\ProcessProperties.h">
-      <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Data\Parameters\PropertiesPageNavigationParameter.h">
@@ -232,9 +226,23 @@
       <DependentUpon>Converters\ValueToSizeUnitConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Diagnostics\Diagnostics.h" />
+    <ClInclude Include="Core\Diagnostics\Diagnostics.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Core\Services\AppLanguageService.h" />
-    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h" />
+    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Core\Services\AppResourcesService.h" />
     <ClInclude Include="Converters\HexToColorConverter.h">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -245,7 +253,6 @@
       <DependentUpon>Converters\StringToBrushConverter.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\System\Native.h" />
     <ClInclude Include="Core\System\Native\apiimport.h" />
     <ClInclude Include="Core\System\Native\dltmgr.h" />
     <ClInclude Include="Core\System\Native\error.h">
@@ -265,13 +272,39 @@
     <ClInclude Include="Core\System\Native\senative.h" />
     <ClInclude Include="Core\System\Native\sesup.h" />
     <ClInclude Include="Core\System\Native\util.h" />
-    <ClInclude Include="Core\System\System.h" />
-    <ClInclude Include="Core\System\Utils.h" />
-    <ClInclude Include="Core\System\Mi\Management.h" />
-    <ClInclude Include="Core\Web\Http\Base.h" />
+    <ClInclude Include="Core\System\Mi\Management.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Web\Http\Base.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Controls\DataTable.h" />
-    <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
-    <ClInclude Include="Core\EMS\EmsHost.h" />
+    <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\EMS\EmsHost.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
@@ -314,15 +347,26 @@
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
     </ClInclude>
-    <ClInclude Include="Core\System\ProcessInformationProvider.h" />
-    <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h" />
-    <ClInclude Include="Core\System\ProcessManager.h" />
+    <ClInclude Include="Core\AI\Actions\ProcessesActionProvider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
-    <ClInclude Include="Controls\PerformanceGraph.h" />
+    <ClInclude Include="Controls\PerformanceGraph.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
     <ClInclude Include="property.h" />
-    <ClInclude Include="Core\System\ProviderThread.h" />
     <ClInclude Include="Core\Settings\SharedSettings.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -429,8 +473,22 @@
       <DependentUpon>Views\Pages\Settings\SettingsRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\AI\Actions\WmiActionProvider.h" />
-    <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
+    <ClInclude Include="Core\AI\Actions\WmiActionProvider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
@@ -532,13 +590,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Core\System\Tools\AmsiScanner.cpp" />
     <ClCompile Include="Converters\TransparencyConverter.cpp">
       <DependentUpon>Converters\TransparencyConverter.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Core\Data\Items\ProcessProperties.cpp">
-      <DependentUpon>Core\Data\Items\ProcessProperties.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Data\Parameters\PropertiesPageNavigationParameter.cpp">
@@ -554,7 +607,14 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Services\AppLanguageService.cpp" />
-    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp" />
+    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Core\Services\AppResourcesService.cpp" />
     <ClCompile Include="Converters\HexToColorConverter.cpp">
       <DependentUpon>Converters\HexToColorConverter.idl</DependentUpon>
@@ -632,10 +692,30 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Core\System\Utils.cpp" />
-    <ClCompile Include="Core\System\Mi\Management.cpp" />
-    <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
-    <ClCompile Include="Core\EMS\EmsHost.cpp" />
+    <ClCompile Include="Core\System\Mi\Management.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\EMS\EmsHost.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Helpers\EnumHelper.cpp" />
     <ClCompile Include="Helpers\StringsHelper.cpp">
@@ -703,12 +783,23 @@
     <ClCompile Include="App.xaml.cpp">
       <DependentUpon>App.xaml</DependentUpon>
     </ClCompile>
-    <ClCompile Include="Core\System\ProcessInformationProvider.cpp" />
-    <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp" />
-    <ClCompile Include="Core\System\ProcessManager.cpp" />
-    <ClCompile Include="Core\System\ProviderThread.cpp" />
+    <ClCompile Include="Core\AI\Actions\ProcessesActionProvider.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
-    <ClCompile Include="Controls\PerformanceGraph.cpp" />
+    <ClCompile Include="Controls\PerformanceGraph.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Core\Settings\SharedSettings.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
@@ -821,8 +912,22 @@
       <DependentUpon>Views\Pages\Settings\SettingsRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
-    <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp" />
-    <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
+    <ClCompile Include="Core\AI\Actions\WmiActionProvider.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -849,15 +954,13 @@
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Core\Data\Items\ProcessProperties.idl">
-      <SubType>Designer</SubType>
-    </Midl>
     <Midl Include="Core\Data\Items\RemoteComputerItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
       <SubType>Designer</SubType>
     </Midl>
+    <None Include="Component.json" />
     <None Include="Core\Settings\default.json" />
     <None Include="SettingsInfoData.json" />
     <None Include="Source Generators\EnumMapingGenerator.ps1" />
@@ -1010,6 +1113,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Ems\Ems.vcxproj">
+      <Project>{f804537c-a4a2-41d0-8497-40cbe83edccc}</Project>
+    </ProjectReference>
     <ProjectReference Include="..\ExplorerCore\ExplorerCore.vcxproj">
       <Project>{690786f8-7577-4da2-8bab-29db73ddc618}</Project>
     </ProjectReference>
@@ -1060,12 +1166,10 @@
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
     <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.targets')" />
     <Import Project="..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets" Condition="Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets')" />
     <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" />
-    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" />
     <Import Project="..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets" Condition="Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" />
     <Import Project="..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets" Condition="Exists('..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets')" />
     <Import Project="..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.targets" Condition="Exists('..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.targets')" />
@@ -1079,29 +1183,28 @@
     <Import Project="..\packages\Microsoft.WindowsAppSDK.Widgets.2.0.5\build\native\Microsoft.WindowsAppSDK.Widgets.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.Widgets.2.0.5\build\native\Microsoft.WindowsAppSDK.Widgets.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" />
     <Import Project="..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.targets" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.targets')" />
-    <Import Project="..\packages\XamlToolkit.WinUI.Media.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" />
-    <Import Project="..\packages\XamlToolkit.WinUI.Animations.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Animations.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets')" />
-    <Import Project="..\packages\XamlToolkit.WinUI.Interactivity.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Interactivity.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets')" />
-    <Import Project="..\packages\XamlToolkit.WinUI.Behaviors.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" />
-    <Import Project="..\packages\XamlToolkit.Labs.WinUI.Native.0.6.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.6.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Helpers.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Helpers.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Converters.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Converters.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Controls.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Controls.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets')" />
+    <Import Project="..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.targets" Condition="Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.targets')" />
+    <Import Project="..\packages\Microsoft.Web.WebView2.1.0.4078.44\build\native\Microsoft.Web.WebView2.targets" Condition="Exists('..\packages\Microsoft.Web.WebView2.1.0.4078.44\build\native\Microsoft.Web.WebView2.targets')" />
+    <Import Project="..\packages\XamlToolkit.Labs.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" />
+    <Import Project="..\packages\XamlToolkit.WinUI.Interactivity.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Interactivity.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets')" />
+    <Import Project="..\packages\XamlToolkit.WinUI.Animations.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Animations.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets')" />
+    <Import Project="..\packages\XamlToolkit.WinUI.Behaviors.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" />
+    <Import Project="..\packages\XamlToolkit.WinUI.Media.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.2.0.250303.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.1721\build\Microsoft.Windows.SDK.BuildTools.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.ImplementationLibrary.1.0.260126.7\build\native\Microsoft.Windows.ImplementationLibrary.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Rive.Native.0.1.0-alpha\build\native\XamlToolkit.WinUI.Rive.Native.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.SDK.BuildTools.MSIX.1.7.260316102\build\Microsoft.Windows.SDK.BuildTools.MSIX.targets'))" />
-    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.3856.49\build\native\Microsoft.Web.WebView2.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Graphics.Win2D.1.4.0\build\native\Microsoft.Graphics.Win2D.targets'))" />
     <Error Condition="!Exists('..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\WinUIEssential.WinUI3.1.6.3\build\native\WinUIEssential.WinUI3.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.AI.MachineLearning.2.1.70\build\native\Microsoft.Windows.AI.MachineLearning.props'))" />
@@ -1126,14 +1229,17 @@
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.WinUI.2.2.1\build\native\Microsoft.WindowsAppSDK.WinUI.targets'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.WindowsAppSDK.2.2.0\build\native\Microsoft.WindowsAppSDK.targets'))" />
-    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Media.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Animations.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Animations.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Interactivity.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Interactivity.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Behaviors.Native.0.6.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets'))" />
-    <Error Condition="!Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.6.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.Labs.WinUI.Native.0.6.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Helpers.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Helpers.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Helpers.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Converters.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Converters.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Converters.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Controls.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Controls.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Controls.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Windows.CppWinRT.3.0.260715.1\build\native\Microsoft.Windows.CppWinRT.targets'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.Web.WebView2.1.0.4078.44\build\native\Microsoft.Web.WebView2.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Web.WebView2.1.0.4078.44\build\native\Microsoft.Web.WebView2.targets'))" />
+    <Error Condition="!Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.Labs.WinUI.Native.0.7.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Interactivity.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Interactivity.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Interactivity.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Animations.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Animations.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Animations.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Behaviors.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Media.Native.0.7.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets'))" />
   </Target>
 </Project>

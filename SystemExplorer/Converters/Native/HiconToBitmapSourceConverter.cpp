@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "HiconToBitmapSourceConverter.h"
 
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
@@ -45,6 +46,7 @@ namespace winrt::SystemExplorer::Converters::Native
 
 		return source;
 	}
+
 	void HiconToBitmapSourceConverter::initialize()
 	{
 		THROW_IF_FAILED(CoCreateInstance(

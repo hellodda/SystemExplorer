@@ -1,13 +1,11 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "AppSystemBackdrop.h"
 #if __has_include("Helpers/UI/AppSystemBackdrop.g.cpp")
 #include "Helpers/UI/AppSystemBackdrop.g.cpp"
 #endif
-#include <Core/Settings/UserSettings.h>
-#include <winrt/Windows.UI.h>
+#include <Core/Settings/Settings.h>
 
-using namespace winrt::SystemExplorer::Core::Settings;
-using namespace winrt::SystemExplorer::Core::Data::Enums;
 
 using namespace winrt::WinUI3Package;
 
@@ -15,35 +13,43 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 {
 	AppSystemBackdrop::AppSystemBackdrop()
 	{
-        UserSettings::Instance().AppearanceSettings().SettingChanged([weak = get_weak()](auto& s, auto& a) {
+        Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
             if (auto wrf = weak.get())
             {
-                wrf->onSettingChanged(s, a);
+                if (name == "BackdropMaterial")
+                {
+
+                }
             }
         });
 	}
+
 	AppSystemBackdrop::AppSystemBackdrop(bool enableWhenInactive)
 	{
         EnableWhenInactive(enableWhenInactive);
 
-        UserSettings::Instance().AppearanceSettings().SettingChanged([weak = get_weak()](auto& s, auto& a) {
+        Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
             if (auto wrf = weak.get())
             {
-                wrf->onSettingChanged(s, a);
+                if (name == "BackdropMaterial")
+                {
+
+                }
             }
         });
 	}
 
     void AppSystemBackdrop::EnableWhenInactive(bool value) noexcept
     {
-        SetValue(EnableWhenInactiveProperty, box_value(value));
-    }
-    bool AppSystemBackdrop::EnableWhenInactive() const noexcept
-    {
-        return unbox_value<bool>(GetValue(EnableWhenInactiveProperty));
+        SetValue(EnableWhenInactiveProperty, winrt::box_value(value));
     }
 
-    void AppSystemBackdrop::OnTargetConnected(ICompositionSupportsSystemBackdrop const& connectedTarget, XamlRoot const& xamlRoot)
+    bool AppSystemBackdrop::EnableWhenInactive() const noexcept
+    {
+        return winrt::unbox_value<bool>(GetValue(EnableWhenInactiveProperty));
+    }
+
+    void AppSystemBackdrop::OnTargetConnected(winrt::ICompositionSupportsSystemBackdrop const& connectedTarget, XamlRoot const& xamlRoot)
     {
         if (target_)
             throw hresult_invalid_argument(L"AppSystemBackdrop cannot be used with more than one target");
@@ -56,11 +62,12 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
         auto configuration = GetDefaultSystemBackdropConfiguration(connectedTarget, xamlRoot);
         configuration.IsInputActive(EnableWhenInactive());
 
-        controller_ = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
+        controller_ = getSystemBackdropController(Core::Settings::UserSettings::AppearanceSettings().BackdropMaterial(), configuration.Theme());
         controller_.SetSystemBackdropConfiguration(configuration);
         controller_.AddSystemBackdropTarget(connectedTarget);
     }
-    void AppSystemBackdrop::OnTargetDisconnected(winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop const& connectedTarget)
+
+    void AppSystemBackdrop::OnTargetDisconnected(winrt::ICompositionSupportsSystemBackdrop const& connectedTarget)
     {
         base_type::OnTargetDisconnected(connectedTarget);
         target_ = nullptr;
@@ -75,14 +82,14 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 
         }
     }
-    void AppSystemBackdrop::OnDefaultSystemBackdropConfigurationChanged(ICompositionSupportsSystemBackdrop const& target, XamlRoot const& xamlRoot)
+    void AppSystemBackdrop::OnDefaultSystemBackdropConfigurationChanged(winrt::ICompositionSupportsSystemBackdrop const& target, winrt::XamlRoot const& xamlRoot)
     {
         base_type::OnDefaultSystemBackdropConfigurationChanged(target, xamlRoot);
 
         auto configuration = GetDefaultSystemBackdropConfiguration(target, xamlRoot);
         configuration.IsInputActive(EnableWhenInactive());
 
-        if (auto acrylicController = controller_.try_as<DesktopAcrylicController>())
+        if (auto acrylicController = controller_.try_as<winrt::DesktopAcrylicController>())
         {
             if (acrylicController.Kind() != DesktopAcrylicKind::Thin || configuration.Theme() == prevTheme_)
                 return;
@@ -91,33 +98,31 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             setThinAcrylicBackdropProperties(acrylicController, configuration.Theme());
         }
     }
-	void AppSystemBackdrop::onSettingChanged(IInspectable const& sender, SettingChangedEventArgs const& args)
+
+	void AppSystemBackdrop::onSettingChanged()
 	{
         if (!target_)
             return;
 
-
-        if (args.SettingName() == L"BackdropMaterial")
+        if (controller_)
         {
-            if (controller_)
-            {
-                controller_.RemoveAllSystemBackdropTargets();
-                controller_.Close();
-            }
+            controller_.RemoveAllSystemBackdropTargets();
+            controller_.Close();
+        }
 
-            auto configuration = GetDefaultSystemBackdropConfiguration(target_, root_);
-            configuration.IsInputActive(EnableWhenInactive());
+        auto configuration = GetDefaultSystemBackdropConfiguration(target_, root_);
+        configuration.IsInputActive(EnableWhenInactive());
 
-            controller_ = getSystemBackdropController(UserSettings::Instance().AppearanceSettings().BackdropMaterial(), configuration.Theme());
+        controller_ = getSystemBackdropController(Core::Settings::UserSettings::AppearanceSettings().BackdropMaterial(), configuration.Theme());
             
-            if (controller_)
-            {
-                controller_.SetSystemBackdropConfiguration(configuration);
-                controller_.AddSystemBackdropTarget(target_);
-            }
+        if (controller_)
+        {
+            controller_.SetSystemBackdropConfiguration(configuration);
+            controller_.AddSystemBackdropTarget(target_);
         }
 	}
-    void AppSystemBackdrop::setThinAcrylicBackdropProperties(DesktopAcrylicController const& controller, SystemBackdropTheme theme)
+
+    void AppSystemBackdrop::setThinAcrylicBackdropProperties(winrt::DesktopAcrylicController const& controller, winrt::SystemBackdropTheme theme)
     {
         switch (theme)
         {
@@ -139,7 +144,8 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
         }
         }
     }
-    ISystemBackdropControllerWithTargets AppSystemBackdrop::getSystemBackdropController(BackdropMaterialType backdropType, SystemBackdropTheme theme)
+
+    ISystemBackdropControllerWithTargets AppSystemBackdrop::getSystemBackdropController(Core::Data::Enums::BackdropMaterialType backdropType, winrt::SystemBackdropTheme theme)
     {
         switch (backdropType)
         {   

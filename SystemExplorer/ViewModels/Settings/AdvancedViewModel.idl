@@ -1,5 +1,3 @@
-import "Core/Settings/AdvancedSettings.idl";
-
 namespace SystemExplorer.ViewModels.Settings
 {
     [default_interface] runtimeclass AdvancedViewModel 

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "HexToColorConverter.h"
 #if __has_include("Converters/HexToColorConverter.g.cpp")
 #include "Converters/HexToColorConverter.g.cpp"

@@ -1,7 +1,6 @@
 ﻿#pragma once
 #include "Helpers/StringsHelper.g.h"
 #include <factory.h>
-#include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
 namespace winrt::SystemExplorer::Helpers::implementation
 {

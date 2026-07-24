@@ -2,8 +2,6 @@
 
 #ifdef __INTELLISENSE__
 
-#include <winrt/Microsoft.Windows.Storage.Pickers.h>
-
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Foundation.Metadata.h>
@@ -17,6 +15,7 @@
 #include <winrt/Windows.Storage.Streams.h>
 
 #include <winrt/Microsoft.UI.h>
+#include <winrt/Microsoft.UI.Composition.h>
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Microsoft.UI.Text.h>
@@ -28,8 +27,11 @@
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
+#include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
 #include <winrt/Microsoft.Windows.Storage.Pickers.h>
 #include <winrt/Microsoft.Windows.Storage.h>
+#include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
+
 
 #include <winrt/SystemExplorer.Xaml.h>
 #include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
@@ -57,6 +59,7 @@ import winrt.Windows.Storage.Storage.Pickers;
 import winrt.Windows.Storage.Storage.Streams;
 
 import winrt.Microsoft.UI;
+import winrt.Microsoft.UI.Composition;
 import winrt.Microsoft.UI.Windowing;
 import winrt.Microsoft.UI.Dispatching;
 import winrt.Microsoft.UI.Text;
@@ -68,8 +71,10 @@ import winrt.Microsoft.UI.Xaml.Hosting;
 import winrt.Microsoft.UI.Xaml.Markup;
 import winrt.Microsoft.UI.Xaml.Shapes;
 import winrt.Microsoft.UI.Xaml.XamlTypeInfo;
+import winrt.Microsoft.UI.Composition.SystemBackdrops;
 import winrt.Microsoft.Windows.Storage.Pickers;
 import winrt.Microsoft.Windows.Storage;
+import winrt.Microsoft.Windows.ApplicationModel.Resources;
 
 import winrt.XamlToolkit.WinUI;
 import winrt.XamlToolkit.WinUI.Converters;

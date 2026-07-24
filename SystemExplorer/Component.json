@@ -1,0 +1,21 @@
+{
+  "catalogs": [
+    {
+      "catalog_name": "GeneralSettings",
+      "name_id": "",
+      "uri": "system-explorer://setttings/general-settings",
+      "catalog_items": [
+        {
+          "name": "RealTimeUpdateSpeed",
+          "name-id": "RealTimeUpdateSpeed"
+        }
+      ]
+    },
+    {
+      "catalog_name": "RemoteAccess",
+      "name_id": "",
+      "uri": "system-explorer://settings/general-settings/remote-access",
+      "catalog_items": []
+    }
+  ]
+}

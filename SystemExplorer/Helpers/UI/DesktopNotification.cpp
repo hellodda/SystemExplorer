@@ -55,7 +55,7 @@ namespace winrt::SystemExplorer::Helpers::UI
             }
 
             winrt::Windows::UI::Notifications::ToastNotifier notifier{ nullptr };
-            if (IsPackaged())
+          /*  if (IsPackaged())
             {
                 notifier = ToastNotificationManager::CreateToastNotifier();
             }
@@ -66,7 +66,7 @@ namespace winrt::SystemExplorer::Helpers::UI
                 {
                     notifier = ToastNotificationManager::CreateToastNotifier(aumid.get());
                 }
-            }
+            }*/
             if (notifier)
             {
                 notifier.Show(toast);

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "ValueToSizeUnitConverter.h"
 #if __has_include("Converters/ValueToSizeUnitConverter.g.cpp")
 #include "Converters/ValueToSizeUnitConverter.g.cpp"

@@ -7,5 +7,5 @@
 #include <absl/hash/hash.h>
 #include <glaze/glaze.hpp>
 
-#include <EIL/fast_event.h>
-#include <EIL/settings.h>
+#include "EIL/fast_event.h"
+#include "EIL/settings.h"

@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "StringToBrushConverter.h"
 #if __has_include("Converters/StringToBrushConverter.g.cpp")
 #include "Converters/StringToBrushConverter.g.cpp"
