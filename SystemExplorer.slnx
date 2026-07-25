@@ -14,7 +14,7 @@
     <Platform Solution="*|x86" Project="x64" />
     <Deploy />
   </Project>
-  <Project Path="ModuleBuilder/ModuleBuilder.vcxproj" Id="fbea1197-439c-43fa-9f60-0750e647c72e" />
+  <Project Path="ModuleBuilder/ModuleBuilder.vcxproj" Id="803dd1e6-9eaf-4762-9ee2-59bcd4be473a" />
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
   </Project>
