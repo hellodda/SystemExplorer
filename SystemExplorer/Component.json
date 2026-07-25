@@ -7,7 +7,7 @@
       "catalog_items": [
         {
           "name": "RealTimeUpdateSpeed",
-          "name-id": "RealTimeUpdateSpeed"
+          "name_id": "RealTimeUpdateSpeed"
         }
       ]
     },

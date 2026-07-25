@@ -12,17 +12,7 @@
 
 #undef GetCurrentTime
 #include <winrt/SystemExplorer.h>
-#include <winrt/XamlToolkit.WinUI.h>
-#include <winrt/XamlToolkit.Labs.WinUI.h>
-#include <winrt/XamlToolkit.WinUI.Controls.h>
-#include <winrt/XamlToolkit.WinUI.Media.h>
-#include <winrt/XamlToolkit.WinUI.Helpers.h>
-#include <winrt/XamlToolkit.WinUI.Rive.h>
-#include <winrt/XamlToolkit.WinUI.Converters.h>
 #include <winrt/WinUI3Package.h>
-#include <wil/result.h>
-#include <wil/win32_helpers.h>
-#include <wil/cppwinrt_authoring.h>
 #include <winrt/SystemExplorer.Xaml.h>
 #include <ppl.h>
 #include <pplawait.h>

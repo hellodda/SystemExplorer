@@ -2,8 +2,7 @@ import "Controls/SettingsGroup/SimpleSettingsGroup/SimpleSettingsGroup.idl";
 
 namespace SystemExplorer.Xaml.Controls
 {
-    [default_interface]
-    unsealed runtimeclass SimpleSettingsGroupAutomationPeer : Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
+    [default_interface] unsealed runtimeclass SimpleSettingsGroupAutomationPeer : Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
     {
         SimpleSettingsGroupAutomationPeer(SystemExplorer.Xaml.Controls.SimpleSettingsGroup owner);
     }

@@ -4,11 +4,14 @@
 
 #include <wil/cppwinrt_authoring.h>
 
-namespace winrt::SystemExplorer::Xaml::Selectors::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml;
+}
 
+namespace winrt::SystemExplorer::Xaml::Selectors::implementation
+{
     struct ItemTemplateSelector : ItemTemplateSelectorT<ItemTemplateSelector>
     {
         ItemTemplateSelector() = default;

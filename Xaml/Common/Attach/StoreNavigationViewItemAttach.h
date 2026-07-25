@@ -1,14 +1,20 @@
 ﻿#pragma once
 
 #include "Common/StoreNavigationViewItemAttach.g.h"
+
+#ifdef __INTELLISENSE__
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
+#endif
 
-namespace winrt::SystemExplorer::Xaml::Common::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml;
+}
 
+namespace winrt::SystemExplorer::Xaml::Common::implementation
+{
     struct StoreNavigationViewItemAttach : StoreNavigationViewItemAttachT<StoreNavigationViewItemAttach>
     {
         StoreNavigationViewItemAttach() = default;

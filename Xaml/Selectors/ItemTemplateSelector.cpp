@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "ItemTemplateSelector.h"
 #if __has_include("Selectors/ItemTemplateSelector.g.cpp")
 #include "Selectors/ItemTemplateSelector.g.cpp"

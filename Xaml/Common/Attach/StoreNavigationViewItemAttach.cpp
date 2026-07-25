@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "StoreNavigationViewItemAttach.h"
 #if __has_include("Common/StoreNavigationViewItemAttach.g.cpp")
 #include "Common/StoreNavigationViewItemAttach.g.cpp"

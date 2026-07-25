@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "SimpleSettingsGroup.h"
 #if __has_include("Controls/SimpleSettingsGroup.g.cpp")
 #include "Controls/SimpleSettingsGroup.g.cpp"

@@ -44,12 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
+    <ClCompile Include="XamlTypeInfo.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
+    <ClCompile Include="XamlMetaDataProvider.module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="Extensions\DependencyObjectExtensions.h" />
-    <ClInclude Include="Extensions\Predicates.h" />
+    <ClInclude Include="wil_cppwinrt_module.h" />
+    <ClInclude Include="winrt_module_imports.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Xaml.def" />
@@ -62,17 +64,11 @@
     <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl">
       <Filter>Common\Attach</Filter>
     </Midl>
-    <Midl Include="Common\Attach\VisualAttach.idl">
-      <Filter>Common\Attach</Filter>
-    </Midl>
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl">
       <Filter>Controls\SettingsGroup</Filter>
     </Midl>
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl">
       <Filter>Controls\SettingsGroup</Filter>
-    </Midl>
-    <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl">
-      <Filter>Helpers</Filter>
     </Midl>
     <Midl Include="Mvvm\Input\AsyncRelayCommandFactory.idl">
       <Filter>Mvvm\Input</Filter>
@@ -83,13 +79,6 @@
     <Midl Include="Mvvm\Input\RelayCommand.idl">
       <Filter>Mvvm\Input</Filter>
     </Midl>
-    <Midl Include="Mvvm\ComponentModel\ObservableObject.idl">
-      <Filter>Mvvm\ComponentModel</Filter>
-    </Midl>
-    <Midl Include="Controls\DataTable\DataRow.idl" />
-    <Midl Include="Controls\DataTable\DataColumn.idl" />
-    <Midl Include="Controls\DataTable\DataTable.idl" />
-    <Midl Include="Controls\DataTable\SortDirection.idl" />
     <Midl Include="Selectors\ItemTemplateSelector.idl" />
   </ItemGroup>
   <ItemGroup>
@@ -108,7 +97,6 @@
     <Page Include="Themes\Generic.xaml">
       <Filter>Themes</Filter>
     </Page>
-    <Page Include="Controls\DataTable\DataColumn.xaml" />
     <Page Include="Styles\PropertyStyles.xaml" />
   </ItemGroup>
   <ItemGroup>

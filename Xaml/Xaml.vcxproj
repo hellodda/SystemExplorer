@@ -27,14 +27,12 @@
     <ApplicationType>Windows Store</ApplicationType>
     <ApplicationTypeRevision>10.0</ApplicationTypeRevision>
     <WindowsTargetPlatformVersion Condition=" '$(WindowsTargetPlatformVersion)' == '' ">10.0.26100.0</WindowsTargetPlatformVersion>
-    <WindowsTargetPlatformMinVersion>10.0.17763.0</WindowsTargetPlatformMinVersion>
+    <WindowsTargetPlatformMinVersion>10.0.19041.0</WindowsTargetPlatformMinVersion>
     <DesktopCompatible>true</DesktopCompatible>
     <UseWinUI>true</UseWinUI>
-    <WinUISDKReferences>false</WinUISDKReferences>
-    <CppWinRTProjectLanguage>C++/WinRT</CppWinRTProjectLanguage>
-    <CppWinRTLibs>true</CppWinRTLibs>
     <CppWinRTUsePrefixes>false</CppWinRTUsePrefixes>
-    <WindowsAppSdkAutoInitialize>false</WindowsAppSdkAutoInitialize>
+    <CppWinRTBuildModule>true</CppWinRTBuildModule>
+    <CppWinRTModuleInclude>SystemExplorer.Xaml;SystemExplorer.Xaml.Controls;SystemExplorer.Xaml.Selectors;SystemExplorer.Xaml.Common;SystemExplorer.Xaml.Mvvm.Input</CppWinRTModuleInclude>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -95,13 +93,10 @@
   </PropertyGroup>
   <ItemDefinitionGroup>
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeaderOutputFile>$(IntDir)pch.pch</PrecompiledHeaderOutputFile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
-      <LanguageStandard Condition="'$(VisualStudioVersion)' &gt;= '18.0'">stdcpplatest</LanguageStandard>
-      <LanguageStandard Condition="'$(VisualStudioVersion)' &lt; '18.0'">stdcpplatest</LanguageStandard>
-      <AdditionalOptions>%(AdditionalOptions) /bigobj</AdditionalOptions>
+      <BuildStlModules>true</BuildStlModules>
+      <AdditionalOptions>%(AdditionalOptions) /bigobj /utf-8</AdditionalOptions>
       <PreprocessorDefinitions>_WINRT_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalUsingDirectories>$(WindowsSDK_WindowsMetadata);$(AdditionalUsingDirectories)</AdditionalUsingDirectories>
     </ClCompile>
@@ -115,11 +110,23 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</MultiProcessorCompilation>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <ClCompile>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</MultiProcessorCompilation>
+      <MultiProcessorCompilation Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</MultiProcessorCompilation>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdcpp23</LanguageStandard>
+      <LanguageStandard Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdcpp23</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -131,38 +138,12 @@
       <DependentUpon>Common\Attach\StoreNavigationViewItemAttach.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Common\Attach\VisualAttach.h">
-      <DependentUpon>Common\Attach\VisualAttach.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Controls\DataTable\DataColumn.h">
-      <DependentUpon>Controls\DataTable\DataColumn.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Controls\DataTable\DataRow.h">
-      <DependentUpon>Controls\DataTable\DataRow.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Controls\DataTable\DataTable.h">
-      <DependentUpon>Controls\DataTable\DataTable.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
     <ClInclude Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.h">
       <DependentUpon>Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.h">
       <DependentUpon>Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Extensions\DependencyObjectExtensions.h" />
-    <ClInclude Include="Extensions\Predicates.h" />
-    <ClInclude Include="Helpers\ImplicitOffsetAnimationHelper.h">
-      <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClInclude>
-    <ClInclude Include="Mvvm\ComponentModel\ObservableObject.h">
-      <DependentUpon>Mvvm\ComponentModel\ObservableObject.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Mvvm\Input\AsyncRelayCommand.h">
@@ -182,26 +163,12 @@
       <DependentUpon>Selectors\ItemTemplateSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="wil_cppwinrt_module.h" />
+    <ClInclude Include="winrt_module_imports.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Common\Attach\StoreNavigationViewItemAttach.cpp">
       <DependentUpon>Common\Attach\StoreNavigationViewItemAttach.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Common\Attach\VisualAttach.cpp">
-      <DependentUpon>Common\Attach\VisualAttach.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Controls\DataTable\DataColumn.cpp">
-      <DependentUpon>Controls\DataTable\DataColumn.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Controls\DataTable\DataRow.cpp">
-      <DependentUpon>Controls\DataTable\DataRow.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Controls\DataTable\DataTable.cpp">
-      <DependentUpon>Controls\DataTable\DataTable.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp">
@@ -210,14 +177,6 @@
     </ClCompile>
     <ClCompile Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp">
       <DependentUpon>Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Helpers\ImplicitOffsetAnimationHelper.cpp">
-      <DependentUpon>Helpers\ImplicitOffsetAnimationHelper.idl</DependentUpon>
-      <SubType>Code</SubType>
-    </ClCompile>
-    <ClCompile Include="Mvvm\ComponentModel\ObservableObject.cpp">
-      <DependentUpon>Mvvm\ComponentModel\ObservableObject.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Mvvm\Input\AsyncRelayCommand.cpp">
@@ -235,11 +194,13 @@
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="$(GeneratedFilesDir)module.g.cpp" />
     <ClCompile Include="Selectors\ItemTemplateSelector.cpp">
       <DependentUpon>Selectors\ItemTemplateSelector.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="XamlMetaDataProvider.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -254,29 +215,10 @@
     <Midl Include="Common\Attach\StoreNavigationViewItemAttach.idl">
       <SubType>Designer</SubType>
     </Midl>
-    <Midl Include="Common\Attach\VisualAttach.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Controls\DataTable\DataColumn.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Controls\DataTable\DataRow.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Controls\DataTable\DataTable.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Controls\DataTable\SortDirection.idl" />
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Helpers\ImplicitOffsetAnimationHelper.idl">
-      <SubType>Designer</SubType>
-    </Midl>
-    <Midl Include="Mvvm\ComponentModel\ObservableObject.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Mvvm\Input\AsyncRelayCommand.idl">
@@ -293,7 +235,6 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\DataTable\DataColumn.xaml" />
     <Page Include="Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
     <Page Include="Styles\Animations.xaml" />
     <Page Include="Styles\FlatButton.xaml" />
@@ -303,6 +244,11 @@
     </Page>
     <Page Include="Styles\PropertyStyles.xaml" />
     <Page Include="Themes\Generic.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ModuleBuilder\ModuleBuilder.vcxproj">
+      <Project>{fbea1197-439c-43fa-9f60-0750e647c72e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -2,12 +2,15 @@
 #include "Mvvm/Input/AsyncRelayCommand.g.h"
 #include <wil/cppwinrt_authoring.h>
 
-namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml::Input;
     using namespace winrt::Microsoft::UI::Xaml::Data;
+}
 
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
+{
     struct AsyncRelayCommand : AsyncRelayCommandT<AsyncRelayCommand>, wil::notify_property_changed_base<AsyncRelayCommand>
     {
         AsyncRelayCommand(AsyncExecuteHandler const& execute);

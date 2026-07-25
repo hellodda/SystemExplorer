@@ -1,4 +1,5 @@
 ﻿#include "pch.h"
+#include "winrt_module_imports.h"
 #include "RelayCommand.h"
 #if __has_include("Mvvm/Input/RelayCommand.g.cpp")
 #include "Mvvm/Input/RelayCommand.g.cpp"

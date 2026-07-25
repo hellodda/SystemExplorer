@@ -1,9 +1,0 @@
-namespace SystemExplorer.Xaml.Controls
-{   
-    enum SortDirection
-    {
-        None,
-        Ascending,
-        Descending
-    };
-}

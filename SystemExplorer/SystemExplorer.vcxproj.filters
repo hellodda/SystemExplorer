@@ -437,6 +437,9 @@
     <None Include="SettingsInfoData.json" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
     <None Include="Component.json" />
+    <None Include="$(_WindowsMLLocalNativePath)\onnxruntime.dll" />
+    <None Include="$(_WindowsMLLocalNativePath)\DirectML.dll" />
+    <None Include="$(_WindowsMLLocalNativePath)\Microsoft.Windows.AI.MachineLearning.dll" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw">

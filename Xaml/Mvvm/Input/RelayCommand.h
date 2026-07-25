@@ -3,11 +3,14 @@
 #include "Mvvm/Input/RelayCommand.g.h"
 #include <wil/cppwinrt_authoring.h>
 
-namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::UI::Xaml::Input;
+}
 
+namespace winrt::SystemExplorer::Xaml::Mvvm::Input::implementation
+{
     struct RelayCommand : RelayCommandT<RelayCommand>
     {
         RelayCommand(ExecuteHandler const& execute)

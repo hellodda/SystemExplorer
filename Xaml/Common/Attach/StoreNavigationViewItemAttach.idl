@@ -1,8 +1,6 @@
 namespace SystemExplorer.Xaml.Common
 {
-    [bindable]
-    [default_interface]
-    runtimeclass StoreNavigationViewItemAttach : Microsoft.UI.Xaml.DependencyObject
+    [default_interface] runtimeclass StoreNavigationViewItemAttach : Microsoft.UI.Xaml.DependencyObject
     {
         StoreNavigationViewItemAttach();
     
