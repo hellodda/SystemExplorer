@@ -18,7 +18,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Windows::Foundation;
 
-    using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
+    using namespace winrt::SystemExplorer::Xaml;
     using namespace winrt::SystemExplorer::Core::Data::Items;
     using namespace winrt::SystemExplorer::Core;
 

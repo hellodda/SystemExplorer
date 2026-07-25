@@ -1,0 +1,20 @@
+namespace SystemExplorer.Xaml
+{
+    delegate void ExecuteHandler(Object parameter);
+    delegate Boolean CanExecuteHandler(Object parameter);
+
+    interface IRelayCommand requires Microsoft.UI.Xaml.Input.ICommand
+    {
+        void NotifyCanExecuteChanged();
+    }
+
+    runtimeclass RelayCommand : [default] IRelayCommand
+    {
+        RelayCommand(ExecuteHandler execute);
+        RelayCommand(ExecuteHandler execute, CanExecuteHandler canExecute);        
+
+        void NotifyCanExecuteChanged();
+
+        event Windows.Foundation.EventHandler<Object> CanExecuteChanged;
+    }
+}

@@ -9,11 +9,14 @@
 #include <phnt_windows.h>
 #include <phnt.h>
 #include <restrictederrorinfo.h>
+#include <ShlObj.h>
 
 #undef GetCurrentTime
-#include <winrt/WinUI3Package.h>
 #include <ppl.h>
 #include <pplawait.h>
+#include <wil/stl.h>
+#include <wil/result.h>
+#include <wil/win32_helpers.h>
 #include <pplcancellation_token.h>
 #include <filesystem>
 #include <ExplorerCore.h>

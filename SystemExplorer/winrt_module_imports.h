@@ -8,6 +8,7 @@
 #include <winrt/Windows.UI.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Graphics.Imaging.h>
+#include <winrt/Windows.Globalization.h>
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.Storage.h>
 #include <winrt/Windows.Storage.Pickers.h>
@@ -29,6 +30,7 @@
 #include <winrt/Microsoft.UI.Xaml.Shapes.h>
 #include <winrt/Microsoft.UI.Xaml.XamlTypeInfo.h>
 #include <winrt/Microsoft.UI.Composition.SystemBackdrops.h>
+#include <winrt/Windows.UI.Composition.h>
 #include <winrt/Microsoft.Windows.Storage.Pickers.h>
 #include <winrt/Microsoft.Windows.Storage.h>
 
@@ -39,6 +41,9 @@
 #include <winrt/XamlToolkit.WinUI.Helpers.h>
 #include <winrt/XamlToolkit.WinUI.Controls.h>
 #include <winrt/XamlToolkit.WinUI.Animations.h>
+
+#include <winrt/SystemExplorer.Core.Data.Enums.h>
+#include <winrt/SystemExplorer.Helpers.h>
 
 #include <wil/cppwinrt.h>
 #include <wil/cppwinrt_helpers.h>
@@ -51,6 +56,7 @@ import winrt.Windows.Foundation.Metadata;
 import winrt.Windows.Foundation.Numerics;
 import winrt.Windows.UI;
 import winrt.Windows.UI.Xaml.Interop;
+import winrt.Windows.Globalization;
 import winrt.Windows.Graphics.Imaging;
 import winrt.Windows.System;
 import winrt.Windows.Storage;
@@ -73,7 +79,7 @@ import winrt.Microsoft.UI.Xaml.XamlTypeInfo;
 import winrt.Microsoft.UI.Composition.SystemBackdrops;
 import winrt.Microsoft.Windows.Storage.Pickers;
 import winrt.Microsoft.Windows.Storage;
-//import winrt.Microsoft.Windows.ApplicationModel.Resources;
+import winrt.Microsoft.Windows.ApplicationModel.Resources;
 
 import winrt.XamlToolkit.WinUI;
 import winrt.XamlToolkit.Labs.WinUI;
@@ -84,8 +90,19 @@ import winrt.XamlToolkit.WinUI.Controls;
 import winrt.XamlToolkit.WinUI.Animations;
 import winrt.XamlToolkit.WinUI.Rive;
 
+import winrt.WinUI3Package;
+
 import winrt.SystemExplorer.Xaml;
-import winrt.SystemExplorer.Xaml.Mvvm.Input;
+import winrt.SystemExplorer.Converters;
+import winrt.SystemExplorer.Views.Pages;
+import winrt.SystemExplorer.Views.Pages.Settings;
+import winrt.SystemExplorer.Views.Windows;
+import winrt.SystemExplorer.ViewModels;
+import winrt.SystemExplorer.ViewModels.Settings;
+import winrt.SystemExplorer.Helpers;
+import winrt.SystemExplorer.Core.Data.Enums;
+import winrt.SystemExplorer.Core.Data.Items;
+import winrt.SystemExplorer.Core.Data.Models;
 
 #include <wil_cppwinrt_module.h>
 #endif

@@ -19,7 +19,7 @@ namespace winrt
 
     using namespace winrt::SystemExplorer::Core;
     using namespace winrt::SystemExplorer::Core::Data::Items;
-    using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
+    using namespace winrt::SystemExplorer::Xaml;
 }
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation

@@ -4,26 +4,26 @@
 #if __has_include("Converters/HexToColorConverter.g.cpp")
 #include "Converters/HexToColorConverter.g.cpp"
 #endif
-#include <winrt/Windows.UI.h>
 
 namespace winrt::SystemExplorer::Converters::implementation
 {
-	IInspectable HexToColorConverter::Convert(IInspectable const& value, TypeName const&, IInspectable const&, hstring const&)
+	winrt::IInspectable HexToColorConverter::Convert(winrt::IInspectable const& value, winrt::TypeName const&, winrt::IInspectable const&, winrt::hstring const&)
 	{
-		if (auto hexValue = value.try_as<hstring>())
+		if (auto hexValue = value.try_as<winrt::hstring>())
 		{
 			try
 			{
-				return box_value(XamlToolkit::WinUI::Helpers::ColorHelper::ToColor(hexValue.value()));
+				return winrt::box_value(XamlToolkit::WinUI::Helpers::ColorHelper::ToColor(hexValue.value()));
 			}
 			catch (hresult_error const&)
 			{
-				return box_value(Windows::UI::Colors::Transparent());
+				return winrt::box_value(Windows::UI::Colors::Transparent());
 			}
 		}
 		return nullptr;
 	}
-	IInspectable HexToColorConverter::ConvertBack(IInspectable const& value, TypeName const&, IInspectable const&, hstring const&)
+
+	winrt::IInspectable HexToColorConverter::ConvertBack(winrt::IInspectable const& value, winrt::TypeName const&, winrt::IInspectable const&, winrt::hstring const&)
 	{
         Windows::UI::Color color;
 
@@ -37,8 +37,8 @@ namespace winrt::SystemExplorer::Converters::implementation
         }
         else
         {
-            return DependencyProperty::UnsetValue();
+            return winrt::DependencyProperty::UnsetValue();
         }
-        return box_value(XamlToolkit::WinUI::Helpers::ColorHelper::ToHex(color));
+        return winrt::box_value(XamlToolkit::WinUI::Helpers::ColorHelper::ToHex(color));
 	}
 }

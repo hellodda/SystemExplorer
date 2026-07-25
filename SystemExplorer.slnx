@@ -18,5 +18,4 @@
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
   </Project>
-  <Project Path="Xaml/Xaml.vcxproj" Id="7389541c-a0b0-495d-8ae6-388b1761c371" />
 </Solution>

@@ -11,7 +11,7 @@ namespace winrt
     using namespace winrt::Microsoft::UI::Xaml::Media::Imaging;
 
     using namespace winrt::Windows::Foundation;
-    using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
+    using namespace winrt::SystemExplorer::Xaml;
 }
 
 namespace winrt::SystemExplorer::ViewModels::implementation

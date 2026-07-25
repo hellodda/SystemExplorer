@@ -1,5 +1,5 @@
 import "ViewModels/ViewModelBase.idl";
-
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
 import "Core/Data/Items/AppThemeResourceItem.idl";
 
 namespace SystemExplorer.ViewModels.Settings
@@ -35,7 +35,7 @@ namespace SystemExplorer.ViewModels.Settings
         String AppThemeBackgroundImageSource;
         String AppThemeBackgroundColor;
 
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SelectImageCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RemoveImageCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand SelectImageCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand RemoveImageCommand { get; };
     }
 }

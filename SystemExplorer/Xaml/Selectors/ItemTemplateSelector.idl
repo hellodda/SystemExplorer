@@ -1,0 +1,13 @@
+namespace SystemExplorer.Xaml
+{
+    [default_interface] runtimeclass ItemTemplateSelector : Microsoft.UI.Xaml.Controls.DataTemplateSelector
+    {
+        ItemTemplateSelector();
+
+        String Key;
+
+        Microsoft.UI.Xaml.DataTemplate PrimaryTemplate;
+        Microsoft.UI.Xaml.DataTemplate SecondaryTemplate;
+
+    }
+}

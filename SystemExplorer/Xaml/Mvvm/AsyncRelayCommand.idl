@@ -1,0 +1,41 @@
+import "Xaml/Mvvm/RelayCommand.idl";
+
+namespace SystemExplorer.Xaml
+{
+    delegate Windows.Foundation.IAsyncAction AsyncExecuteHandler(Object parameter);
+
+    [flags]
+    enum AsyncRelayCommandOptions
+    {
+        None = 0x0,
+        AllowConcurrentExecutions = 0x1,
+        FlowExceptionsToTaskScheduler = 0x2
+    };
+
+    interface ICancellationAwareCommand
+    {
+        Boolean IsCancellationSupported { get; };
+    }
+
+    interface IAsyncRelayCommand requires IRelayCommand, ICancellationAwareCommand
+    {
+        Windows.Foundation.IAsyncAction ExecuteAsync(Object parameter);
+        void Cancel();
+
+        Windows.Foundation.IAsyncAction ExecutionTask { get; };
+
+        Boolean IsRunning { get; };
+        Boolean CanBeCanceled { get; };
+        Boolean IsCancellationRequested { get; };
+    }
+
+    runtimeclass AsyncRelayCommand : [default] IAsyncRelayCommand
+    {
+        //Due to ABI limitations, it is better to use a factory
+
+        AsyncRelayCommand(AsyncExecuteHandler execute);
+        //AsyncRelayCommand(AsyncExecuteHandler execute, AsyncRelayCommandOptions options);
+        AsyncRelayCommand(AsyncExecuteHandler execute, CanExecuteHandler canExecute);        
+        AsyncRelayCommand(AsyncExecuteHandler execute, CanExecuteHandler canExecute, AsyncRelayCommandOptions options);
+    }
+}

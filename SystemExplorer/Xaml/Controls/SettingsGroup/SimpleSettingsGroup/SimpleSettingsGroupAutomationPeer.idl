@@ -1,0 +1,9 @@
+import "Xaml/Controls/SettingsGroup/SimpleSettingsGroup/SimpleSettingsGroup.idl";
+
+namespace SystemExplorer.Xaml
+{
+    [default_interface] unsealed runtimeclass SimpleSettingsGroupAutomationPeer : Microsoft.UI.Xaml.Automation.Peers.FrameworkElementAutomationPeer
+    {
+        SimpleSettingsGroupAutomationPeer(SystemExplorer.Xaml.SimpleSettingsGroup owner);
+    }
+}

@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "ShellHelper.h"
 
 namespace winrt::SystemExplorer::Helpers::Win32

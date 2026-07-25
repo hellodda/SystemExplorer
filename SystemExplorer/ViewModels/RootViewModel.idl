@@ -1,4 +1,5 @@
 import "ViewModels/ViewModelBase.idl";
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
 
 namespace SystemExplorer.ViewModels
 {
@@ -13,6 +14,6 @@ namespace SystemExplorer.ViewModels
         Single AppThemeBackgroundImageOpacity { get; };
 
 
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CreateLiveKernelMemoryDumpCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand CreateLiveKernelMemoryDumpCommand { get; };
     }
 }

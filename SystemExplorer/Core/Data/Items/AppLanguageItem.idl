@@ -1,7 +1,6 @@
 namespace SystemExplorer.Core.Data.Items
 {
-    [default_interface]
-    runtimeclass AppLanguageItem 
+    [default_interface] runtimeclass AppLanguageItem 
     {
         AppLanguageItem(String code, Boolean systemDefault);
         

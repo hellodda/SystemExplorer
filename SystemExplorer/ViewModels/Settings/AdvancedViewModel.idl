@@ -1,11 +1,13 @@
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
+
 namespace SystemExplorer.ViewModels.Settings
 {
     [default_interface] runtimeclass AdvancedViewModel 
     {
         AdvancedViewModel();
 
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenSettingsFileCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ImportSettingsCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ExportSettingsCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand OpenSettingsFileCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand ImportSettingsCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand ExportSettingsCommand { get; };
     }
 }

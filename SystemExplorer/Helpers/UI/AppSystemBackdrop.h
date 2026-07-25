@@ -39,7 +39,7 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
             winrt::XamlRoot const& xamlRoot
         );
         void OnTargetDisconnected(
-            winrt::CompositionSupportsSystemBackdrop const& connectedTarget
+            winrt::ICompositionSupportsSystemBackdrop const& connectedTarget
         );
         void OnDefaultSystemBackdropConfigurationChanged(
             winrt::ICompositionSupportsSystemBackdrop const& target,

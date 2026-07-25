@@ -1,0 +1,13 @@
+namespace SystemExplorer.Xaml
+{
+    [default_interface] runtimeclass SimpleSettingsGroup : Microsoft.UI.Xaml.Controls.ItemsControl
+    {
+        SimpleSettingsGroup();
+
+        String Header;
+        static Microsoft.UI.Xaml.DependencyProperty HeaderProperty{ get; };
+
+        Object Description;
+        static Microsoft.UI.Xaml.DependencyProperty DescriptionProperty{ get; };
+    }
+}

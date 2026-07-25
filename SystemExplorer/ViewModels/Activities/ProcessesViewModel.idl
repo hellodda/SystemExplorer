@@ -1,4 +1,6 @@
 import "ViewModels/ViewModelBase.idl";
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
+
 import "Core/Data/Items/ProcessItem.idl";
 
 namespace SystemExplorer.ViewModels.Activities
@@ -16,20 +18,20 @@ namespace SystemExplorer.ViewModels.Activities
         Int32 ItemIconSize { get; set; };
         Int32 ItemFontSize { get; set; };
 
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand ChangeItemSizeCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand ChangeItemSizeCommand { get; };
 
         Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ProcessItem> Processes { get; };
         
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand TerminateProcessCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SuspendProcessCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand RestartProcessCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand EfficiencyModeCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand SearchOnlineCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand DumpProcessMemoryCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand TerminateProcessCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand SuspendProcessCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand RestartProcessCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand EfficiencyModeCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand SearchOnlineCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand DumpProcessMemoryCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand DebugProcessCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand CreateDumpFileCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenFileLocationCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand OpenFileLocationCommand { get; };
         //SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenProcessPropertiesCommand { get; };
-        SystemExplorer.Xaml.Mvvm.Input.IAsyncRelayCommand OpenProcessDetailsWindowCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand OpenProcessDetailsWindowCommand { get; };
     }
 }

@@ -15,7 +15,7 @@ namespace winrt
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Windows::System;
     using namespace winrt::Microsoft::UI::Xaml::Input;
-    using namespace winrt::SystemExplorer::Xaml::Mvvm::Input;
+    using namespace winrt::SystemExplorer::Xaml;
 }
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation

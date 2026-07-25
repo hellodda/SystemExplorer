@@ -1,8 +1,12 @@
 #pragma once
 
+#ifdef __INTELLISENSE__
+#include <wil/cppwinrt_authoring.h>
 #include <winrt/Windows.UI.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Microsoft.UI.Windowing.h>
+#endif
+
 #include <Views/Pages/Properties/PropertiesRootPage.xaml.h>
 
 namespace winrt::SystemExplorer::Helpers

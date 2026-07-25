@@ -38,6 +38,11 @@
     <Page Include="Views\Pages\Settings\RemoteAccessPage.xaml" />
     <Page Include="Views\Pages\Settings\EmsPage.xaml" />
     <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml" />
+    <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
+    <Page Include="Xaml\Styles\FlatButton.xaml" />
+    <Page Include="Xaml\Styles\Animations.xaml" />
+    <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
+    <Page Include="Xaml\Styles\PropertyStyles.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -116,6 +121,13 @@
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl" />
     <Midl Include="ViewModels\Activities\Performance\PerformanceViewModel.idl" />
     <Midl Include="Core\Data\Items\RemoteComputerItem.idl" />
+    <Midl Include="Xaml\Mvvm\RelayCommand.idl" />
+    <Midl Include="Xaml\Mvvm\AsyncRelayCommand.idl" />
+    <Midl Include="Xaml\Mvvm\AsyncRelayCommandFactory.idl" />
+    <Midl Include="Xaml\Selectors\ItemTemplateSelector.idl" />
+    <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
+    <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
+    <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -187,6 +199,14 @@
     <ClCompile Include="Core\EMS\EmsHost.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
+    <ClCompile Include="Core\Diagnostics\wil_sentry.cpp" />
+    <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
+    <ClCompile Include="Xaml\Mvvm\AsyncRelayCommandFactory.cpp" />
+    <ClCompile Include="Xaml\Mvvm\RelayCommand.cpp" />
+    <ClCompile Include="Xaml\Selectors\ItemTemplateSelector.cpp" />
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
+    <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -281,6 +301,13 @@
     <ClInclude Include="Core\Settings\Settings.h" />
     <ClInclude Include="wil_cppwinrt_module.h" />
     <ClInclude Include="winrt_module_imports.h" />
+    <ClInclude Include="Xaml\Mvvm\AsyncRelayCommand.h" />
+    <ClInclude Include="Xaml\Mvvm\AsyncRelayCommandFactory.h" />
+    <ClInclude Include="Xaml\Mvvm\RelayCommand.h" />
+    <ClInclude Include="Xaml\Selectors\ItemTemplateSelector.h" />
+    <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.h" />
+    <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.h" />
+    <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -426,7 +453,6 @@
     <AppxManifest Include="Package.appxmanifest" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
     <None Include="Source Generators\EnumMapingGenerator.ps1" />
     <None Include="Source Generators\ResourceGenerator.ps1" />
     <None Include="Source Generators\JsonModelGenerator.ps1" />

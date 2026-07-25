@@ -81,7 +81,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
     {
-        using namespace winrt::Windows::Storage;
+     /*   using namespace winrt::Windows::Storage;
         if (!SelectedProcess_) co_return;
 
         try
@@ -98,7 +98,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
             }
         }
         catch (const hresult_error&) {}
-        catch (const wil::ResultException&) {}
+        catch (const wil::ResultException&) {}*/
+        co_return;
     }
 
     /*IAsyncAction ProcessesViewModel::doDumpProcessMemoryAsync(MINIDUMP_TYPE dumpType)

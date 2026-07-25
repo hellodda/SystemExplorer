@@ -2,6 +2,10 @@
 
 #include "ViewModels/ViewModelBase.g.h"
 
+#ifdef __INTELLISENSE__
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
+#endif
 #include <factory.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation
