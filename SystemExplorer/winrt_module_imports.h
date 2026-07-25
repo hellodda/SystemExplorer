@@ -1,7 +1,6 @@
 #pragma once
 
 #ifdef __INTELLISENSE__
-
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Foundation.Metadata.h>
@@ -35,9 +34,6 @@
 
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
-
-#include <winrt/SystemExplorer.Xaml.h>
-#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
 #include <winrt/XamlToolkit.WinUI.h>
 #include <winrt/XamlToolkit.WinUI.Converters.h>
 #include <winrt/XamlToolkit.WinUI.Helpers.h>
@@ -87,9 +83,9 @@ import winrt.XamlToolkit.WinUI.Helpers;
 import winrt.XamlToolkit.WinUI.Controls;
 import winrt.XamlToolkit.WinUI.Animations;
 import winrt.XamlToolkit.WinUI.Rive;
-//
-//import winrt.SystemExplorer.Xaml;
-//import winrt.SystemExplorer.Xaml.Mvvm.Input;
+
+import winrt.SystemExplorer.Xaml;
+import winrt.SystemExplorer.Xaml.Mvvm.Input;
 
 #include <wil_cppwinrt_module.h>
 #endif

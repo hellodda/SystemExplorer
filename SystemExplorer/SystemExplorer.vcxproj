@@ -44,6 +44,7 @@
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <CppWinRTProjectLanguage>C++/WinRT</CppWinRTProjectLanguage>
     <WindowsAppSdkAutoInitialize>true</WindowsAppSdkAutoInitialize>
+    <CppWinRTModuleInclude>SystemExplorer.Xaml;</CppWinRTModuleInclude>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -1111,6 +1112,10 @@
     </ProjectReference>
     <ProjectReference Include="..\ModuleBuilder\ModuleBuilder.vcxproj">
       <Project>{fbea1197-439c-43fa-9f60-0750e647c72e}</Project>
+    </ProjectReference>
+     <ProjectReference Include="..\ModuleBuilder\ModuleBuilder.vcxproj">
+      <Project>{fbea1197-439c-43fa-9f60-0750e647c72e}</Project>
+      <CppWinRTConsumeModule>true</CppWinRTConsumeModule>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

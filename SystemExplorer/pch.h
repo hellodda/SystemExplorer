@@ -11,9 +11,7 @@
 #include <restrictederrorinfo.h>
 
 #undef GetCurrentTime
-#include <winrt/SystemExplorer.h>
 #include <winrt/WinUI3Package.h>
-#include <winrt/SystemExplorer.Xaml.h>
 #include <ppl.h>
 #include <pplawait.h>
 #include <pplcancellation_token.h>
