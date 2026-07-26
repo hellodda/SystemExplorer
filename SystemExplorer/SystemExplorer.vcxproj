@@ -58,16 +58,23 @@
       SystemExplorer.Converters;
       SystemExplorer.Views.Pages;
       SystemExplorer.Views.Pages.Settings;
+      SystemExplorer.Views.Pages.Activities;
+      SystemExplorer.Views.Pages.Activities.Performance;
       SystemExplorer.Views.Windows;
       SystemExplorer.ViewModels;
       SystemExplorer.ViewModels.Settings;
+      SystemExplorer.ViewModels.Activities;
+      SystemExplorer.ViewModels.Activities.Performance;
       SystemExplorer.Helpers;
       SystemExplorer.Core.Data.Enums;
       SystemExplorer.Core.Data.Items;
       SystemExplorer.Core.Data.Models;
       Microsoft.UI.Xaml.Interop;
+      Microsoft.UI.Xaml.Media.Animation;
+      Microsoft.UI.Xaml.Data
       Microsoft.Graphics;
       Microsoft.UI;
+      Microsoft.UI.Dispatching;
       Microsoft.Web;
       Microsoft.Windows;
       Windows.ApplicationModel;
@@ -84,7 +91,11 @@
       Windows.System;
       Windows.UI;
       Windows.UI.Xaml.Interop;
+      Windows.Graphics.Imaging;
       Windows.Web;
+      Windows.Data.Xml.Dom;
+      Windows.UI.Notifications;
+      Microsoft.Windows.AppLifecycle;
     </CppWinRTModuleInclude>
     <CppWinRTModuleExclude>
       Windows.UI.Xaml;
@@ -176,7 +187,7 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include</AdditionalIncludeDirectories>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
@@ -184,6 +195,12 @@
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdclatest</LanguageStandard_C>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</BuildStlModules>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</BuildStlModules>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildStlModules>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">unknown.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">unknown.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">unknown.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <AdditionalDependencies Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(CoreLibraryDependencies);%(AdditionalDependencies);Shell32.lib;Shlwapi.lib;wbemuuid.lib;comsuppw.lib;</AdditionalDependencies>
@@ -216,6 +233,12 @@
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
       <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</BuildStlModules>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</BuildStlModules>
+      <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildStlModules>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">unknown.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">unknown.h</ForcedIncludeFiles>
+      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">unknown.h</ForcedIncludeFiles>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -252,7 +275,9 @@
       <DependentUpon>Core\Data\Items\RemoteComputerItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Core\Eil\settings.h" />
     <ClInclude Include="Core\Settings\Settings.h" />
+    <ClInclude Include="unknown.h" />
     <ClInclude Include="wil_cppwinrt_module.h" />
     <ClInclude Include="Core\System\Native\basestring.h" />
     <ClInclude Include="Core\System\Native\file.h" />
@@ -901,6 +926,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1021,6 +1047,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="XamlMetaDataProvider.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.module.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
@@ -1218,9 +1247,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Ems\Ems.vcxproj">
       <Project>{f804537c-a4a2-41d0-8497-40cbe83edccc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\ExplorerCore\ExplorerCore.vcxproj">
-      <Project>{690786f8-7577-4da2-8bab-29db73ddc618}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

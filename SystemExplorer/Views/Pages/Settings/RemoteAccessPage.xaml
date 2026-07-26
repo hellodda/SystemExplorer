@@ -10,8 +10,8 @@
     xmlns:xtl="using:XamlToolkit.Labs.WinUI"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:essential="using:WinUI3Package"
-    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
-    xmlns:selectors="using:SystemExplorer.Xaml.Selectors"
+    xmlns:xaml="using:SystemExplorer.Xaml"
+    xmlns:selectors="using:SystemExplorer.Xaml"
     mc:Ignorable="d">
 
     <Page.Resources>

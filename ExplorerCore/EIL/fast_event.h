@@ -23,7 +23,7 @@ namespace eil // explorer implementation library
             eil::event_token operator()(T const& handler)
             {
                 int64_t current_token = next_token_++;
-                handlers_.emplace_back(current_token, handler);
+                handlers_.emplace_back(current_token, std::move(handler));
                 return { current_token };
             }
 

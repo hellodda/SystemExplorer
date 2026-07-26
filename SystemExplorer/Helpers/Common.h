@@ -1,5 +1,4 @@
 #pragma once
-#include <random>
 
 template <typename T, typename Pred>
 int32_t IndexOf(winrt::Windows::Foundation::Collections::IVector<T> const& vector, Pred&& pred)
@@ -54,19 +53,4 @@ winrt::Windows::Foundation::Collections::IVector<T> ViewToVector(winrt::Windows:
 inline winrt::hstring SeGetCurrentAppXPath()
 {
     return winrt::Windows::Storage::ApplicationData::Current().LocalFolder().Path();
-}
-
-inline std::wstring SeRandomString(int32_t length)
-{
-    WCHAR alphastring[16]{ L"" };
-    const wchar_t charset[] = L"0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, sizeof(charset) / sizeof(wchar_t) - 2);
-
-    for (int i = 0; i < length; ++i)
-    {
-        alphastring[i] = charset[dis(gen)];
-    }
-    alphastring[length] = L'\0';
 }

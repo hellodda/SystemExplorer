@@ -2,8 +2,6 @@
 
 #include "Views/Pages/Activities/ProcessesPage.g.h"
 
-#include <factory.h>
-
 namespace winrt
 {
     using namespace winrt::Windows::Foundation;

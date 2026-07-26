@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
-    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:xaml="using:SystemExplorer.Xaml"
     xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d"
     NavigationCacheMode="Required">

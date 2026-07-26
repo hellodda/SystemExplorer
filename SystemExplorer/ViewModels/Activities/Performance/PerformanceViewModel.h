@@ -2,7 +2,6 @@
 
 #include "ViewModels/Activities/Performance/PerformanceViewModel.g.h"
 #include <Core/Data/Items/PerformanceNavigationViewItem.h>
-#include <factory.h>
 
 namespace winrt
 {

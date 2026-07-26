@@ -7,8 +7,6 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #endif
 
-#include <Views/Pages/Properties/PropertiesRootPage.xaml.h>
-
 namespace winrt::SystemExplorer::Helpers
 {
     using namespace winrt::WinUI3Package;

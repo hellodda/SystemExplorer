@@ -5,10 +5,6 @@
 
 #include <Core/Data/Items/ProcessItem.h>
 
-#include <Helpers/Common.h>
-#include <factory.h>
-#include <property.h>
-
 namespace winrt
 {
     using namespace winrt::Windows::Foundation;
@@ -69,7 +65,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         });
 
         wil::single_threaded_property<winrt::IAsyncRelayCommand> ChangeItemSizeCommand = winrt::AsyncRelayCommandFactory::Make([this](auto const& parameter) -> winrt::IAsyncAction {
-            auto newSize = parameter.as<SystemExplorer::Core::Data::Enums::ItemSize>();
+            /*auto newSize = parameter.as<SystemExplorer::Core::Data::Enums::ItemSize>();
 
             auto state = SystemExplorer::Core::Settings::AppState::Instance();
 
@@ -93,17 +89,18 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
                 state.ItemIconSize(15);
                 break;
             }
-            }
+            }*/
             co_return;
         });
 
         DECLARE_ONLY_SETTER(winrt::ProcessItem, SelectedProcess, nullptr);
 
-        wil::single_threaded_notifying_property<float> TotalCpuUsgae;
-        wil::single_threaded_notifying_property<uint64_t> TotalIoRate;
-        wil::single_threaded_notifying_property<uint64_t> TotalPrivateBytes;
-        wil::single_threaded_notifying_property<int32_t> ItemIconSize;
-        wil::single_threaded_notifying_property<int32_t> ItemFontSize;
+
+        WIL_NOTIFYING_PROPERTY(float, TotalCpuUsage, 0);
+        WIL_NOTIFYING_PROPERTY(uint64_t, TotalIoRate, 0);
+        WIL_NOTIFYING_PROPERTY(uint64_t, TotalPrivateBytes, 0);
+        WIL_NOTIFYING_PROPERTY(int32_t, ItemIconSize, 18);
+        WIL_NOTIFYING_PROPERTY(int32_t, ItemFontSize, 13);
     private: // internal
 
         [[nodiscard]] winrt::IAsyncAction showErrorDialogAsync(hstring const& message);

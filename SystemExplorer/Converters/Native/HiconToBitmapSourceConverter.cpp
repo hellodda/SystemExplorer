@@ -49,18 +49,14 @@ namespace winrt::SystemExplorer::Converters::Native
 
 	void HiconToBitmapSourceConverter::initialize()
 	{
-		THROW_IF_FAILED(CoCreateInstance(
+		wicImagingFactory_ = winrt::create_instance<IWICImagingFactory>(
 			CLSID_WICImagingFactory,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&wicImagingFactory_)
-		));
+			CLSCTX_INPROC_SERVER
+		);
 
-		THROW_IF_FAILED(CoCreateInstance(
+		softwareBitmapNativeFactory_ = winrt::create_instance<ISoftwareBitmapNativeFactory>(
 			CLSID_SoftwareBitmapNativeFactory,
-			NULL,
-			CLSCTX_INPROC_SERVER,
-			IID_PPV_ARGS(&softwareBitmapNativeFactory_)
-		));
+			CLSCTX_INPROC_SERVER
+		);
 	}
 }

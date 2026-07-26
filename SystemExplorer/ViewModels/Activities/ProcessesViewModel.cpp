@@ -5,13 +5,10 @@
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
 #include "ViewModels/Activities/ProcessesViewModel.g.cpp"
 #endif
-#include <ranges>
 #include <App.xaml.h>
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
-  
-
     ProcessesViewModel::ProcessesViewModel()
     {
     
@@ -30,7 +27,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     }
 
     // commands impl
-    IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
+    winrt::IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
     {
       /*  if (!SelectedProcess_) co_return;
         const auto pid = SelectedProcess_.Pid();
@@ -43,7 +40,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         co_return;
     }
 
-    IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
+    winrt::IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
     {
        /* if (!SelectedProcess_) co_return;
         const auto pid = SelectedProcess_.Pid();
@@ -63,14 +60,14 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         co_return;
     }
 
-    IAsyncAction ProcessesViewModel::doRestartProcessAsync()
+    winrt::IAsyncAction ProcessesViewModel::doRestartProcessAsync()
     {
     /*    if (!SelectedProcess_) co_return;
         manager_->Restart(SelectedProcess_.Pid());*/
         co_return;
     }
 
-    IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
+    winrt::IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
     {
      /*   if (SelectedProcess_)
         {
@@ -79,7 +76,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         co_return;
     }
 
-    IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
+    winrt::IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
     {
      /*   using namespace winrt::Windows::Storage;
         if (!SelectedProcess_) co_return;
@@ -127,7 +124,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         }
     }*/
 
-    IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)
+    winrt::IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)
     {
         MessageBox(NULL, message.c_str(), L"Action failed", MB_OK | MB_ICONERROR);
         co_return;

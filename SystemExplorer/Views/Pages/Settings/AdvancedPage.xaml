@@ -6,7 +6,7 @@
     xmlns:local="using:SystemExplorer.Views.Pages.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:xaml="using:SystemExplorer.Xaml"
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:xconverters="using:XamlToolkit.WinUI.Converters"
     xmlns:toolkit="using:XamlToolkit.WinUI"

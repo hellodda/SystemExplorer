@@ -19,7 +19,7 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
 
         wil::single_threaded_property<ViewModels::RootViewModel> ViewModel;
 
-        winrt::IAsyncAction NavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args);
+        [[nodiscard]] winrt::IAsyncAction NavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args);
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Pages, RootPage);

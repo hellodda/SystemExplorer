@@ -16,8 +16,8 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 	GeneralViewModel::GeneralViewModel() 
 	  : INIT_NOTIFYING_PROPERTY(ShowRestartControl, false)
 	{
-		for (auto const& lang : AppLanguageService::Instance().SupportedLanguages())
-			AppLanguages.Append(box_value(lang));
+		for (auto const& lang : AppLanguageService::SupportedLanguages())
+			AppLanguages.Append(winrt::box_value(lang));
 
 		StartPages.Append(box_value(StringsHelper::Processes()));
 	}
@@ -49,11 +49,10 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
 	void GeneralViewModel::SelectedAppLanguageIndex(int32_t const& value) noexcept
 	{
-		if (AppLanguageService::Instance().TryChange(value))
+		if (AppLanguageService::TryChange(value))
 		{
 			SelectedAppLanguageIndex_ = value;
 			ShowRestartControl(true);
-			RAISE_PROPERTY_CHANGED;
 		}
 	}
 }

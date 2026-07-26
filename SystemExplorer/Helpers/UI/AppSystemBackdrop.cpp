@@ -7,13 +7,11 @@
 #include <Core/Settings/Settings.h>
 
 
-using namespace winrt::WinUI3Package;
-
 namespace winrt::SystemExplorer::Helpers::UI::implementation
 {
 	AppSystemBackdrop::AppSystemBackdrop()
 	{
-        Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
+      /*  Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
             if (auto wrf = weak.get())
             {
                 if (name == "BackdropMaterial")
@@ -21,14 +19,14 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 
                 }
             }
-        });
+        });*/
 	}
 
 	AppSystemBackdrop::AppSystemBackdrop(bool enableWhenInactive)
 	{
         EnableWhenInactive(enableWhenInactive);
 
-        Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
+       /* Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
             if (auto wrf = weak.get())
             {
                 if (name == "BackdropMaterial")
@@ -36,7 +34,7 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 
                 }
             }
-        });
+        });*/
 	}
 
     void AppSystemBackdrop::EnableWhenInactive(bool value) noexcept

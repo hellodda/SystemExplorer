@@ -1,10 +1,6 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "App.xaml.h"
-
-#if __has_include("module.g.cpp")
-#  include "module.g.cpp"
-#endif
 #include "Views/Windows/MainWindow.xaml.h"
 
 namespace winrt::SystemExplorer::implementation

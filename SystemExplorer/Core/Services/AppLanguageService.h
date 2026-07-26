@@ -7,18 +7,22 @@
 
 #include <Core/Data/Items/AppLanguageItem.h> 
 
-namespace winrt::SystemExplorer::Core::Services
+namespace winrt
 {
+    using namespace winrt::SystemExplorer::Core::Data::Items;
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Windows::Globalization;
+}
 
-    using namespace winrt::SystemExplorer::Core::Data::Items;
-
+namespace winrt::SystemExplorer::Core::Services
+{
 	struct AppLanguageService final
 	{
-        [[nodiscard]] static IVector<AppLanguageItem> SupportedLanguages() noexcept;
+        AppLanguageService();
 
-        [[nodiscard]] static AppLanguageItem PreferredLanguage() noexcept;
+        [[nodiscard]] static winrt::IVector<winrt::AppLanguageItem> SupportedLanguages() noexcept;
+
+        [[nodiscard]] static winrt::AppLanguageItem PreferredLanguage() noexcept;
 
         [[nodiscard]] static bool IsPreferredLanguageRtl();
 

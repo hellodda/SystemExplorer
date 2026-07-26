@@ -1,9 +1,8 @@
 #include "pch.h"
+#include "winrt_module_imports.h"
 #include "DesktopNotification.h"
 #include "../SeExeUtils.h"
 #include <shobjidl.h>
-#include <winrt/Windows.UI.Notifications.h>
-#include <winrt/Windows.Data.Xml.Dom.h>
 
 using namespace winrt::Windows::UI::Notifications;
 using namespace winrt::Windows::Data::Xml::Dom;

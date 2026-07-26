@@ -29,27 +29,27 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         updateSelectedAppTheme();
         updateSelectedResource();
 
-        BackdropMaterialTypes.Append(box_value(StringsHelper::Static()));
-        BackdropMaterialTypes.Append(box_value(StringsHelper::Acrylic()));
-        BackdropMaterialTypes.Append(box_value(StringsHelper::ThinAcrylic()));
-        BackdropMaterialTypes.Append(box_value(StringsHelper::Mica()));
-        BackdropMaterialTypes.Append(box_value(StringsHelper::MicaAlt()));
+        BackdropMaterialTypes.Append(winrt::box_value(StringsHelper::Static()));
+        BackdropMaterialTypes.Append(winrt::box_value(StringsHelper::Acrylic()));
+        BackdropMaterialTypes.Append(winrt::box_value(StringsHelper::ThinAcrylic()));
+        BackdropMaterialTypes.Append(winrt::box_value(StringsHelper::Mica()));
+        BackdropMaterialTypes.Append(winrt::box_value(StringsHelper::MicaAlt()));
         updateSelectedBackdropMaterial();
 
-        ImageStretchTypes.Append(box_value(StringsHelper::None()));
-        ImageStretchTypes.Append(box_value(StringsHelper::Fill()));
-        ImageStretchTypes.Append(box_value(StringsHelper::Uniform()));
-        ImageStretchTypes.Append(box_value(StringsHelper::UniformToFill()));
+        ImageStretchTypes.Append(winrt::box_value(StringsHelper::None()));
+        ImageStretchTypes.Append(winrt::box_value(StringsHelper::Fill()));
+        ImageStretchTypes.Append(winrt::box_value(StringsHelper::Uniform()));
+        ImageStretchTypes.Append(winrt::box_value(StringsHelper::UniformToFill()));
         updateSelectedImageStretch();
 
-        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Top()));
-        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Center()));
-        ImageVerticalAlignmentTypes.Append(box_value(StringsHelper::Bottom()));
+        ImageVerticalAlignmentTypes.Append(winrt::box_value(StringsHelper::Top()));
+        ImageVerticalAlignmentTypes.Append(winrt::box_value(StringsHelper::Center()));
+        ImageVerticalAlignmentTypes.Append(winrt::box_value(StringsHelper::Bottom()));
         updateSelectedImageVerticalAlignmentType();
 
-        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Left()));
-        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Center()));
-        ImageHorizontalAlignmentTypes.Append(box_value(StringsHelper::Right()));
+        ImageHorizontalAlignmentTypes.Append(winrt::box_value(StringsHelper::Left()));
+        ImageHorizontalAlignmentTypes.Append(winrt::box_value(StringsHelper::Center()));
+        ImageHorizontalAlignmentTypes.Append(winrt::box_value(StringsHelper::Right()));
         updateSelectedImageHorizontalAlignmentType();
     }
 
@@ -81,7 +81,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept
     {
-        Core::Services::AppResourcesService::Instance().SetAppThemeBackgroundColor(ColorHelper::ToColor(value));
+        Core::Services::AppResourcesService::SetAppThemeBackgroundColor(Windows::UI::Colors::AntiqueWhite()); // TODO
         Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor(value);
     }
 
@@ -200,16 +200,17 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     void AppearanceViewModel::updateSelectedImageStretch()
     {
-        SetIndexFromSetting(ImageStretchTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit, &AppearanceViewModel::SelectedImageStretchTypeIndex);
+        //SetIndexFromSetting(ImageStretchTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit, &AppearanceViewModel::SelectedImageStretchTypeIndex);
     }
 
     void AppearanceViewModel::updateSelectedImageVerticalAlignmentType()
     {
-        SetIndexFromSetting(ImageVerticalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment, &AppearanceViewModel::SelectedImageVerticalAlignmentTypeIndex);
+        //SetIndexFromSetting(ImageVerticalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment, &AppearanceViewModel::SelectedImageVerticalAlignmentTypeIndex);
     }
 
     void AppearanceViewModel::updateSelectedImageHorizontalAlignmentType()
     {
-        SetIndexFromSetting(ImageHorizontalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment, &AppearanceViewModel::SelectedImageHorizontalAlignmentTypeIndex);
+        //SetIndexFromSetting(ImageHorizontalAlignmentTypes, Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment, &AppearanceViewModel::SelectedImageHorizontalAlignmentTypeIndex);
     }
 }
+

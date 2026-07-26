@@ -10,7 +10,7 @@
 namespace winrt
 {
     using namespace winrt::Windows::Foundation;
-    using namespace winrt::Microsoft::UI::Xaml;Xaml/
+    using namespace winrt::Microsoft::UI::Xaml;
 }
 
 namespace winrt::SystemExplorer::Xaml::implementation

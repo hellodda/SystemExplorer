@@ -8,7 +8,6 @@
 #include <ViewModels/Activities/ProcessesViewModel.h>
 #include <Helpers/ProcessPropertiesHelper.h>
 
-
 namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 {
     winrt::IAsyncAction ProcessesPage::ProcessMenuFlyoutOpened(winrt::IInspectable const& sender, winrt::IInspectable const&)

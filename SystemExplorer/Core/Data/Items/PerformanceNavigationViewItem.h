@@ -6,8 +6,6 @@
 #include <wil/cppwinrt_authoring.h>
 #endif
 
-#include <factory.h>
-
 namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {
     struct PerformanceNavigationViewItem : PerformanceNavigationViewItemT<PerformanceNavigationViewItem>, wil::notify_property_changed_base<PerformanceNavigationViewItem>

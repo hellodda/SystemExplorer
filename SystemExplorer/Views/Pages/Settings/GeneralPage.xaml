@@ -8,11 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
-    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:xaml="using:SystemExplorer.Xaml"
     xmlns:essential="using:WinUI3Package"
     xmlns:items="using:SystemExplorer.Core.Data.Items"
     xmlns:helpers="using:SystemExplorer.Helpers"
-    xmlns:settings="using:SystemExplorer.Core.Settings"
     mc:Ignorable="d"
     NavigationCacheMode="Required"
     >
@@ -103,7 +102,7 @@
                 <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.DymamicKernelMemoryDump}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
                                       Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
-                    <xtc:SettingsExpander.Items>
+                    <!--<xtc:SettingsExpander.Items>
                         <xtc:SettingsCard>
                             <xtc:SettingsCard.Header>
                                 <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpAbortIfInsufficientMemory, Mode=TwoWay}" Content="Abort if insufficient memory"/>
@@ -124,7 +123,7 @@
                                 <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureUserPages, Mode=TwoWay}" Content="Capture user pages"/>
                             </xtc:SettingsCard.Header>
                         </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>
+                    </xtc:SettingsExpander.Items>-->
                 </xtc:SettingsExpander>
 
                 <xtc:SettingsCard Header="Инструменты разработчика"

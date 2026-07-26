@@ -3,9 +3,7 @@
 #include "ViewModels/Settings/AppearanceViewModel.g.h"
 #include "../ViewModelBase.h"
 
-#include <winrt/Microsoft.Windows.Storage.Pickers.h>
-#include <winrt/Microsoft.UI.Windowing.h>
-#include <winrt/SystemExplorer.Xaml.Mvvm.Input.h>
+
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
 #include <Helpers/EnumHelper.h>
 #include <App.xaml.h>
@@ -59,7 +57,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         wil::single_threaded_notifying_property<int32_t> SelectedImageVerticalAlignmentTypeIndex;
         wil::single_threaded_notifying_property<int32_t> SelectedImageHorizontalAlignmentTypeIndex;
     private:
-        IAsyncAction doSelectImageAsync();
+        [[nodiscard]] winrt::IAsyncAction doSelectImageAsync();
 
         void updateSelectedResource();
         void updateSelectedBackdropMaterial();
@@ -67,16 +65,6 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         void updateSelectedImageStretch();
         void updateSelectedImageVerticalAlignmentType();
         void updateSelectedImageHorizontalAlignmentType();
-
-        template<typename TSetting>
-        void SetIndexFromSetting(Windows::Foundation::Collections::IVector<IInspectable> const& container, TSetting settingValue, auto indexSetter)
-        {
-            auto targetStr = winrt::SystemExplorer::Helpers::EnumHelper::Map(settingValue);
-            auto index = IndexOf<IInspectable>(container, [&](IInspectable const& item) {
-                return unbox_value_or<hstring>(item, L"") == targetStr;
-                });
-            (this->*indexSetter)(index >= 0 ? index : 0);
-        }
     };
 }
 FACTORY(winrt::SystemExplorer::ViewModels::Settings, AppearanceViewModel);

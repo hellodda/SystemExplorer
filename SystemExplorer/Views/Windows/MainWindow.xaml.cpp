@@ -15,7 +15,7 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         ExtendsContentIntoTitleBar(true);
         AppWindow().TitleBar().PreferredHeightOption(winrt::TitleBarHeightOption::Tall);
 
-        Core::Settings::UserSettings::AppearanceSettings.SettingChanged([this](std::string_view name, eil::generic_t value)
+      /*  Core::Settings::UserSettings::AppearanceSettings.SettingChanged([this](std::string_view name, eil::generic_t value)
         {
             
             if (name == "ApplicationTheme")
@@ -25,7 +25,7 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
                 this->RootGrid().RequestedTheme(theme);
             }
 
-        });
+        });*/
     }
 }
 

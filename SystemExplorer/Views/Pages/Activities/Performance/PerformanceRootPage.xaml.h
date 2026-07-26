@@ -2,7 +2,9 @@
 
 #include "Views/Pages/Activities/Performance/PerformanceRootPage.g.h"
 
-#include <factory.h>
+#ifdef __INTELLISENSE__
+#include "../../../../ViewModels/Activities/Performance/PerformanceViewModel.h"
+#endif
 
 namespace winrt
 {

@@ -9,7 +9,7 @@
     xmlns:xtc="using:XamlToolkit.WinUI.Controls"
     xmlns:xtl="using:XamlToolkit.Labs.WinUI"
     xmlns:toolkit="using:XamlToolkit.WinUI"
-    xmlns:xaml="using:SystemExplorer.Xaml.Controls"
+    xmlns:xaml="using:SystemExplorer.Xaml"
     mc:Ignorable="d">
 
     <Grid Padding="20">

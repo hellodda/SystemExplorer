@@ -6,6 +6,9 @@
 #include <winrt/Windows.Foundation.Metadata.h>
 #include <winrt/Windows.Foundation.Numerics.h>
 #include <winrt/Windows.UI.h>
+
+#include <winrt/Windows.UI.Notifications.h>
+#include <winrt/Windows.Data.Xml.Dom.h>
 #include <winrt/Windows.UI.Xaml.Interop.h>
 #include <winrt/Windows.Graphics.Imaging.h>
 #include <winrt/Windows.Globalization.h>
@@ -21,7 +24,7 @@
 #include <winrt/Microsoft.UI.Windowing.h>
 #include <winrt/Microsoft.UI.Dispatching.h>
 #include <winrt/Microsoft.UI.Text.h>
-#include <winrt/Microsoft.UI.Xaml.h>
+#include <winrt/Microsoft.UI.Xaml.Animation.h>
 #include <winrt/Microsoft.UI.Xaml.Media.h>
 #include <winrt/Microsoft.UI.Xaml.Media.Imaging.h>
 #include <winrt/Microsoft.UI.Xaml.Controls.h>
@@ -33,7 +36,7 @@
 #include <winrt/Windows.UI.Composition.h>
 #include <winrt/Microsoft.Windows.Storage.Pickers.h>
 #include <winrt/Microsoft.Windows.Storage.h>
-
+#include <winrt/Microsoft.UI.Xaml.>
 #include <winrt/Microsoft.Windows.ApplicationModel.Resources.h>
 
 #include <winrt/XamlToolkit.WinUI.h>
@@ -56,30 +59,38 @@ import winrt.Windows.Foundation.Metadata;
 import winrt.Windows.Foundation.Numerics;
 import winrt.Windows.UI;
 import winrt.Windows.UI.Xaml.Interop;
+import winrt.Windows.UI.Notifications;
+import winrt.Windows.Graphics.Imaging;
 import winrt.Windows.Globalization;
 import winrt.Windows.Graphics.Imaging;
 import winrt.Windows.System;
 import winrt.Windows.Storage;
 import winrt.Windows.Storage.Pickers;
 import winrt.Windows.Storage.Streams;
+import winrt.Windows.Data.Xml.Dom;
 
 import winrt.Microsoft.UI;
 import winrt.Microsoft.UI.Composition;
 import winrt.Microsoft.UI.Windowing;
-import winrt.Microsoft.UI.Dispatching;
 import winrt.Microsoft.UI.Text;
 import winrt.Microsoft.UI.Xaml;
+import winrt.Microsoft.UI.Xaml.Data;
+import winrt.Microsoft.UI.Xaml.Interop;
 import winrt.Microsoft.UI.Xaml.Media;
 import winrt.Microsoft.UI.Xaml.Media.Imaging;
+import winrt.Microsoft.UI.Xaml.Media.Animation;
 import winrt.Microsoft.UI.Xaml.Controls;
 import winrt.Microsoft.UI.Xaml.Hosting;
 import winrt.Microsoft.UI.Xaml.Markup;
 import winrt.Microsoft.UI.Xaml.Shapes;
+import winrt.Microsoft.UI.Dispatching;
 import winrt.Microsoft.UI.Xaml.XamlTypeInfo;
 import winrt.Microsoft.UI.Composition.SystemBackdrops;
 import winrt.Microsoft.Windows.Storage.Pickers;
 import winrt.Microsoft.Windows.Storage;
 import winrt.Microsoft.Windows.ApplicationModel.Resources;
+import winrt.Microsoft.Windows.AppLifecycle;
+
 
 import winrt.XamlToolkit.WinUI;
 import winrt.XamlToolkit.Labs.WinUI;
@@ -96,9 +107,13 @@ import winrt.SystemExplorer.Xaml;
 import winrt.SystemExplorer.Converters;
 import winrt.SystemExplorer.Views.Pages;
 import winrt.SystemExplorer.Views.Pages.Settings;
+import winrt.SystemExplorer.Views.Pages.Activities;
+import winrt.SystemExplorer.Views.Pages.Activities.Performance;
 import winrt.SystemExplorer.Views.Windows;
 import winrt.SystemExplorer.ViewModels;
 import winrt.SystemExplorer.ViewModels.Settings;
+import winrt.SystemExplorer.ViewModels.Activities;
+import winrt.SystemExplorer.ViewModels.Activities.Performance;
 import winrt.SystemExplorer.Helpers;
 import winrt.SystemExplorer.Core.Data.Enums;
 import winrt.SystemExplorer.Core.Data.Items;

@@ -11,7 +11,7 @@ namespace winrt::SystemExplorer::Xaml::implementation
 
     struct SimpleSettingsGroupAutomationPeer : SimpleSettingsGroupAutomationPeerT<SimpleSettingsGroupAutomationPeer>
     {
-        using owner_type = SystemExplorer::Xaml::Controls::SimpleSettingsGroup;
+        using owner_type = SystemExplorer::Xaml::SimpleSettingsGroup;
 
         SimpleSettingsGroupAutomationPeer(owner_type const& owner);
 

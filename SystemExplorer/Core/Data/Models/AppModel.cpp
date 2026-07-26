@@ -8,9 +8,6 @@
 
 namespace winrt::SystemExplorer::Core::Data::Models::implementation
 {
-	AppModel::AppModel()
-	{
-	}
 	float AppModel::AppWindowDPI() noexcept
 	{
 		if (AppWindowDPI_ == 0.0f)

@@ -16,7 +16,7 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
         NavFrame().Navigate(xaml_typename<Activities::ActivitiesRootPage>());
     }
 
-	IAsyncAction RootPage::NavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args)
+	winrt::IAsyncAction RootPage::NavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args)
 	{
         if (auto item = args.SelectedItem())
         {

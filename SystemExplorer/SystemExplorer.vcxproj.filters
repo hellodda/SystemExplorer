@@ -39,10 +39,7 @@
     <Page Include="Views\Pages\Settings\EmsPage.xaml" />
     <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml" />
     <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
-    <Page Include="Xaml\Styles\FlatButton.xaml" />
-    <Page Include="Xaml\Styles\Animations.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
-    <Page Include="Xaml\Styles\PropertyStyles.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -86,9 +83,6 @@
     </Midl>
     <Midl Include="Core\Data\Models\AppModel.idl">
       <Filter>Core\Data\Models</Filter>
-    </Midl>
-    <Midl Include="Core\Data\Parameters\PropertiesPageNavigationParameter.idl">
-      <Filter>Core\Data\Parameters</Filter>
     </Midl>
     <Midl Include="Helpers\StringsHelper.idl">
       <Filter>Helpers</Filter>
@@ -199,7 +193,6 @@
     <ClCompile Include="Core\EMS\EmsHost.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
-    <ClCompile Include="Core\Diagnostics\wil_sentry.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommandFactory.cpp" />
     <ClCompile Include="Xaml\Mvvm\RelayCommand.cpp" />
@@ -207,6 +200,10 @@
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp" />
+    <ClCompile Include="test.cpp" />
+    <ClCompile Include="XamlTypeInfo.module.cpp" />
+    <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
+    <ClCompile Include="XamlMetaDataProvider.module.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -308,6 +305,8 @@
     <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.h" />
     <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.h" />
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h" />
+    <ClInclude Include="Core\Eil\settings.h" />
+    <ClInclude Include="unknown.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -460,12 +459,12 @@
     <None Include="Core\Settings\default.json" />
     <None Include="vcpkg.json" />
     <None Include="vcpkg-configuration.json" />
-    <None Include="SettingsInfoData.json" />
     <None Include="SystemExplorer_TemporaryKey.pfx" />
     <None Include="Component.json" />
     <None Include="$(_WindowsMLLocalNativePath)\onnxruntime.dll" />
     <None Include="$(_WindowsMLLocalNativePath)\DirectML.dll" />
     <None Include="$(_WindowsMLLocalNativePath)\Microsoft.Windows.AI.MachineLearning.dll" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw">

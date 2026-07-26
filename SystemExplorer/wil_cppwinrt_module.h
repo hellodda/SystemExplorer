@@ -11,10 +11,12 @@ import winrt.Windows.UI.Core;
 
 #define WINRT_IMPORT_MODULE
 #define WINRT_BASE_H
+
 #include <winrt/Windows.Foundation.h>
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.System.h>
 #include <winrt/Windows.UI.Core.h>
+#include <winrt/Microsoft.UI.Xaml.Data.h>
 
 #include <wil/stl.h>
 #include <wil/result.h>
