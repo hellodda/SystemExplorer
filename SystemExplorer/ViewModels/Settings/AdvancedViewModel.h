@@ -2,7 +2,7 @@
 
 #include "ViewModels/Settings/AdvancedViewModel.g.h"
 
-#include <factory.h>
+#include "../ViewModelBase.h"
 
 namespace winrt
 {

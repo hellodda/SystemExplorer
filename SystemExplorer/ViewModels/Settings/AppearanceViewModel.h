@@ -7,8 +7,6 @@
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
 #include <Helpers/EnumHelper.h>
 #include <App.xaml.h>
-#include <factory.h>
-#include <property.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {

@@ -5,6 +5,7 @@
 #ifdef __INTELLISENSE__
 #include <wil/cppwinrt_authoring.h>
 #endif
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt
 {

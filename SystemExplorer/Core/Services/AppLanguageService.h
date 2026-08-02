@@ -4,7 +4,6 @@
 #include <winrt/Windows.Foundation.Collections.h>
 #include <winrt/Windows.Globalization.h> 
 #endif
-
 #include <Core/Data/Items/AppLanguageItem.h> 
 
 namespace winrt
@@ -16,9 +15,9 @@ namespace winrt
 
 namespace winrt::SystemExplorer::Core::Services
 {
-	struct AppLanguageService final
-	{
-        AppLanguageService();
+    struct AppLanguageService final
+    {
+        AppLanguageService() = delete;
 
         [[nodiscard]] static winrt::IVector<winrt::AppLanguageItem> SupportedLanguages() noexcept;
 
@@ -29,6 +28,5 @@ namespace winrt::SystemExplorer::Core::Services
         [[nodiscard]] static bool TryChange(int32_t index);
 
         [[nodiscard]] static bool TryChange(winrt::hstring const& code);
-	};
+    };
 }
-

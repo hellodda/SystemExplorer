@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "App.xaml.h"
+#include <winrt/Microsoft.UI.Xaml.Settings.h>
 //#include "Core/System/native.h"
 //#include "Helpers/Common.h"
 //#include <CommCtrl.h>
@@ -16,10 +17,10 @@
 //
 //
 //// potom uberu v manifest
-//#pragma comment(linker,"\"/manifestdependency:type='win32' \
-//name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
-//processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
-//
+#pragma comment(linker,"\"/manifestdependency:type='win32' \
+name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
+processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
+
 //#define DEBUG
 ////#define SE_MINIMAL_ERRORMODE
 ////#define DEBUG_E
@@ -370,6 +371,9 @@ INT APIENTRY wWinMain(
     _In_ INT nCmdShow
 )
 {
+    using namespace winrt::Microsoft::UI::Xaml;
+    using namespace winrt::Microsoft::UI::Xaml::Settings;
+
     UNREFERENCED_PARAMETER(hInstance);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -385,11 +389,13 @@ INT APIENTRY wWinMain(
     }
     CATCH_LOG()*/
 
-#ifdef DEBUG_E
-    RaiseException(EXCEPTION_ACCESS_VIOLATION, 0, 0, nullptr);
-#endif 
 
-    winrt::Microsoft::UI::Xaml::Application::Start([](auto&&)
+    XamlOptionalChanges::EnableChange(XamlChangeId::DefaultStyleOptimizations);
+    XamlOptionalChanges::EnableChange(XamlChangeId::DeferContextFlyoutInit);
+    XamlOptionalChanges::EnableChange(XamlChangeId::IconNoGridOptimization);
+    XamlOptionalChanges::EnableChange(XamlChangeId::OptimizeApplyStyles);
+
+    Application::Start([](auto&&)
     {
         winrt::make<winrt::SystemExplorer::implementation::App>();
     });

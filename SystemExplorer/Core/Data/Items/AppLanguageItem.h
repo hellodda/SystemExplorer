@@ -5,7 +5,6 @@
 #ifdef __INTELLISENSE__
 #include <wil/cppwinrt_authoring.h>
 #endif
-#include <factory.h>
 
 namespace winrt::SystemExplorer::Core::Data::Items::implementation
 {

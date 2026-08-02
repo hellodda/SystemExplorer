@@ -2,13 +2,11 @@
 
 #include "ViewModels/Settings/AboutViewModel.g.h"
 
-#include <factory.h>
-
-#include <property.h>
-
 #ifdef __INTELLISENSE__
 #include <winrt/Windows.System.h>
 #endif
+#include "../ViewModelBase.h"
+
 
 namespace winrt
 {

@@ -4,6 +4,7 @@
 #include "ViewModels/Activities/ProcessesViewModel.g.h"
 
 #include <Core/Data/Items/ProcessItem.h>
+#include "../ViewModelBase.h"
 
 namespace winrt
 {

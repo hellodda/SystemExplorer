@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.2526\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.2526\build\Microsoft.Windows.SDK.BuildTools.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.2.3.1\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.3.1\build\native\Microsoft.WindowsAppSDK.props')" />
@@ -38,83 +37,12 @@
     <EnableMsixTooling>true</EnableMsixTooling>
     <CppWinRTUsePrefixes>false</CppWinRTUsePrefixes>
     <CppWinRTLibs>true</CppWinRTLibs>
-    <CppWinRTBuildModule>true</CppWinRTBuildModule>
+    <CppWinRTBuildModule>false</CppWinRTBuildModule>
     <CppWinRTFastAbi>true</CppWinRTFastAbi>
     <CppWinRTModernIDL>true</CppWinRTModernIDL>
     <WindowsAppSDKSelfContained>true</WindowsAppSDKSelfContained>
     <CppWinRTProjectLanguage>C++/WinRT</CppWinRTProjectLanguage>
     <WindowsAppSdkAutoInitialize>true</WindowsAppSdkAutoInitialize>
-    <CppWinRTModuleInclude>
-      XamlToolkit.WinUI.Rive;
-      XamlToolkit.WinUI.Animations;
-      XamlToolkit.WinUI.Controls
-      XamlToolkit.WinUI.Helpers;
-      XamlToolkit.WinUI.Converters;
-      XamlToolkit.WinUI.Media;
-      XamlToolkit.WinUI;
-      XamlToolkit.Labs.WinUI;
-      WinUI3Package;
-      SystemExplorer.Xaml;
-      SystemExplorer.Converters;
-      SystemExplorer.Views.Pages;
-      SystemExplorer.Views.Pages.Settings;
-      SystemExplorer.Views.Pages.Activities;
-      SystemExplorer.Views.Pages.Activities.Performance;
-      SystemExplorer.Views.Windows;
-      SystemExplorer.ViewModels;
-      SystemExplorer.ViewModels.Settings;
-      SystemExplorer.ViewModels.Activities;
-      SystemExplorer.ViewModels.Activities.Performance;
-      SystemExplorer.Helpers;
-      SystemExplorer.Core.Data.Enums;
-      SystemExplorer.Core.Data.Items;
-      SystemExplorer.Core.Data.Models;
-      Microsoft.UI.Xaml.Interop;
-      Microsoft.UI.Xaml.Media.Animation;
-      Microsoft.UI.Xaml.Data
-      Microsoft.Graphics;
-      Microsoft.UI;
-      Microsoft.UI.Dispatching;
-      Microsoft.Web;
-      Microsoft.Windows;
-      Windows.ApplicationModel;
-      Windows.Data;
-      Windows.Devices;
-      Windows.Foundation;
-      Windows.Globalization;
-      Windows.Graphics;
-      Windows.Media;
-      Windows.Networking;
-      Windows.Perception;
-      Windows.Security;
-      Windows.Storage;
-      Windows.System;
-      Windows.UI;
-      Windows.UI.Xaml.Interop;
-      Windows.Graphics.Imaging;
-      Windows.Web;
-      Windows.Data.Xml.Dom;
-      Windows.UI.Notifications;
-      Microsoft.Windows.AppLifecycle;
-    </CppWinRTModuleInclude>
-    <CppWinRTModuleExclude>
-      Windows.UI.Xaml;
-      Windows.Gaming;
-      Windows.AI;
-      Windows.Graphics.Holographic;
-      Windows.Graphics.Printing3D;
-      Windows.Services.Cortana;
-      Windows.Services.Maps;
-      Windows.Networking.Vpn;
-      Windows.Networking.Proximity;
-      Windows.Networking.NetworkOperators;
-      Windows.ApplicationModel.Store.Preview;
-      Windows.ApplicationModel.UserActivities;
-      Windows.ApplicationModel.Holographic;
-      Windows.UI.Input.Preview;
-      Windows.ApplicationModel.ConversationalAgent;
-      Windows.ApplicationModel.Preview;
-   </CppWinRTModuleExclude>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <ItemGroup Label="ProjectConfigurations">
@@ -267,6 +195,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Core\Data\Items\NavigationCatalogItem.h">
+      <DependentUpon>Core\Data\Items\NavigationCatalogItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Data\Items\PerformanceNavigationViewItem.h">
       <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -591,6 +523,7 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
+    <Page Include="Theme\Generic.xaml" />
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -643,6 +576,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
+    <ClCompile Include="Core\Data\Items\NavigationCatalogItem.cpp">
+      <DependentUpon>Core\Data\Items\NavigationCatalogItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Data\Items\PerformanceNavigationViewItem.cpp">
       <DependentUpon>Core\Data\Items\PerformanceNavigationViewItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -926,7 +863,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="ViewModels\Activities\Performance\PerformanceViewModel.cpp">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1047,9 +983,30 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="XamlMetaDataProvider.module.cpp" />
-    <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
-    <ClCompile Include="XamlTypeInfo.module.cpp" />
+    <ClCompile Include="XamlMetaDataProvider.module.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XamlTypeInfo.Impl.module.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="XamlTypeInfo.module.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
@@ -1080,6 +1037,9 @@
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Data\Enums\Stretch.idl" />
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
+    <Midl Include="Core\Data\Items\NavigationCatalogItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
       <SubType>Designer</SubType>
     </Midl>

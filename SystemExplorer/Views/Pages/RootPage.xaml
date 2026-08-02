@@ -44,6 +44,7 @@
             <TitleBar.Content>
                 <AutoSuggestBox 
                     x:Name="TitleBarSearchBox"
+                    PlaceholderText="SystemExplorer://Settings/RemoteAccess"
                     QueryIcon="Find"
                     Width="400"
                     MinWidth="250"

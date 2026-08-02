@@ -1,15 +1,16 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "AppLanguageService.h"
-
 #include <Helpers/Common.h>
+#include <mutex>
 
 namespace winrt::SystemExplorer::Core::Services
 {
     static IVector<AppLanguageItem> supportedLanguages_{ nullptr };
     static AppLanguageItem preferredLanguage_{ L"", false };
+    static std::once_flag init_flag_; 
 
-    AppLanguageService::AppLanguageService()
+    static void Initialize()
     {
         auto appLanguages = ViewToVector(ApplicationLanguages::ManifestLanguages());
 
@@ -73,16 +74,20 @@ namespace winrt::SystemExplorer::Core::Services
 
     IVector<AppLanguageItem> AppLanguageService::SupportedLanguages() noexcept
     {
+        std::call_once(init_flag_, Initialize); 
         return supportedLanguages_;
     }
 
     AppLanguageItem AppLanguageService::PreferredLanguage() noexcept
     {
+        std::call_once(init_flag_, Initialize);
         return preferredLanguage_;
     }
 
     bool AppLanguageService::IsPreferredLanguageRtl()
     {
+        std::call_once(init_flag_, Initialize);
+
         auto const& code = preferredLanguage_.Code();
         if (code.empty())
             return false;
@@ -103,6 +108,8 @@ namespace winrt::SystemExplorer::Core::Services
 
     bool AppLanguageService::TryChange(int32_t index)
     {
+        std::call_once(init_flag_, Initialize); 
+
         using namespace winrt::Windows::Globalization;
 
         if (index < 0 || static_cast<uint32_t>(index) >= supportedLanguages_.Size() ||
@@ -122,6 +129,8 @@ namespace winrt::SystemExplorer::Core::Services
 
     bool AppLanguageService::TryChange(hstring const& code)
     {
+        std::call_once(init_flag_, Initialize);
+
         using namespace winrt::Windows::Globalization;
 
         if (code.empty())

@@ -96,7 +96,7 @@
                      CornerRadius="6"
                      BorderBrush="{ThemeResource ControlElevationBorderBrush}"
                      BorderThickness="1"
-                     Click="BtnClicked">
+                     >
 
                     <StackPanel Spacing="12">
                         <FontIcon Glyph="&#xE710;" FontSize="36" Foreground="{ThemeResource TextFillColorPrimaryBrush}"/>
@@ -190,7 +190,7 @@
                                     Header="Список доверенных IP или имен"
                                     HeaderIcon="{toolkit:FontIcon Glyph=&#xE728;}"
                                     Description="Список IP или имен, к которым клиент имеет право подключаться без HTTPS и взаимной аутентификации">
-                    <Button Content="Добавить" Click="BtnClicked"/>
+                    <Button Content="Добавить"/>
 
                     <xtc:SettingsExpander.ItemsHeader>
                         <GridView>

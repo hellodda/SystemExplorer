@@ -1,5 +1,9 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
+
+#if __has_include("module.g.cpp")
+#  include "module.g.cpp"
+#endif
 #include "App.xaml.h"
 #include "Views/Windows/MainWindow.xaml.h"
 

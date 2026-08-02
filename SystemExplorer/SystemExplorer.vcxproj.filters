@@ -40,6 +40,7 @@
     <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml" />
     <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
+    <Page Include="Theme\Generic.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -122,6 +123,7 @@
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl" />
+    <Midl Include="Core\Data\Items\NavigationCatalogItem.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -200,7 +202,6 @@
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp" />
-    <ClCompile Include="test.cpp" />
     <ClCompile Include="XamlTypeInfo.module.cpp" />
     <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
     <ClCompile Include="XamlMetaDataProvider.module.cpp" />

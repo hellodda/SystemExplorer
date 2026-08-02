@@ -6,6 +6,8 @@
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
 #endif
+#include <wil/cppwinrt_authoring.h>
+
 #include <factory.h>
 
 namespace winrt::SystemExplorer::ViewModels::implementation

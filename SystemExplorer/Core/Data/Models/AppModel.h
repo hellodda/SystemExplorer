@@ -2,6 +2,7 @@
 
 #include "Core/Data/Models/AppModel.g.h"
 
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt::SystemExplorer::Core::Data::Models::implementation
 {

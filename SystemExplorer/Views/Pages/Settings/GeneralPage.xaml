@@ -63,7 +63,6 @@
                 <xtc:SettingsCard Header="Удаленный доступ"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xE8AF;}"
                                   Description="Управление и мониторинг удаленных компьютеров"
-                                  Click="TEST"
                                   IsClickEnabled="True">
 
                 </xtc:SettingsCard>
@@ -71,7 +70,6 @@
                 <xtc:SettingsCard Header="EMS модули-расширения"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
                                   Description="Управление хостом модулей EMS"
-                                  Click="TEST1"
                                   IsClickEnabled="True">
 
                 </xtc:SettingsCard>

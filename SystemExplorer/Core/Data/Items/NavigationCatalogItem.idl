@@ -1,0 +1,14 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass NavigationCatalogItem 
+    {
+        NavigationCatalogItem();
+        
+        String Name { get; set; };
+        String NameId { get; set; };
+        
+        Windows.Foundation.Uri Uri { get; set; };
+
+        Windows.Foundation.Collections.IVector<String> Tags { get; set; };
+    }
+}

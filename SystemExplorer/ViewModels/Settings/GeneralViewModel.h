@@ -5,8 +5,6 @@
 
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <Core/Data/Items/AppLanguageItem.h>
-#include <factory.h>
-#include <property.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {

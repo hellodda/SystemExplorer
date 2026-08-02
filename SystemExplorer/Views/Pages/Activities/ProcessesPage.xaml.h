@@ -24,7 +24,7 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
 		wil::single_threaded_property<ViewModels::Activities::ProcessesViewModel> ViewModel;
 
     private:
-        winrt::DispatcherQueue dispatcher = winrt::DispatcherQueue::GetForCurrentThread();
+        //winrt::DispatcherQueue dispatcher = winrt::DispatcherQueue::GetForCurrentThread();
     };
 }
 FACTORY(winrt::SystemExplorer::Views::Pages::Activities, ProcessesPage);

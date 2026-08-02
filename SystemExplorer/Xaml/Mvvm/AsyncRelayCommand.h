@@ -2,8 +2,11 @@
 #include "Xaml/AsyncRelayCommand.g.h"
 
 #ifdef __INTELLISENSE__
-#include <wil/cppwinrt_authoring.h>
+//#include <wil/cppwinrt_authoring.h>
 #endif
+#include <winrt/Microsoft.UI.Xaml.Data.h>
+#include <wil/wistd_type_traits.h>
+#include <wil/cppwinrt_authoring.h>
 
 namespace winrt
 {
