@@ -1,11 +1,16 @@
 namespace SystemExplorer.Core.Data.Items
 {
-    [default_interface] runtimeclass NavigationCatalogItem 
+    [default_interface] runtimeclass NavigationCatalogItem : Windows.Foundation.IStringable
     {
         NavigationCatalogItem();
+        NavigationCatalogItem(String name, String nameId, Windows.Foundation.Uri uri);
         
+        Microsoft.UI.Xaml.Controls.IconSource Icon { get; set; };
+      
         String Name { get; set; };
         String NameId { get; set; };
+        
+        Windows.UI.Xaml.Interop.TypeName TypeName { get; set; };
         
         Windows.Foundation.Uri Uri { get; set; };
 

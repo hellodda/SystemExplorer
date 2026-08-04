@@ -1,6 +1,9 @@
+import "Views/Pages/IUriNavigationSupportPage.idl";
+import "Views/Pages/IBreadcrumbBarNavigationSupportPage.idl";
+
 namespace SystemExplorer.Views.Pages.Settings
 {
-    [default_interface] runtimeclass SettingsRootPage : Microsoft.UI.Xaml.Controls.Page
+    [default_interface] runtimeclass SettingsRootPage : Microsoft.UI.Xaml.Controls.Page, SystemExplorer.Views.Pages.IUriNavigationSupportPage, SystemExplorer.Views.Pages.IBreadcrumbBarNavigationSupportPage
     {
         SettingsRootPage();
     }

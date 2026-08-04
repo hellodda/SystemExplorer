@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages
+{
+    interface IBreadcrumbBarNavigationSupportPage
+    {
+        Microsoft.UI.Xaml.Controls.BreadcrumbBar NavigationBreadcrumbBar { get; set; };
+    };
+}

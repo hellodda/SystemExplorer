@@ -2,8 +2,6 @@
 
 #include "Views/Pages/Settings/SettingsRootPage.g.h"
 
-#include <factory.h>
-
 namespace winrt
 {
     using namespace winrt::Microsoft::UI::Xaml::Controls;
@@ -21,6 +19,8 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 
         [[nodiscard]] winrt::IAsyncAction SettingsFrameLoaded(winrt::IInspectable const& sender, winrt::RoutedEventArgs const& args);
         [[nodiscard]] winrt::IAsyncAction SettingsNavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args);
+
+        void NavigateToUri(winrt::Uri const& uri);
     };
 }
 

@@ -1,0 +1,9 @@
+namespace SystemExplorer.Views.Pages
+{
+    interface IUriNavigationSupportPage
+    {
+        Microsoft.UI.Xaml.Controls.Frame NavigationFrame { get; set; };
+
+        void NavigateToUri(Windows.Foundation.Uri uri);
+    };
+}

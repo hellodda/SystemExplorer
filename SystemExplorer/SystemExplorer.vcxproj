@@ -195,6 +195,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
+    <ClInclude Include="Core\Data\Items\NavigationBreadcrumbBarItem.h">
+      <DependentUpon>Core\Data\Items\NavigationBreadcrumbBarItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Data\Items\NavigationCatalogItem.h">
       <DependentUpon>Core\Data\Items\NavigationCatalogItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -208,8 +212,18 @@
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Eil\settings.h" />
+    <ClInclude Include="Core\Eil\string.h" />
+    <ClInclude Include="Core\Eil\winrt.h" />
     <ClInclude Include="Core\Settings\Settings.h" />
     <ClInclude Include="unknown.h" />
+    <ClInclude Include="Views\Pages\Settings\ResourceUsagePage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\ResourceUsagePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Settings\UserPage.xaml.h">
+      <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="wil_cppwinrt_module.h" />
     <ClInclude Include="Core\System\Native\basestring.h" />
     <ClInclude Include="Core\System\Native\file.h" />
@@ -523,7 +537,7 @@
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml" />
-    <Page Include="Theme\Generic.xaml" />
+    <Page Include="Themes\Generic.xaml" />
     <Page Include="Views\Pages\Activities\ActivitiesRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -563,6 +577,12 @@
     <Page Include="Views\Pages\Settings\RemoteAccessPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\Settings\ResourceUsagePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Settings\UserPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Windows\MainWindow.xaml" />
     <Page Include="Views\Pages\RootPage.xaml">
       <SubType>Designer</SubType>
@@ -572,10 +592,16 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
+    <Page Include="Xaml\Styles\Animations.xaml" />
+    <Page Include="Xaml\Styles\FlatButton.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
+    <ClCompile Include="Core\Data\Items\NavigationBreadcrumbBarItem.cpp">
+      <DependentUpon>Core\Data\Items\NavigationBreadcrumbBarItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Data\Items\NavigationCatalogItem.cpp">
       <DependentUpon>Core\Data\Items\NavigationCatalogItem.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -951,6 +977,14 @@
       <DependentUpon>Views\Pages\Settings\RemoteAccessPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\ResourceUsagePage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\ResourceUsagePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Settings\UserPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClCompile>
@@ -1037,6 +1071,9 @@
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Data\Enums\Stretch.idl" />
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
+    <Midl Include="Core\Data\Items\NavigationBreadcrumbBarItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Data\Items\NavigationCatalogItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1045,6 +1082,16 @@
     </Midl>
     <Midl Include="Core\Data\Items\RemoteComputerItem.idl">
       <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\IBreadcrumbBarNavigationSupportPage.idl" />
+    <Midl Include="Views\Pages\IUriNavigationSupportPage.idl" />
+    <Midl Include="Views\Pages\Settings\ResourceUsagePage.idl">
+      <DependentUpon>Views\Pages\Settings\ResourceUsagePage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Settings\UserPage.idl">
+      <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Midl>
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
@@ -1245,7 +1292,7 @@
     <PackageCertificateThumbprint>79C7B56D573394FD97A28BAA18630BA587D81A6C</PackageCertificateThumbprint>
     <AppxPackageSigningEnabled>True</AppxPackageSigningEnabled>
     <PackageCertificateKeyFile>SystemExplorer_TemporaryKey.pfx</PackageCertificateKeyFile>
-    <VcpkgEnableManifest>false</VcpkgEnableManifest>
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

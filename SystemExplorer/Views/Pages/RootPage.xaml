@@ -9,9 +9,16 @@
     xmlns:controls="using:XamlToolkit.WinUI.Controls"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:helpers="using:SystemExplorer.Helpers"
+    xmlns:items="using:SystemExplorer.Core.Data.Items"
     Background="{ThemeResource App.Theme.BackgroundBrush}"
     mc:Ignorable="d">
 
+    <!--<Page.Resources>
+        <XamlUICommand x:Key="NavigateTo"
+                       ExecuteRequested=""
+                       Description="Navigate to type"/>
+    </Page.Resources>-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -35,8 +42,8 @@
             Height="48"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
-            IsTabStop="True"
-            >
+            IsTabStop="True">
+            
             <TitleBar.IconSource>
                 <ImageIconSource ImageSource="/Assets/Square150x150Logo.png" />
             </TitleBar.IconSource>
@@ -44,13 +51,33 @@
             <TitleBar.Content>
                 <AutoSuggestBox 
                     x:Name="TitleBarSearchBox"
+                    TextChanged="AutoSuggestBox_TextChanged"
+                    SuggestionChosen="AutoSuggestBox_SuggestionChosen"
                     PlaceholderText="SystemExplorer://Settings/RemoteAccess"
                     QueryIcon="Find"
                     Width="400"
                     MinWidth="250"
                     HorizontalAlignment="Center"
-                    VerticalAlignment="Center"/>
+                    VerticalAlignment="Center">
+                    
+                    <AutoSuggestBox.ItemTemplate>
+                        <DataTemplate x:DataType="items:NavigationCatalogItem">
+                            <StackPanel Orientation="Horizontal" Spacing="10">
+                                <IconSourceElement IconSource="{x:Bind Icon}" VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Bind Name}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </AutoSuggestBox.ItemTemplate>
+                </AutoSuggestBox>
             </TitleBar.Content>
+
+            <TitleBar.RightHeader>
+                <PersonPicture Width="30"
+                               Height="30"
+                               Initials="T1"
+                               Tapped="PersonPictureTapped"
+                               ToolTipService.ToolTip="WIN-T1UUBJJ7V8I"/>
+            </TitleBar.RightHeader>
         </TitleBar>
         <!--TextChanged="SearchBox_TextChanged"-->
           <!--SuggestionChosen="SearchBox_SuggestionChosen"-->

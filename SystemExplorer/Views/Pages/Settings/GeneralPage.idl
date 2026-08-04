@@ -1,4 +1,5 @@
 import "ViewModels/Settings/GeneralViewModel.idl";
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
 
 namespace SystemExplorer.Views.Pages.Settings
 {
@@ -7,5 +8,7 @@ namespace SystemExplorer.Views.Pages.Settings
         GeneralPage();
 
         SystemExplorer.ViewModels.Settings.GeneralViewModel ViewModel { get; };
+
+        SystemExplorer.Xaml.IAsyncRelayCommand NavigateToUriCommand { get; };
     }
 }

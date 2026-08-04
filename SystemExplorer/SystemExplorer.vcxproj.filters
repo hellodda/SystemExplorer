@@ -40,7 +40,11 @@
     <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml" />
     <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
-    <Page Include="Theme\Generic.xaml" />
+    <Page Include="Themes\Generic.xaml" />
+    <Page Include="Xaml\Styles\Animations.xaml" />
+    <Page Include="Xaml\Styles\FlatButton.xaml" />
+    <Page Include="Views\Pages\Settings\ResourceUsagePage.xaml" />
+    <Page Include="Views\Pages\Settings\UserPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -124,6 +128,9 @@
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl" />
     <Midl Include="Core\Data\Items\NavigationCatalogItem.idl" />
+    <Midl Include="Views\Pages\IUriNavigationSupportPage.idl" />
+    <Midl Include="Core\Data\Items\NavigationBreadcrumbBarItem.idl" />
+    <Midl Include="Views\Pages\IBreadcrumbBarNavigationSupportPage.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -308,6 +315,8 @@
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h" />
     <ClInclude Include="Core\Eil\settings.h" />
     <ClInclude Include="unknown.h" />
+    <ClInclude Include="Core\Eil\string.h" />
+    <ClInclude Include="Core\Eil\winrt.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

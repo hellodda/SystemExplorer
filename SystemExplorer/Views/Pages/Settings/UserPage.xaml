@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.UserPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:SystemExplorer.Xaml"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+        <StackPanel>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <PersonPicture Grid.Column="0" Width="100" Height="100" Initials="T1"/>
+
+                <StackPanel Grid.Column="1" Spacing="6" Margin="16,0,0,0">
+                    <TextBlock Text="MANUKYAN ARMAN" FontSize="28"/>
+                    <TextBlock Text="arman.manukyan77@hotmail.com"/>
+                    <TextBlock Text="Администратор"/>
+                </StackPanel>
+            </Grid>
+
+            <xaml:SimpleSettingsGroup Header="Общее">
+                
+            </xaml:SimpleSettingsGroup>
+        </StackPanel>
+    </Grid>
+</Page>

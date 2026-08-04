@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.Settings.ResourceUsagePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:xaml="using:SystemExplorer.Xaml"
+    xmlns:ui="using:XamlToolkit.WinUI"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="20">
+
+        <StackPanel>
+            <xaml:SimpleSettingsGroup Header="Общее">
+                <controls:SettingsExpander IsExpanded="True"
+                                           Header="Управление памятью"
+                                           HeaderIcon="{ui:FontIcon Glyph=&#xE81E;}">
+                    <ComboBox Width="200" SelectedIndex="0">
+                        <ComboBoxItem Content="По умлочанию"/>
+                        <ComboBoxItem Content="Быстродействие"/>
+                        <ComboBoxItem Content="Малое потребление"/>
+                        <ComboBoxItem Content="Ручная настройка"/>
+                    </ComboBox>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="Начальный резерв памяти">
+                            <TextBox Width="100"/>
+                        </controls:SettingsCard>
+
+
+                        <controls:SettingsCard Header="Лимит оперативной памяти">
+                            <TextBox Width="100"/>
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard Header="Задержка возврата памяти системе">
+                            <TextBox Width="100"/>
+                        </controls:SettingsCard>
+
+                        <controls:SettingsCard Header="Использование больших страниц памяти">   
+                            <ToggleSwitch/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+
+                <controls:SettingsExpander IsEnabled="True"
+                                           Header="Диагностика и телеметрия"
+                                           HeaderIcon="{ui:FontIcon Glyph=&#xE9D9;}">
+                    <ToggleSwitch/>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <CheckBox Content="Разрешить сбор телеметрии и статуса приложения и Windows"/>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <CheckBox Content="Разрешить сбор телеметрии и статуса памяти приложения и Windows"/>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+            </xaml:SimpleSettingsGroup>
+        </StackPanel>
+        
+    </Grid>
+</Page>

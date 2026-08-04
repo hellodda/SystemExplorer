@@ -43,6 +43,11 @@
 #include <mutex>
 #include <regex>
 
+#undef min
+#undef max
+#include <rapidfuzz/fuzz.hpp>
+
+
 #include <ppl.h>
 
 #include <winrt/base.h>
@@ -127,4 +132,12 @@
 #include "Xaml/Selectors/ItemTemplateSelector.h"
 #include "Xaml/Styles/StoreNavigationViewStyle/StoreNavigationViewItemAttach.h"
 
-//#include <ExplorerCore.h>
+
+inline winrt::hstring to_hstring(winrt::Windows::Foundation::IInspectable const& value)
+{
+    if (!value) return L"null";
+    if (auto stringable = value.try_as<winrt::Windows::Foundation::IStringable>()) {
+        return stringable.ToString();
+    }
+    return L"Object (Unknown type)";
+}

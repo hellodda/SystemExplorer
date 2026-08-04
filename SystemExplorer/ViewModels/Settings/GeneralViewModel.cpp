@@ -19,7 +19,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		for (auto const& lang : AppLanguageService::SupportedLanguages())
 			AppLanguages.Append(winrt::box_value(lang));
 
-		StartPages.Append(box_value(StringsHelper::Processes()));
+		//StartPages.Append(box_value(StringsHelper::Processes()));
 	}
 
 	void GeneralViewModel::SelectedRealTimeUpdateSpeedIndex(int32_t const& value) noexcept

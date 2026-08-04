@@ -1,6 +1,7 @@
 {
   "dependencies": [
     "rapidfuzz",
-    "abseil"
+    "abseil",
+    "mimalloc"
   ]
 }

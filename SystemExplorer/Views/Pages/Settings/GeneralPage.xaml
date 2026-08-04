@@ -61,6 +61,8 @@
                 </xtc:SettingsCard>
 
                 <xtc:SettingsCard Header="Удаленный доступ"
+                                  Command="{x:Bind NavigateToUriCommand}"
+                                  CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralSettings/RemoteAccessPage"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xE8AF;}"
                                   Description="Управление и мониторинг удаленных компьютеров"
                                   IsClickEnabled="True">
@@ -68,34 +70,16 @@
                 </xtc:SettingsCard>
 
                 <xtc:SettingsCard Header="EMS модули-расширения"
+                                  Command="{x:Bind NavigateToUriCommand}"
+                                  CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralSettings/EmsPage"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
                                   Description="Управление хостом модулей EMS"
                                   IsClickEnabled="True">
 
                 </xtc:SettingsCard>
 
-                <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.WindowManagement}"
-                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
-                                      Description="Specify the default behavior of the System Explorer window.">
-                    <xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Always on top"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Minimize on use"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Hide when minimized"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>
-                </xtc:SettingsExpander>
             </xaml:SimpleSettingsGroup>
+
             <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.Additionally}">
                 <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.DymamicKernelMemoryDump}"
                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
@@ -124,11 +108,44 @@
                     </xtc:SettingsExpander.Items>-->
                 </xtc:SettingsExpander>
 
+                <xtc:SettingsExpander Header="{x:Bind helpers:StringsHelper.WindowManagement}"
+                                    HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
+                                    Description="Specify the default behavior of the System Explorer window.">
+                    <xtc:SettingsExpander.Items>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Always on top"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Minimize on use"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard>
+                            <xtc:SettingsCard.Header>
+                                <CheckBox Content="Hide when minimized"/>
+                            </xtc:SettingsCard.Header>
+                        </xtc:SettingsCard>
+                    </xtc:SettingsExpander.Items>
+                </xtc:SettingsExpander>
+
+
+                <xtc:SettingsCard Header="Производительность"
+                      Command="{x:Bind NavigateToUriCommand}"
+                      CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralSettings/ResourceUsagePage"
+                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE9D2;}"
+                      Description="Настройка быстродействия и оптимизация работы приложения"
+                      IsClickEnabled="True"/>
+
                 <xtc:SettingsCard Header="Инструменты разработчика"
+                      Command="{x:Bind NavigateToUriCommand}"
+                      CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralSettings/DeveloperPage"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEC7A;}"
                       IsClickEnabled="True">
 
                 </xtc:SettingsCard>
+               
             </xaml:SimpleSettingsGroup>
             <xaml:SimpleSettingsGroup
                 Header="{x:Bind helpers:StringsHelper.ResetSettings}">

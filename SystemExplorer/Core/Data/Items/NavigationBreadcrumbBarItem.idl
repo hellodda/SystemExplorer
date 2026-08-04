@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass NavigationBreadcrumbBarItem 
+    {
+        NavigationBreadcrumbBarItem();
+        NavigationBreadcrumbBarItem(String header, Windows.UI.Xaml.Interop.TypeName pageType);
+
+        String Header { get; set; };
+        Windows.UI.Xaml.Interop.TypeName PageType { get; set; };
+    }
+}

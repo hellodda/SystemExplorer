@@ -10,6 +10,7 @@
     xmlns:tookit="using:XamlToolkit.WinUI"
     xmlns:essential="using:WinUI3Package"
     xmlns:helpers="using:SystemExplorer.Helpers"
+    xmlns:items="using:SystemExplorer.Core.Data.Items"
     NavigationCacheMode="Required">
 
     <Grid>
@@ -46,15 +47,16 @@
             </NavigationView.Resources>
 
             <NavigationView.Header>
-                <BreadcrumbBar x:Name="SettingsBreadcrumbBar" x:FieldModifier="Public" Margin="-36,-12,0,0">
+                <BreadcrumbBar x:Name="NavigationBreadcrumbBar" x:FieldModifier="Public" Margin="-36,-12,0,0">
                     <BreadcrumbBar.Resources>
                         <x:Double x:Key="BreadcrumbBarChevronFontSize">18</x:Double>
-
-                        <Style TargetType="BreadcrumbBarItem">
-                            <Setter Property="FontSize" Value="26"/>
-                            <Setter Property="FontWeight" Value="SemiBold"/>
-                        </Style>
                     </BreadcrumbBar.Resources>
+
+                    <BreadcrumbBar.ItemTemplate>
+                        <DataTemplate x:DataType="items:NavigationBreadcrumbBarItem">
+                            <TextBlock Text="{x:Bind Header}"/>
+                        </DataTemplate>
+                    </BreadcrumbBar.ItemTemplate>
                 </BreadcrumbBar>
             </NavigationView.Header>
 
@@ -62,7 +64,7 @@
                 <NavigationViewItem
                     x:Name="GeneralNavItem"
                     Content="{x:Bind helpers:StringsHelper.General}"
-                    Tag="SystemExplorer.Views.Pages.Settings.GeneralPage"
+                    Tag="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage"
                     Icon="{tookit:FontIcon Glyph=&#xE9E9;}"
                     >
                     <NavigationViewItem.InfoBadge>
@@ -71,17 +73,17 @@
                 </NavigationViewItem>
 
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Appearance}"
-                                    Tag="SystemExplorer.Views.Pages.Settings.AppearancePage"
+                                    Tag="system-explorer://SystemExplorer.Views.Pages.Settings/AppearancePage"
                                     Icon="{tookit:FontIcon Glyph=&#xE790;}"
                                     />
 
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.Advanced}"
-                                    Tag="SystemExplorer.Views.Pages.Settings.AdvancedPage"
+                                    Tag="system-explorer://SystemExplorer.Views.Pages.Settings/AdvancedPage"
                                     Icon="{tookit:FontIcon Glyph=&#xF1AD;}"
                                     />
 
                 <NavigationViewItem Content="{x:Bind helpers:StringsHelper.About}"
-                                    Tag="SystemExplorer.Views.Pages.Settings.AboutPage"
+                                    Tag="system-explorer://SystemExplorer.Views.Pages.Settings/AboutPage"
                                     Icon="{tookit:FontIcon Glyph=&#xE946;}"
                                     />
 
@@ -89,7 +91,7 @@
 
 
             <ScrollView Padding="20 0 20 0">
-                <Frame x:Name="SettingsFrame" x:FieldModifier="Public" Loaded="SettingsFrameLoaded">
+                <Frame x:Name="NavigationFrame" x:FieldModifier="Public" Loaded="SettingsFrameLoaded">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
                             <NavigationThemeTransition>

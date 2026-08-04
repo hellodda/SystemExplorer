@@ -1,6 +1,7 @@
-#pragma once
-#include "winrt_module_imports.h"
-#include <variant>
+#ifdef __INTELLISENSE__
+#include <wil/cppwinrt_authoring.h>
+#include <winrt/SystemExplorer.Core.Data.Enums.h>
+#endif
 
 namespace eil
 {
@@ -10,9 +11,13 @@ namespace eil
 		struct fixed_wstring
 		{
 			wchar_t buf[N]{};
-			consteval fixed_string(const wchar_t(&str)[N])
+			consteval fixed_wstring(const wchar_t(&str)[N])
 			{
 				std::copy_n(str, N, buf);
+			}
+
+			constexpr operator std::wstring_view() const noexcept {
+				return std::wstring_view(buf, N - 1);
 			}
 		};
 
@@ -26,7 +31,6 @@ namespace eil
 			virtual void set(std::wstring_view, winrt::Windows::Foundation::IInspectable const& value) = 0;
 		};
 	}
-
 
 	template<typename T>
 	concept enum_t = std::is_enum_v<T>;
@@ -63,7 +67,6 @@ namespace eil
 		T,
 		winrt::Windows::Storage::ApplicationDataCompositeValue>;
 
-
 	template<setting_t T, details::fixed_wstring key>
 	struct single_threaded_setting_base
 	{
@@ -82,7 +85,7 @@ namespace eil
 		{
 			if (context_)
 			{
-				auto value = winrt::box_value<T>(std::forward<Q>(q));
+				auto value = winrt::box_value(static_cast<T>(std::forward<Q>(q)));
 				context_->set(key, value);
 			}
 		}
@@ -141,13 +144,7 @@ namespace eil
 		}
 	};
 
-	struct standard_settings_configuration
-	{
-
-	};
-
-	template<typename TConfiguration = standard_settings_configuration>
-	struct settings_base final : details::settings_property_context
+	struct settings_base : details::settings_property_context
 	{
 		virtual winrt::Windows::Foundation::IInspectable get(std::wstring_view key) const override
 		{

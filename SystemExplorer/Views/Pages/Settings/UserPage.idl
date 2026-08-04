@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Settings
+{
+    [default_interface] runtimeclass UserPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        UserPage();
+    }
+}

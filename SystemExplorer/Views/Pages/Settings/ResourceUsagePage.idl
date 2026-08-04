@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Settings
+{
+    [default_interface] runtimeclass ResourceUsagePage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ResourceUsagePage();
+    }
+}
