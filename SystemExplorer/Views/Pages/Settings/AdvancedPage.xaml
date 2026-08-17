@@ -19,15 +19,15 @@
     
     <Grid>
         <StackPanel>
-            <xaml:SimpleSettingsGroup>
-                <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.ExportSettings}"
+            <StackPanel Spacing="5">
+                <xtc:SettingsCard Header="{helpers:ResourceString Key=ExportSettings}"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xE8B5;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
                       Command="{x:Bind ViewModel.ExportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
-                <xtc:SettingsCard Header="{x:Bind helpers:StringsHelper.ImportSettings}"
+                <xtc:SettingsCard Header="{helpers:ResourceString Key=ImportSettings}"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEA52;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
@@ -41,9 +41,9 @@
                       Command="{x:Bind ViewModel.OpenSettingsFileCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
                 </xtc:SettingsCard>
-            </xaml:SimpleSettingsGroup>
+            </StackPanel>
 
-            <xaml:SimpleSettingsGroup Header="{x:Bind helpers:StringsHelper.ExperimentalFunctions}">
+            <xaml:SimpleSettingsGroup Header="{helpers:ResourceString Key=ExperimentalFunctions}">
                 <xtc:SettingsCard 
                       Header="Advanced AI actions"
                       Description="Advanced system interaction: manage, create, and terminate processes with elevated access to core system information."
@@ -62,7 +62,7 @@
                     <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>-->
                 </xtc:SettingsCard>
                 <xtc:SettingsCard 
-                      Header="{x:Bind helpers:StringsHelper.UseDriver}"
+                      Header="{helpers:ResourceString Key=UseDriver}"
                       Description="Requires a secure connection"
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
                       IsClickEnabled="False"
@@ -71,6 +71,8 @@
                     <ToggleSwitch IsOn="False"/>
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
+
+            <Border Height="20"/>
 
             <StackPanel.ChildrenTransitions>
                 <TransitionCollection>

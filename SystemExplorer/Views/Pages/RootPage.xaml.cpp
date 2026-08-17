@@ -6,19 +6,20 @@
 #endif
 #include "Activities/ProcessesPage.xaml.h"
 #include "Settings/SettingsRootPage.xaml.h"
-#include <Core/Eil/string.h>
-#include <Core/Settings/Settings.h>
+#include <Core/eil/string.h>
 
 namespace winrt::SystemExplorer::Views::Pages::implementation
 {
     RootPage::RootPage()
     {
         InitializeComponent();
+
+        
     }
 
     winrt::IAsyncAction RootPage::PersonPictureTapped(winrt::IInspectable const& sender, winrt::TappedRoutedEventArgs const& args)
     {
-        navigateToUri(winrt::Uri{ L"system-explorer://SystemExplorer.Views.Pages.Settings/SettingsRootPage/GeneralSettings/UserPage" });
+        navigateToUri(winrt::Uri{ L"system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/UserPage" });
 
         co_return;
     }

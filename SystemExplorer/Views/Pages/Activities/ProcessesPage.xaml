@@ -25,7 +25,7 @@
 
     <Page.Resources>
         <converters:ValueToSizeUnitConverter x:Key="SizeConverter"/>
-        <converters:StringFormatConverter x:Key="StringFormatConverter"/>
+        <tconverters:StringFormatConverter x:Key="StringFormatConverter"/>
         <converters:TransparencyConverter x:Key="TransparencyConverter"/>
         <tconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
 

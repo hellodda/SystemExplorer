@@ -14,7 +14,7 @@
 
     <Grid>
         <StackPanel>
-            <xaml:SimpleSettingsGroup>
+            <StackPanel Spacing="5">
 
                 <xtc:SettingsCard Header="Исползовать EMS модули"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
@@ -49,7 +49,7 @@
                                   Description="Только доверенные EMS модули могут подключиться к хосту в целях безопасности">
                     <ToggleSwitch IsOn="True"/>
                 </xtc:SettingsCard>
-            </xaml:SimpleSettingsGroup>
+            </StackPanel>
             <xaml:SimpleSettingsGroup Header="Дополнительно">
                 <xtc:SettingsCard Header="Разрешить полный доступ всем модулям (Не безопасно)"
                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE72E;}"
@@ -62,6 +62,8 @@
                     <ToggleSwitch/>
                 </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
+
+            <Border Height="20"/>
 
             <StackPanel.ChildrenTransitions>
                 <TransitionCollection>

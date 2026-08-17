@@ -9,12 +9,13 @@
     xmlns:xaml="using:SystemExplorer.Xaml"
     xmlns:ui="using:XamlToolkit.WinUI"
     xmlns:controls="using:XamlToolkit.WinUI.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    NavigationCacheMode="Required">
 
     <Grid Padding="20">
 
         <StackPanel>
-            <xaml:SimpleSettingsGroup Header="Общее">
+            <StackPanel Spacing="5">
                 <controls:SettingsExpander IsExpanded="True"
                                            Header="Управление памятью"
                                            HeaderIcon="{ui:FontIcon Glyph=&#xE81E;}">
@@ -38,12 +39,19 @@
                             <TextBox Width="100"/>
                         </controls:SettingsCard>
 
-                        <controls:SettingsCard Header="Использование больших страниц памяти">   
+                        <controls:SettingsCard Header="Использование больших страниц памяти">
                             <ToggleSwitch/>
                         </controls:SettingsCard>
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
 
+                <controls:SettingsCard IsEnabled="True"
+                         Header="Запустить в режиме малой памяти при"
+                         HeaderIcon="{ui:FontIcon Glyph=&#xE78B;}"
+                         Description="Укажите при какой доступной памяти запускать приложение в режиме малой памяти">
+                    <TextBox Width="100"/>
+                </controls:SettingsCard>
+                
                 <controls:SettingsExpander IsEnabled="True"
                                            Header="Диагностика и телеметрия"
                                            HeaderIcon="{ui:FontIcon Glyph=&#xE9D9;}">
@@ -61,7 +69,9 @@
                         </controls:SettingsCard>
                     </controls:SettingsExpander.Items>
                 </controls:SettingsExpander>
-            </xaml:SimpleSettingsGroup>
+
+              
+            </StackPanel>
         </StackPanel>
         
     </Grid>

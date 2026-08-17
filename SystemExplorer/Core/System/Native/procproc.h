@@ -124,18 +124,18 @@ typedef struct _SE_PROCESS_ITEM
 	FLOAT CpuUserUsage;
 	FLOAT CpuAverageUsage;
 
-	SE_UINT64_DELTA CpuKernelDelta;
-	SE_UINT64_DELTA CpuUserDelta;
-	SE_UINT64_DELTA IoReadDelta;
-	SE_UINT64_DELTA IoWriteDelta;
-	SE_UINT64_DELTA IoOtherDelta;
-	SE_UINT64_DELTA IoReadCountDelta;
-	SE_UINT64_DELTA IoWriteCountDelta;
-	SE_UINT64_DELTA IoOtherCountDelta;
-	SE_UINT64_DELTA ContextSwitchesDelta;
-	SE_UINT32_DELTA PageFaultsDelta;
-	SE_UINT32_DELTA HardFaultsDelta;
-	SE_UINT64_DELTA CycleTimeDelta; // since WIN7
+	//SYSX_UINT64_DELTA CpuKernelDelta;
+	//SYSX_UINT64_DELTA CpuUserDelta;
+	//SYSX_UINT64_DELTA IoReadDelta;
+	//SYSX_UINT64_DELTA IoWriteDelta;
+	//SYSX_UINT64_DELTA IoOtherDelta;
+	//SYSX_UINT64_DELTA IoReadCountDelta;
+	//SYSX_UINT64_DELTA IoWriteCountDelta;
+	//SYSX_UINT64_DELTA IoOtherCountDelta;
+	//SYSX_UINT64_DELTA ContextSwitchesDelta;
+	//SYSX_UINT32_DELTA PageFaultsDelta;
+	//SYSX_UINT32_DELTA HardFaultsDelta;
+	//SYSX_UINT64_DELTA CycleTimeDelta; // since WIN7
 
 	VM_COUNTERS_EX VmCounters;
 	IO_COUNTERS IoCounters;

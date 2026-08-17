@@ -98,7 +98,7 @@
             <NavigationView.MenuItems>
 
                 <NavigationViewItem
-                    Content="{x:Bind helpers:StringsHelper.System}"
+                    Content="{helpers:ResourceString Key=System}"
                     Tag=""
                     Icon="{toolkit:FontIcon Glyph=&#xE770;}"
                     >
@@ -113,7 +113,7 @@
                 </NavigationViewItem>
 
                 <NavigationViewItem
-                    Content="{x:Bind helpers:StringsHelper.Activities}"
+                    Content="{helpers:ResourceString Key=Activities}"
                     Tag="SystemExplorer.Views.Pages.Activities.ActivitiesRootPage"
                     Icon="{toolkit:FontIcon Glyph=&#xF120;}"
                     />

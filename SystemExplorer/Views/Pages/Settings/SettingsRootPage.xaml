@@ -47,14 +47,21 @@
             </NavigationView.Resources>
 
             <NavigationView.Header>
-                <BreadcrumbBar x:Name="NavigationBreadcrumbBar" x:FieldModifier="Public" Margin="-36,-12,0,0">
+                <BreadcrumbBar x:Name="NavigationBreadcrumbBar"
+                               x:FieldModifier="Public"
+                               Margin="-36 -40 0 0"
+                               Height="45"
+                               ItemClicked="NavigationBreadcrumbBarItemClicked">
                     <BreadcrumbBar.Resources>
                         <x:Double x:Key="BreadcrumbBarChevronFontSize">18</x:Double>
                     </BreadcrumbBar.Resources>
 
                     <BreadcrumbBar.ItemTemplate>
                         <DataTemplate x:DataType="items:NavigationBreadcrumbBarItem">
-                            <TextBlock Text="{x:Bind Header}"/>
+                            <TextBlock Padding="10 0 10 0"
+                                       Style="{ThemeResource TitleTextBlockStyle}"
+                                       VerticalAlignment="Center"
+                                       Text="{x:Bind Header}"/>
                         </DataTemplate>
                     </BreadcrumbBar.ItemTemplate>
                 </BreadcrumbBar>
@@ -65,8 +72,7 @@
                     x:Name="GeneralNavItem"
                     Content="{x:Bind helpers:StringsHelper.General}"
                     Tag="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage"
-                    Icon="{tookit:FontIcon Glyph=&#xE9E9;}"
-                    >
+                    Icon="{tookit:FontIcon Glyph=&#xE9E9;}">
                     <NavigationViewItem.InfoBadge>
                         <InfoBadge />
                     </NavigationViewItem.InfoBadge>

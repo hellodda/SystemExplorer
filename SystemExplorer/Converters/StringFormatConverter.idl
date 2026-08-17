@@ -1,7 +1,0 @@
-namespace SystemExplorer.Converters
-{
-    runtimeclass StringFormatConverter : [default] Microsoft.UI.Xaml.Data.IValueConverter
-    {
-        StringFormatConverter();
-    }
-}

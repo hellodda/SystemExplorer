@@ -4,7 +4,7 @@
 #define NOMCX
 #define NOHELP
 #define NOCOMM
-//#include <mimalloc-override.h>
+#include <mimalloc-override.h>
 #include <unknwn.h>
 #include <windows.h>
 
@@ -13,11 +13,15 @@
 #pragma warning(disable: 4471) 
 #pragma warning(disable: 4324) 
 #pragma warning(disable: 4005) 
-
 #include <phnt_windows.h>
 #include <phnt.h>
 
 #pragma warning(pop)
+#pragma comment(lib, "ntdll.lib")
+
+#include <wtsapi32.h>
+#pragma comment(lib, "wtsapi32.lib")
+
 #include <restrictederrorinfo.h>
 #include <ShlObj.h>
 

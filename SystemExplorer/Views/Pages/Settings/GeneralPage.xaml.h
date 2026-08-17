@@ -38,7 +38,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
             }
             if (rootPage)
             {
-                rootPage.NavigateToUri(winrt::Uri{ parameter.as<winrt::hstring>() });
+                rootPage.NavigateToUri(winrt::Uri{ parameter.as<winrt::hstring>().c_str() });
             }
 
             co_return;

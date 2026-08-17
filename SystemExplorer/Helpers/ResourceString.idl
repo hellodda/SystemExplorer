@@ -1,0 +1,11 @@
+namespace SystemExplorer.Helpers
+{
+    [default_interface] runtimeclass ResourceString : Microsoft.UI.Xaml.Markup.MarkupExtension
+    {
+        ResourceString();
+
+        String Key { get; set; };
+
+        static String LoadResource(String key);
+    }
+}

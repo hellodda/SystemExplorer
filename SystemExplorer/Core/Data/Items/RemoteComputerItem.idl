@@ -3,5 +3,9 @@ namespace SystemExplorer.Core.Data.Items
     [default_interface] runtimeclass RemoteComputerItem 
     {
         RemoteComputerItem();
+    
+        String Name{ get; set; };
+        String ReadableName{ get; set; };
+        String IpAddress{ get; set; };
     }
 }

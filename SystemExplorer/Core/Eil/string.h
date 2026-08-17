@@ -4,12 +4,11 @@
 
 namespace eil
 {
-    inline std::vector<std::wstring_view> split_path(std::wstring_view path)
+    inline std::vector<std::wstring> split_path(std::wstring_view path)
     {
-        std::vector<std::wstring_view> result;
+        std::vector<std::wstring> result;
 
         std::wstring_view view{ path };
-
         size_t start = 0;
 
         while (start < view.size())
@@ -32,4 +31,6 @@ namespace eil
 
         return result;
     }
+
+  
 }

@@ -7,63 +7,49 @@
 
 namespace winrt::SystemExplorer::Converters::implementation
 {
-    inline winrt::hstring FormatBytes(uint64_t bytes, std::wstring_view const& suffix)
-    {
-        static constexpr std::array units{ L" B", L" KB", L" MB", L" GB", L" TB" };
-
-        double size = static_cast<double>(bytes);
-        size_t unitIndex{ 0 };
-
-        while (size >= 1024 && unitIndex < units.size() - 1)
-        {
-            size /= 1024;
-            unitIndex++;
-        }
-
-        wchar_t buffer[28];
-        
-        auto length = swprintf_s(buffer, L"%.1f %ls%ls",
-            size,
-            units[unitIndex],
-            suffix.data()
-        );
-
-        if (length > 0)
-        {
-            return winrt::hstring(buffer, static_cast<uint32_t>(length));
-        }
-        return L"";
-    }
-
-	IInspectable ValueToSizeUnitConverter::Convert(IInspectable const& value, TypeName const& type, IInspectable const& parameter, hstring const&)
+	winrt::IInspectable ValueToSizeUnitConverter::Convert(IInspectable const& value, TypeName const& type, IInspectable const& parameter, hstring const&)
 	{
-        if (!value) return winrt::box_value(L"");
+		auto get_value = [&]() -> std::optional<int64_t> 
+		{
+			if (auto v = value.try_as<int32_t>())  return *v;
+			if (auto v = value.try_as<int64_t>())  return *v;
+			if (auto v = value.try_as<uint32_t>()) return static_cast<int64_t>(*v);
+			if (auto v = value.try_as<uint64_t>()) return static_cast<int64_t>(*v);
+			return std::nullopt;
+		};
 
-        uint64_t bytes{ 0 };
+		if (auto size = get_value())
+		{
+			return winrt::box_value(ToUnitSizeString(size.value()));
+		}
 
-        try 
-        {
-            auto pv = value.as<winrt::Windows::Foundation::IPropertyValue>();
-            bytes = pv.GetUInt64();
-
-            if (bytes == 0)
-                return box_value(L"");
-        }
-        catch (...)
-        {
-
-        }
-
-        std::wstring_view suffix{ L"" };
-        if (parameter)
-        {
-            suffix = winrt::unbox_value<winrt::hstring>(parameter);
-        }
-
-        return winrt::box_value(FormatBytes(bytes, suffix));
+		return winrt::box_value(winrt::hstring(L""));
 	}
-	IInspectable ValueToSizeUnitConverter::ConvertBack(IInspectable const&, TypeName const&, IInspectable const&, hstring const&)
+	
+	winrt::IInspectable ValueToSizeUnitConverter::ConvertBack(IInspectable const&, TypeName const&, IInspectable const&, hstring const&)
 	{
         throw hresult_not_implemented();
+	}
+
+	winrt::hstring ValueToSizeUnitConverter::ToUnitSizeString(size_t size)
+	{
+		static constexpr auto units = std::to_array<std::wstring_view>({ L"B", L"KB", L"MB", L"GB", L"TB", L"PB", L"EB" });
+		double value = static_cast<double>(size);
+
+		size_t index = 0;
+
+		while (value >= 1024.0 && index < units.size() - 1)
+		{
+			value /= 1024.0;
+
+			++index;
+		}
+
+		if (index == 0)
+		{
+			return winrt::format(L"{} {}", size, units[index]);
+		}
+
+		return winrt::format(L"{:.2f} {}", value, units[index]);
 	}
 }

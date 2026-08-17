@@ -50,9 +50,6 @@
     <Midl Include="Converters\HexToColorConverter.idl">
       <Filter>Converters</Filter>
     </Midl>
-    <Midl Include="Converters\StringFormatConverter.idl">
-      <Filter>Converters</Filter>
-    </Midl>
     <Midl Include="Converters\StringToBrushConverter.idl">
       <Filter>Converters</Filter>
     </Midl>
@@ -131,6 +128,10 @@
     <Midl Include="Views\Pages\IUriNavigationSupportPage.idl" />
     <Midl Include="Core\Data\Items\NavigationBreadcrumbBarItem.idl" />
     <Midl Include="Views\Pages\IBreadcrumbBarNavigationSupportPage.idl" />
+    <Midl Include="Helpers\ResourceString.idl" />
+    <Midl Include="ViewModels\Settings\ResourceUsageViewModel.idl" />
+    <Midl Include="ViewModels\Settings\RemoteAccessSessionViewModel.idl" />
+    <Midl Include="ViewModels\Settings\RemoteAccessViewModel.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -183,7 +184,6 @@
     <ClCompile Include="Core\System\Native\util.c">
       <Filter>Core\System\Native</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Web\Http\VirusTotalHttpClient.cpp" />
     <ClCompile Include="Helpers\Win32\Native\NativeProcess.cpp" />
     <ClCompile Include="Core\System\Native\guisup.c" />
     <ClCompile Include="Core\System\Native\file.c" />
@@ -197,7 +197,6 @@
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
-    <ClCompile Include="Core\Web\Http\OpenAIHttpClient.cpp" />
     <ClCompile Include="Core\Settings\SharedSettings.cpp" />
     <ClCompile Include="Core\EMS\EmsHost.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
@@ -212,6 +211,16 @@
     <ClCompile Include="XamlTypeInfo.module.cpp" />
     <ClCompile Include="XamlTypeInfo.Impl.module.cpp" />
     <ClCompile Include="XamlMetaDataProvider.module.cpp" />
+    <ClCompile Include="Core\Services\AppMemoryManager.cpp" />
+    <ClCompile Include="Core\System\Sources\NativeProcessDataSource.cpp" />
+    <ClCompile Include="Core\System\Monitors\ProcessMonitor.cpp" />
+    <ClCompile Include="Core\System\Monitors\MonitorBase.cpp" />
+    <ClCompile Include="Core\System\N2\memory.cpp" />
+    <ClCompile Include="Core\System\N2\process.cpp" />
+    <ClCompile Include="Core\System\Sources\WTSProcessDataSource.cpp" />
+    <ClCompile Include="ViewModels\Settings\RemoteAccessViewModel.Commands.cpp" />
+    <ClCompile Include="Core\System\Controllers\NativeProcessController.cpp" />
+    <ClCompile Include="Core\System\Controllers\WTSProcessController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -282,8 +291,6 @@
       <Filter>Core\System\Native</Filter>
     </ClInclude>
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
-    <ClInclude Include="Core\Web\Http\VirusTotalHttpClient.h" />
-    <ClInclude Include="Core\Web\Http\Base.h" />
     <ClInclude Include="Helpers\Win32\Native\NativeProcess.h" />
     <ClInclude Include="Core\System\Native\guisup.h" />
     <ClInclude Include="Core\System\Native\file.h" />
@@ -299,7 +306,6 @@
     <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
-    <ClInclude Include="Core\Web\Http\OpenAIHttpClient.h" />
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
     <ClInclude Include="Core\Settings\SharedSettings.h" />
     <ClInclude Include="Core\EMS\EmsHost.h" />
@@ -317,6 +323,21 @@
     <ClInclude Include="unknown.h" />
     <ClInclude Include="Core\Eil\string.h" />
     <ClInclude Include="Core\Eil\winrt.h" />
+    <ClInclude Include="Core\Eil\event.h" />
+    <ClInclude Include="Core\Services\AppMemoryManager.h" />
+    <ClInclude Include="Core\System\Sources\IProcessDataSource.h" />
+    <ClInclude Include="Core\System\Sources\NativeProcessDataSource.h" />
+    <ClInclude Include="Core\System\Monitors\MonitorBase.h" />
+    <ClInclude Include="Core\System\Monitors\ProcessMonitor.h" />
+    <ClInclude Include="Core\Eil\nt.h" />
+    <ClInclude Include="Core\System\N2\memory.h" />
+    <ClInclude Include="Core\System\N2\process.h" />
+    <ClInclude Include="Core\System\N2\delta.h" />
+    <ClInclude Include="Core\System\Sources\WTSProcessDataSource.h" />
+    <ClInclude Include="Core\System\N2\remote.h" />
+    <ClInclude Include="Core\System\Controllers\IProcessController.h" />
+    <ClInclude Include="Core\System\Controllers\NativeProcessController.h" />
+    <ClInclude Include="Core\System\Controllers\WTSProcessController.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -463,9 +484,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Source Generators\EnumMapingGenerator.ps1" />
-    <None Include="Source Generators\ResourceGenerator.ps1" />
-    <None Include="Source Generators\JsonModelGenerator.ps1" />
-    <None Include="Source Generators\Scheme\AnalysisInfo.json" />
     <None Include="Core\Settings\default.json" />
     <None Include="vcpkg.json" />
     <None Include="vcpkg-configuration.json" />

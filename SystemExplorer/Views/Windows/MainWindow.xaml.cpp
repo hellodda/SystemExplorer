@@ -15,17 +15,18 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         ExtendsContentIntoTitleBar(true);
         AppWindow().TitleBar().PreferredHeightOption(winrt::TitleBarHeightOption::Tall);
 
-      /*  Core::Settings::UserSettings::AppearanceSettings.SettingChanged([this](std::string_view name, eil::generic_t value)
+        winrt::SystemExplorer::Core::Settings::UserSettings::AppearanceSettings.SettingChanged->operator()([weak = get_weak()](std::wstring_view name, winrt::IInspectable const& value)
         {
-            
-            if (name == "ApplicationTheme")
+            if (auto wrf = weak.get())
             {
-                auto theme = value.as<winrt::ElementTheme>();
+                if (name == L"ApplicationTheme")
+                {
+                    auto theme = value.as<winrt::ElementTheme>();
 
-                this->RootGrid().RequestedTheme(theme);
+                    wrf->RootGrid().RequestedTheme(theme);
+                }
             }
-
-        });*/
+        });
     }
 }
 

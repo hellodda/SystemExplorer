@@ -1,132 +1,140 @@
 ﻿#include "pch.h"
 #include "winrt_module_imports.h"
 #include "ProcessesViewModel.h"
-
 #if __has_include("ViewModels/Activities/ProcessesViewModel.g.cpp")
 #include "ViewModels/Activities/ProcessesViewModel.g.cpp"
 #endif
+
+#include <absl/container/flat_hash_set.h>
+
+#include <core/eil/nt.h>
+
+#include <core/system/controllers/NativeProcessController.h>
+#include <core/system/sources/NativeProcessDataSource.h>
+#include <core/system/sources/WTSProcessDataSource.h>
+
 #include <App.xaml.h>
 
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
-    ProcessesViewModel::ProcessesViewModel()
-    {
-    
-    }
+	ProcessesViewModel::ProcessesViewModel()
+	{
+		monitor_ = std::make_unique<Core::System::Monitors::ProcessMonitor>(Core::System::Monitors::MonitorOptions{});
+		controller_ = std::make_unique<Core::System::Controllers::NativeProcessController>();
 
-    void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
-    {
-        if (value != SelectedProcess_)
-        {
-            SelectedProcess_ = value;
-            TerminateProcessCommand.NotifyCanExecuteChanged();
-            EfficiencyModeCommand.NotifyCanExecuteChanged();
+		controllerAccess_ = controller_->Access();
 
-            //RaisePropertyChanged(L"SelectedProcess");
-        }
-    }
+		LOG_IF_FAILED(monitor_->DataSource(std::make_unique<Core::System::Sources::NativeProcessDataSource>()));
+		LOG_IF_FAILED(monitor_->Start());
 
-    // commands impl
-    winrt::IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
-    {
-      /*  if (!SelectedProcess_) co_return;
-        const auto pid = SelectedProcess_.Pid();
+		winrt::Microsoft::UI::Dispatching::DispatcherQueue dispatcher = winrt::Microsoft::UI::Dispatching::DispatcherQueue::GetForCurrentThread();
 
-        try
-        {
-            manager_->Terminate(pid);
-        }
-        catch (const wil::ResultException&) {}*/
-        co_return;
-    }
+		monitor_->OnDataCollected([weak = get_weak(), dispatcher](std::span<SYSX_PROCESS_ITEM*> processes)
+			{
+				std::vector<SYSX_PROCESS_ITEM> safeProcesses;
+				safeProcesses.reserve(processes.size());
 
-    winrt::IAsyncAction ProcessesViewModel::doSetEfficiencyModeAsync()
-    {
-       /* if (!SelectedProcess_) co_return;
-        const auto pid = SelectedProcess_.Pid();
+				for (auto* p : processes)
+				{
+					SYSX_PROCESS_ITEM item = *p;
 
-        try
-        {
-            if (!NativeProcess::IsEfficiencyModeEnabled(pid))
-            {
-                manager_->EnableEfficiencyMode(pid);
-            }
-            else
-            {
-                manager_->DisableEfficiencyMode(pid);
-            }
-        }
-        catch (const wil::ResultException&) {}*/
-        co_return;
-    }
+					if (p->ProcessName.Buffer && p->ProcessName.Length > 0)
+					{
+						size_t charCount = p->ProcessName.Length / sizeof(WCHAR);
 
-    winrt::IAsyncAction ProcessesViewModel::doRestartProcessAsync()
-    {
-    /*    if (!SelectedProcess_) co_return;
-        manager_->Restart(SelectedProcess_.Pid());*/
-        co_return;
-    }
+						WCHAR* newBuffer = static_cast<WCHAR*>(CoTaskMemAlloc(p->ProcessName.Length + sizeof(WCHAR)));
+						if (newBuffer)
+						{
+							std::memcpy(newBuffer, p->ProcessName.Buffer, p->ProcessName.Length);
+							newBuffer[charCount] = L'\0';
 
-    winrt::IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
-    {
-     /*   if (SelectedProcess_)
-        {
-            ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
-        }*/
-        co_return;
-    }
+							item.ProcessName.Buffer = newBuffer;
+							item.ProcessName.MaximumLength = p->ProcessName.Length + sizeof(WCHAR);
+						}
+					}
 
-    winrt::IAsyncAction ProcessesViewModel::doOpenProcessLocationAsync()
-    {
-     /*   using namespace winrt::Windows::Storage;
-        if (!SelectedProcess_) co_return;
+					safeProcesses.push_back(item);
+				}
 
-        try
-        {
-            const auto path = NativeProcess::GetProcessImageName(SelectedProcess_.Pid());
-            auto targetFile = co_await StorageFile::GetFileFromPathAsync(path);
+				dispatcher.TryEnqueue([weak, data = std::move(safeProcesses)]() mutable
+					{
+						if (auto wrf = weak.get())
+						{
+							wrf->collectData(data);
+						}
+					});
+			});
+	}
 
-            if (auto parentFolder = co_await targetFile.GetParentAsync())
-            {
-                winrt::Windows::System::FolderLauncherOptions options;
-                options.ItemsToSelect().Append(targetFile);
+	void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
+	{
+		if (value != SelectedProcess_)
+		{
+			SelectedProcess_ = value;
+			TerminateProcessCommand.NotifyCanExecuteChanged();
+			EfficiencyModeCommand.NotifyCanExecuteChanged();
+		}
+	}
 
-                co_await winrt::Windows::System::Launcher::LaunchFolderAsync(parentFolder, options);
-            }
-        }
-        catch (const hresult_error&) {}
-        catch (const wil::ResultException&) {}*/
-        co_return;
-    }
+	void ProcessesViewModel::collectData(const std::vector<SYSX_PROCESS_ITEM>& data)
+	{
+		absl::flat_hash_set<uint32_t> currentPids;
+		currentPids.reserve(data.size());
 
-    /*IAsyncAction ProcessesViewModel::doDumpProcessMemoryAsync(MINIDUMP_TYPE dumpType)
-    {
-        if (!SelectedProcess_) co_return;
+		for (const auto& process : data)
+		{
+			uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(process.ProcessId));
+			currentPids.insert(pid);
 
-        const auto pid = SelectedProcess_.Pid();
-        const auto processName = SelectedProcess_.Name();
+			auto it = processMap_.find(pid);
+			if (it != processMap_.end())
+			{
+				it->second.CpuUsage(process.CpuUsage);
+			}
+			else
+			{
+				winrt::SystemExplorer::Core::Data::Items::ProcessItem newItem;
 
-        auto processItem = provider_->GetProcess(pid);
-        if (!processItem) co_return;
+				newItem.Pid(pid);
+				newItem.CpuUsage(250);
+				newItem.IoRate(5000000);
+				newItem.PrivateBytes(1000000);
+				newItem.Name(eil::nt::to_wstring_view(process.ProcessName));
 
-        FileSavePicker picker{ SystemExplorer::CurrentApplication::GetCurrentWindowId() };
+				Processes().Append(newItem);
+				processMap_.emplace(pid, newItem);
+			}
+		}
 
-        picker.SuggestedFileName(processName + L"_memorydump");
-        picker.DefaultFileExtension(L".dmp");
+		for (auto it = processMap_.begin(); it != processMap_.end(); )
+		{
+			if (!currentPids.contains(it->first))
+			{
+				uint32_t index;
+				if (Processes().IndexOf(it->second, index))
+				{
+					Processes().RemoveAt(index);
+				}
 
-        if (auto savedFile = co_await picker.PickSaveFileAsync())
-        {
-            try
-            {
-                SeCreateDumpFileProcess(savedFile.Path().c_str(), processItem.get(), dumpType);
-            }
-            catch (...) {}
-        }
-    }*/
+				processMap_.erase(it++);
+			}
+			else
+			{
+				++it;
+			}
+		}
 
-    winrt::IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)
-    {
-        MessageBox(NULL, message.c_str(), L"Action failed", MB_OK | MB_ICONERROR);
-        co_return;
-    }
+		for (auto& process : data)
+		{
+			if (process.ProcessName.Buffer)
+			{
+			}
+		}
+	}
+
+	winrt::IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)
+	{
+		MessageBox(NULL, message.c_str(), L"Action failed", MB_OK | MB_ICONERROR);
+		co_return;
+	}
 }

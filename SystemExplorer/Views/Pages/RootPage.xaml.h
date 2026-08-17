@@ -34,7 +34,6 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
         [[nosiscard]] winrt::IAsyncAction AutoSuggestBox_SuggestionChosen(winrt::IInspectable const& sender, winrt::AutoSuggestBoxSuggestionChosenEventArgs args);
 
         [[nodiscard]] winrt::IAsyncAction AutoSuggestBox_TextChanged(winrt::IInspectable const& sender, winrt::AutoSuggestBoxTextChangedEventArgs const& args);
-
     private:
         void navigateToUri(winrt::Uri const& uri);
     };

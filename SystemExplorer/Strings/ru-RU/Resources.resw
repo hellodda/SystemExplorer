@@ -313,10 +313,10 @@
   <data name="ImageFit" xml:space="preserve">
     <value>Режим изображения</value>
   </data>
-  <data name="Vertical Alignment" xml:space="preserve">
+  <data name="VerticalAlignment" xml:space="preserve">
     <value>Вертикальное выравнивание</value>
   </data>
-  <data name="Horizontal Alignment" xml:space="preserve">
+  <data name="HorizontalAlignment" xml:space="preserve">
     <value>Горизонтальное выравнивание</value>
   </data>
   <data name="Advanced" xml:space="preserve">
@@ -387,5 +387,26 @@
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Свойства</value>
+  </data>
+  <data name="GeneralPage" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="AboutPage" xml:space="preserve">
+    <value>О приложении</value>
+  </data>
+  <data name="RemoteAccessPage" xml:space="preserve">
+    <value>Удаленный доступ</value>
+  </data>
+  <data name="EmsPage" xml:space="preserve">
+    <value>Модули-расширения</value>
+  </data>
+  <data name="AppearancePage" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="AdvancedPage" xml:space="preserve">
+    <value>Расширенный</value>
+  </data>
+  <data name="ResourceUsagePage" xml:space="preserve">
+    <value>Производительность</value>
   </data>
 </root>

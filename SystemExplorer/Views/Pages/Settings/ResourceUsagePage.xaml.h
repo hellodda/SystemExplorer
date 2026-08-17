@@ -8,8 +8,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
     {
         ResourceUsagePage()
         {
-            // Xaml objects should not call InitializeComponent during construction.
-            // See https://github.com/microsoft/cppwinrt/tree/master/nuget#initializecomponent
+
         }
 
     };

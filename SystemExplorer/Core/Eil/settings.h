@@ -1,7 +1,11 @@
-#ifdef __INTELLISENSE__
+﻿#ifdef __INTELLISENSE__
 #include <wil/cppwinrt_authoring.h>
 #include <winrt/SystemExplorer.Core.Data.Enums.h>
 #endif
+#include "event.h"
+
+#include <absl/container/flat_hash_map.h>
+#include <absl/container/flat_hash_set.h>
 
 namespace eil
 {
@@ -29,6 +33,25 @@ namespace eil
 
 			virtual winrt::Windows::Foundation::IInspectable get(std::wstring_view key) const = 0;
 			virtual void set(std::wstring_view, winrt::Windows::Foundation::IInspectable const& value) = 0;
+		};
+
+
+		struct wstring_hash
+		{
+			using is_transparent = void;
+			size_t operator()(std::wstring_view v) const
+			{
+				return absl::Hash<std::wstring_view>{}(v);
+			}
+		};
+
+		struct wstring_eq
+		{
+			using is_transparent = void;
+			bool operator()(std::wstring_view lhs, std::wstring_view rhs) const
+			{
+				return lhs == rhs;
+			}
 		};
 	}
 
@@ -71,7 +94,10 @@ namespace eil
 	struct single_threaded_setting_base
 	{
 		single_threaded_setting_base(T defaultValue = T{})
-			: value_(defaultValue) {}
+			: value_(defaultValue)
+		{
+			context_ = details::settings_property_context::current_context;
+		}
 
 		operator T () const
 		{
@@ -144,16 +170,86 @@ namespace eil
 		}
 	};
 
+
 	struct settings_base : details::settings_property_context
 	{
-		virtual winrt::Windows::Foundation::IInspectable get(std::wstring_view key) const override
+		settings_base()
+			: propertySet_(winrt::Microsoft::Windows::Storage::ApplicationData::GetDefault().LocalSettings().Values())
 		{
-			return winrt::Windows::Foundation::IInspectable();
+			details::settings_property_context::current_context = this;
 		}
 
-		virtual void set(std::wstring_view, winrt::Windows::Foundation::IInspectable const& value) override
-		{
+		std::shared_ptr<eil::event<eil::action_t<std::wstring_view, winrt::Windows::Foundation::IInspectable const&>>> SettingChanged = 
+			std::make_shared<eil::event<eil::action_t<std::wstring_view, winrt::Windows::Foundation::IInspectable const&>>>();;
 
+		[[nodiscard]] winrt::Windows::Foundation::IInspectable get(std::wstring_view key) const override
+		{
+			if (auto it = cache_.find(key); it != cache_.end())
+			{
+				return it->second;
+			}
+
+			try
+			{
+				if (auto value = propertySet_.TryLookup(key))
+				{
+					cache_.emplace(std::wstring{ key }, value);
+					return value;
+				}
+			}
+			catch (winrt::hresult_error const&) { /* Игнорируем блокировки */ }
+
+			return nullptr;
 		}
+
+		void set(std::wstring_view name, winrt::Windows::Foundation::IInspectable const& value) override
+		{
+			cache_.insert_or_assign(std::wstring{ name }, value);
+
+			dirtyKeys_.insert(std::wstring{ name });
+
+			SettingChanged->invoke(name, value);
+		}
+
+		[[nodiscard]] std::vector<std::wstring_view> get_pending_changes() const
+		{
+			std::vector<std::wstring_view> pending;
+			pending.reserve(dirtyKeys_.size());
+			for (auto const& key : dirtyKeys_)
+			{
+				pending.push_back(key); 
+			}
+			return pending;
+		}
+
+		void commit_changes()
+		{
+			if (dirtyKeys_.empty()) return;
+
+			for (auto const& key : dirtyKeys_)
+			{
+				try
+				{
+					auto it = cache_.find(key);
+					if (it != cache_.end() && it->second)
+					{
+						propertySet_.Insert(key, it->second);
+					}
+					else
+					{
+						propertySet_.Remove(key);
+					}
+				}
+				catch (winrt::hresult_error const&) { /* Пропускаем сбойные ключи */ }
+				CATCH_LOG()
+			}
+			dirtyKeys_.clear();
+		}
+
+	private:
+		winrt::Windows::Foundation::Collections::IPropertySet propertySet_;
+
+		mutable absl::flat_hash_map<std::wstring, winrt::Windows::Foundation::IInspectable, details::wstring_hash, details::wstring_eq> cache_;
+		absl::flat_hash_set<std::wstring, details::wstring_hash, details::wstring_eq> dirtyKeys_;
 	};
 }

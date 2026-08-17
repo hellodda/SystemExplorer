@@ -1,0 +1,16 @@
+import "Xaml/Mvvm/AsyncRelayCommand.idl";
+import "Core/Data/Items/RemoteComputerItem.idl";
+
+namespace SystemExplorer.ViewModels.Settings
+{
+    [default_interface] runtimeclass RemoteAccessViewModel 
+    {
+        RemoteAccessViewModel();
+
+        Windows.Foundation.Collections.IObservableVector<Object> Devices { get; };
+        SystemExplorer.Core.Data.Items.RemoteComputerItem SelectedDevice{ get; set; };
+
+        SystemExplorer.Xaml.IAsyncRelayCommand ConnectToDeviceCommand { get; };
+        SystemExplorer.Xaml.IAsyncRelayCommand CreateNewDeviceCommand{ get; };
+    }
+}

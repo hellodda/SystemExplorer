@@ -34,8 +34,9 @@ BOOLEAN SeWriteUnicodeDecoder(
         Decoder->InputCount = 1;
         return TRUE;
     default:
+        return TRUE;
         //SeRaiseStatus(STATUS_UNSUCCESSFUL);
-    }
+    };
 }
 
 ULONG64 SeReadTimeStampCounter(

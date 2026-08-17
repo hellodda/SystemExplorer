@@ -60,7 +60,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeIndex_ = value;
             Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme(themes[value]);
-            RAISE_PROPERTY_CHANGED;
+            RaisePropertyChanged(L"SelectedAppThemeIndex");
         }
     }
 
@@ -70,7 +70,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeResources_ = value;
             AppThemeBackgroundColor(value.BackgroundColor());
-            RAISE_PROPERTY_CHANGED;
+            RaisePropertyChanged(L"SelectedAppThemeResources");
         }
     }
 
@@ -81,7 +81,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 
     void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept
     {
-        Core::Services::AppResourcesService::SetAppThemeBackgroundColor(Windows::UI::Colors::AntiqueWhite()); // TODO
+        Core::Services::AppResourcesService::SetAppThemeBackgroundColor(winrt::XamlToolkit::WinUI::Helpers::ColorHelper::ToColor(value)); // TODO
         Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor(value);
     }
 
@@ -91,7 +91,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedBackdropMaterial_ = value;
             Core::Settings::UserSettings::AppearanceSettings.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
-            RAISE_PROPERTY_CHANGED;
+            RaisePropertyChanged(L"SelectedBackdropMaterial");
         }
     }
 
@@ -104,7 +104,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     {
         AppThemeBackgroundImageSource_ = value;
         Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource(value);
-        RAISE_PROPERTY_CHANGED;
+        RaisePropertyChanged(L"AppThemeBackgroundImageSource");
     }
 
     float AppearanceViewModel::AppThemeBackgroundImageOpacity() const noexcept
@@ -115,7 +115,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     void AppearanceViewModel::AppThemeBackgroundImageOpacity(float const& value) noexcept
     {
         Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity(value);
-        RAISE_PROPERTY_CHANGED;
+        RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
     }
 
     void AppearanceViewModel::SelectedImageStretchType(IInspectable const& value) noexcept

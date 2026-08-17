@@ -1,0 +1,18 @@
+import "ViewModels/ViewModelBase.idl";
+
+namespace SystemExplorer.ViewModels.Settings
+{
+	[default_interface] runtimeclass ResourceUsageViewModel : SystemExplorer.ViewModels.ViewModelBase
+    {
+        ResourceUsageViewModel();
+
+        UInt32 InitialMemoryReserve { get; set; };
+        UInt32 MemoryLimit { get; set; };
+        UInt32 PurgeDelay { get; set; };
+
+		Boolean UseLargeMemoryPages{ get; set; };
+
+        Windows.Foundation.Collections.IVector<Object> MemoryUsageModes { get; };
+        Int32 SelectedMemoryUsageModeIndex;
+    }
+}

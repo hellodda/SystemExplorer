@@ -21,7 +21,7 @@
                 <PersonPicture Grid.Column="0" Width="100" Height="100" Initials="T1"/>
 
                 <StackPanel Grid.Column="1" Spacing="6" Margin="16,0,0,0">
-                    <TextBlock Text="MANUKYAN ARMAN" FontSize="28"/>
+                    <TextBlock Text="WIN-T1UUBJJ7V8I" FontSize="28"/>
                     <TextBlock Text="arman.manukyan77@hotmail.com"/>
                     <TextBlock Text="Администратор"/>
                 </StackPanel>

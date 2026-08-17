@@ -312,10 +312,10 @@
   <data name="ImageFit" xml:space="preserve">
     <value>Image Fit</value>
   </data>
-  <data name="Vertical Alignment" xml:space="preserve">
+  <data name="VerticalAlignment" xml:space="preserve">
     <value>Vertical Alignment</value>
   </data>
-  <data name="Horizontal Alignment" xml:space="preserve">
+  <data name="HorizontalAlignment" xml:space="preserve">
     <value>Horizontal Alignment</value>
   </data>
   <data name="Advanced" xml:space="preserve">
@@ -386,5 +386,26 @@
   </data>
   <data name="Properties" xml:space="preserve">
     <value>Properties</value>
+  </data>
+  <data name="GeneralPage" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="AboutPage" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="RemoteAccessPage" xml:space="preserve">
+    <value>Remote Access</value>
+  </data>
+  <data name="EmsPage" xml:space="preserve">
+    <value>EMS Modules</value>
+  </data>
+  <data name="AppearancePage" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="AdvancedPage" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="ResourceUsagePage" xml:space="preserve">
+    <value>Resource Usage</value>
   </data>
 </root>

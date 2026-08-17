@@ -13,9 +13,8 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
         if (ActivitiesFrame().Content() == nullptr)
         {
             auto startPage = Core::Settings::UserSettings::GeneralSettings.StartPage();
-            auto startPageFull = L"SystemExplorer.Views.Pages.Activities." + startPage;
 
-            ActivitiesFrame().Navigate(TypeName{ startPageFull, TypeKind::Metadata });
+            ActivitiesFrame().Navigate(TypeName{ startPage, TypeKind::Metadata });
         }
         co_return;
     }

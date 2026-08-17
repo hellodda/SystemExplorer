@@ -207,7 +207,7 @@
   <data name="Opacity" xml:space="preserve">
     <value>Թափանցիկություն</value>
   </data>
-  <data name="Vertical Alignment" xml:space="preserve">
+  <data name="VerticalAlignment" xml:space="preserve">
     <value>Ուղղահայաց հավասարեցում</value>
   </data>
   <data name="Advanced" xml:space="preserve">
@@ -258,5 +258,20 @@
   </data>
   <data name="IoRate" xml:space="preserve">
     <value>Մ/Ե ընդհանուր արագություն</value>
+  </data>
+  <data name="GeneralPage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="AboutPage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <data name="AppearancePage" xml:space="preserve">
+    <value>Տեսք</value>
+  </data>
+  <data name="AdvancedPage" xml:space="preserve">
+    <value>Ընդլայնված</value>
+  </data>
+  <data name="ResourceUsagePage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
 </root>

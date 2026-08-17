@@ -27,6 +27,10 @@ namespace winrt::SystemExplorer::Converters::implementation
             IInspectable const&,
             hstring const&
         );
+
+    private:
+        
+        winrt::hstring ToUnitSizeString(size_t size);
     };
 }
 FACTORY(winrt::SystemExplorer::Converters, ValueToSizeUnitConverter);

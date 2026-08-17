@@ -9,6 +9,7 @@ namespace winrt
 
     using namespace winrt::Windows::UI::Xaml::Interop;
     using namespace winrt::Windows::Foundation;
+    using namespace winrt::Windows::Foundation::Collections;
 }
 
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
@@ -19,6 +20,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 
         [[nodiscard]] winrt::IAsyncAction SettingsFrameLoaded(winrt::IInspectable const& sender, winrt::RoutedEventArgs const& args);
         [[nodiscard]] winrt::IAsyncAction SettingsNavViewSelectionChanged(winrt::NavigationView const& sender, winrt::NavigationViewSelectionChangedEventArgs const& args);
+        [[nodiscard]] winrt::IAsyncAction NavigationBreadcrumbBarItemClicked(winrt::BreadcrumbBar const& sender, winrt::BreadcrumbBarItemClickedEventArgs const& args);
 
         void NavigateToUri(winrt::Uri const& uri);
     };

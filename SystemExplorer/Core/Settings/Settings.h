@@ -32,7 +32,7 @@ namespace winrt::SystemExplorer::Core::Settings
     struct GeneralSettings : eil::settings_base
     {
         eil::single_threaded_rw_setting<uint16_t, L"RealTimeUpdateSpeedMs"> RealTimeUpdateSpeedMs{ 1500 };
-        eil::single_threaded_rw_setting<winrt::hstring, L"StartPage"> StartPage{ L"SystemExplorer.Views.Pages.Activites.ProcessesPage" };
+        eil::single_threaded_rw_setting<winrt::hstring, L"StartPage"> StartPage{ L"SystemExplorer.Views.Pages.Activities.ProcessesPage" };
         eil::single_threaded_rw_setting<bool, L"MemoryDumpCaptureHypervisorPages"> MemoryDumpCaptureHypervisorPages{ false };
         eil::single_threaded_rw_setting<bool, L"MemoryDumpAbortIfInsufficientMemory"> MemoryDumpAbortIfInsufficientMemory{ false };
         eil::single_threaded_rw_setting<bool, L"MemoryDumpIncludeNonessentialPages"> MemoryDumpIncludeNonessentialPages{ false };
@@ -42,11 +42,20 @@ namespace winrt::SystemExplorer::Core::Settings
         eil::single_threaded_rw_setting<bool, L"AppWindowHideWhenMinimized"> AppWindowHideWhenMinimized{ false };
     };
 
+    struct ApplicationGlobalSettings : eil::settings_base
+    {
+        eil::single_threaded_rw_setting<uint32_t, L"InitialMemoryReserve"> InitialMemoryReserve{ 120 };
+        eil::single_threaded_rw_setting<uint32_t, L"MemoryLimit"> MemoryLimit{ 200 };
+        eil::single_threaded_rw_setting<uint32_t, L"PurgeDelay"> PurgeDelay{ 10 };
+        eil::single_threaded_rw_setting<bool, L"UseLargeMemoryPages"> UseLargeMemoryPages{ false };
+    };
+
     struct UserSettings
     {
         static inline wil::single_threaded_property<AdvancedSettings> AdvancedSettings;
         static inline wil::single_threaded_property<AppearanceSettings> AppearanceSettings;
         static inline wil::single_threaded_property<GeneralSettings> GeneralSettings;
+        static inline wil::single_threaded_property<ApplicationGlobalSettings> ApplicationGlobalSettings;
     };
 
     struct InternalSettings : eil::settings_base
@@ -57,5 +66,10 @@ namespace winrt::SystemExplorer::Core::Settings
         static inline eil::single_threaded_rw_setting<int32_t, L"ProcessesCpuUsageColumnLastWidth"> ProcessesCpuUsageColumnLastWidth{ 75 };
         static inline eil::single_threaded_rw_setting<int32_t, L"ProcessesIoRateColumnLastWidth"> ProcessesIoRateColumnLastWidth{ 75 };
         static inline eil::single_threaded_rw_setting<int32_t, L"ProcessesPrivateBytesLastWidth"> ProcessesPrivateBytesLastWidth{ 50 };
+    };
+
+    struct RemoteControlSettings : eil::settings_base
+    {
+
     };
 }

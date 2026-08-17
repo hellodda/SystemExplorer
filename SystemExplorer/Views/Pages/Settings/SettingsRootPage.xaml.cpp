@@ -31,6 +31,19 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
         co_return;
     }
 
+    winrt::IAsyncAction SettingsRootPage::NavigationBreadcrumbBarItemClicked(winrt::BreadcrumbBar const& sender, winrt::BreadcrumbBarItemClickedEventArgs const& args)
+    {
+        auto items = sender.ItemsSource().as<winrt::IObservableVector<winrt::SystemExplorer::Core::Data::Items::NavigationBreadcrumbBarItem>>();
+
+        for (int i = items.Size() - 1; i >= args.Index() + 1; i--)
+        {
+            items.RemoveAt(i);
+        }
+        NavigationFrame().Navigate(items.GetAt(args.Index()).PageType());
+
+        co_return;
+    }
+
     void SettingsRootPage::NavigateToUri(winrt::Uri const& uri)
     {
         auto ns = uri.Host();
@@ -45,8 +58,11 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 
         for (auto part : path)
         {
-            auto pageType = winrt::TypeName{ winrt::hstring{ ns + L"." + part}, winrt::TypeKind::Custom};
-            vector.Append(winrt::SystemExplorer::Core::Data::Items::NavigationBreadcrumbBarItem{ winrt::hstring{ part }, pageType });
+            auto item = winrt::SystemExplorer::Core::Data::Items::NavigationBreadcrumbBarItem{};
+            item.Header(winrt::SystemExplorer::Helpers::ResourceString::LoadResource(part));
+            item.PageType(winrt::TypeName{ winrt::hstring{ ns + L"." + part}, winrt::TypeKind::Custom });
+
+            vector.Append(item);
         }
         NavigationBreadcrumbBar().ItemsSource(vector);
     }

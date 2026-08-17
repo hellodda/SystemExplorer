@@ -4,7 +4,11 @@
 #include "ViewModels/Activities/ProcessesViewModel.g.h"
 
 #include <Core/Data/Items/ProcessItem.h>
+#include <Core/System/Monitors/ProcessMonitor.h>
+#include <Core/System/Controllers/IProcessController.h>
+
 #include "../ViewModelBase.h"
+#include <winrt/Windows.Foundation.Collections.h>
 
 namespace winrt
 {
@@ -30,7 +34,7 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         wil::single_threaded_property<winrt::IAsyncRelayCommand> TerminateProcessCommand = winrt::AsyncRelayCommandFactory::Make([this](auto&&) -> winrt::IAsyncAction {
             co_await doTerminateProcessAsync();
         }, [this](auto&&) -> bool {
-                return SelectedProcess_ != nullptr;
+                return SelectedProcess_ != nullptr && controllerAccess_.CanTerminate;
         });
 
         wil::single_threaded_property<winrt::IAsyncRelayCommand> EfficiencyModeCommand = winrt::AsyncRelayCommandFactory::Make([this](auto&&) -> winrt::IAsyncAction {
@@ -103,7 +107,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         WIL_NOTIFYING_PROPERTY(int32_t, ItemIconSize, 18);
         WIL_NOTIFYING_PROPERTY(int32_t, ItemFontSize, 13);
     private: // internal
-
+        
+        void collectData(const std::vector<SYSX_PROCESS_ITEM>& data);
         [[nodiscard]] winrt::IAsyncAction showErrorDialogAsync(hstring const& message);
     private: // commands
         [[nodiscard]] winrt::IAsyncAction doTerminateProcessAsync();
@@ -112,6 +117,13 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         [[nodiscard]] winrt::IAsyncAction doOpenProcessDetailsWindowAsync();
         [[nodiscard]] winrt::IAsyncAction doOpenProcessLocationAsync();
        /* winrt::IAsyncAction doDumpProcessMemoryAsync(MINIDUMP_TYPE dumpType);*/
+    private:
+        absl::flat_hash_map<uint32_t, winrt::SystemExplorer::Core::Data::Items::ProcessItem> processMap_;
+
+        std::unique_ptr<Core::System::Monitors::ProcessMonitor> monitor_{ nullptr };
+        std::unique_ptr<Core::System::Controllers::IProcessController> controller_{ nullptr };
+
+        Core::System::Controllers::ProcessControllerAccess controllerAccess_;
     };
 }
 FACTORY(winrt::SystemExplorer::ViewModels::Activities, ProcessesViewModel);

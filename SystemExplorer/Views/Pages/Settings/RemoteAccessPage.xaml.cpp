@@ -5,7 +5,18 @@
 #include "Views/Pages/Settings/RemoteAccessPage.g.cpp"
 #endif
 
+#include <ViewModels/Settings/RemoteAccessViewModel.h>
+
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
-	
+    RemoteAccessPage::RemoteAccessPage()
+    {
+        InitializeComponent();
+    }
+
+    winrt::IAsyncAction RemoteAccessPage::showDialogAsync()
+    {
+        RemoteComputerSetupDialog().XamlRoot(this->XamlRoot());
+        co_await RemoteComputerSetupDialog().ShowAsync();
+    }
 }

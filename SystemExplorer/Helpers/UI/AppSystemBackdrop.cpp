@@ -11,30 +11,30 @@ namespace winrt::SystemExplorer::Helpers::UI::implementation
 {
 	AppSystemBackdrop::AppSystemBackdrop()
 	{
-      /*  Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
+        Core::Settings::UserSettings::AppearanceSettings().SettingChanged->operator()([weak = get_weak()](std::wstring_view name, winrt::IInspectable const& value) {
             if (auto wrf = weak.get())
             {
-                if (name == "BackdropMaterial")
+                if (name == L"BackdropMaterial")
                 {
-
+                   wrf->onSettingChanged();
                 }
             }
-        });*/
+        });
 	}
 
 	AppSystemBackdrop::AppSystemBackdrop(bool enableWhenInactive)
 	{
         EnableWhenInactive(enableWhenInactive);
 
-       /* Core::Settings::UserSettings::AppearanceSettings().SettingChanged([weak = get_weak()](std::string_view name, eil::generic_t) {
+        Core::Settings::UserSettings::AppearanceSettings().SettingChanged->operator()([weak = get_weak()](std::wstring_view name, winrt::IInspectable const& value) {
             if (auto wrf = weak.get())
             {
-                if (name == "BackdropMaterial")
+                if (name == L"BackdropMaterial")
                 {
-
+                    wrf->onSettingChanged();
                 }
             }
-        });*/
+        });
 	}
 
     void AppSystemBackdrop::EnableWhenInactive(bool value) noexcept
