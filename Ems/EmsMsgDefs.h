@@ -1,7 +1,4 @@
 #pragma once
-#include <windows.h>
-#include <phnt_windows.h>
-#include <phnt.h>
 
 typedef enum _EMS_API_NUMBER
 {
@@ -21,11 +18,11 @@ typedef enum _EMS_API_NUMBER
 	EmsApiSendDebugReport,
 	EmsApiGetSetting,
 	EmsApiSetSetting,
-
+	EmsApiQueryService,
 	//
 	// SystemExplorer --> Module
 	// SystemExplorer <-- Module
-	
+
 	EmsApiHealthCheck,
 	EmsApiModuleShutdown,
 	EmsApiModuleSuspend,
@@ -40,7 +37,7 @@ typedef struct _EMS_MODULE_CONNECT
 	IN WCHAR Name[32];
 	IN WCHAR Author[32];
 	IN WCHAR Description[101];
-} EMS_MODULE_CONNECT, *PEMS_MODULE_CONNECT;
+} EMS_MODULE_CONNECT, * PEMS_MODULE_CONNECT;
 
 typedef enum _EMS_MODULE_SHUTDOWN_REASON
 {
@@ -55,13 +52,13 @@ typedef enum _EMS_MODULE_SHUTDOWN_REASON
 	EmsReasonComplited,
 
 	EmsMaxReason
-} EMS_MODULE_SHUTDOWN_REASON; 
+} EMS_MODULE_SHUTDOWN_REASON;
 
 typedef struct _EMS_MODULE_SHUTDOWN
 {
 	OUT NTSTATUS Status;
 	IN EMS_MODULE_SHUTDOWN_REASON Reason;
-} EMS_MODULE_SHUTDOWN, *PEMS_MODULE_SHUTDOWN;
+} EMS_MODULE_SHUTDOWN, * PEMS_MODULE_SHUTDOWN;
 
 typedef enum _EMS_MODULE_SUSPEND_TYPE
 {
@@ -73,7 +70,7 @@ typedef struct _EMS_MODULE_SUSPEND
 {
 	OUT union { NTSTATUS Status; };
 	IN EMS_MODULE_SUSPEND_TYPE Type;
-} EMS_MODULE_SUSPEND, *PEMS_MODULE_SUSPEND;
+} EMS_MODULE_SUSPEND, * PEMS_MODULE_SUSPEND;
 
 typedef struct _EMS_OPEN_PROCESS
 {
@@ -81,20 +78,20 @@ typedef struct _EMS_OPEN_PROCESS
 	OUT HANDLE ProcessHandle;
 	IN ACCESS_MASK DesiredAccess;
 	IN CLIENT_ID ClientId;
-} EMS_OPEN_PROCESS, *PEMS_OPEN_PROCESS;
+} EMS_OPEN_PROCESS, * PEMS_OPEN_PROCESS;
 
 typedef struct _EMS_TERMINATE_PROCESS
 {
 	OUT NTSTATUS Status;
 	IN HANDLE ProcessHandle;
 	IN NTSTATUS ExitStatus;
-} EMS_TERMINATE_PROCESS, *PEMS_TERMINATE_PROCESS;
+} EMS_TERMINATE_PROCESS, * PEMS_TERMINATE_PROCESS;
 
 typedef struct _EMS_DUMP_PROCESS
 {
 	OUT NTSTATUS Status;
 	IN HANDLE ProcessHandle;
-} EMS_DUMP_PROCESS, *PEMS_DUMP_PROCESS;
+} EMS_DUMP_PROCESS, * PEMS_DUMP_PROCESS;
 
 typedef enum _EMS_BUTTON_CREATION_LOCATION
 {
@@ -105,12 +102,12 @@ typedef struct _EMS_CREATE_BUTTON
 {
 	OUT NTSTATUS Status;
 	IN EMS_BUTTON_CREATION_LOCATION Location;
-	
-	/*IN union 
+
+	/*IN union
 	{
-		
+
 	} Content;*/
-} EMS_CREATE_BUTTON, *PEMS_CREATE_BUTTON;
+} EMS_CREATE_BUTTON, * PEMS_CREATE_BUTTON;
 
 typedef enum _EMS_EXPLORER_SETTING_TYPE
 {
@@ -120,7 +117,7 @@ typedef enum _EMS_EXPLORER_SETTING_TYPE
 
 typedef struct _EMS_EXPLORER_SETTINGS
 {
-	union 
+	union
 	{
 		struct
 		{
@@ -151,7 +148,7 @@ typedef struct _EMS_EXPLORER_SETTINGS
 			UINT ApplicationTheme;
 			UINT ApplicationBackgroundColor;
 			UINT ApplicationBackgroundMaterial;
-			
+
 			struct
 			{
 				UINT32 Path;
@@ -169,26 +166,26 @@ typedef struct _EMS_EXPLORER_SETTINGS
 			BOOLEAN UseDriverAsDataSource;
 		} AdvancedSettings;
 	};
-} EMS_EXPLORER_SETTINGS, *PEMS_EXPLORER_SETTINGS;
+} EMS_EXPLORER_SETTINGS, * PEMS_EXPLORER_SETTINGS;
 
 typedef struct _EMS_GET_EXPLORER_SETTING
 {
 	OUT NTSTATUS Status;
 	IN EMS_EXPLORER_SETTING_TYPE Type;
 	OUT EMS_EXPLORER_SETTINGS Value;
-} EMS_GET_EXPLORER_SETTING, *PEMS_GET_EXPLORER_SETTING;
+} EMS_GET_EXPLORER_SETTING, * PEMS_GET_EXPLORER_SETTING;
 
 typedef struct _EMS_SET_EXPLORER_SETTING
 {
 	OUT NTSTATUS Status;
 	IN EMS_EXPLORER_SETTING_TYPE Type;
-} EMS_SET_EXPLORER_SETTING, *PEMS_SET_EXPLORER_SETTING;
+} EMS_SET_EXPLORER_SETTING, * PEMS_SET_EXPLORER_SETTING;
 
 typedef struct _EMS_SEND_ANY_DATA
 {
 	NTSTATUS Status;
 	BYTE Data[ANYSIZE_ARRAY];
-} EMS_SEND_ANY_DATA, *PEMS_SEND_ANY_DATA;
+} EMS_SEND_ANY_DATA, * PEMS_SEND_ANY_DATA;
 
 typedef struct _EMS_SEND_DEBUG_REPORT
 {
@@ -200,15 +197,27 @@ typedef struct _EMS_SEND_DEBUG_REPORT
 		DWORD Win32;
 	} Warning;
 	IN WCHAR* Message;
-} EMS_SEND_DEBUG_REPORT, *PEMS_SEND_DEBUG_REPORT;
+} EMS_SEND_DEBUG_REPORT, * PEMS_SEND_DEBUG_REPORT;
 
 
 typedef struct _EMS_HEALTH_CHECK
 {
 	NTSTATUS Status;
-} EMS_HEALTH_CHECK, *PEMS_HEALTH_CHECK;
+} EMS_HEALTH_CHECK, * PEMS_HEALTH_CHECK;
 
 typedef struct _EMS_EXECUTE_WQL
 {
 	int a;
-} EMS_EXECUTE_WQL, *PEMS_EXECUTE_WQL;
+} EMS_EXECUTE_WQL, * PEMS_EXECUTE_WQL;
+
+typedef enum _EMS_SERVICE_TYPE
+{
+	EmsServiceProcess,
+	EmsServiceService
+} EMS_SERVICE_TYPE;
+
+typedef struct _EMS_QUERY_SERVICE
+{
+	OUT NTSTATUS Status;
+	IN EMS_SERVICE_TYPE ServiceType;
+} EMS_QUERY_SERVICE, *PEMS_QUERY_SERVICE;

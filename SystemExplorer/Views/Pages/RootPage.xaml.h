@@ -1,5 +1,6 @@
 #pragma once
 #include "Views/Pages/RootPage.g.h"
+
 #include <ViewModels/RootViewModel.h>
 #include "Settings/SettingsRootPage.xaml.h"
 #include <winrt/SystemExplorer.Views.Pages.h>

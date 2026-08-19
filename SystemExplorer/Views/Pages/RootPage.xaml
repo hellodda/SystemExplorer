@@ -87,7 +87,7 @@
                  x:Name="NavView"
                  SelectionChanged="NavViewSelectionChanged"
                  IsSettingsVisible="True"
-                 Style="{StaticResource NavigationViewStoreStyle}">
+                 Style="{StaticResource StoreNavigationViewStyle}">
 
             <NavigationView.Resources>
                 <SolidColorBrush x:Key="NavigationViewContentBackground" 

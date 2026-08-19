@@ -3,13 +3,13 @@
 // Explorer Modular System (EMS) V1
 //						     By Hellodda
 //
-
-
 #pragma once
-#include "emsmsgdef.h"
+#include "EmsMsgDefs.h"
 
 #define EMS_PORT_NAME L"\\RPC Control\\SysExplorerRpcEndpoint"
 #define EMS_CURRENT_VERSION 1
+
+typedef USHORT EMS_OBJECT_ID;
 
 typedef struct _EMS_CAPTURE_BUFFER
 {
@@ -18,7 +18,7 @@ typedef struct _EMS_CAPTURE_BUFFER
 	ULONG PointerCount;
 	ULONG BufferEnd;
 	ULONG_PTR PointerOffsetsArray[ANYSIZE_ARRAY];
-} EMS_CAPTURE_BUFFER, *PEMS_CAPTURE_BUFFER;
+} EMS_CAPTURE_BUFFER, * PEMS_CAPTURE_BUFFER;
 
 typedef struct _EMS_API_MESSAGE
 {
@@ -26,9 +26,9 @@ typedef struct _EMS_API_MESSAGE
 	{
 		PORT_MESSAGE PortMessage;
 		USHORT Size;
-		USHORT MessageId;
 		USHORT ApiVersion;
 		EMS_API_NUMBER ApiNumber;
+		EMS_OBJECT_ID ObjectId;
 		LARGE_INTEGER TimeStamp;
 	} Header;
 
@@ -40,7 +40,8 @@ typedef struct _EMS_API_MESSAGE
 			EMS_MODULE_CONNECT ModuleConnect;
 			EMS_MODULE_SUSPEND ModuleSuspend;
 			EMS_MODULE_SHUTDOWN ModuleShutdown;
-			
+			EMS_QUERY_SERVICE QueryService;
+
 			EMS_OPEN_PROCESS OpenProcess;
 			EMS_TERMINATE_PROCESS TerminateProcess;
 			EMS_DUMP_PROCESS DumpProcess;
@@ -62,7 +63,7 @@ typedef struct _EMS_API_MESSAGE
 			EMS_HEALTH_CHECK HealthCheck;
 		} Host;
 	};
-} EMS_API_MESSAGE, *PEMS_API_MESSAGE;
+} EMS_API_MESSAGE, * PEMS_API_MESSAGE;
 
 #define EMS_MESSAGE_SIZE sizeof(EMS_API_MESSAGE)
 
@@ -89,3 +90,4 @@ NTSTATUS EmsSendMessage(
 	_In_ HANDLE PortHandle,
 	_In_ PEMS_API_MESSAGE Message
 );
+

@@ -6,9 +6,11 @@
 #include <Core/Data/Items/ProcessItem.h>
 #include <Core/System/Monitors/ProcessMonitor.h>
 #include <Core/System/Controllers/IProcessController.h>
+#include <Core/Messaging.h>
 
 #include "../ViewModelBase.h"
 #include <winrt/Windows.Foundation.Collections.h>
+
 
 namespace winrt
 {
@@ -108,7 +110,9 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         WIL_NOTIFYING_PROPERTY(int32_t, ItemFontSize, 13);
     private: // internal
         
-        void collectData(const std::vector<SYSX_PROCESS_ITEM>& data);
+        void changeDataSource(Core::Messaging::DataSourceChangedMessage const& message);
+        winrt::IAsyncAction collectDataAsync(std::vector<PSYSX_PROCESS_ITEM> const& data);
+
         [[nodiscard]] winrt::IAsyncAction showErrorDialogAsync(hstring const& message);
     private: // commands
         [[nodiscard]] winrt::IAsyncAction doTerminateProcessAsync();
@@ -124,6 +128,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
         std::unique_ptr<Core::System::Controllers::IProcessController> controller_{ nullptr };
 
         Core::System::Controllers::ProcessControllerAccess controllerAccess_;
+
+        winrt::Microsoft::UI::Dispatching::DispatcherQueue queue_{ nullptr };
     };
 }
 FACTORY(winrt::SystemExplorer::ViewModels::Activities, ProcessesViewModel);

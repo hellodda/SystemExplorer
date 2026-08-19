@@ -1,4 +1,5 @@
-#include "ems.h"
+#include "pch.h"
+#include "EmsApi.h"
 
 VOID EmsQuerySystemTime(
 	_Out_ PLARGE_INTEGER SystemTime
@@ -27,7 +28,7 @@ VOID EmsInitializeMessage(
 	Message->Header.PortMessage.u1.s1.DataLength = EMS_MESSAGE_SIZE - sizeof(PORT_MESSAGE);
 	Message->Header.PortMessage.u1.s1.TotalLength = EMS_MESSAGE_SIZE;
 	Message->Header.ApiNumber = ApiNumber;
-	EpmQuerySystemTime(&Message->Header.TimeStamp);
+	EmsQuerySystemTime(&Message->Header.TimeStamp);
 }
 
 _Must_inspect_result_

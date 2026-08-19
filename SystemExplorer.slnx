@@ -4,8 +4,13 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="Ems/Ems.vcxproj" Id="f804537c-a4a2-41d0-8497-40cbe83edccc">
+  <Project Path="Ems/Ems.vcxproj">
     <Platform Solution="*|ARM64" Project="x64" />
+  </Project>
+  <Project Path="EmsPS/EmsPS.vcxproj">
+    <BuildDependency Project="Ems/Ems.vcxproj" />
+    <Platform Solution="*|ARM64" Project="x64" />
+    <Build Project="false" />
   </Project>
   <Project Path="ExplorerCore/ExplorerCore.vcxproj" Id="690786f8-7577-4da2-8bab-29db73ddc618">
     <Platform Solution="*|ARM64" Project="x64" />
@@ -16,5 +21,8 @@
   </Project>
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />
+  </Project>
+  <Project Path="TestModule/TestModule.vcxproj" Id="8a2b07bf-2a0e-453d-9d3d-d0fec5dd9cb7">
+    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
 </Solution>

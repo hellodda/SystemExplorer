@@ -20,7 +20,7 @@ namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
             winrt::Microsoft::UI::Xaml::Input::DoubleTappedRoutedEventArgs const& e
         )
         {
-
+            co_return;
         }
 
     private:

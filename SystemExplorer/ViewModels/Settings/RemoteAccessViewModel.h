@@ -4,6 +4,7 @@
 
 #include <Core/Data/Items/RemoteComputerItem.h>
 #include <Core/Eil/event.h>
+#include <Core/Messaging.h>
 
 namespace winrt
 {
@@ -30,6 +31,11 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
             = winrt::single_threaded_observable_vector<winrt::IInspectable>();
 
         wil::single_threaded_property<winrt::IAsyncRelayCommand> ConnectToDeviceCommand = winrt::AsyncRelayCommandFactory::Make([this](winrt::IInspectable const& parameter) -> winrt::IAsyncAction {
+
+            Messaging::DataSourceChangedMessage message;
+
+            Messaging::ViewModelsGlobalMessenger.fire_event(message);
+
             co_return;
         });
 

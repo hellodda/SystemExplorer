@@ -134,8 +134,6 @@
 #include "Xaml/Mvvm/AsyncRelayCommandFactory.h"
 #include "Xaml/Mvvm/RelayCommand.h"
 #include "Xaml/Selectors/ItemTemplateSelector.h"
-#include "Xaml/Styles/StoreNavigationViewStyle/StoreNavigationViewItemAttach.h"
-
 
 inline winrt::hstring to_hstring(winrt::Windows::Foundation::IInspectable const& value)
 {

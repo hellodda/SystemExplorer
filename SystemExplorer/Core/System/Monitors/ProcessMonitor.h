@@ -18,7 +18,7 @@ namespace winrt::SystemExplorer::Core::System::Monitors
 		}
 
 		eil::fast_event<
-			eil::faction_t<std::span<SYSX_PROCESS_ITEM*>>
+			eil::faction_t<std::span<PSYSX_PROCESS_ITEM>>
 		> OnDataCollected;
 
 		[[nodiscard]] HRESULT DataSource(std::unique_ptr<Sources::IProcessDataSource> dataSource) noexcept;

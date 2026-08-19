@@ -11,7 +11,7 @@
         <!--<ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/PropertyStyles.xaml"/>
         <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/FlatButton.xaml"/>
         <ResourceDictionary Source="ms-appx:///SystemExplorer.Xaml/Styles/Animations.xaml"/>-->
-        <ResourceDictionary Source="/Xaml/Styles/StoreNavigationViewStyle/StoreNavigationViewStyle.xaml"/>
+        <ResourceDictionary Source="ms-appx:///XamlToolkit.Labs.WinUI/Styles/StoreNavigationViewStyle.xaml" />
         <ResourceDictionary Source="/Xaml/Styles/Animations.xaml"/>
         <ResourceDictionary Source="/Xaml/Styles/FlatButton.xaml"/>
     </ResourceDictionary.MergedDictionaries>

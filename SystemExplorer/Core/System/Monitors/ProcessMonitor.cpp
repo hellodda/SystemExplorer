@@ -43,7 +43,6 @@ namespace winrt::SystemExplorer::Core::System::Monitors
 
 				if (cached.CreateTime.QuadPart == rawProcess.CreateTime.QuadPart)
 				{
-					// ВАЖНО: Обновляем указатель на строку, т.к. старый буфер DataSource мог быть удален
 					cached.ProcessName = rawProcess.ProcessName;
 
 					cached.IoReadDelta = rawProcess.IoReadDelta;

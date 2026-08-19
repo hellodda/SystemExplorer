@@ -1,0 +1,16 @@
+HKCR
+{
+	NoRemove CLSID
+	{
+		ForceRemove {4B1D662B-7155-41A7-BA31-D13971E421D2} = s 'EmsServiceProvider class'
+		{
+			ForceRemove Programmable
+			InprocServer32 = s '%MODULE%'
+			{
+				val ThreadingModel = s 'Apartment'
+			}
+			TypeLib = s '{EA26C6A9-890A-42D0-A169-442D0E83EBD8}'
+			Version = s '1.0'
+		}
+	}
+}
