@@ -3,6 +3,7 @@
 #include "App.xaml.h"
 
 #include <winrt/Microsoft.UI.Xaml.Settings.h>
+
 #include <core/services/AppMemoryManager.h>
 
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
@@ -18,24 +19,12 @@ INT APIENTRY wWinMain(
 {
     using namespace winrt::Microsoft::UI::Xaml;
     using namespace winrt::Microsoft::UI::Xaml::Settings;
-	using namespace winrt::SystemExplorer::Core::Services;
+    using namespace winrt::SystemExplorer::Core;
 
     UNREFERENCED_PARAMETER(hInstance);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
-
-    //AppMemoryManager::LoadMemoryOptions();
-
-  /*  InitializeLogger();
-    try
-    {
-        InitializeCommonControls();
-        InitializeExceptionPolicy();
-        EnablePrivileges();
-        StartEmsServer();
-    }
-    CATCH_LOG()*/
 
 
     XamlOptionalChanges::EnableChange(XamlChangeId::DefaultStyleOptimizations);

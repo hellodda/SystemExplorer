@@ -45,6 +45,8 @@
     <Page Include="Views\Pages\Settings\ResourceUsagePage.xaml" />
     <Page Include="Views\Pages\Settings\UserPage.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
+    <Page Include="Views\Pages\System\SystemRootPage.xaml" />
+    <Page Include="Views\Pages\System\AboutSystemPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -132,6 +134,8 @@
     <Midl Include="ViewModels\Settings\RemoteAccessSessionViewModel.idl" />
     <Midl Include="ViewModels\Settings\RemoteAccessViewModel.idl" />
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl" />
+    <Midl Include="ViewModels\Settings\ExtensionModulesViewModel.idl" />
+    <Midl Include="Core\Data\Items\ExtensionModuleItem.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -198,7 +202,6 @@
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
     <ClCompile Include="Core\Settings\SharedSettings.cpp" />
-    <ClCompile Include="Core\EMS\EmsHost.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
@@ -222,6 +225,13 @@
     <ClCompile Include="Core\System\Controllers\WTSProcessController.cpp" />
     <ClCompile Include="Core\Services\RemoteDevicesService.cpp" />
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp" />
+    <ClCompile Include="Core\Ems\EmsHost.cpp" />
+    <ClCompile Include="Core\Ems\EmsProcessService.cpp" />
+    <ClCompile Include="Core\Ems\EmsServiceProvider.cpp" />
+    <ClCompile Include="Core\Kse\KernelDriver.cpp" />
+    <ClCompile Include="ViewModels\Settings\AdvancedViewModel.Commands.cpp" />
+    <ClCompile Include="ViewModels\Settings\GeneralViewModel.Properties.cpp" />
+    <ClCompile Include="ViewModels\Settings\AppearanceViewModel.Properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -304,12 +314,10 @@
     <ClInclude Include="Helpers\Win32\Native\NativeSystem.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h" />
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
-    <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
     <ClInclude Include="Core\Settings\SharedSettings.h" />
-    <ClInclude Include="Core\EMS\EmsHost.h" />
     <ClInclude Include="Core\Settings\Settings.h" />
     <ClInclude Include="wil_cppwinrt_module.h" />
     <ClInclude Include="winrt_module_imports.h" />
@@ -341,6 +349,10 @@
     <ClInclude Include="Core\Services\RemoteDevicesService.h" />
     <ClInclude Include="Core\Messaging.h" />
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h" />
+    <ClInclude Include="Core\Ems\EmsHost.h" />
+    <ClInclude Include="Core\Ems\EmsProcessService.h" />
+    <ClInclude Include="Core\Ems\EmsServiceProvider.h" />
+    <ClInclude Include="Core\Kse\KernelDriver.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

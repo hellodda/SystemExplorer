@@ -19,65 +19,34 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Inf Include="KernelExplorer.inf">
-      <Filter>Driver Files</Filter>
-    </Inf>
-  </ItemGroup>
-  <ItemGroup>
     <ClCompile Include="main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="kseflt.c">
+    <ClCompile Include="handler.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ksedyn.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ksedyndata.c">
+    <ClCompile Include="process.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\kseapi.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\kse.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\comms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ksemsg.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\ioctl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="include\ksemsgdefs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\kseflt.h">
+    <ClInclude Include="include\handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="comms_handlers.c">
+    <ClInclude Include="include\process.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="sestatus.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ksedyn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ksebase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ksedyndata.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ksemsgdyn.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <MessageCompile Include="sestatus.mc">
-      <Filter>Driver Files</Filter>
-    </MessageCompile>
   </ItemGroup>
 </Project>

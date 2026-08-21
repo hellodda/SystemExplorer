@@ -1,17 +1,13 @@
 ﻿#include "pch.h"
 #include "winrt_module_imports.h"
 #include "AppearanceViewModel.h"
-
 #if __has_include("ViewModels/Settings/AppearanceViewModel.g.cpp")
 #include "ViewModels/Settings/AppearanceViewModel.g.cpp"
 #endif
 
 #include <Core/Settings/Settings.h>
-
 #include <Helpers/StringsHelper.h>
-#include <Helpers/EnumHelper.h>
 #include <Helpers/Common.h>
-#include <Core/Services/AppResourcesService.h>
 
 using namespace winrt::Microsoft::UI::Xaml;
 using namespace winrt::SystemExplorer::Helpers;
@@ -53,89 +49,9 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         updateSelectedImageHorizontalAlignmentType();
     }
 
-    void AppearanceViewModel::SelectedAppThemeIndex(int32_t const& value) noexcept
-    {
-        static const std::array themes = { ElementTheme::Light, ElementTheme::Dark, ElementTheme::Default };
-        if (value >= 0 && value < static_cast<int32_t>(themes.size()))
-        {
-            SelectedAppThemeIndex_ = value;
-            Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme(themes[value]);
-            RaisePropertyChanged(L"SelectedAppThemeIndex");
-        }
-    }
-
-    void AppearanceViewModel::SelectedAppThemeResources(AppThemeResourceItem const& value) noexcept
-    {
-        if (value != SelectedAppThemeResources_)
-        {
-            SelectedAppThemeResources_ = value;
-            AppThemeBackgroundColor(value.BackgroundColor());
-            RaisePropertyChanged(L"SelectedAppThemeResources");
-        }
-    }
-
-    hstring AppearanceViewModel::AppThemeBackgroundColor() const noexcept
-    {
-        return Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor();
-    }
-
-    void AppearanceViewModel::AppThemeBackgroundColor(hstring const& value) noexcept
-    {
-        Core::Services::AppResourcesService::SetAppThemeBackgroundColor(winrt::XamlToolkit::WinUI::Helpers::ColorHelper::ToColor(value)); // TODO
-        Core::Settings::UserSettings::AppearanceSettings.ApplicationBackgroundColor(value);
-    }
-
-    void AppearanceViewModel::SelectedBackdropMaterial(IInspectable const& value) noexcept
-    {
-        if (SelectedBackdropMaterial_ != value)
-        {
-            SelectedBackdropMaterial_ = value;
-            Core::Settings::UserSettings::AppearanceSettings.BackdropMaterial(EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(value)));
-            RaisePropertyChanged(L"SelectedBackdropMaterial");
-        }
-    }
-
-    hstring AppearanceViewModel::AppThemeBackgroundImageSource() const noexcept
-    {
-        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource();
-    }
-
-    void AppearanceViewModel::AppThemeBackgroundImageSource(hstring const& value) noexcept
-    {
-        AppThemeBackgroundImageSource_ = value;
-        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource(value);
-        RaisePropertyChanged(L"AppThemeBackgroundImageSource");
-    }
-
-    float AppearanceViewModel::AppThemeBackgroundImageOpacity() const noexcept
-    {
-        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity();
-    }
-
-    void AppearanceViewModel::AppThemeBackgroundImageOpacity(float const& value) noexcept
-    {
-        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity(value);
-        RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
-    }
-
-    void AppearanceViewModel::SelectedImageStretchType(IInspectable const& value) noexcept
-    {
-        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit(EnumHelper::Map<Data::Enums::Stretch>(unbox_value<hstring>(value)));
-    }
-
-    void AppearanceViewModel::SelectedImageVerticalAlignmentType(IInspectable const& value) noexcept
-    {
-        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment(EnumHelper::Map<Data::Enums::VerticalAlignment>(unbox_value<hstring>(value)));
-    }
-
-    void AppearanceViewModel::SelectedImageHorizontalAlignmentType(IInspectable const& value) noexcept
-    {
-        Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment(EnumHelper::Map<Data::Enums::HorizontalAlignment>(unbox_value<hstring>(value)));
-    }
-
     void AppearanceViewModel::updateSelectedAppTheme()
     {
-        auto theme = Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme;
+        auto theme = Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme();
         int32_t index = (theme == ElementTheme::Light) ? 0 : (theme == ElementTheme::Dark ? 1 : 2);
         SelectedAppThemeIndex(index);
     }
@@ -153,7 +69,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
             L"WEBP", L"*.webp"
         });*/
 
-        FileOpenPicker picker{ SystemExplorer::implementation::App::Window().AppWindow().Id() };
+        FileOpenPicker picker{ SystemExplorer::CurrentApplication::GetCurrentWindowId() };
         picker.FileTypeFilter().ReplaceAll({
             L".bmp", L".dib", L".jpg", L".jpeg", L".jpe", L".jfif",
             L".gif", L".tif", L".tiff", L".png", L".heic", L".hif", L".webp"

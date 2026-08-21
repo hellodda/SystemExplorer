@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.System
+{
+    [default_interface] runtimeclass SystemRootPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        SystemRootPage();
+    }
+}

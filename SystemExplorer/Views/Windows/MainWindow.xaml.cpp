@@ -15,6 +15,8 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
         ExtendsContentIntoTitleBar(true);
         AppWindow().TitleBar().PreferredHeightOption(winrt::TitleBarHeightOption::Tall);
 
+        IsAlwaysOnTop(winrt::SystemExplorer::Core::Settings::UserSettings::GeneralSettings.AppWindowAlwaysOnTop());
+
         winrt::SystemExplorer::Core::Settings::UserSettings::AppearanceSettings.SettingChanged->operator()([weak = get_weak()](std::wstring_view name, winrt::IInspectable const& value)
         {
             if (auto wrf = weak.get())
@@ -24,6 +26,18 @@ namespace winrt::SystemExplorer::Views::Windows::implementation
                     auto theme = value.as<winrt::ElementTheme>();
 
                     wrf->RootGrid().RequestedTheme(theme);
+                }
+            }
+        });
+
+        winrt::SystemExplorer::Core::Settings::UserSettings::GeneralSettings.SettingChanged->operator()([weak = get_weak()](std::wstring_view name, winrt::IInspectable const& value) {
+            if (auto wrf = weak.get())
+            {
+                if (name == L"AppWindowAlwaysOnTop")
+                {
+                    auto isOnTop = value.as<bool>();
+
+                    wrf->IsAlwaysOnTop(isOnTop);
                 }
             }
         });

@@ -22,6 +22,7 @@ namespace winrt::SystemExplorer::implementation
         [[nodiscard]] static winrt::WindowId GetCurrentWindowId() noexcept;
         [[nodiscard]] static AppModel AppModel() { return appModel_; }
 		[[nodiscard]] static WindowEx Window() { return window_; }
+
     private:
         static inline winrt::WindowEx window_{ nullptr };
         static inline winrt::AppModel appModel_{};

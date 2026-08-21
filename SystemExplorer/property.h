@@ -9,7 +9,7 @@
 #define DECLARE_PROPERTY_GETTER(TYPE, NAME) TYPE NAME() const noexcept;
 #define DECLARE_PROPERTY_GETTER_NC(TYPE, NAME) TYPE NAME() noexcept;
 
-#define DECLARE_PROPERTY_SETTER(TYPE, NAME) void NAME(TYPE const& value) noexcept;
+#define DECLARE_PROPERTY_SETTER(TYPE, NAME) void NAME(TYPE value) noexcept;
 
 #define DECLARE_PROPERTY_FUNCS(TYPE, NAME) \
 	DECLARE_PROPERTY_GETTER(TYPE, NAME) \
@@ -36,12 +36,12 @@ public: \
 private: \
     TYPE PROPERTY_FIELD(NAME){ INIT }; \
 public: \
-    void NAME(TYPE const& value) noexcept \
+    void NAME(TYPE value) noexcept \
     { \
         if (NAME ## _ != value) \
         {\
-            NAME ## _ = value; \
-            RAISE_PROPERTY_CHANGED; \
+            NAME ## _ = std::move(value); \
+            RaisePropertyChanged(WIDEN(NAME)); \
         } \
     } \
     DECLARE_PROPERTY_GETTER_NC(TYPE, NAME)

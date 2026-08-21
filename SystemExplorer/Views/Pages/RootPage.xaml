@@ -53,7 +53,6 @@
                     x:Name="TitleBarSearchBox"
                     TextChanged="AutoSuggestBox_TextChanged"
                     SuggestionChosen="AutoSuggestBox_SuggestionChosen"
-                    PlaceholderText="SystemExplorer://Settings/RemoteAccess"
                     QueryIcon="Find"
                     Width="400"
                     MinWidth="250"
@@ -99,7 +98,7 @@
 
                 <NavigationViewItem
                     Content="{helpers:ResourceString Key=System}"
-                    Tag=""
+                    Tag="SystemExplorer.Views.Pages.System.SystemRootPage"
                     Icon="{toolkit:FontIcon Glyph=&#xE770;}"
                     >
                     <NavigationViewItem.ContextFlyout>

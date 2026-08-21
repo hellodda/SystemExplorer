@@ -3,7 +3,6 @@
 #include "ViewModels/Settings/AppearanceViewModel.g.h"
 #include "../ViewModelBase.h"
 #include <Core/Data/Factories/AppThemeResourceFactory.h>
-#include <Helpers/EnumHelper.h>
 #include <App.xaml.h>
 
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation

@@ -8,6 +8,7 @@
 #include <Core/Services/AppLanguageService.h>
 #include <Core/Settings/Settings.h>
 
+
 using namespace winrt::SystemExplorer::Core::Services;
 using namespace winrt::SystemExplorer::Helpers;
 
@@ -22,7 +23,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		//StartPages.Append(box_value(StringsHelper::Processes()));
 	}
 
-	void GeneralViewModel::SelectedRealTimeUpdateSpeedIndex(int32_t const& value) noexcept
+	void GeneralViewModel::SelectedRealTimeUpdateSpeedIndex(int32_t value) noexcept
 	{
 		uint16_t updateSpeed{ 750 };
 
@@ -47,7 +48,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		Core::Settings::UserSettings::GeneralSettings.RealTimeUpdateSpeedMs(updateSpeed);
 	}
 
-	void GeneralViewModel::SelectedAppLanguageIndex(int32_t const& value) noexcept
+	void GeneralViewModel::SelectedAppLanguageIndex(int32_t value) noexcept
 	{
 		if (AppLanguageService::TryChange(value))
 		{

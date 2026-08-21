@@ -15,7 +15,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		return InitialMemoryReserve_;
 	}
 
-	void ResourceUsageViewModel::InitialMemoryReserve(uint32_t const& value) noexcept
+	void ResourceUsageViewModel::InitialMemoryReserve(uint32_t value) noexcept
 	{
 		if (InitialMemoryReserve_ != value && value < 0)
 		{
@@ -29,7 +29,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		return MemoryLimit_;
 	}
 
-	void ResourceUsageViewModel::MemoryLimit(uint32_t const& value) noexcept
+	void ResourceUsageViewModel::MemoryLimit(uint32_t value) noexcept
 	{
 		if (MemoryLimit_ != value && value < 0)
 		{
@@ -42,7 +42,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 	{
 		return PurgeDelay_;
 	}
-	void ResourceUsageViewModel::PurgeDelay(uint32_t const& value) noexcept
+	void ResourceUsageViewModel::PurgeDelay(uint32_t value) noexcept
 	{
 		if (PurgeDelay_ != value && value < 0)
 		{
@@ -56,7 +56,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		return UseLargeMemoryPages_;
 	}
 
-	void ResourceUsageViewModel::UseLargeMemoryPages(bool const& value) noexcept
+	void ResourceUsageViewModel::UseLargeMemoryPages(bool value) noexcept
 	{
 		if (UseLargeMemoryPages_ != value)
 		{
@@ -65,7 +65,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 		}
 	}
 
-	void ResourceUsageViewModel::SelectedMemoryUsageModeIndex(int32_t const& value) noexcept
+	void ResourceUsageViewModel::SelectedMemoryUsageModeIndex(int32_t value) noexcept
 	{
 		switch (value)
 		{

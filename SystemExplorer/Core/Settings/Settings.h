@@ -12,6 +12,7 @@ namespace winrt::SystemExplorer::Core::Settings
     {
         eil::single_threaded_rw_setting<bool, L"AdvancedAiAgent"> AdvancedAiAgent{ false };
         eil::single_threaded_rw_setting<bool, L"ProcessScaningModel"> ProcessScaningModel{ false };
+        eil::single_threaded_rw_setting<bool, L"UseDriverAsDataSource"> UseDriverAsDataSource{ false };
         eil::single_threaded_rw_setting<bool, L"InStartup"> InStartup{ false };
     };
 
@@ -50,12 +51,21 @@ namespace winrt::SystemExplorer::Core::Settings
         eil::single_threaded_rw_setting<bool, L"UseLargeMemoryPages"> UseLargeMemoryPages{ false };
     };
 
+    struct EmsHostSettings : eil::settings_base
+    {
+        eil::single_threaded_rw_setting<bool, L"UseEmsModules"> UseEmsModules{ false };
+        eil::single_threaded_rw_setting<bool, L"AllowConnectionsOnlyToTrustedModules"> AllowConnectionsOnlyToTrustedModules{ true };
+        eil::single_threaded_rw_setting<bool, L"AllowFullAccessToAllModules"> AllowFullAccessToAllModules{ false };
+        eil::single_threaded_rw_setting<bool, L"UseDirectCalls"> UseDirectCalls{ false };
+    };
+
     struct UserSettings
     {
         static inline wil::single_threaded_property<AdvancedSettings> AdvancedSettings;
         static inline wil::single_threaded_property<AppearanceSettings> AppearanceSettings;
         static inline wil::single_threaded_property<GeneralSettings> GeneralSettings;
         static inline wil::single_threaded_property<ApplicationGlobalSettings> ApplicationGlobalSettings;
+        static inline wil::single_threaded_property<EmsHostSettings> EmsHostSettings;
     };
 
     struct InternalSettings : eil::settings_base
@@ -72,4 +82,6 @@ namespace winrt::SystemExplorer::Core::Settings
     {
 
     };
+
+   
 }

@@ -11,7 +11,9 @@
     xmlns:xconverters="using:XamlToolkit.WinUI.Converters"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:helpers="using:SystemExplorer.Helpers"
-    mc:Ignorable="d">
+    xmlns:interactivity="using:XamlToolkit.WinUI.Interactivity"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required">
 
     <Page.Resources>
         <xconverters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
@@ -45,6 +47,14 @@
 
             <xaml:SimpleSettingsGroup Header="{helpers:ResourceString Key=ExperimentalFunctions}">
                 <xtc:SettingsCard 
+                   Header="{helpers:ResourceString Key=UseDriver}"
+                   Description="Requires a secure connection"
+                   HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
+                   IsClickEnabled="False"
+                   IsActionIconVisible="False">
+                    <ToggleSwitch IsOn="{x:Bind ViewModel.UseDriverAsDataSource, Mode=TwoWay}"/>
+                </xtc:SettingsCard>
+                <xtc:SettingsCard 
                       Header="Advanced AI actions"
                       Description="Advanced system interaction: manage, create, and terminate processes with elevated access to core system information."
                       HeaderIcon="{toolkit:FontIcon Glyph=&#xF277;}"
@@ -61,17 +71,8 @@
                     <ToggleSwitch IsOn="false"/>
                     <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>-->
                 </xtc:SettingsCard>
-                <xtc:SettingsCard 
-                      Header="{helpers:ResourceString Key=UseDriver}"
-                      Description="Requires a secure connection"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
-                      IsClickEnabled="False"
-                      IsActionIconVisible="False"
-                      IsEnabled="False">
-                    <ToggleSwitch IsOn="False"/>
-                </xtc:SettingsCard>
             </xaml:SimpleSettingsGroup>
-
+            
             <Border Height="20"/>
 
             <StackPanel.ChildrenTransitions>

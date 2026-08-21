@@ -1,23 +1,38 @@
 #pragma once
-#include <ems.h>
+#include <winrt/base.h>
+#include <mutex> 
+
+#include <Core/Eil/event.h>
+#include <absl/container/inlined_vector.h>
 
 namespace winrt::SystemExplorer::Core::Ems
 {
-	struct EmsHost
-	{
-	public:
+    struct EmsModuleRegistry : winrt::implements<EmsModuleRegistry, IEmsHost>
+    {
+        HRESULT STDMETHODCALLTYPE RegisterModule(
+            _In_ IEmsExtensionModule* pModule
+        ) override;
 
-		[[nodiscard]] NTSTATUS Start();
-		void Stop();
+    private:
 
-	private:
-		NTSTATUS CreateAlpcPort();
-		fire_and_forget PortListenerLoopAsync();
+        HRESULT ValidateModule(
+            _In_ IEmsExtensionModule* pModule
+        );
 
-		void HandleModuleConnection(HANDLE currentPort, EMS_API_MESSAGE const& message);
-		fire_and_forget HandleMessageAsync(HANDLE currentPort, EMS_API_MESSAGE message);
-		void HandleModuleDisconnect(EMS_API_MESSAGE const& message);
+    private:
+        absl::InlinedVector<IEmsExtensionModule*, 3> registeredModules_{ };
+    };
 
+    struct EmsModuleRegistryClassFactory : winrt::implements<EmsModuleRegistryClassFactory, IClassFactory>
+    {
+        HRESULT STDMETHODCALLTYPE CreateInstance(
+            _In_opt_  IUnknown* pUnkOuter,
+            _In_  REFIID riid,
+            _COM_Outptr_  void** ppvObject
+        ) override;
 
-	};
+        HRESULT STDMETHODCALLTYPE LockServer(
+            BOOL fLock
+        ) override;
+    };
 }

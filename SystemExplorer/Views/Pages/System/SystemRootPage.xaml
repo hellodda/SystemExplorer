@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Page
+    x:Class="SystemExplorer.Views.Pages.System.SystemRootPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:SystemExplorer.Views.Pages.System"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:essential="using:WinUI3Package"
+    xmlns:items="using:SystemExplorer.Core.Data.Items"
+    xmlns:helpers="using:SystemExplorer.Helpers"
+    xmlns:ui="using:XamlToolkit.WinUI"
+    mc:Ignorable="d"
+    NavigationCacheMode="Required">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <NavigationView
+          x:Name="SettingsNavView"
+          Grid.Row="0"
+          Grid.Column="0"
+          Grid.ColumnSpan="3"
+          CompactPaneLength="70"
+          IsBackButtonVisible="Collapsed"
+          essential:NavigationViewHelper.AcrylicWorkaround="True"
+          IsSettingsVisible="False"
+          OpenPaneLength="200"
+          PaneDisplayMode="Left">
+
+            <NavigationView.Resources>
+                <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewDefaultPaneBackground" Color="Transparent"/>
+
+                <SolidColorBrush x:Key="NavigationViewExpandedPaneBackground" Color="Transparent"/>
+
+            </NavigationView.Resources>
+
+            <NavigationView.Header>
+                <BreadcrumbBar x:Name="NavigationBreadcrumbBar"
+                         x:FieldModifier="Public"
+                         Margin="-36 -40 0 0"
+                         Height="45">
+                    <BreadcrumbBar.Resources>
+                        <x:Double x:Key="BreadcrumbBarChevronFontSize">18</x:Double>
+                    </BreadcrumbBar.Resources>
+
+                    <BreadcrumbBar.ItemTemplate>
+                        <DataTemplate x:DataType="items:NavigationBreadcrumbBarItem">
+                            <TextBlock Padding="10 0 10 0"
+                                 Style="{ThemeResource TitleTextBlockStyle}"
+                                 VerticalAlignment="Center"
+                                 Text="{x:Bind Header}"/>
+                        </DataTemplate>
+                    </BreadcrumbBar.ItemTemplate>
+                </BreadcrumbBar>
+            </NavigationView.Header>
+
+            <NavigationView.MenuItems>
+                <NavigationViewItem
+                    Content="О системе"
+                    Icon="{ui:FontIcon Glyph=&#xE946;}">
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
+
+            <ScrollView Padding="20 0 20 0">
+                <Frame x:Name="NavigationFrame" x:FieldModifier="Public">
+                    <Frame.ContentTransitions>
+                        <TransitionCollection>
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <DrillInNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
+                        </TransitionCollection>
+                    </Frame.ContentTransitions>
+                </Frame>
+            </ScrollView>
+        </NavigationView>
+    </Grid>
+</Page>

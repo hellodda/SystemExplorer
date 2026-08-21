@@ -107,33 +107,20 @@
     </DriverSign>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Inf Include="KernelExplorer.inf" />
-  </ItemGroup>
-  <ItemGroup>
     <FilesToPackage Include="$(TargetPath)" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ksedyndata.c" />
-    <ClCompile Include="ksedyn.c" />
-    <ClCompile Include="kseflt.c" />
+    <ClCompile Include="handler.c" />
     <ClCompile Include="main.c" />
+    <ClCompile Include="process.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\comms.h" />
-    <ClInclude Include="comms_handlers.c" />
-    <ClInclude Include="include\ksebase.h" />
-    <ClInclude Include="include\ksedyn.h" />
-    <ClInclude Include="include\ksedyndata.h" />
-    <ClInclude Include="include\kseflt.h" />
+    <ClInclude Include="include\handler.h" />
+    <ClInclude Include="include\ioctl.h" />
     <ClInclude Include="include\kse.h" />
-    <ClInclude Include="include\kseapi.h" />
     <ClInclude Include="include\ksemsg.h" />
     <ClInclude Include="include\ksemsgdefs.h" />
-    <ClInclude Include="include\ksemsgdyn.h" />
-    <ClInclude Include="sestatus.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <MessageCompile Include="sestatus.mc" />
+    <ClInclude Include="include\process.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

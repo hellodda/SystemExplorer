@@ -1,0 +1,13 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass ExtensionModuleItem 
+    {
+        ExtensionModuleItem();
+
+        String Name { get; set; };
+        String Author { get; set; };
+        String Description { get; set; };
+        
+        Guid ModuleGuid { get; set; };
+    }
+}

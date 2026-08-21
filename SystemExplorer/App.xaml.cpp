@@ -5,6 +5,7 @@
 #  include "module.g.cpp"
 #endif
 #include "App.xaml.h"
+#include <core/settings/settings.h>
 #include "Views/Windows/MainWindow.xaml.h"
 
 namespace winrt::SystemExplorer::implementation
@@ -27,6 +28,13 @@ namespace winrt::SystemExplorer::implementation
     {
         window_ = make<Views::Windows::implementation::MainWindow>();
         window_.Activate();
+
+        window_.Closed([](auto const&, auto const&)
+        {
+            Core::Settings::UserSettings::AdvancedSettings.commit_changes();
+            Core::Settings::UserSettings::AppearanceSettings.commit_changes();
+            Core::Settings::UserSettings::GeneralSettings.commit_changes();
+        });
     }
 
     winrt::WindowId App::GetCurrentWindowId() noexcept

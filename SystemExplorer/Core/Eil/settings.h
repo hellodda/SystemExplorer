@@ -197,7 +197,7 @@ namespace eil
 					return value;
 				}
 			}
-			catch (winrt::hresult_error const&) { /* Игнорируем блокировки */ }
+			catch (winrt::hresult_error const&) { }
 
 			return nullptr;
 		}

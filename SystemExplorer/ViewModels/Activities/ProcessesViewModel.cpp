@@ -43,11 +43,11 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 		});
 	}
 
-	void ProcessesViewModel::SelectedProcess(ProcessItem const& value) noexcept
+	void ProcessesViewModel::SelectedProcess(ProcessItem value) noexcept
 	{
 		if (value != SelectedProcess_)
 		{
-			SelectedProcess_ = value;
+			SelectedProcess_ = std::move(value);
 			TerminateProcessCommand.NotifyCanExecuteChanged();
 			EfficiencyModeCommand.NotifyCanExecuteChanged();
 		}

@@ -5,20 +5,34 @@
 #include "ViewModels/Settings/AdvancedViewModel.g.cpp"
 #endif
 
+#include <helpers/ui/DesktopNotification.h>
+#include <core/settings/settings.h>
+
 namespace winrt::SystemExplorer::ViewModels::Settings::implementation
 {
-    winrt::IAsyncAction AdvancedViewModel::doImportSettingsAsync()
+    void AdvancedViewModel::UseDriverAsDataSource(bool value) noexcept
     {
-        co_return;
+        if (value != UseDriverAsDataSource_)
+        {
+            Core::Settings::UserSettings::AdvancedSettings.UseDriverAsDataSource = value;
+
+            if (value)
+                showWarningToastNotification();
+        }
     }
 
-    winrt::IAsyncAction AdvancedViewModel::doExportSettingsAsync()
+    bool AdvancedViewModel::UseDriverAsDataSource() const noexcept
     {
-        co_return;
+        return Core::Settings::UserSettings::AdvancedSettings.UseDriverAsDataSource();
     }
 
-    winrt::IAsyncAction AdvancedViewModel::doOpenSettingsFolderAsync()
-    {
-        co_return;
+    void AdvancedViewModel::showWarningToastNotification()
+    {   
+        Helpers::UI::DesktopNotificationArgs args{};
+        args.Message = L"Внимание вы включили экспереметальную функцию, была включена телеметрия в целях диагностики возможных ошибок.";
+        args.Title = L"Вы включили эксперементальную функцию";
+        args.Tag = L"Warnings";
+
+        Helpers::UI::DesktopNotification::SendNotification(args, nullptr);
     }
 }

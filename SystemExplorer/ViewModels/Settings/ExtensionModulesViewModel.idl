@@ -1,0 +1,7 @@
+namespace SystemExplorer.ViewModels.Settings
+{
+    [default_interface] runtimeclass ExtensionModulesViewModel 
+    {
+        ExtensionModulesViewModel();
+    }
+}

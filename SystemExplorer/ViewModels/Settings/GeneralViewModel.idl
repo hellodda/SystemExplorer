@@ -20,6 +20,9 @@ namespace SystemExplorer.ViewModels.Settings
         SystemExplorer.Xaml.IAsyncRelayCommand RestartCommand { get; };
         SystemExplorer.Xaml.IAsyncRelayCommand CancelRestartCommand { get; };
 
-        Boolean ShowRestartControl;
+        Boolean ShowRestartControl { get; set; };
+        Boolean AppWindowAlwaysOnTop { get; set; };
+        Boolean AppWindowMinimizeOnUse { get; set; };
+        Boolean AppWindowHideWhenMinimized { get; set; };
     }
 }

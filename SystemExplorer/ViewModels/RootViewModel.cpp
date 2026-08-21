@@ -4,56 +4,56 @@
 #if __has_include("ViewModels/RootViewModel.g.cpp")
 #include "ViewModels/RootViewModel.g.cpp"
 #endif
-//#include "../Helpers/Win32/Native/NativeSystem.h"
+
 #include "../Core/Settings/Settings.h"
 
 namespace winrt::SystemExplorer::ViewModels::implementation
 {
     RootViewModel::RootViewModel()
     {
-        //Core::Settings::UserSettings::AppearanceSettings.SettingChanged([this](std::string_view name, eil::generic_t value)
-        //{
-        //    if (name == "AppThemeBackgroundImageFit")
-        //    {
-        //        RaisePropertyChanged(L"AppThemeBackgroundImageFit");
-        //    }
-        //    else if (name == "AppThemeBackgroundImageVerticalAlignment")
-        //    {
-        //        RaisePropertyChanged(L"AppThemeBackgroundImageVerticalAlignment");
-        //    }
-        //    else if (name == "AppThemeBackgroundImageHorizontalAlignment")
-        //    {
-        //        RaisePropertyChanged(L"AppThemeBackgroundImageHorizontalAlignment");
-        //    }
-        //    else if (name == "AppThemeBackgroundImageSource")
-        //    {
-        //        RaisePropertyChanged(L"AppThemeBackgroundImageSource");
-        //    }
-        //    else if (name == "AppThemeBackgroundImageOpacity")
-        //    {
-        //        RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
-        //    }
-        //});
+        Core::Settings::UserSettings::AppearanceSettings.SettingChanged->operator()([this](std::wstring_view name, winrt::IInspectable const& value)
+        {
+            if (name == L"AppThemeBackgroundImageFit")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageFit");
+            }
+            else if (name == L"AppThemeBackgroundImageVerticalAlignment")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageVerticalAlignment");
+            }
+            else if (name == L"AppThemeBackgroundImageHorizontalAlignment")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageHorizontalAlignment");
+            }
+            else if (name == L"AppThemeBackgroundImageSource")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageSource");
+            }
+            else if (name == L"AppThemeBackgroundImageOpacity")
+            {
+                RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
+            }
+        });
     }
 
     winrt::Stretch RootViewModel::AppThemeBackgroundImageFit() const noexcept
     {
-        return static_cast<winrt::Stretch>(0);
+        return static_cast<winrt::Stretch>(Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageFit());
     }
 
     winrt::VerticalAlignment RootViewModel::AppThemeBackgroundImageVerticalAlignment() const noexcept
     {
-        return static_cast<winrt::VerticalAlignment>(0);
+        return static_cast<winrt::VerticalAlignment>(Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageVerticalAlignment());
     }
 
     winrt::HorizontalAlignment RootViewModel::AppThemeBackgroundImageHorizontalAlignment() const noexcept
     {
-        return static_cast<winrt::HorizontalAlignment>(0);
+        return static_cast<winrt::HorizontalAlignment>(Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageHorizontalAlignment());
     }
 
     winrt::ImageSource RootViewModel::AppThemeBackgroundImageSource() const noexcept
     {
-        auto source = winrt::hstring{ L"" };
+        auto source = Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource();
         
         if (source.empty())
         {
@@ -72,7 +72,7 @@ namespace winrt::SystemExplorer::ViewModels::implementation
 
     float RootViewModel::AppThemeBackgroundImageOpacity() const noexcept
     {
-        return 0.0f;
+        return Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity();
     }
 
     winrt::IAsyncAction RootViewModel::doCreateLiveKernelMemoryDumpAsync()

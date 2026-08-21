@@ -121,17 +121,17 @@
                     <xtc:SettingsExpander.Items>
                         <xtc:SettingsCard>
                             <xtc:SettingsCard.Header>
-                                <CheckBox Content="Always on top"/>
+                                <CheckBox Content="Always on top" IsChecked="{x:Bind ViewModel.AppWindowAlwaysOnTop, Mode=TwoWay}"/>
                             </xtc:SettingsCard.Header>
                         </xtc:SettingsCard>
                         <xtc:SettingsCard>
                             <xtc:SettingsCard.Header>
-                                <CheckBox Content="Minimize on use"/>
+                                <CheckBox Content="Minimize on use" IsChecked="{x:Bind ViewModel.AppWindowMinimizeOnUse, Mode=TwoWay}"/>
                             </xtc:SettingsCard.Header>
                         </xtc:SettingsCard>
                         <xtc:SettingsCard>
                             <xtc:SettingsCard.Header>
-                                <CheckBox Content="Hide when minimized"/>
+                                <CheckBox Content="Hide when minimized" IsChecked="{x:Bind ViewModel.AppWindowHideWhenMinimized, Mode=TwoWay}"/>
                             </xtc:SettingsCard.Header>
                         </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>

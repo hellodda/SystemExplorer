@@ -1,8 +1,11 @@
-#pragma once
+﻿#pragma once
 
-#pragma once
 #pragma warning(push)
 #pragma warning(disable: 5103) // invalid preprocessing token (/Zc:preprocessor)
+#pragma warning(disable: 4201) // nonstandard extension used: nameless struct/union
+#pragma warning(disable: 4214) // nonstandard extension used: bit field types other than int
+#pragma warning(disable: 4324) // structure was padded due to alignment specifier
+
 #include <ntifs.h>
 #include <ntintsafe.h>
 #include <minwindef.h>
@@ -11,17 +14,15 @@
 #include <ntimage.h>
 #include <bcrypt.h>
 #include <usermode_accessors.h>
-#pragma warning(pop)
-//#include <pooltags.h>
-#define PHNT_MODE PHNT_MODE_KERNEL
-#include <phnt.h>
-//#include <ntfill.h>
-#include <ntpebteb.h>
-#include <ntldr.h>
-#include <ntwow64.h>
-//#include <kphapi.h>
-//#include <kphringbuff.h>
 
+#define PHNT_MODE PHNT_MODE_KERNEL
+#include <phnt.h> 
+
+#pragma warning(pop)
+
+#ifndef INOUT
+#define INOUT
+#endif
 
 #define KSIAPI NTAPI
 
@@ -63,12 +64,8 @@
                        (KeGetCurrentIrql() == APC_LEVEL) ||                    \
                        (KeGetCurrentIrql() == PASSIVE_LEVEL))
 
-//
-// N.B. This decorates code to indicate that the code supports up to APC_LEVEL
-// but is in a non-paged segment since it can be called in a paging I/O path.
-// Code in this path should also only allocate from non-paged pool to avoid
-// deadlocks.
-//
+
+
 #define KSE_NPAGED_CODE_APC_MAX_FOR_PAGING_IO() KSE_NPAGED_CODE_APC_MAX()
 
 #define KSE_PAGED_FILE()                                                       \

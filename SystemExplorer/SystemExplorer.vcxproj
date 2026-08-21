@@ -73,7 +73,7 @@
   </ItemGroup>
   <PropertyGroup Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
-    <PlatformToolset Condition="'$(VisualStudioVersion)' &gt;= '18.0'">v143</PlatformToolset>
+    <PlatformToolset Condition="'$(VisualStudioVersion)' &gt;= '18.0'">v145</PlatformToolset>
     <PlatformToolset Condition="'$(VisualStudioVersion)' &lt; '18.0'">v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
     <DesktopCompatible>true</DesktopCompatible>
@@ -118,14 +118,14 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include;$(SolutionDir)eventbus\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include;$(SolutionDir)eventbus\include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)Ems</AdditionalIncludeDirectories>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</BuildStlModules>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</BuildStlModules>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</BuildStlModules>
@@ -161,9 +161,9 @@
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">stdclatest</LanguageStandard_C>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Release|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore</AdditionalIncludeDirectories>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)eventbus/include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(DesktopExtSdkDir)INCLUDE\UM;$(DesktopExtSdkDir)INCLUDE\WinRT;$(DesktopExtSdkDir)INCLUDE\CppWinRT;%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Alpc\Include;$(SolutionDir)Ems;$(SolutionDir)ExplorerCore;$(SolutionDir)eventbus/include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</BuildStlModules>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</BuildStlModules>
       <BuildStlModules Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</BuildStlModules>
@@ -197,6 +197,10 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Data\Items\ExtensionModuleItem.h">
+      <DependentUpon>Core\Data\Items\ExtensionModuleItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Eil\nt.h" />
     <ClInclude Include="Core\Messaging.h" />
     <ClInclude Include="Core\Services\AppMemoryManager.h" />
@@ -229,6 +233,30 @@
     <ClInclude Include="Core\System\N2\process.h" />
     <ClInclude Include="Core\System\N2\remote.h" />
     <ClInclude Include="Core\System\Sources\IProcessDataSource.h" />
+    <ClInclude Include="Core\Ems\EmsHost.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Ems\EmsProcessService.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="Core\Ems\EmsServiceProvider.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="Helpers\ResourceString.h">
       <DependentUpon>Helpers\ResourceString.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -237,7 +265,12 @@
     <ClInclude Include="Core\System\Monitors\ProcessMonitor.h" />
     <ClInclude Include="Core\System\Controllers\NativeProcessController.h" />
     <ClInclude Include="Core\Services\RemoteDevicesService.h" />
+    <ClInclude Include="Core\Kse\KernelDriver.h" />
     <ClInclude Include="unknown.h" />
+    <ClInclude Include="ViewModels\Settings\ExtensionModulesViewModel.h">
+      <DependentUpon>ViewModels\Settings\ExtensionModulesViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="ViewModels\Settings\RemoteAccessSessionViewModel.h">
       <DependentUpon>ViewModels\Settings\RemoteAccessSessionViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -256,6 +289,14 @@
     </ClInclude>
     <ClInclude Include="Views\Pages\Settings\UserPage.xaml.h">
       <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\System\AboutSystemPage.xaml.h">
+      <DependentUpon>Views\Pages\System\AboutSystemPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\System\SystemRootPage.xaml.h">
+      <DependentUpon>Views\Pages\System\SystemRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="wil_cppwinrt_module.h" />
@@ -359,14 +400,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Controls\DataTable.h" />
-    <ClInclude Include="Core\EMS\EmsHost.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="Helpers\UI\DesktopNotification.h" />
     <ClInclude Include="factory.h" />
     <ClInclude Include="Helpers\Common.h" />
@@ -411,7 +444,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Helpers\SeExeUtils.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="App.xaml.h">
       <DependentUpon>App.xaml</DependentUpon>
@@ -575,6 +607,11 @@
     <ClInclude Include="Xaml\Selectors\ItemTemplateSelector.h" />
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -625,6 +662,12 @@
     <Page Include="Views\Pages\Settings\UserPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\Pages\System\AboutSystemPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\System\SystemRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\Windows\MainWindow.xaml" />
     <Page Include="Views\Pages\RootPage.xaml">
       <SubType>Designer</SubType>
@@ -638,9 +681,18 @@
     <Page Include="Xaml\Styles\FlatButton.xaml" />
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Data\Items\ExtensionModuleItem.cpp">
+      <DependentUpon>Core\Data\Items\ExtensionModuleItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Services\AppMemoryManager.cpp" />
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
     <ClCompile Include="Core\Data\Items\NavigationBreadcrumbBarItem.cpp">
@@ -818,7 +870,23 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Core\EMS\EmsHost.cpp">
+    <ClCompile Include="Core\Ems\EmsHost.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Ems\EmsProcessService.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Core\Ems\EmsServiceProvider.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
@@ -848,6 +916,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Core\Kse\KernelDriver.cpp" />
     <ClCompile Include="main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -961,6 +1030,7 @@
       <DependentUpon>ViewModels\Settings\AboutViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\Settings\AdvancedViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Settings\AdvancedViewModel.cpp">
       <DependentUpon>ViewModels\Settings\AdvancedViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -969,10 +1039,16 @@
       <DependentUpon>ViewModels\Settings\AppearanceViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\Settings\AppearanceViewModel.Properties.cpp" />
+    <ClCompile Include="ViewModels\Settings\ExtensionModulesViewModel.cpp">
+      <DependentUpon>ViewModels\Settings\ExtensionModulesViewModel.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="ViewModels\Settings\GeneralViewModel.cpp">
       <DependentUpon>ViewModels\Settings\GeneralViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="ViewModels\Settings\GeneralViewModel.Properties.cpp" />
     <ClCompile Include="ViewModels\Settings\RemoteAccessSessionViewModel.cpp">
       <DependentUpon>ViewModels\Settings\RemoteAccessSessionViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
@@ -1056,6 +1132,14 @@
       <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Views\Pages\System\AboutSystemPage.xaml.cpp">
+      <DependentUpon>Views\Pages\System\AboutSystemPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\System\SystemRootPage.xaml.cpp">
+      <DependentUpon>Views\Pages\System\SystemRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Views\Windows\MainWindow.xaml.cpp">
       <DependentUpon>Views\Windows\MainWindow.xaml</DependentUpon>
     </ClCompile>
@@ -1114,6 +1198,11 @@
     <ClCompile Include="Xaml\Selectors\ItemTemplateSelector.cpp" />
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1135,6 +1224,9 @@
     <Midl Include="Core\Data\Enums\ItemSize.idl" />
     <Midl Include="Core\Data\Enums\Stretch.idl" />
     <Midl Include="Core\Data\Enums\VerticalAlignment.idl" />
+    <Midl Include="Core\Data\Items\ExtensionModuleItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Core\Data\Items\NavigationBreadcrumbBarItem.idl">
       <SubType>Designer</SubType>
     </Midl>
@@ -1148,6 +1240,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Helpers\ResourceString.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="ViewModels\Settings\ExtensionModulesViewModel.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="ViewModels\Settings\RemoteAccessSessionViewModel.idl">
@@ -1169,6 +1264,14 @@
       <DependentUpon>Views\Pages\Settings\UserPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Views\Pages\System\AboutSystemPage.idl">
+      <DependentUpon>Views\Pages\System\AboutSystemPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\System\SystemRootPage.idl">
+      <DependentUpon>Views\Pages\System\SystemRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
     <Midl Include="Xaml\Mvvm\AsyncRelayCommand.idl" />
@@ -1177,6 +1280,11 @@
     <Midl Include="Xaml\Selectors\ItemTemplateSelector.idl" />
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </Midl>
     <None Include="Component.json" />
     <None Include="Core\Settings\default.json" />

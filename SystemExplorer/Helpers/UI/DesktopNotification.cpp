@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "DesktopNotification.h"
-#include "../SeExeUtils.h"
 #include <shobjidl.h>
 
 using namespace winrt::Windows::UI::Notifications;
@@ -48,24 +47,14 @@ namespace winrt::SystemExplorer::Helpers::UI
 
             if (activatedFunc)
             {
-                toast.Activated([activatedFunc](const auto& /*sender*/, const auto& /*eventArgs*/) {
+                toast.Activated([activatedFunc](const auto& /*sender*/, const auto& /*eventArgs*/)
+                {
                     activatedFunc();
                 });
             }
 
-            winrt::Windows::UI::Notifications::ToastNotifier notifier{ nullptr };
-          /*  if (IsPackaged())
-            {
-                notifier = ToastNotificationManager::CreateToastNotifier();
-            }
-            else
-            {
-                wil::unique_cotaskmem_string aumid;
-                if (SUCCEEDED(GetCurrentProcessExplicitAppUserModelID(&aumid)))
-                {
-                    notifier = ToastNotificationManager::CreateToastNotifier(aumid.get());
-                }
-            }*/
+            auto notifier = ToastNotificationManager::CreateToastNotifier();
+       
             if (notifier)
             {
                 notifier.Show(toast);

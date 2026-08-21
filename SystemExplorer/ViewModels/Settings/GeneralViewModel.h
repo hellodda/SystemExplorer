@@ -30,6 +30,10 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         
         DECLARE_ONLY_SETTER(int32_t, SelectedAppLanguageIndex);
         DECLARE_ONLY_SETTER(int32_t, SelectedRealTimeUpdateSpeedIndex);
+        DECLARE_PROPERTY(bool, AppWindowAlwaysOnTop, false);
+        DECLARE_PROPERTY(bool, AppWindowMinimizeOnUse, false);
+        DECLARE_PROPERTY(bool, AppWindowHideWhenMinimized, false);
+
         wil::single_threaded_rw_property<int32_t> SelectedStartPageIndex;
 
 		wil::single_threaded_property<IVector<IInspectable>> AppLanguages = single_threaded_vector<IInspectable>();
