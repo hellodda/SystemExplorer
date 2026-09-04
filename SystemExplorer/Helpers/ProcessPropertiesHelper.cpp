@@ -1,26 +1,23 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "ProcessPropertiesHelper.h"
-
-#include <Core/Data/Parameters/PropertiesPageNavigationParameter.h>
 #include <Helpers/UI/AppSystemBackdrop.h>
 #include <App.xaml.h>
+#include <Views/Pages/Properties/PropertiesRootPage.xaml.h>
+#include <Views/Pages/Properties/ProcessImagePropertiesPage.xaml.h>
+#include <Core/Data/Items/ObjectPairItem.h>
 
 #undef max
 #undef min
 
 using namespace winrt::Windows::Graphics;
 using namespace winrt::Microsoft::UI::Windowing;
-using namespace winrt::SystemExplorer::Core::Data::Parameters;
 using namespace winrt::WinUI3Package;
 
 namespace winrt::SystemExplorer::Helpers
 {
     void ProcessPropertiesHelper::OpenPropertiesWindow(IInspectable const& item)
     {
-        if (!item)
-            return;
-
         auto frame = Frame{};
         frame.RequestedTheme(ElementTheme::Dark);
 
@@ -41,15 +38,47 @@ namespace winrt::SystemExplorer::Helpers
         appWindow.TitleBar().ButtonBackgroundColor(Windows::UI::Colors::Transparent());
         appWindow.TitleBar().ButtonInactiveBackgroundColor(Windows::UI::Colors::Transparent());
 
-        //appWindow.SetIcon();
+        Core::Data::Items::ObjectPairItem ImageMenuItem;
+        ImageMenuItem.First(winrt::box_value(L"Image"));
+        ImageMenuItem.Second(winrt::box_value(winrt::xaml_typename<winrt::SystemExplorer::Views::Pages::Properties::ProcessImagePropertiesPage>()));
 
-        frame.Navigate(
-            xaml_typename<SystemExplorer::Views::Pages::Properties::PropertiesGeneralPage>(),
-            PropertiesPageNavigationParameter
-            {
-                item
-            }
-        );
+        Core::Data::Items::ObjectPairItem PerformanceMenuItem;
+        PerformanceMenuItem.First(winrt::box_value(L"Performance"));
+        
+        Core::Data::Items::ObjectPairItem PerformanceGraphMenuItem;
+        PerformanceGraphMenuItem.First(winrt::box_value(L"Performance Graph"));
+
+        Core::Data::Items::ObjectPairItem GpuGraphMenuItem;
+        GpuGraphMenuItem.First(winrt::box_value(L"GPU Graph"));
+
+        Core::Data::Items::ObjectPairItem ThreadsMenuItem;
+        ThreadsMenuItem.First(winrt::box_value(L"Threads"));
+
+        Core::Data::Items::ObjectPairItem TcpIpMenuItem;
+        TcpIpMenuItem.First(winrt::box_value(L"TCP/IP"));
+
+        Core::Data::Items::ObjectPairItem SecurityMenuItem;
+        SecurityMenuItem.First(winrt::box_value(L"Security"));
+
+        Core::Data::Items::ObjectPairItem EnvironmentMenuItem;
+        EnvironmentMenuItem.First(winrt::box_value(L"Environment"));
+
+        Core::Data::Items::ObjectPairItem StringsMenuItem;
+        StringsMenuItem.First(winrt::box_value(L"Strings"));
+
+        auto propertiesPage = winrt::SystemExplorer::Views::Pages::Properties::PropertiesRootPage{};
+        propertiesPage.Properties().Append(ImageMenuItem);
+        propertiesPage.Properties().Append(PerformanceMenuItem);
+        propertiesPage.Properties().Append(PerformanceMenuItem);
+        propertiesPage.Properties().Append(PerformanceGraphMenuItem);
+        propertiesPage.Properties().Append(GpuGraphMenuItem);
+        propertiesPage.Properties().Append(ThreadsMenuItem);
+        propertiesPage.Properties().Append(TcpIpMenuItem);
+        propertiesPage.Properties().Append(SecurityMenuItem);
+        propertiesPage.Properties().Append(EnvironmentMenuItem);
+
+
+        frame.Content(propertiesPage);
 
         POINT pointerPosition;
         if (!GetCursorPos(&pointerPosition))

@@ -32,3 +32,4 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
         co_return;
     }
 }
+

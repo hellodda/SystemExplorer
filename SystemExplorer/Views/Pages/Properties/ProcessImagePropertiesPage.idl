@@ -1,0 +1,7 @@
+namespace SystemExplorer.Views.Pages.Properties
+{
+    [default_interface] runtimeclass ProcessImagePropertiesPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        ProcessImagePropertiesPage();
+    }
+}

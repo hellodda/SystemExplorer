@@ -48,6 +48,8 @@
     <Page Include="Views\Pages\System\SystemRootPage.xaml" />
     <Page Include="Views\Pages\System\AboutSystemPage.xaml" />
     <Page Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.xaml" />
+    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml" />
+    <Page Include="Views\Pages\Properties\ProcessImagePropertiesPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">

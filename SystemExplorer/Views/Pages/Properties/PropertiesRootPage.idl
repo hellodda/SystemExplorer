@@ -1,0 +1,11 @@
+import "Core/Data/Items/ObjectPairItem.idl";
+
+namespace SystemExplorer.Views.Pages.Properties
+{
+    [default_interface] runtimeclass PropertiesRootPage : Microsoft.UI.Xaml.Controls.Page
+    {
+        PropertiesRootPage();
+
+        Windows.Foundation.Collections.IObservableVector<SystemExplorer.Core.Data.Items.ObjectPairItem> Properties { get; };
+    }
+}

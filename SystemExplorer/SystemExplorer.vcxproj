@@ -293,6 +293,14 @@
       <DependentUpon>ViewModels\Settings\ResourceUsageViewModel.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
+    <ClInclude Include="Views\Pages\Properties\PropertiesRootPage.xaml.h">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Views\Pages\Properties\ProcessImagePropertiesPage.xaml.h">
+      <DependentUpon>Views\Pages\Properties\ProcessImagePropertiesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Views\Pages\Settings\ResourceUsagePage.xaml.h">
       <DependentUpon>Views\Pages\Settings\ResourceUsagePage.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -468,12 +476,12 @@
     </ClInclude>
     <ClInclude Include="Core\AI\Tools\PeHeaderScaner.h" />
     <ClInclude Include="Helpers\ProcessPropertiesHelper.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Controls\PerformanceGraph.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -649,6 +657,12 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Activities\ServicesPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Properties\PropertiesRootPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Pages\Properties\ProcessImagePropertiesPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml">
@@ -1019,12 +1033,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Controls\PerformanceGraph.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1112,6 +1126,14 @@
     </ClCompile>
     <ClCompile Include="Views\Pages\Activities\ServicesPage.xaml.cpp">
       <DependentUpon>Views\Pages\Activities\ServicesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Properties\PropertiesRootPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Views\Pages\Properties\ProcessImagePropertiesPage.xaml.cpp">
+      <DependentUpon>Views\Pages\Properties\ProcessImagePropertiesPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Views\Pages\Settings\RemoteAccessSessionPage.xaml.cpp">
@@ -1300,6 +1322,14 @@
     </Midl>
     <Midl Include="Views\Pages\IBreadcrumbBarNavigationSupportPage.idl" />
     <Midl Include="Views\Pages\IUriNavigationSupportPage.idl" />
+    <Midl Include="Views\Pages\Properties\PropertiesRootPage.idl">
+      <DependentUpon>Views\Pages\Properties\PropertiesRootPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
+    <Midl Include="Views\Pages\Properties\ProcessImagePropertiesPage.idl">
+      <DependentUpon>Views\Pages\Properties\ProcessImagePropertiesPage.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Midl>
     <Midl Include="Views\Pages\Settings\ResourceUsagePage.idl">
       <DependentUpon>Views\Pages\Settings\ResourceUsagePage.xaml</DependentUpon>
       <SubType>Code</SubType>

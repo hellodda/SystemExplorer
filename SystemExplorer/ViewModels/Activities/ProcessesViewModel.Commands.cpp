@@ -2,6 +2,8 @@
 #include "winrt_module_imports.h"
 #include "ProcessesViewModel.h"
 
+#include <Helpers/ProcessPropertiesHelper.h>
+
 namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 {
     // commands impl
@@ -51,10 +53,8 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
     winrt::IAsyncAction ProcessesViewModel::doOpenProcessDetailsWindowAsync()
     {
-        /*   if (SelectedProcess_)
-           {
-               ProcessPropertiesHelper::OpenPropertiesWindow(SelectedProcess_);
-           }*/
+        Helpers::ProcessPropertiesHelper::OpenPropertiesWindow(nullptr);
+
         co_return;
     }
 
