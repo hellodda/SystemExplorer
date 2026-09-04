@@ -14,7 +14,6 @@ namespace SystemExplorer.ViewModels.Activities
         Single TotalCpuUsage { get; set; };
         UInt64 TotalIoRate { get; set; };
         UInt64 TotalPrivateBytes { get; set; };
-
         Int32 ItemIconSize { get; set; };
         Int32 ItemFontSize { get; set; };
 

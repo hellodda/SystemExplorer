@@ -66,12 +66,26 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 		co_await wil::resume_foreground(queue_);
 
 		absl::flat_hash_set<uint32_t> currentPids;
+		int32_t activeProcesses = 0;
+		double totalCpuUsage = 0.0;
+		uint64_t totalIoRate = 0;
+		uint64_t totalPrivateBytes = 0;
+
 		currentPids.reserve(data.size());
 
 		for (const auto item : data)
 		{
 			uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(item->ProcessId));
 			currentPids.insert(pid);
+
+			totalCpuUsage += item->CpuUsage;
+
+			totalIoRate +=
+				static_cast<uint64_t>(item->IoReadDelta.Delta) +
+				static_cast<uint64_t>(item->IoWriteDelta.Delta);
+
+			totalPrivateBytes +=
+				static_cast<uint64_t>(item->VmCounters.PrivateUsage);
 
 			auto it = processMap_.find(pid);
 			if (it != processMap_.end())
@@ -120,7 +134,11 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 				processMap_.erase(process.Pid());
 				Processes.RemoveAt(i);
 			}
+		
 		}
+		TotalCpuUsage(totalCpuUsage);
+		TotalIoRate(totalIoRate);
+		TotalPrivateBytes(totalPrivateBytes);
 	}
 
 	winrt::IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)

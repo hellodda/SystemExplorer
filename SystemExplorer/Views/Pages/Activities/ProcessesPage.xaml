@@ -17,7 +17,6 @@
     xmlns:tconverters="using:XamlToolkit.WinUI.Converters"
     xmlns:converters="using:SystemExplorer.Converters"
     xmlns:essential="using:WinUI3Package"
-    xmlns:appstate="using:SystemExplorer.Core.Settings"
     xmlns:enums="using:SystemExplorer.Core.Data.Enums"
     DataContext="{x:Bind ViewModel}"
     NavigationCacheMode="Required"
@@ -224,7 +223,10 @@
                                Background="Transparent"
                                BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
                                BorderThickness="0,0,1,1">
-                            <TextBlock Text="{x:Bind helpers:StringsHelper.Name}" Margin="0 25 0 0" HorizontalAlignment="Left"/>
+                            <Grid>
+                                <TextBlock Text="{x:Bind helpers:StringsHelper.Name}" Margin="0 25 0 0" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{x:Bind ViewModel.Processes.Size, Converter={StaticResource StringFormatConverter}, ConverterParameter='Всего {}', Mode=OneWay}" Margin="0 25 0 0" HorizontalAlignment="Right"/>
+                            </Grid>
                         </labs:DataColumn>
 
                         <labs:DataColumn
