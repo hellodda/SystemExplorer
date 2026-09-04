@@ -225,7 +225,7 @@
                                BorderThickness="0,0,1,1">
                             <Grid>
                                 <TextBlock Text="{x:Bind helpers:StringsHelper.Name}" Margin="0 25 0 0" HorizontalAlignment="Left"/>
-                                <TextBlock Text="{x:Bind ViewModel.Processes.Size, Converter={StaticResource StringFormatConverter}, ConverterParameter='Всего {}', Mode=OneWay}" Margin="0 25 0 0" HorizontalAlignment="Right"/>
+                                <TextBlock Text="{x:Bind ViewModel.Processes.Size, Converter={StaticResource StringFormatConverter}, ConverterParameter='Всего {}', Mode=OneWay}" Margin="0 0 0 25" HorizontalAlignment="Left"/>
                             </Grid>
                         </labs:DataColumn>
 
