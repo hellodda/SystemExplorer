@@ -32,5 +32,30 @@ namespace eil
         return result;
     }
 
-  
+    template <size_t N>
+    consteval std::string_view get_function_name(const char(&str)[N])
+    {
+        std::string_view s{ str, N - 1 };
+
+        const auto pos = s.rfind("::");
+
+        if (pos == std::string_view::npos)
+            return s;
+
+        return s.substr(pos + 2);
+    }
+
+    template <size_t N>
+    consteval std::wstring_view get_function_namew(const wchar_t(&str)[N])
+    {
+        std::wstring_view s{ str, N - 1 };
+
+        const auto pos = s.rfind(L"::");
+
+        if (pos == std::wstring_view::npos)
+            return s;
+
+        return s.substr(pos + 2);
+    }
 }
+#define get_current_function_name() eil::get_function_name(__FUNCTION__)

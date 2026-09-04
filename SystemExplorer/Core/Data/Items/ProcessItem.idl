@@ -6,6 +6,8 @@ namespace SystemExplorer.Core.Data.Items
     {
         ProcessItem();
       
+        UInt64 Handle;
+
         UInt32 Pid;
         UInt32 ParentId;
         UInt32 IoRate;

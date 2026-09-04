@@ -1,6 +1,9 @@
 #pragma once
+#include "string.h"
 #include <winrt/Microsoft.UI.Xaml.Markup.h>
 #include <roapi.h>
+
+#define raise_property_changed() RaisePropertyChanged(eil::get_function_namew(__FUNCTIONW__))
 
 namespace eil
 {

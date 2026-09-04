@@ -7,14 +7,18 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
     // commands impl
     winrt::IAsyncAction ProcessesViewModel::doTerminateProcessAsync()
     {
-        /*  if (!SelectedProcess_) co_return;
-          const auto pid = SelectedProcess_.Pid();
+        HANDLE handle{ reinterpret_cast<HANDLE>(SelectedProcess_.Handle()) };
 
-          try
-          {
-              manager_->Terminate(pid);
-          }
-          catch (const wil::ResultException&) {}*/
+        if (controller_ && handle != INVALID_HANDLE_VALUE)
+        {
+            winrt::hresult_error result{ controller_->Terminate(handle) };
+            
+            if (FAILED(result.code()))
+            {
+				MessageBox(NULL, result.message().c_str(), std::to_wstring(result.code()).c_str(), MB_ICONERROR | MB_OK);
+            }
+        }
+
         co_return;
     }
 

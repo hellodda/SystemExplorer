@@ -1,5 +1,6 @@
 #pragma once
 #include "IProcessController.h"
+#include "../N2/process.h"
 
 namespace winrt::SystemExplorer::Core::System::Controllers
 {
@@ -15,6 +16,13 @@ namespace winrt::SystemExplorer::Core::System::Controllers
 			access.CanTerminate = true;
 
 			return access;
+		}
+
+		[[nodiscard]] HRESULT Terminate(
+			HANDLE process
+		) override
+		{
+			return HRESULT_FROM_NT(SeTerminateProcess(process, STATUS_SUCCESS));
 		}
 	};
 }

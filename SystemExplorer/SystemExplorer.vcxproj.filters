@@ -47,6 +47,7 @@
     <Page Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewStyle.xaml" />
     <Page Include="Views\Pages\System\SystemRootPage.xaml" />
     <Page Include="Views\Pages\System\AboutSystemPage.xaml" />
+    <Page Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
@@ -136,6 +137,10 @@
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl" />
     <Midl Include="ViewModels\Settings\ExtensionModulesViewModel.idl" />
     <Midl Include="Core\Data\Items\ExtensionModuleItem.idl" />
+    <Midl Include="Core\Data\Items\ObjectPairItem.idl" />
+    <Midl Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.idl" />
+    <Midl Include="Converters\ItemsCountToCornerRadiusConverter.idl" />
+    <Midl Include="Xaml\Selectors\TextBlockTemplateSelector.idl" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -232,6 +237,8 @@
     <ClCompile Include="ViewModels\Settings\AdvancedViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Settings\GeneralViewModel.Properties.cpp" />
     <ClCompile Include="ViewModels\Settings\AppearanceViewModel.Properties.cpp" />
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Callbacks.cpp" />
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Properties.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -353,6 +360,7 @@
     <ClInclude Include="Core\Ems\EmsProcessService.h" />
     <ClInclude Include="Core\Ems\EmsServiceProvider.h" />
     <ClInclude Include="Core\Kse\KernelDriver.h" />
+    <ClInclude Include="winrt_override.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">
@@ -377,6 +385,9 @@
       <Filter>Assets</Filter>
     </Image>
     <Image Include="Assets\waves.jpg" />
+    <Image Include="..\..\..\..\..\Downloads\unknownmodule.png" />
+    <Image Include="..\..\..\..\..\Downloads\samplemodule.png" />
+    <Image Include="Assets\updateicon.png" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Assets">

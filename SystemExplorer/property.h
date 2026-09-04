@@ -47,6 +47,7 @@ public: \
     DECLARE_PROPERTY_GETTER_NC(TYPE, NAME)
 
 
+
 #define NOTIFYING_SETTING(TYPE, NAME, DEFAULT)                      \
     [[nodiscard]] TYPE NAME()                                       \
     {                                                               \

@@ -274,4 +274,7 @@
   <data name="ResourceUsagePage" type="System.Resources.ResXNullRef, System.Windows.Forms">
     <value />
   </data>
+  <data name="DeveloperToolsPage" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
 </root>

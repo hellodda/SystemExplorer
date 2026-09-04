@@ -18,3 +18,4 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         }
     }
 }
+

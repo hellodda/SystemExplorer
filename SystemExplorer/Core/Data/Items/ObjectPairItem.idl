@@ -1,0 +1,11 @@
+namespace SystemExplorer.Core.Data.Items
+{
+    [default_interface] runtimeclass ObjectPairItem 
+    {
+        ObjectPairItem();
+        ObjectPairItem(Object first, Object second);
+
+        Object First { get; set; };
+        Object Second { get; set; };
+    }
+}

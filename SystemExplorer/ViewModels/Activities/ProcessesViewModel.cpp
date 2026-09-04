@@ -7,8 +7,9 @@
 
 #include <absl/container/flat_hash_set.h>
 
+#include <converters/native/HiconToBitmapSourceConverter.h>
+#include <Helpers/Win32/ShellHelper.h>
 #include <core/eil/nt.h>
-
 #include <core/system/controllers/NativeProcessController.h>
 #include <core/system/sources/NativeProcessDataSource.h>
 #include <core/system/sources/WTSProcessDataSource.h>
@@ -64,18 +65,62 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 
 		co_await wil::resume_foreground(queue_);
 
-		for (auto item : data)
+		absl::flat_hash_set<uint32_t> currentPids;
+		currentPids.reserve(data.size());
+
+		for (const auto item : data)
 		{
-			auto process = Core::Data::Items::ProcessItem{};
-			process.Name(eil::nt::to_wstring(item->ProcessName));
-			process.CpuUsage(25);
-			process.IoRate(50);
-			process.PrivateBytes(100);
+			uint32_t pid = static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(item->ProcessId));
+			currentPids.insert(pid);
 
-			Processes.Append(process);
+			auto it = processMap_.find(pid);
+			if (it != processMap_.end())
+			{
+				auto& process = it->second;
+				process.CpuUsage(item->CpuUsage);
+				process.IoRate(static_cast<uint32_t>(item->IoReadDelta.Delta + item->IoWriteDelta.Delta));
+				process.PrivateBytes(static_cast<uint32_t>(item->VmCounters.PrivateUsage));
+			}
+			else
+			{
+				auto process = Core::Data::Items::ProcessItem{};
+
+				process.Pid(pid);
+				process.Handle(reinterpret_cast<uint64_t>(item->QueryHandle));
+				process.ParentId(static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(item->ParentProcessId)));
+				process.Name(eil::nt::to_wstring_view(item->ProcessName));
+
+				if (item->FileName.Buffer)
+				{
+					process.Description(eil::nt::to_wstring_view(item->FileName));
+				}
+				else
+				{
+					process.Description(L"");
+				}
+
+				process.Icon(Converters::Native::HiconToBitmapSourceConverter::Convert(
+					Helpers::Win32::ShellHelper::GetIconByIndex(Helpers::Win32::ShellHelper::GetDefaultIconIndex())
+				));
+
+				process.CpuUsage(item->CpuUsage);
+				process.IoRate(static_cast<uint32_t>(item->IoReadDelta.Delta + item->IoWriteDelta.Delta));
+				process.PrivateBytes(static_cast<uint32_t>(item->VmCounters.PrivateUsage));
+
+				processMap_.emplace(pid, process);
+				Processes.Append(process);
+			}
 		}
+		for (int32_t i = static_cast<int32_t>(Processes.Size()) - 1; i >= 0; --i)
+		{
+			auto const& process = Processes.GetAt(i);
 
-		monitor_->Suspend();
+			if (!currentPids.contains(process.Pid()))
+			{
+				processMap_.erase(process.Pid());
+				Processes.RemoveAt(i);
+			}
+		}
 	}
 
 	winrt::IAsyncAction ProcessesViewModel::showErrorDialogAsync(const hstring& message)

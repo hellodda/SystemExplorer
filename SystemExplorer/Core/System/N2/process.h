@@ -115,18 +115,17 @@ typedef struct _SYSX_PROCESS_ITEM
 	FLOAT CpuUserUsage;
 	FLOAT CpuAverageUsage;
 
-	SYSX_UINT64_DELTA CpuKernelDelta;
-	SYSX_UINT64_DELTA CpuUserDelta;
-	SYSX_UINT64_DELTA IoReadDelta;
-	SYSX_UINT64_DELTA IoWriteDelta;
-	SYSX_UINT64_DELTA IoOtherDelta;
-	SYSX_UINT64_DELTA IoReadCountDelta;
-	SYSX_UINT64_DELTA IoWriteCountDelta;
-	SYSX_UINT64_DELTA IoOtherCountDelta;
-	SYSX_UINT64_DELTA ContextSwitchesDelta;
-	SYSX_UINT32_DELTA PageFaultsDelta;
-	SYSX_UINT32_DELTA HardFaultsDelta;
-	SYSX_UINT64_DELTA CycleTimeDelta; // since WIN7
+	SYSX_DELTA<UINT64> CpuKernelDelta{};
+	SYSX_DELTA<UINT64> CpuUserDelta{};
+
+	SYSX_DELTA<UINT64> IoReadDelta{};
+	SYSX_DELTA<UINT64> IoWriteDelta{};
+	SYSX_DELTA<UINT64> IoOtherDelta{};
+	SYSX_DELTA<UINT64> IoReadCountDelta{};
+	SYSX_DELTA<UINT64> IoWriteCountDelta{};
+	SYSX_DELTA<UINT64> IoOtherCountDelta{};
+
+	SYSX_DELTA<UINT64> PageFaultsDelta{};
 
 	VM_COUNTERS_EX VmCounters;
 	IO_COUNTERS IoCounters;
@@ -156,10 +155,20 @@ typedef struct _SYSX_PROCESS_RECORD
 	PWSTR UserName;
 } SYSX_PROCESS_RECORD, * PSYSX_PROCESS_RECORD;
 
-NTSTATUS SYSX_IMPL_OpenProcess(
+NTSTATUS SeOpenProcess(
 	_Out_opt_ PHANDLE process,
 	_In_ ACCESS_MASK access,
 	_In_ HANDLE id
+);
+
+NTSTATUS SeGetProcessExtendedBasicInformation(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PPROCESS_EXTENDED_BASIC_INFORMATION ExtendedBasicInformation
+);
+
+NTSTATUS SeGetProcessImageFileNameWin32(
+	_In_ HANDLE ProcessHandle,
+	_Out_ PUNICODE_STRING FileName
 );
 
 NTSTATUS SYSX_IMPL_OpenProcessToken(
@@ -168,7 +177,7 @@ NTSTATUS SYSX_IMPL_OpenProcessToken(
 	_In_ ACCESS_MASK access
 );
 
-NTSTATUS SYSX_IMPL_TerminateProcess(
+NTSTATUS SeTerminateProcess(
 	_In_ HANDLE ProcessHanlde,
 	_In_ NTSTATUS ExitStatus
 );

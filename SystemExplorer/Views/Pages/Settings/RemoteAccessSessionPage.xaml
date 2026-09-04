@@ -13,7 +13,7 @@
     mc:Ignorable="d">
 
     <Grid Padding="20">
-        <StackPanel>
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
             <TextBlock FontSize="26" Margin="0 10 0 0" Text="Главная > Удаленный доступ > WIN-T1UUBJJ7V8I"/>
 
             <Grid Margin="0 -10 0 0">

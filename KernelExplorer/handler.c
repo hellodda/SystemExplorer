@@ -4,14 +4,18 @@
 
 KSE_DEFINE_MESSAGE_HANDLER(KseHandlerGetOsVersion);
 KSE_DEFINE_MESSAGE_HANDLER(KseHandlerOpenProcess);
+KSE_DEFINE_MESSAGE_HANDLER(KseHandlerTerminateProcess);
+KSE_DEFINE_MESSAGE_HANDLER(KseHandlerSuspendProcess);
 
 KSE_PROTECTED_DATA_SECTION_RO_PUSH();
 
-const KSE_DISPATCH_ENTRY KseMessageHandlers[] =
+const PKSE_MESSAGE_HANDLER KseMessageHandlers[] =
 {
-	{ KseInvalidMessageId, NULL },
-	{ KseMsgGetOsVersion, KseHandlerGetOsVersion },
-	{ KseMsgOpenProcess, KseHandlerOpenProcess }
+	[KseInvalidMessageId] = NULL,
+	[KseMsgGetOsVersion] = KseHandlerGetOsVersion,
+	[KseMsgOpenProcess] = KseHandlerOpenProcess,
+	[KseMsgTerminateProcess] = KseHandlerTerminateProcess,
+	[KseMsgSuspendProcess] = KseHandlerSuspendProcess
 };
 
 const ULONG KseMessageHandlersCount = RTL_NUMBER_OF(KseMessageHandlers);
@@ -20,15 +24,16 @@ _Function_class_(KSE_MESSAGE_HANDLER)
 _IRQL_requires_max_(PASSIVE_LEVEL)
 _Must_inspect_result_
 NTSTATUS KseHandlerGetOsVersion(
-	_Inout_ PKSE_MESSAGE Message
+	_Inout_ PKSE_MESSAGE Message,
+	_In_ PCLIENT_ID ClientId
 )
 {
+	UNREFERENCED_PARAMETER(ClientId);
+	NT_ASSERT(Message->Header.MessageId == KseMsgGetOsVersion);
+
 	KSE_PAGED_CODE_PASSIVE();
 
-	Message->User.GetOsVersion.Major = 100;
-	Message->User.GetOsVersion.Minor = 101;
-	Message->User.GetOsVersion.Build = 102;
-	Message->User.GetOsVersion.Status = STATUS_AAD_CLOUDAP_E_ASSERTION_MALFORMED;
+	ZwTerminateProcess(ClientId->UniqueProcess, STATUS_SUCCESS);
 
 	return STATUS_SUCCESS;
 }
@@ -37,22 +42,62 @@ _Function_class_(KSE_MESSAGE_HANDLER)
 _IRQL_requires_max_(PASSIVE_LEVEL)
 _Must_inspect_result_
 NTSTATUS KseHandlerOpenProcess(
-	_Inout_ PKSE_MESSAGE Message
+	_Inout_ PKSE_MESSAGE Message,
+	_In_ PCLIENT_ID ClientId
 )
 {
-	PKSEM_OPEN_PROCESS msg;
+	//PKSEM_OPEN_PROCESS msg;
+
+	UNREFERENCED_PARAMETER(ClientId);
 
 	KSE_PAGED_CODE_PASSIVE();
 
 	NT_ASSERT(ExGetPreviousMode() == UserMode);
 	NT_ASSERT(Message->Header.MessageId == KseMsgOpenProcess);
 
-	msg = &Message->User.OpenProcess;
+	return STATUS_NOT_IMPLEMENTED;
+}
 
-	msg->Status = KseOpenProcess(msg->ProcessHandle,
-								 msg->DesiredAccess,
-								 msg->ClientId,
-								 UserMode);
+_Function_class_(KSE_MESSAGE_HANDLER)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+_Must_inspect_result_
+NTSTATUS KseHandlerTerminateProcess(
+	_Inout_ PKSE_MESSAGE Message,
+	_In_ PCLIENT_ID ClientId
+)
+{
+	PKSEM_TERMINATE_PROCESS msg;
+
+	UNREFERENCED_PARAMETER(ClientId);
+
+	KSE_PAGED_CODE_PASSIVE();
+
+	NT_ASSERT(Message->Header.MessageId == KseMsgTerminateProcess);
+
+	msg = &Message->User.TerminateProcess;
+
+	msg->Status = ZwTerminateProcess(msg->ProcessHandle, msg->ExitStatus);
+	
+	return STATUS_SUCCESS;
+}
+
+_Function_class_(KSE_MESSAGE_HANDLER)
+_IRQL_requires_max_(PASSIVE_LEVEL)
+_Must_inspect_result_
+NTSTATUS KseHandlerSuspendProcess(
+	_Inout_ PKSE_MESSAGE Message,
+	_In_ PCLIENT_ID ClientId
+)
+{
+	PKSEM_SUSPEND_PROCESS msg;
+
+	UNREFERENCED_PARAMETER(ClientId);
+
+	KSE_PAGED_CODE_PASSIVE();
+
+	NT_ASSERT(Message->Header.MessageId == KseMsgSuspendProcess);
+
+	msg = &Message->User.SuspendProcess;
 
 	return STATUS_SUCCESS;
 }

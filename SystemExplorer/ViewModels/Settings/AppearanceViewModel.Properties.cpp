@@ -2,6 +2,7 @@
 #include "winrt_module_imports.h"
 #include "AppearanceViewModel.h"
 
+#include <Core/Eil/winrt.h>
 #include <Core/Settings/Settings.h>
 #include <Core/Services/AppResourcesService.h>
 
@@ -16,7 +17,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeIndex_ = value;
             Core::Settings::UserSettings::AppearanceSettings.ApplicationTheme(themes[value]);
-            RaisePropertyChanged(L"SelectedAppThemeIndex");
+            raise_property_changed();
         }
     }
 
@@ -26,7 +27,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedAppThemeResources_ = std::move(value);
             AppThemeBackgroundColor(SelectedAppThemeResources_.BackgroundColor());
-            RaisePropertyChanged(L"SelectedAppThemeResources");
+            raise_property_changed();
         }
     }
 
@@ -47,7 +48,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         {
             SelectedBackdropMaterial_ = std::move(value);
             Core::Settings::UserSettings::AppearanceSettings.BackdropMaterial(Helpers::EnumHelper::Map<Data::Enums::BackdropMaterialType>(unbox_value<hstring>(SelectedBackdropMaterial_)));
-            RaisePropertyChanged(L"SelectedBackdropMaterial");
+            raise_property_changed();
         }
     }
 
@@ -60,7 +61,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     {
         AppThemeBackgroundImageSource_ = std::move(value);
         Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageSource(AppThemeBackgroundImageSource_);
-        RaisePropertyChanged(L"AppThemeBackgroundImageSource");
+        raise_property_changed();
     }
 
     float AppearanceViewModel::AppThemeBackgroundImageOpacity() const noexcept
@@ -71,7 +72,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
     void AppearanceViewModel::AppThemeBackgroundImageOpacity(float value) noexcept
     {
         Core::Settings::UserSettings::AppearanceSettings.AppThemeBackgroundImageOpacity(value);
-        RaisePropertyChanged(L"AppThemeBackgroundImageOpacity");
+        raise_property_changed();
     }
 
     void AppearanceViewModel::SelectedImageStretchType(IInspectable value) noexcept

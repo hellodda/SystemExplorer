@@ -28,6 +28,9 @@
     <ClCompile Include="process.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ksemsg.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\kse.h">
@@ -48,5 +51,8 @@
     <ClInclude Include="include\process.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

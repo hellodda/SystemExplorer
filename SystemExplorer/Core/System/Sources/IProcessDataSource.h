@@ -5,11 +5,16 @@ namespace winrt::SystemExplorer::Core::System::Sources
 {
 	__interface IProcessDataSource
 	{
-		[[nodiscard]] virtual HRESULT Enum(
-			std::vector<SYSX_PROCESS_ITEM>& source
+		[[nodiscard]] HRESULT Enum(
+			OUT std::vector<SYSX_PROCESS_ITEM>& source
 		) PURE;
 
-		[[nodiscard]] virtual HRESULT Fill(
+		[[nodiscard]] HRESULT Enum(
+			OUT std::vector<SYSX_PROCESS_ITEM>& source,
+			OUT uint64_t& outSystemTime
+		) PURE;
+
+		[[nodiscard]] HRESULT Fill(
 			_In_ PSYSX_PROCESS_ITEM item
 		) PURE;
 	};

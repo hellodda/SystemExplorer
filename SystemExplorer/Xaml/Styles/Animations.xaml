@@ -8,4 +8,9 @@
         <EntranceThemeTransition FromVerticalOffset="50" />
         <RepositionThemeTransition IsStaggeringEnabled="False" />
     </TransitionCollection>
+
+    <TransitionCollection x:Key="StackPanelsAnimations">
+        <EntranceThemeTransition FromVerticalOffset="50" />
+        <RepositionThemeTransition IsStaggeringEnabled="False" />
+    </TransitionCollection>
 </ResourceDictionary>

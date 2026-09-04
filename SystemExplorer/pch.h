@@ -8,17 +8,11 @@
 #include <unknwn.h>
 #include <windows.h>
 
-#pragma warning(push)
-#pragma warning(disable: 4201)
-#pragma warning(disable: 4471) 
-#pragma warning(disable: 4324) 
-#pragma warning(disable: 4005) 
+#define __ImageBase __ImageBase_phnt_ignore
 #include <phnt_windows.h>
 #include <phnt.h>
-
-#pragma warning(pop)
+#undef __ImageBase
 #pragma comment(lib, "ntdll.lib")
-
 #include <wtsapi32.h>
 #pragma comment(lib, "wtsapi32.lib")
 
@@ -55,6 +49,12 @@
 #include <ppl.h>
 
 #include <winrt/base.h>
+#include <winrt/Windows.Foundation.h>
+
+// override basic winrt functions
+#include "winrt_override.h"
+
+#include <gsl/gsl>
 #include <wil/win32_helpers.h>
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
@@ -135,11 +135,3 @@
 #include "Xaml/Mvvm/RelayCommand.h"
 #include "Xaml/Selectors/ItemTemplateSelector.h"
 
-inline winrt::hstring to_hstring(winrt::Windows::Foundation::IInspectable const& value)
-{
-    if (!value) return L"null";
-    if (auto stringable = value.try_as<winrt::Windows::Foundation::IStringable>()) {
-        return stringable.ToString();
-    }
-    return L"Object (Unknown type)";
-}

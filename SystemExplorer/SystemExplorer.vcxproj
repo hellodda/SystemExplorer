@@ -1,4 +1,6 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Musa.Veil.1.10.0\build\native\Musa.Veil.props" Condition="Exists('..\packages\Musa.Veil.1.10.0\build\native\Musa.Veil.props')" />
+  <Import Project="..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.props" Condition="Exists('..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.props')" />
   <Import Project="..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.2526\build\Microsoft.Windows.SDK.BuildTools.props" Condition="Exists('..\packages\Microsoft.Windows.SDK.BuildTools.10.0.28000.2526\build\Microsoft.Windows.SDK.BuildTools.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.2.3.1\build\native\Microsoft.WindowsAppSDK.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.2.3.1\build\native\Microsoft.WindowsAppSDK.props')" />
   <Import Project="..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.2\build\native\Microsoft.WindowsAppSDK.WinUI.props" Condition="Exists('..\packages\Microsoft.WindowsAppSDK.WinUI.2.3.2\build\native\Microsoft.WindowsAppSDK.WinUI.props')" />
@@ -118,7 +120,7 @@
     <ClCompile>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions);DISABLE_XAML_GENERATED_MAIN</PreprocessorDefinitions>
       <LanguageStandard_C Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">stdclatest</LanguageStandard_C>
-      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)phlib\include;$(SolutionDir)phnt;$(SolutionDir)Common;$(SolutionDir)Ems\include;$(SolutionDir)eventbus\include;$(SolutionDir)Ems</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir);$(GeneratedFilesDir);$(IntDir);%(AdditionalIncludeDirectories);$(SolutionDir)Common;$(SolutionDir)eventbus\include</AdditionalIncludeDirectories>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(IntDir)</ObjectFileName>
       <ObjectFileName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(IntDir)</ObjectFileName>
@@ -197,8 +199,16 @@
     <Manifest Include="app.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Converters\ItemsCountToCornerRadiusConverter.h">
+      <DependentUpon>Converters\ItemsCountToCornerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Core\Data\Items\ExtensionModuleItem.h">
       <DependentUpon>Core\Data\Items\ExtensionModuleItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
+    <ClInclude Include="Core\Data\Items\ObjectPairItem.h">
+      <DependentUpon>Core\Data\Items\ObjectPairItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
     <ClInclude Include="Core\Eil\nt.h" />
@@ -485,12 +495,12 @@
     </ClInclude>
     <ClInclude Include="resource.h" />
     <ClInclude Include="Helpers\Win32\ShellHelper.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="ViewModels\Activities\Performance\PerformanceViewModel.h">
       <DependentUpon>ViewModels\Activities\Performance\PerformanceViewModel.idl</DependentUpon>
@@ -596,15 +606,24 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="winrt_override.h" />
     <ClInclude Include="winrt_module_imports.h" />
     <ClInclude Include="Core\System\Sources\WTSProcessDataSource.h" />
     <ClInclude Include="Core\System\Controllers\WTSProcessController.h" />
+    <ClInclude Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.h">
+      <DependentUpon>Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.h" />
     <ClInclude Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.h" />
     <ClInclude Include="Xaml\Mvvm\AsyncRelayCommand.h" />
     <ClInclude Include="Xaml\Mvvm\AsyncRelayCommandFactory.h" />
     <ClInclude Include="Xaml\Mvvm\RelayCommand.h" />
     <ClInclude Include="Xaml\Selectors\ItemTemplateSelector.h" />
+    <ClInclude Include="Xaml\Selectors\TextBlockTemplateSelector.h">
+      <DependentUpon>Xaml\Selectors\TextBlockTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClInclude>
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -676,6 +695,7 @@
     <Page Include="Views\Pages\Settings\SettingsRootPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.xaml" />
     <Page Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.xaml" />
     <Page Include="Xaml\Styles\Animations.xaml" />
     <Page Include="Xaml\Styles\FlatButton.xaml" />
@@ -689,8 +709,16 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Converters\ItemsCountToCornerRadiusConverter.cpp">
+      <DependentUpon>Converters\ItemsCountToCornerRadiusConverter.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Core\Data\Items\ExtensionModuleItem.cpp">
       <DependentUpon>Core\Data\Items\ExtensionModuleItem.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Core\Data\Items\ObjectPairItem.cpp">
+      <DependentUpon>Core\Data\Items\ObjectPairItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Core\Services\AppMemoryManager.cpp" />
@@ -909,12 +937,12 @@
       <SubType>Code</SubType>
     </ClCompile>
     <ClCompile Include="Helpers\Win32\ShellHelper.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Core\Kse\KernelDriver.cpp" />
     <ClCompile Include="main.cpp">
@@ -1190,12 +1218,22 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Callbacks.cpp" />
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.cpp">
+      <DependentUpon>Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
+    <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Properties.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommandFactory.cpp" />
     <ClCompile Include="Xaml\Mvvm\RelayCommand.cpp" />
     <ClCompile Include="Xaml\Selectors\ItemTemplateSelector.cpp" />
+    <ClCompile Include="Xaml\Selectors\TextBlockTemplateSelector.cpp">
+      <DependentUpon>Xaml\Selectors\TextBlockTemplateSelector.idl</DependentUpon>
+      <SubType>Code</SubType>
+    </ClCompile>
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1207,6 +1245,9 @@
   </ItemGroup>
   <ItemGroup>
     <Midl Include="Converters\HexToColorConverter.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Converters\ItemsCountToCornerRadiusConverter.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Converters\StringToBrushConverter.idl">
@@ -1231,6 +1272,9 @@
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Items\NavigationCatalogItem.idl">
+      <SubType>Designer</SubType>
+    </Midl>
+    <Midl Include="Core\Data\Items\ObjectPairItem.idl">
       <SubType>Designer</SubType>
     </Midl>
     <Midl Include="Core\Data\Items\PerformanceNavigationViewItem.idl">
@@ -1272,12 +1316,18 @@
       <DependentUpon>Views\Pages\System\SystemRootPage.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Midl>
+    <Midl Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroup.idl" />
     <Midl Include="Xaml\Controls\SettingsGroup\SimpleSettingsGroup\SimpleSettingsGroupAutomationPeer.idl" />
     <Midl Include="Xaml\Mvvm\AsyncRelayCommand.idl" />
     <Midl Include="Xaml\Mvvm\AsyncRelayCommandFactory.idl" />
     <Midl Include="Xaml\Mvvm\RelayCommand.idl" />
     <Midl Include="Xaml\Selectors\ItemTemplateSelector.idl" />
+    <Midl Include="Xaml\Selectors\TextBlockTemplateSelector.idl">
+      <SubType>Designer</SubType>
+    </Midl>
     <Midl Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.idl">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -1409,12 +1459,15 @@
     </Text>
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\..\Downloads\samplemodule.png" />
+    <Image Include="..\..\..\..\..\Downloads\unknownmodule.png" />
     <Image Include="Assets\LockScreenLogo.scale-200.png" />
     <Image Include="Assets\SplashScreen.scale-200.png" />
     <Image Include="Assets\Square150x150Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.scale-200.png" />
     <Image Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Image Include="Assets\StoreLogo.png" />
+    <Image Include="Assets\updateicon.png" />
     <Image Include="Assets\waves.jpg" />
     <Image Include="Assets\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
@@ -1502,6 +1555,7 @@
     <Import Project="..\packages\XamlToolkit.Labs.WinUI.Native.0.8.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets" Condition="Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.8.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Behaviors.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" />
     <Import Project="..\packages\XamlToolkit.WinUI.Media.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets" Condition="Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" />
+    <Import Project="..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.targets" Condition="Exists('..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -1549,5 +1603,8 @@
     <Error Condition="!Exists('..\packages\XamlToolkit.Labs.WinUI.Native.0.8.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.Labs.WinUI.Native.0.8.0-alpha\build\native\XamlToolkit.Labs.WinUI.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Behaviors.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Behaviors.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Behaviors.Native.targets'))" />
     <Error Condition="!Exists('..\packages\XamlToolkit.WinUI.Media.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\XamlToolkit.WinUI.Media.Native.0.8.0-alpha\build\native\XamlToolkit.WinUI.Media.Native.targets'))" />
+    <Error Condition="!Exists('..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.props'))" />
+    <Error Condition="!Exists('..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\YY.NuGet.Import.Helper.1.0.1\build\native\YY.NuGet.Import.Helper.targets'))" />
+    <Error Condition="!Exists('..\packages\Musa.Veil.1.10.0\build\native\Musa.Veil.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Musa.Veil.1.10.0\build\native\Musa.Veil.props'))" />
   </Target>
 </Project>

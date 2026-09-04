@@ -14,8 +14,8 @@
 
     <Grid Padding="20">
 
-        <StackPanel>
-            <StackPanel Spacing="5">
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel Spacing="5" ChildrenTransitions="{StaticResource StackPanelsAnimations}">
                 <controls:SettingsExpander IsExpanded="True"
                                            Header="Управление памятью"
                                            HeaderIcon="{ui:FontIcon Glyph=&#xE81E;}">

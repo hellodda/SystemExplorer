@@ -29,19 +29,16 @@ namespace winrt::SystemExplorer::Core::Kernel
 		return STATUS_SUCCESS;
 	}
 
-	KernelDriverStatus KernelDriver::GetDriverStatus()
-	{
-		return status_;
-	}
-
-	NTSTATUS KernelDriver::SendNewMessage(PKSE_MESSAGE message)
+	NTSTATUS KernelDriver::SendNewMessage(gsl::not_null<DriverMessage*> message)
 	{
 		if (status_ == KernelDriverStatus::None || !device_.is_valid())
-			return HRESULT_FROM_NT(STATUS_DEVICE_NOT_READY);
+			return STATUS_DEVICE_NOT_READY;
 
 		static constexpr ULONG ioControlCode{ CTL_KSE_DISPATCH };
 		static constexpr ULONG messageSize{ sizeof(KSE_MESSAGE) };
 		
+		message->Header.Size = messageSize;
+
 		IO_STATUS_BLOCK ioStatusBlock{};
 		ULONG bytesReturned{ 0 };
 
@@ -62,7 +59,7 @@ namespace winrt::SystemExplorer::Core::Kernel
 			status == STATUS_DEVICE_DOES_NOT_EXIST ||
 			status == STATUS_OBJECT_NAME_NOT_FOUND)
 		{
-			return HRESULT_FROM_NT(status);
+			return status;
 		}
 
 		if (NT_SUCCESS(status))

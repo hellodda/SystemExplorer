@@ -83,8 +83,8 @@
     </Page.Resources>
 
     <Grid>
-        <StackPanel>
-            <StackPanel Spacing="5">
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}" Spacing="5">
                 <xtc:SettingsCard Header="{helpers:ResourceString Key=ApplicationTheme}"
                                   Description="Select the application theme to display"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xE790;}">
@@ -221,13 +221,6 @@
             </StackPanel>
 
             <Border Height="20"/>
-
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition FromVerticalOffset="50" />
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
         </StackPanel>
     </Grid>
 </Page>

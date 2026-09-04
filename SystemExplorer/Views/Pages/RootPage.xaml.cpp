@@ -13,8 +13,6 @@ namespace winrt::SystemExplorer::Views::Pages::implementation
     RootPage::RootPage()
     {
         InitializeComponent();
-
-        
     }
 
     winrt::IAsyncAction RootPage::PersonPictureTapped(winrt::IInspectable const& sender, winrt::TappedRoutedEventArgs const& args)

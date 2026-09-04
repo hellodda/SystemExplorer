@@ -15,5 +15,9 @@ namespace winrt::SystemExplorer::Core::System::Controllers
 	__interface IProcessController
 	{
 		[[nodiscard]] ProcessControllerAccess Access() PURE;
+
+		[[nodiscard]] HRESULT Terminate(
+			HANDLE process
+		) PURE;
 	};
 }

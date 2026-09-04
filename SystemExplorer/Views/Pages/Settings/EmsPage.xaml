@@ -13,8 +13,8 @@
     mc:Ignorable="d">
 
     <Grid>
-        <StackPanel>
-            <StackPanel Spacing="5">
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel Spacing="5" ChildrenTransitions="{StaticResource StackPanelsAnimations}">
 
                 <xtc:SettingsCard Header="Исползовать EMS модули"
                                   HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
@@ -38,7 +38,10 @@
                         <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xF158;}" Header="System Explorer AMSI Scan Tools" Description="Author: Hellodda, Version: 2.1">
                             <ToggleSwitch IsOn="False"/>
                         </xtc:SettingsCard>
-                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xEA39;}" Header="System Explorer Local AI Model" Description="Author: Hellodda, Version: Experimental">
+                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}" Header="System Explorer Microsoft Copilot Extension" Description="Author: Hellodda, Version: Experimental">
+                            <ToggleSwitch IsOn="False" IsEnabled="False"/>
+                        </xtc:SettingsCard>
+                        <xtc:SettingsCard HeaderIcon="{toolkit:FontIcon Glyph=&#xE794;}" Header="System Explorer Winty Extension" Description="Author: Hellodda, Version: Concept">
                             <ToggleSwitch IsOn="False" IsEnabled="False"/>
                         </xtc:SettingsCard>
                     </xtc:SettingsExpander.Items>
@@ -64,13 +67,6 @@
             </xaml:SimpleSettingsGroup>
 
             <Border Height="20"/>
-
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition FromVerticalOffset="50" />
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
         </StackPanel>
     </Grid>
 </Page>

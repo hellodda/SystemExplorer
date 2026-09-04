@@ -15,8 +15,7 @@
 #include <bcrypt.h>
 #include <usermode_accessors.h>
 
-#define PHNT_MODE PHNT_MODE_KERNEL
-#include <phnt.h> 
+#include <veil.h>
 
 #pragma warning(pop)
 
@@ -76,12 +75,12 @@
 
 #define KSE_PROTECTED_DATA_SECTION_PUSH()                                      \
     __pragma(data_seg(push))                                                   \
-    __pragma(data_seg("KSIDATA"))
+    __pragma(data_seg("KSEDATA"))
 #define KSE_PROTECTED_DATA_SECTION_POP()                                       \
     __pragma(data_seg(pop))
 #define KSE_PROTECTED_DATA_SECTION_RO_PUSH()                                   \
     __pragma(const_seg(push))                                                  \
-    __pragma(const_seg("KSIRO"))
+    __pragma(const_seg("KSERO"))
 #define KSE_PROTECTED_DATA_SECTION_RO_POP()                                    \
     __pragma(const_seg(pop))
 

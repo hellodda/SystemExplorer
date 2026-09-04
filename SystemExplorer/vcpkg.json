@@ -1,7 +1,9 @@
 {
   "dependencies": [
-    "rapidfuzz",
     "abseil",
-    "mimalloc"
+    "mimalloc",
+    "ms-gsl",
+    "rapidfuzz",
+    "phnt"
   ]
 }

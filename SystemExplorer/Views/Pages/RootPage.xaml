@@ -88,15 +88,21 @@
                  IsSettingsVisible="True"
                  Style="{StaticResource StoreNavigationViewStyle}">
 
-            <NavigationView.Resources>
-                <SolidColorBrush x:Key="NavigationViewContentBackground" 
-                     Color="{ThemeResource SolidBackgroundFillColorBase}" 
-                     Opacity="0.3"/>
-            </NavigationView.Resources>
+            <!--<NavigationView.Resources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries x:Key="Default">
+                         <SolidColorBrush x:Key="NavigationViewContentBackground" 
+                                          Color="{ThemeResource SolidBackgroundFillColorBase}" 
+                                          Opacity="0.3"/>
+                    </ResourceDictionary.ThemeDictionaries>
+                </ResourceDictionary>
+                
+               
+            </NavigationView.Resources>-->
 
             <NavigationView.MenuItems>
 
-                <NavigationViewItem
+                <!--<NavigationViewItem
                     Content="{helpers:ResourceString Key=System}"
                     Tag="SystemExplorer.Views.Pages.System.SystemRootPage"
                     Icon="{toolkit:FontIcon Glyph=&#xE770;}"
@@ -109,7 +115,7 @@
                             </MenuFlyoutSubItem>
                         </MenuFlyout>
                     </NavigationViewItem.ContextFlyout>
-                </NavigationViewItem>
+                </NavigationViewItem>-->
 
                 <NavigationViewItem
                     Content="{helpers:ResourceString Key=Activities}"
@@ -120,11 +126,24 @@
             </NavigationView.MenuItems>
             
             <NavigationView.FooterMenuItems>
-                <NavigationViewItem IsEnabled="False" SelectsOnInvoked="False" />
+                <NavigationViewItem Icon="{toolkit:FontIcon Glyph=&#xE712;}"
+                                    SelectsOnInvoked="False" >
+                    <NavigationViewItem.ContextFlyout>
+                        <MenuFlyout>
+                            <MenuFlyoutItem Text="Премичания к выпуску"/>
+                            <MenuFlyoutItem Text="Выйти с SystemExplorer"/>
+                        </MenuFlyout>
+                    </NavigationViewItem.ContextFlyout>
+                </NavigationViewItem>
             </NavigationView.FooterMenuItems>
 
             <NavigationView.Content>
-                <Frame x:Name="NavFrame"/>
+                <Grid CornerRadius="8">
+                    <Grid.Background>
+                        <SolidColorBrush Color="{ThemeResource SolidBackgroundFillColorBase}" Opacity="0.3"/>
+                    </Grid.Background>
+                    <Frame x:Name="NavFrame"/>
+                </Grid>
             </NavigationView.Content>
         </NavigationView>
 

@@ -26,6 +26,43 @@ NTSTATUS KseCreateCloseDispatch(
 	return STATUS_SUCCESS;
 }
 
+_IRQL_requires_max_(PASSIVE_LEVEL)
+NTSTATUS KseDispatchMessage(
+	_In_ PKSE_MESSAGE Message,
+	_In_ ULONG InputLength,
+	_In_ ULONG OutputLength,
+	_In_opt_ PETHREAD Thread,
+	_Out_ PULONG_PTR BytesReturned
+)
+{
+	UNREFERENCED_PARAMETER(InputLength);
+	UNREFERENCED_PARAMETER(OutputLength);
+
+	CLIENT_ID ClientId = { 0 };
+	PKSE_MESSAGE_HANDLER Handler = KseMessageHandlers[Message->Header.MessageId];
+	
+	if (!Handler)
+	{
+		return STATUS_NOT_FOUND;
+	}
+
+	if (Thread)
+	{
+		ClientId.UniqueProcess = PsGetThreadProcessId(Thread);
+		ClientId.UniqueThread = PsGetThreadId(Thread);
+	}
+	else
+	{
+		ClientId.UniqueProcess = PsGetCurrentProcessId();
+		ClientId.UniqueThread = PsGetCurrentThreadId();
+	}
+
+	NTSTATUS Status = Handler(Message, &ClientId);
+	*BytesReturned = Message->Header.Size > 0 ? Message->Header.Size : sizeof(KSE_MESSAGE);
+
+	return Status;
+}
+
 _Function_class_(DRIVER_DISPATCH)
 _IRQL_requires_max_(PASSIVE_LEVEL)
 _IRQL_requires_same_
@@ -37,8 +74,8 @@ NTSTATUS IoControlDispatch(
 	UNREFERENCED_PARAMETER(DeviceObject);
 	KSE_PAGED_CODE_PASSIVE();
 
-	NTSTATUS Status = STATUS_INVALID_DEVICE_REQUEST; 
-	ULONG_PTR BytesReturned = 0;                     
+	NTSTATUS Status = STATUS_INVALID_DEVICE_REQUEST;
+	ULONG_PTR BytesReturned = 0;
 
 	PIO_STACK_LOCATION IoStackLocation = IoGetCurrentIrpStackLocation(Irp);
 	ULONG IoControlCode = IoStackLocation->Parameters.DeviceIoControl.IoControlCode;
@@ -54,36 +91,24 @@ NTSTATUS IoControlDispatch(
 		}
 
 		PKSE_MESSAGE Message = (PKSE_MESSAGE)Irp->AssociatedIrp.SystemBuffer;
-
-		if (!Message)
+		
+		if (NT_SUCCESS(KseValidateMessage(Message)))
 		{
-			Status = STATUS_INVALID_PARAMETER;
-			goto Complete;
+			Status = KseDispatchMessage(
+				Message,
+				InputLength,
+				OutputLength,
+				Irp->Tail.Overlay.Thread,
+				&BytesReturned
+			);
 		}
-
-		BOOLEAN Handled = FALSE;
-		for (ULONG i = 0; i < KseMessageHandlersCount; ++i)
-		{
-			if (KseMessageHandlers[i].MessageId == Message->Header.MessageId &&
-				KseMessageHandlers[i].MessageHandler != NULL)
-			{
-				Status = KseMessageHandlers[i].MessageHandler(Message);
-
-				BytesReturned = sizeof(KSE_MESSAGE);
-				Handled = TRUE;
-				break;
-			}
-		}
-
-		if (!Handled)
-		{
-			Status = STATUS_INVALID_PARAMETER;
-		}
+		else
+		 goto Complete;
 	}
 
 Complete:
 	Irp->IoStatus.Status = Status;
-	Irp->IoStatus.Information = BytesReturned; 
+	Irp->IoStatus.Information = BytesReturned;
 
 	IoCompleteRequest(Irp, IO_NO_INCREMENT);
 
@@ -130,7 +155,7 @@ EXTERN_C NTSTATUS DriverEntry(
 {
 	UNREFERENCED_PARAMETER(RegistryPath);
 
-	NTSTATUS status;
+	NTSTATUS Status;
 	UNICODE_STRING DeviceObjectName;
 	UNICODE_STRING DeviceLinkName;
 	PDEVICE_OBJECT DeviceObject = NULL;
@@ -140,7 +165,7 @@ EXTERN_C NTSTATUS DriverEntry(
 	RtlInitUnicodeString(&DeviceObjectName, DEVICE_OBJECT_NAME);
 	RtlInitUnicodeString(&DeviceLinkName, DEVICE_LINK_NAME);
 
-	status = IoCreateDevice(
+	Status = IoCreateDevice(
 		DriverObject,
 		0,
 		&DeviceObjectName,
@@ -150,17 +175,18 @@ EXTERN_C NTSTATUS DriverEntry(
 		&DeviceObject
 	);
 
-	if (!NT_SUCCESS(status))
+	if (!NT_SUCCESS(Status))
 	{
-		KdPrint(("Device Object creation error\n"));
-		return status;
+		KdPrint(("KSE: Device Object creation error (0x%08X)\n", Status));
+		return Status;
 	}
 
-	status = IoCreateSymbolicLink(&DeviceLinkName, &DeviceObjectName);
-	if (!NT_SUCCESS(status))
+	Status = IoCreateSymbolicLink(&DeviceLinkName, &DeviceObjectName);
+	if (!NT_SUCCESS(Status))
 	{
+		KdPrint(("KSE: Symbolic Link creation error (0x%08X)\n", Status));
 		IoDeleteDevice(DeviceObject);
-		return status;
+		return Status;
 	}
 
 	KseDriverObject = DriverObject;
@@ -171,16 +197,18 @@ EXTERN_C NTSTATUS DriverEntry(
 	KseDriverObject->MajorFunction[IRP_MJ_DEVICE_CONTROL] = IoControlDispatch;
 
 	KseOsVersionInfo.dwOSVersionInfoSize = sizeof(RTL_OSVERSIONINFOEXW);
-	status = RtlGetVersion((PRTL_OSVERSIONINFOW)&KseOsVersionInfo);
+	Status = RtlGetVersion((PRTL_OSVERSIONINFOW)&KseOsVersionInfo);
 
-	if (!NT_SUCCESS(status))
+	if (!NT_SUCCESS(Status))
 	{
+		KdPrint(("KSE: Failed to get OS version (0x%08X)\n", Status));
 		IoDeleteSymbolicLink(&DeviceLinkName);
 		IoDeleteDevice(DeviceObject);
-		return status;
+		return Status;
 	}
 
 	DeviceObject->Flags &= ~DO_DEVICE_INITIALIZING;
 
+	KdPrint(("KSE: Driver loaded successfully\n"));
 	return STATUS_SUCCESS;
 }

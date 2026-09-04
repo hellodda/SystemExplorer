@@ -17,6 +17,8 @@ namespace winrt::SystemExplorer::Core::Data::Items::implementation
     {
         ProcessItem() = default;
 
+        wil::single_threaded_rw_property<uint64_t> Handle;
+
         WIL_NOTIFYING_PROPERTY(uint32_t, Pid, 0);
         WIL_NOTIFYING_PROPERTY(uint32_t, ParentId, 0);
         WIL_NOTIFYING_PROPERTY(uint32_t, IoRate, 0);

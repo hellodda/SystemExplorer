@@ -6,7 +6,12 @@ namespace winrt::SystemExplorer::Core::System::Sources
 	struct NativeProcessDataSource : IProcessDataSource
 	{
 		[[nodiscard]] HRESULT Enum(
-			std::vector<SYSX_PROCESS_ITEM>& source
+			OUT std::vector<SYSX_PROCESS_ITEM>& source
+		) override;
+
+		[[nodiscard]] HRESULT Enum(
+			OUT std::vector<SYSX_PROCESS_ITEM>& source,
+			OUT uint64_t& outSystemTime
 		) override;
 
 		[[nodiscard]] HRESULT Fill(

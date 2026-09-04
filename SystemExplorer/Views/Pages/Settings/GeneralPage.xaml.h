@@ -13,6 +13,7 @@ namespace winrt
     using namespace winrt::Microsoft::UI::Xaml::Controls;
 }
 
+
 namespace winrt::SystemExplorer::Views::Pages::Settings::implementation
 {
     struct GeneralPage : GeneralPageT<GeneralPage>

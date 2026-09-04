@@ -142,8 +142,8 @@
             </StackPanel>
         </ContentDialog>
 
-        <StackPanel>
-            <StackPanel Spacing="5">
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}" Spacing="5">
                 <GridView ItemsSource="{x:Bind ViewModel.Devices}"
                           ItemTemplateSelector="{StaticResource ItemTemplateSelector}">
                 </GridView>

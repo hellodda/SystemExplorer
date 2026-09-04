@@ -6,26 +6,67 @@
     xmlns:local="using:SystemExplorer.Views.Pages.Settings"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
-    xmlns:xtl="using:XamlToolkit.Labs.WinUI"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
+    xmlns:labs="using:XamlToolkit.Labs.WinUI"
     xmlns:toolkit="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml"
+    xmlns:helpers="using:SystemExplorer.Helpers"
     mc:Ignorable="d">
 
     <Grid Padding="20">
-        <StackPanel>
-            <TextBlock FontSize="26" Margin="0 10 0 0" Text="Developer tools"/>
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}" Spacing="5">
+                <xaml:SettingsGroup Header="Выполнить тесты производительности функций программы"
+                                    HeaderIcon="{toolkit:FontIcon Glyph=&#xF42F;}"
+                                    Description="Результаты тестов будут сохранены в файле">
 
-            <xaml:SimpleSettingsGroup Margin="0 -30 0 0">
-                <xtc:SettingsExpander Header="Benchmarks"
-                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xF42F;}">
-                    <TextBlock Text="Last benchmark: 19:44.01.02.2026"/>
-                    <xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard>
+                    <xaml:SettingsGroup.Content>
+                        <StackPanel>
+                            <Button Content="Запуск"/>
+                        </StackPanel>
+                    </xaml:SettingsGroup.Content>
+                    
+                    <xaml:SettingsGroup.Items>
+                        <controls:SettingsCard Header="SYSX_NativeSysCalls"
+                                               Description="Тест производительности: Системные вызовы">
+                            <ProgressBar Width="300" Value="45" Foreground="{ThemeResource SystemFillColorCautionBrush}"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="SYSX_NativeMICalls"
+                                               Description="Тест производительности: Работа с Management Infrastructure">
+                            <ProgressBar Width="300" Value="30" Foreground="{ThemeResource SystemFillColorCriticalBrush}"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="SYSX_DriverCalls"
+                                               Description="Тест производительности: Обработка данных и ответ от драйвера">
+                            <ProgressBar Width="300" Value="50" Foreground="{ThemeResource SystemFillColorSuccessBrush}"/>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard Header="Результаты"
+                                               HeaderIcon="{toolkit:FontIcon Glyph=&#xE8BC;}"
+                                               IsClickEnabled="True"/>
+                    </xaml:SettingsGroup.Items>
+                </xaml:SettingsGroup>
+            </StackPanel>
 
-                        </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>
-                </xtc:SettingsExpander>
+            <xaml:SimpleSettingsGroup Header="Эксперименты">
+                <controls:SettingsCard Header="Разрешить эксперименты с новыми функциями"
+                                       HeaderIcon="{toolkit:FontIcon Glyph=&#xF196;}"
+                                       Description="Для экспериментирования можно выбрать только необходимые функции">
+                    <ToggleSwitch IsOn="False"/>
+                </controls:SettingsCard>
+            </xaml:SimpleSettingsGroup>
+
+            <xaml:SimpleSettingsGroup Header="Диагностика и отзывы">
+                <controls:SettingsExpander Header="Диагностичекские данные"
+                                           HeaderIcon="{toolkit:FontIcon Glyph=&#xE9D9;}"
+                                           Description="Помогает нам со временем сделать System Explorer быстрее, стабильнее и лучше">
+                    <ToggleSwitch IsOn="False"/>
+
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="Сохранить журналы на этом устройстве"
+                                               Description="Хранит диагностические данные локально в текстовом формате. Папка может также содержать файлы ETL. Может исползовать до 1 ГБ или более дискового пространства.">
+                            <ToggleSwitch IsOn="False"/>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
             </xaml:SimpleSettingsGroup>
         </StackPanel>
     </Grid>

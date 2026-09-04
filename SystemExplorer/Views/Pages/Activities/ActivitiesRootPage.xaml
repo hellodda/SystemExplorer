@@ -75,7 +75,11 @@
                 <Frame x:Name="ActivitiesFrame" x:FieldModifier="Public" Loaded="ActivitiesFrameLoaded">
                     <Frame.ContentTransitions>
                         <TransitionCollection>
-                            <NavigationThemeTransition />
+                            <NavigationThemeTransition>
+                                <NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                                    <DrillInNavigationTransitionInfo />
+                                </NavigationThemeTransition.DefaultNavigationTransitionInfo>
+                            </NavigationThemeTransition>
                         </TransitionCollection>
                     </Frame.ContentTransitions>
                 </Frame>

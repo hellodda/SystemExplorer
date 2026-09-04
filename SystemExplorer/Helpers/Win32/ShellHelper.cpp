@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "winrt_module_imports.h"
 #include "ShellHelper.h"
+#pragma comment(lib, "Comctl32.lib")
 
 namespace winrt::SystemExplorer::Helpers::Win32
 {

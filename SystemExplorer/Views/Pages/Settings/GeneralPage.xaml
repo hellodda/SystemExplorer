@@ -6,8 +6,8 @@
     xmlns:local="using:SystemExplorer.Views.Pages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
-    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
+    xmlns:ui="using:XamlToolkit.WinUI"
     xmlns:xaml="using:SystemExplorer.Xaml"
     xmlns:essential="using:WinUI3Package"
     xmlns:items="using:SystemExplorer.Core.Data.Items"
@@ -16,12 +16,12 @@
     NavigationCacheMode="Required"
     >
     <Grid>
-        <StackPanel>
-            <StackPanel Spacing="5">
-                <xtc:SettingsCard
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}" Spacing="5">
+                <controls:SettingsCard
                     Header="{helpers:ResourceString Key=Language}"
                     Description="Select the application language"
-                    HeaderIcon="{toolkit:FontIcon Glyph=&#xF2B7;}">
+                    HeaderIcon="{ui:FontIcon Glyph=&#xF2B7;}">
 
                     <ComboBox
                         x:Name="AppLanguagesComboBox"
@@ -35,11 +35,11 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
-                </xtc:SettingsCard>
-                <xtc:SettingsCard
+                </controls:SettingsCard>
+                <controls:SettingsCard
                   Header="{helpers:ResourceString Key=UpdateSpeed}"
                   Description="Select the update frequency for system resource usage reports"
-                  HeaderIcon="{toolkit:FontIcon Glyph=&#xEC49;}">
+                  HeaderIcon="{ui:FontIcon Glyph=&#xEC49;}">
 
                     <ComboBox
                         SelectedIndex="{x:Bind ViewModel.SelectedRealTimeUpdateSpeedIndex, Mode=TwoWay}"
@@ -49,102 +49,107 @@
                         <ComboBoxItem Content="{helpers:ResourceString Key=Low}"/>
                         <ComboBoxItem Content="{helpers:ResourceString Key=Suspended}"/>
                     </ComboBox>
-                </xtc:SettingsCard>
-                <xtc:SettingsCard
+                </controls:SettingsCard>
+                <controls:SettingsCard
                     Header="{helpers:ResourceString Key=DefaultStartPage}"
                     Description="Specify which page to display when System Explorer starts"
-                    HeaderIcon="{toolkit:FontIcon Glyph=&#xF57E;}">
+                    HeaderIcon="{ui:FontIcon Glyph=&#xF57E;}">
 
                     <ComboBox SelectedIndex="0"
                               ItemsSource="{x:Bind ViewModel.StartPages}"
-                              essential:ComboBoxHelper.AcrylicWorkaround="True"/>
-                </xtc:SettingsCard>
+                              essential:ComboBoxHelper.AcrylicWorkaround="True">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="items:ObjectPairItem">
+                                <TextBlock Text="{x:Bind First}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </controls:SettingsCard>
 
-                <xtc:SettingsCard Header="Удаленный доступ"
-                                  Command="{x:Bind NavigateToUriCommand}"
-                                  CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/RemoteAccessPage"
-                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xE8AF;}"
-                                  Description="Управление и мониторинг удаленных компьютеров"
-                                  IsClickEnabled="True">
+                <controls:SettingsExpander Header="{helpers:ResourceString Key=DymamicKernelMemoryDump}"
+                       HeaderIcon="{ui:FontIcon Glyph=&#xEEA0;}"
+                       Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
+                    <!--<xtc:SettingsExpander.Items>
+                         <xtc:SettingsCard>
+                             <xtc:SettingsCard.Header>
+                                 <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpAbortIfInsufficientMemory, Mode=TwoWay}" Content="Abort if insufficient memory"/>
+                             </xtc:SettingsCard.Header>
+                         </xtc:SettingsCard>
+                         <xtc:SettingsCard>
+                             <xtc:SettingsCard.Header>
+                                 <CheckBox x:Name="CaptureHypervisorPagesCheckBox" IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureHypervisorPages, Mode=TwoWay}" Content="Capture Hypervisor pages"/>
+                             </xtc:SettingsCard.Header>
+                         </xtc:SettingsCard>
+                         <xtc:SettingsCard>
+                             <xtc:SettingsCard.Header>
+                                 <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpIncludeNonessentialPages, Mode=TwoWay}" IsEnabled="{x:Bind CaptureHypervisorPagesCheckBox.IsChecked.Value, Mode=OneWay}" Content="Include nonessential pages"/>
+                             </xtc:SettingsCard.Header>
+                         </xtc:SettingsCard>
+                         <xtc:SettingsCard>
+                             <xtc:SettingsCard.Header>
+                                 <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureUserPages, Mode=TwoWay}" Content="Capture user pages"/>
+                             </xtc:SettingsCard.Header>
+                         </xtc:SettingsCard>
+                     </xtc:SettingsExpander.Items>-->
+                </controls:SettingsExpander>
 
-                </xtc:SettingsCard>
-
-                <xtc:SettingsCard Header="EMS модули-расширения"
-                                  Command="{x:Bind NavigateToUriCommand}"
-                                  CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/EmsPage"
-                                  HeaderIcon="{toolkit:FontIcon Glyph=&#xECA5;}"
-                                  Description="Управление хостом модулей EMS"
-                                  IsClickEnabled="True">
-
-                </xtc:SettingsCard>
-
-                <xtc:SettingsCard Header="Производительность"
-                      Command="{x:Bind NavigateToUriCommand}"
-                      CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/ResourceUsagePage"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE9D2;}"
-                      Description="Настройка быстродействия и оптимизация работы приложения"
-                      IsClickEnabled="True"/>
-
+                <controls:SettingsExpander Header="{helpers:ResourceString Key=WindowManagement}"
+                     HeaderIcon="{ui:FontIcon Glyph=&#xEE40;}"
+                     Description="Specify the default behavior of the System Explorer window.">
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <CheckBox Content="Always on top" IsChecked="{x:Bind ViewModel.AppWindowAlwaysOnTop, Mode=TwoWay}"/>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <CheckBox Content="Minimize on use" IsChecked="{x:Bind ViewModel.AppWindowMinimizeOnUse, Mode=TwoWay}"/>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <CheckBox Content="Hide when minimized" IsChecked="{x:Bind ViewModel.AppWindowHideWhenMinimized, Mode=TwoWay}"/>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
             </StackPanel>
 
             <xaml:SimpleSettingsGroup Header="{helpers:ResourceString Key=Additionally}">
-                <xtc:SettingsExpander Header="{helpers:ResourceString Key=DymamicKernelMemoryDump}"
-                                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEEA0;}"
-                                      Description="Abort if memory is low, capture low-level shell pages, include un-sent pages, capture user-mode pages.">
-                    <!--<xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpAbortIfInsufficientMemory, Mode=TwoWay}" Content="Abort if insufficient memory"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox x:Name="CaptureHypervisorPagesCheckBox" IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureHypervisorPages, Mode=TwoWay}" Content="Capture Hypervisor pages"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpIncludeNonessentialPages, Mode=TwoWay}" IsEnabled="{x:Bind CaptureHypervisorPagesCheckBox.IsChecked.Value, Mode=OneWay}" Content="Include nonessential pages"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox IsChecked="{x:Bind settings:UserSettings.Instance.GeneralSettings.MemoryDumpCaptureUserPages, Mode=TwoWay}" Content="Capture user pages"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>-->
-                </xtc:SettingsExpander>
 
-                <xtc:SettingsExpander Header="{helpers:ResourceString Key=WindowManagement}"
-                                    HeaderIcon="{toolkit:FontIcon Glyph=&#xEE40;}"
-                                    Description="Specify the default behavior of the System Explorer window.">
-                    <xtc:SettingsExpander.Items>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Always on top" IsChecked="{x:Bind ViewModel.AppWindowAlwaysOnTop, Mode=TwoWay}"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Minimize on use" IsChecked="{x:Bind ViewModel.AppWindowMinimizeOnUse, Mode=TwoWay}"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                        <xtc:SettingsCard>
-                            <xtc:SettingsCard.Header>
-                                <CheckBox Content="Hide when minimized" IsChecked="{x:Bind ViewModel.AppWindowHideWhenMinimized, Mode=TwoWay}"/>
-                            </xtc:SettingsCard.Header>
-                        </xtc:SettingsCard>
-                    </xtc:SettingsExpander.Items>
-                </xtc:SettingsExpander>
+                <controls:SettingsCard Header="Удаленный доступ"
+                        Command="{x:Bind NavigateToUriCommand}"
+                        CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/RemoteAccessPage"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE8AF;}"
+                        Description="Управление и мониторинг удаленных компьютеров"
+                        IsClickEnabled="True">
 
-                <xtc:SettingsCard Header="Инструменты разработчика"
-                                  Description="SYSX_DEVICE_ACCESS SYSX_IMPL_LarpLarpLarpLarpLarp"
+                </controls:SettingsCard>
+
+                <controls:SettingsCard Header="EMS модули-расширения"
+                        Command="{x:Bind NavigateToUriCommand}"
+                        CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/EmsPage"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xECA5;}"
+                        Description="Управление хостом модулей EMS"
+                        IsClickEnabled="True">
+
+                </controls:SettingsCard>
+
+                <controls:SettingsCard Header="Производительность"
+                        Command="{x:Bind NavigateToUriCommand}"
+                        CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/ResourceUsagePage"
+                        HeaderIcon="{ui:FontIcon Glyph=&#xE9D2;}"
+                        Description="Настройка быстродействия и оптимизация работы приложения"
+                        IsClickEnabled="True"/>
+
+                <controls:SettingsCard Header="Инструменты разработчика"
+                       Description="SYSX_DEVICE_ACCESS SYSX_IMPL_LarpLarpLarpLarpLarp"
                       Command="{x:Bind NavigateToUriCommand}"
-                      CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/DeveloperPage"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEC7A;}"
+                      CommandParameter="system-explorer://SystemExplorer.Views.Pages.Settings/GeneralPage/DeveloperToolsPage"
+                      HeaderIcon="{ui:FontIcon Glyph=&#xEC7A;}"
                       IsClickEnabled="True">
-
-                </xtc:SettingsCard>
+                </controls:SettingsCard>
                
             </xaml:SimpleSettingsGroup>
             <xaml:SimpleSettingsGroup
@@ -154,12 +159,6 @@
 
             <Border Height="20"/>
 
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition FromVerticalOffset="50" />
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
         </StackPanel>
 
 

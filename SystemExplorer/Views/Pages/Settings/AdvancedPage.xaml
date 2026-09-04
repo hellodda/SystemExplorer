@@ -7,9 +7,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:xaml="using:SystemExplorer.Xaml"
-    xmlns:xtc="using:XamlToolkit.WinUI.Controls"
+    xmlns:controls="using:XamlToolkit.WinUI.Controls"
     xmlns:xconverters="using:XamlToolkit.WinUI.Converters"
-    xmlns:toolkit="using:XamlToolkit.WinUI"
+    xmlns:ui="using:XamlToolkit.WinUI"
     xmlns:helpers="using:SystemExplorer.Helpers"
     xmlns:interactivity="using:XamlToolkit.WinUI.Interactivity"
     mc:Ignorable="d"
@@ -20,67 +20,64 @@
     </Page.Resources>
     
     <Grid>
-        <StackPanel>
-            <StackPanel Spacing="5">
-                <xtc:SettingsCard Header="{helpers:ResourceString Key=ExportSettings}"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE8B5;}"
+        <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}">
+            <StackPanel ChildrenTransitions="{StaticResource StackPanelsAnimations}" Spacing="5">
+                <controls:SettingsCard Header="{helpers:ResourceString Key=ExportSettings}"
+                      HeaderIcon="{ui:FontIcon Glyph=&#xE8B5;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
                       Command="{x:Bind ViewModel.ExportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
-                </xtc:SettingsCard>
-                <xtc:SettingsCard Header="{helpers:ResourceString Key=ImportSettings}"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xEA52;}"
+                </controls:SettingsCard>
+                <controls:SettingsCard Header="{helpers:ResourceString Key=ImportSettings}"
+                      HeaderIcon="{ui:FontIcon Glyph=&#xEA52;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
                       Command="{x:Bind ViewModel.ImportSettingsCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
-                </xtc:SettingsCard>
-                <xtc:SettingsCard Header="Edit the settings file"
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xE8DA;}"
+                </controls:SettingsCard>
+                <controls:SettingsCard Header="Edit the settings file"
+                      HeaderIcon="{ui:FontIcon Glyph=&#xE8DA;}"
                       IsClickEnabled="True"
                       IsActionIconVisible="False"
                       Command="{x:Bind ViewModel.OpenSettingsFileCommand}">
                     <FontIcon Glyph="&#xE8A7;" FontSize="15"/>
-                </xtc:SettingsCard>
+                </controls:SettingsCard>
             </StackPanel>
 
-            <xaml:SimpleSettingsGroup Header="{helpers:ResourceString Key=ExperimentalFunctions}">
-                <xtc:SettingsCard 
-                   Header="{helpers:ResourceString Key=UseDriver}"
-                   Description="Requires a secure connection"
-                   HeaderIcon="{toolkit:FontIcon Glyph=&#xF211;}"
-                   IsClickEnabled="False"
-                   IsActionIconVisible="False">
-                    <ToggleSwitch IsOn="{x:Bind ViewModel.UseDriverAsDataSource, Mode=TwoWay}"/>
-                </xtc:SettingsCard>
-                <xtc:SettingsCard 
-                      Header="Advanced AI actions"
-                      Description="Advanced system interaction: manage, create, and terminate processes with elevated access to core system information."
-                      HeaderIcon="{toolkit:FontIcon Glyph=&#xF277;}"
-                      IsClickEnabled="False"
-                      IsActionIconVisible="False"
-                      IsEnabled="false">
-                    <ToggleSwitch IsOn="false"/>
-                    <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.AdvancedAiAgent, Mode=TwoWay}"/>-->
-                </xtc:SettingsCard>
-                <xtc:SettingsCard Header="Set System Explorer as the default task manager"
-                       Description="This setting modifies the Windows registry and may have unexpected side effects on your device. Proceed at your own risk."
-                       HeaderIcon="{toolkit:FontIcon Glyph=&#xEB3B;}"
-                       IsEnabled="false">
-                    <ToggleSwitch IsOn="false"/>
-                    <!--<ToggleSwitch IsOn="{x:Bind ViewModel.Settings.InStartup, Mode=TwoWay}"/>-->
-                </xtc:SettingsCard>
-            </xaml:SimpleSettingsGroup>
-            
-            <Border Height="20"/>
+            <xaml:SimpleSettingsGroup Header="Резервное копирование и востановление">
+                <controls:SettingsExpander Header="Резервное копирование и востановление параметров"
+                                           Description="При необходимости System Explorer перезапустится автоматически">
+                    <StackPanel Orientation="Horizontal"
+                                Spacing="8">
+                        <Button Content="Создать резервную копию"/>
+                        <Button Content="Восстановить"/>
+                    </StackPanel>
 
-            <StackPanel.ChildrenTransitions>
-                <TransitionCollection>
-                    <EntranceThemeTransition FromVerticalOffset="50" />
-                    <RepositionThemeTransition IsStaggeringEnabled="False" />
-                </TransitionCollection>
-            </StackPanel.ChildrenTransitions>
+                    <controls:SettingsExpander.Items>
+                        <controls:SettingsCard Header="Расположение"
+                                               IsClickEnabled="True"
+                                               IsActionIconVisible="True">
+                            <TextBlock Text="C:\Users\user\SysX\Naxu\Backup"/>
+                        </controls:SettingsCard>
+                            
+                        <controls:SettingsCard>
+                            <controls:SettingsCard.Header>
+                                <controls:HeaderedItemsControl Header="Архивация данных">
+                                    <StackPanel Orientation="Vertical" Spacing="10">
+                                        <TextBlock Text="Состояние:"/>
+                                        <TextBlock Text="Имя файла:"/>
+                                        <TextBlock Text="Исходный компьютер:"/>
+                                        <TextBlock Text="Время создания:"/>
+                                    </StackPanel>
+                                </controls:HeaderedItemsControl>
+                            </controls:SettingsCard.Header>
+                        </controls:SettingsCard>
+                    </controls:SettingsExpander.Items>
+                </controls:SettingsExpander>
+            </xaml:SimpleSettingsGroup>
+
+            <Border Height="20"/>
         </StackPanel>
     </Grid>
 </Page>

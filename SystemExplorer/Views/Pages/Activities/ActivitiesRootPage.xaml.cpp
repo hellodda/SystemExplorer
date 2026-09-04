@@ -23,13 +23,10 @@ namespace winrt::SystemExplorer::Views::Pages::Activities::implementation
     {
         if (auto item = args.SelectedItem())
         {
-            auto transitionInfo = winrt::SlideNavigationTransitionInfo{};
-            transitionInfo.Effect(winrt::SlideNavigationTransitionEffect::FromRight);
-
             if (auto pageStr = item.as<winrt::Microsoft::UI::Xaml::FrameworkElement>().Tag())
             {
                 TypeName typeName{ *pageStr.try_as<hstring>(), TypeKind::Custom };
-                ActivitiesFrame().Navigate(typeName, nullptr, transitionInfo);
+                ActivitiesFrame().Navigate(typeName, nullptr);
             }
         }
         co_return;

@@ -9,33 +9,46 @@ typedef struct _KSE_MESSAGE
 {
 	struct 
 	{
+		USHORT Version;
+		USHORT Size;
 		KSE_MESSAGE_ID MessageId;
-		ULONG Size;
+		LARGE_INTEGER TimeStamp;
 	} Header;
 
 	union
 	{
-		KSEM_GET_OS_VERSION GetOsVersion;
-		KSEM_OPEN_PROCESS OpenProcess;
-	} User;
+		union
+		{
+			KSEM_GET_OS_VERSION GetOsVersion;
+			KSEM_OPEN_PROCESS OpenProcess;
+			KSEM_TERMINATE_PROCESS TerminateProcess;
+			KSEM_SUSPEND_PROCESS SuspendProcess;
+		} User;
+
+		union
+		{
+			int a;
+		} Kernel;
+
+		union
+		{
+			int a;
+		} Reply;
+	};
 } KSE_MESSAGE, *PKSE_MESSAGE;
 
+typedef CONST PKSE_MESSAGE PCKSE_MESSAGE;
 
-typedef
-_Function_class_(KSE_MESSAGE_HANDLER)
-_IRQL_requires_max_(PASSIVE_LEVEL)
-_Must_inspect_result_
-NTSTATUS
-KSE_MESSAGE_HANDLER(
-	_Inout_ PKSE_MESSAGE Message
+VOID KseQuerySystemTime(
+	_Out_ PLARGE_INTEGER SystemTime
 );
-typedef KSE_MESSAGE_HANDLER* PKSE_MESSAGE_HANDLER;
 
-#define KSE_DEFINE_MESSAGE_HANDLER(name)             \
-_Function_class_(KSE_MESSAGE_HANDLER)                \
-_IRQL_requires_max_(PASSIVE_LEVEL)                   \
-_Must_inspect_result_                                \
-NTSTATUS name(                                       \
-    _Inout_ PKSE_MESSAGE Message                     \
-)																		
+VOID KseInitializeMessage(
+	_Out_writes_bytes_(sizeof(KSE_MESSAGE)) PKSE_MESSAGE Message,
+	_In_ KSE_MESSAGE_ID MessageId
+);
 
+_Must_inspect_result_
+NTSTATUS KseValidateMessage(
+	_In_ PCKSE_MESSAGE Message
+);

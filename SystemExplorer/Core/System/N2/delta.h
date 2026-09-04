@@ -1,5 +1,18 @@
 #pragma once
 
+template<typename T>
+struct SYSX_DELTA
+{
+    T Value{ 0 };
+    T Delta{ 0 };
+
+    void Update(T newValue) noexcept
+    {
+        Delta = newValue - Value;
+        Value = newValue;
+    }
+};
+
 typedef struct _SYSX_SINGLE_DELTA
 {
     FLOAT Value;

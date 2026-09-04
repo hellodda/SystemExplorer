@@ -5,16 +5,20 @@
 
 #include <winrt/Microsoft.Windows.AppLifecycle.h>
 #include <Core/Data/Items/AppLanguageItem.h>
+#include <Core/Data/Items/ObjectPairItem.h>
 
-namespace winrt::SystemExplorer::ViewModels::Settings::implementation
+namespace winrt
 {
     using namespace winrt::Windows::Foundation::Collections;
     using namespace winrt::Windows::Foundation;
     using namespace winrt::Microsoft::Windows::AppLifecycle;
 
-	using namespace winrt::SystemExplorer::Xaml;
-	using namespace winrt::SystemExplorer::Core::Data::Items;
+    using namespace winrt::SystemExplorer::Xaml;
+    using namespace winrt::SystemExplorer::Core::Data::Items;
+}
 
+namespace winrt::SystemExplorer::ViewModels::Settings::implementation
+{
     struct GeneralViewModel : GeneralViewModelT<GeneralViewModel, ViewModels::implementation::ViewModelBase>
     {
         GeneralViewModel();
@@ -30,9 +34,13 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
         
         DECLARE_ONLY_SETTER(int32_t, SelectedAppLanguageIndex);
         DECLARE_ONLY_SETTER(int32_t, SelectedRealTimeUpdateSpeedIndex);
+        DECLARE_ONLY_SETTER(winrt::IInspectable, SelectedStartPage);
+
         DECLARE_PROPERTY(bool, AppWindowAlwaysOnTop, false);
         DECLARE_PROPERTY(bool, AppWindowMinimizeOnUse, false);
         DECLARE_PROPERTY(bool, AppWindowHideWhenMinimized, false);
+
+
 
         wil::single_threaded_rw_property<int32_t> SelectedStartPageIndex;
 

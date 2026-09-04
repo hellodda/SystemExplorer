@@ -408,4 +408,7 @@
   <data name="ResourceUsagePage" xml:space="preserve">
     <value>Resource Usage</value>
   </data>
+  <data name="DeveloperToolsPage" xml:space="preserve">
+    <value>Developer Tools</value>
+  </data>
 </root>

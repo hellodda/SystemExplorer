@@ -26,7 +26,6 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
 
-
     XamlOptionalChanges::EnableChange(XamlChangeId::DefaultStyleOptimizations);
     XamlOptionalChanges::EnableChange(XamlChangeId::DeferContextFlyoutInit);
     XamlOptionalChanges::EnableChange(XamlChangeId::IconNoGridOptimization);
