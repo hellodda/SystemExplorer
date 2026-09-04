@@ -36,7 +36,6 @@ namespace winrt::SystemExplorer::Core::System::Monitors
 
         uint64_t sysDelta = (lastSystemTime_ > 0) ? (currentSystemTime - lastSystemTime_) : 0;
 
-        // Очищаем сет, но сохраняем аллоцированную на прошлых тиках память!
         currentPids_.clear();
         currentPids_.reserve(rawSnapshotBuffer_.size());
 
@@ -45,7 +44,6 @@ namespace winrt::SystemExplorer::Core::System::Monitors
             currentPids_.insert(raw.ProcessId);
             auto it = cache_.find(raw.ProcessId);
 
-            // Если процесс уже кэширован и CreateTime совпадает
             if (it != cache_.end() && it->second.CreateTime.QuadPart == raw.CreateTime.QuadPart)
             {
                 auto& cached = it->second;
@@ -83,26 +81,22 @@ namespace winrt::SystemExplorer::Core::System::Monitors
             }
             else
             {
-                // Новый процесс
                 SYSX_PROCESS_ITEM newItem = std::move(raw);
                 dataSource_->Fill(&newItem);
                 cache_[newItem.ProcessId] = std::move(newItem);
             }
         }
 
-        // Чистка закрытых процессов с использованием C++20 erase_if (максимально быстро)
-        absl::erase_if(cache_, [this](const auto& pair) {
+        absl::erase_if(cache_, [this](const auto& pair)
+        {
             return !currentPids_.contains(pair.first);
-            });
+        });
 
         lastSystemTime_ = currentSystemTime;
 
-        // Пересборка viewBuffer_ без аллокаций, переиспользуем емкость
         viewBuffer_.clear();
         viewBuffer_.reserve(cache_.size());
 
-        // ВАЖНО: используем auto&, чтобы получить ссылку, а не const-копию. 
-        // Это решит проблему с преобразованием std::span.
         for (auto& [pid, item] : cache_)
         {
             viewBuffer_.push_back(&item);

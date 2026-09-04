@@ -45,6 +45,8 @@ namespace winrt::SystemExplorer::Core::System::Monitors
         virtual void OnStop() {}
         virtual void OnTimer() {}
 
+        HANDLE monitorThreadHandle = monitorThread_.native_handle();
+
     private:
         void monitorRoutine(std::stop_token stoken);
 
