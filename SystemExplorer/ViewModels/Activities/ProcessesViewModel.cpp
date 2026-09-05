@@ -102,11 +102,11 @@ namespace winrt::SystemExplorer::ViewModels::Activities::implementation
 				process.Pid(pid);
 				process.Handle(reinterpret_cast<uint64_t>(item->QueryHandle));
 				process.ParentId(static_cast<uint32_t>(reinterpret_cast<ULONG_PTR>(item->ParentProcessId)));
-				process.Name(eil::nt::to_wstring_view(item->ProcessName));
+				process.Name(eil::to_wstring_view(item->ProcessName));
 
 				if (item->FileName.Buffer)
 				{
-					process.Description(eil::nt::to_wstring_view(item->FileName));
+					process.Description(eil::to_wstring_view(item->FileName));
 				}
 				else
 				{

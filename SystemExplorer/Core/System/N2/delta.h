@@ -1,17 +1,6 @@
 #pragma once
-
-template<typename T>
-struct SYSX_DELTA
-{
-    T Value{ 0 };
-    T Delta{ 0 };
-
-    void Update(T newValue) noexcept
-    {
-        Delta = newValue - Value;
-        Value = newValue;
-    }
-};
+#ifndef SYSX_Delta_H
+#define SYSX_Delta_H
 
 typedef struct _SYSX_SINGLE_DELTA
 {
@@ -55,3 +44,5 @@ typedef struct _SYSX_UINTPTR_DELTA
 #define SYSX_UINT32_DELTA_INIT { 0UL, 0UL }
 #define SYSX_UINT64_DELTA_INIT { 0ULL, 0ULL }
 #define SYSX_UINTPTR_DELTA_INIT { 0, 0 }
+
+#endif // SYSX_Delta_H

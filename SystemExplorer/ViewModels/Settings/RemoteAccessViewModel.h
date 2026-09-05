@@ -43,7 +43,7 @@ namespace winrt::SystemExplorer::ViewModels::Settings::implementation
             co_await CreateNewDeviceInvoked.invoke();
         });
 
-        eil::fast_event<absl::AnyInvocable<winrt::IAsyncAction()>> CreateNewDeviceInvoked;
+        eil::event<absl::AnyInvocable<winrt::IAsyncAction()>> CreateNewDeviceInvoked;
     };
 }
 

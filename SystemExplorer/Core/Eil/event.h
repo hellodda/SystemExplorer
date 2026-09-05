@@ -1,7 +1,9 @@
 #pragma once
 
-#include <absl/container/inlined_vector.h>
-#include <absl/functional/any_invocable.h>
+#ifndef EIL_ASSERT
+#include <cassert>
+#define EIL_ASSERT(expression) assert(expression)
+#endif
 
 namespace eil // explorer implementation library
 {
@@ -16,18 +18,20 @@ namespace eil // explorer implementation library
     };
 
     template<typename T>
-    struct fast_event
+    struct event
     {
-        fast_event() = default;
+        event() = default;
 
-        fast_event(const fast_event&) = delete;
-        fast_event& operator=(const fast_event&) = delete;
+        event(const event&) = delete;
+        event& operator=(const event&) = delete;
 
-        fast_event(fast_event&&) = default;
-        fast_event& operator=(fast_event&&) = default;
+        event(event&&) = default;
+        event& operator=(event&&) = default;
 
         eil::event_token operator()(T const& handler)
         {
+			EIL_ASSERT(handler);
+
             int64_t current_token = next_token_++;
             handlers_.emplace_back(current_token, std::move(handler));
             return { current_token };
@@ -35,6 +39,8 @@ namespace eil // explorer implementation library
 
         eil::event_token operator()(T&& handler)
         {
+			EIL_ASSERT(handler);
+
             int64_t current_token = next_token_++;
             handlers_.emplace_back(current_token, std::move(handler));
             return { current_token };
@@ -83,81 +89,26 @@ namespace eil // explorer implementation library
 
     private:
         int64_t next_token_{ 1 };
+
+#ifdef ABSL_CONTAINER_INLINED_VECTOR_H_
         absl::InlinedVector<std::pair<int64_t, T>, 2> handlers_;
-    };
 
-    template<typename T>
-    struct event
-    {
-        eil::event_token operator()(T const& handler)
-        {
-            int64_t current_token = next_token_++;
-            handlers_.emplace_back(current_token, std::move(handler));
-            return { current_token };
-        }
-
-        eil::event_token operator()(T&& handler)
-        {
-            int64_t current_token = next_token_++;
-            handlers_.emplace_back(current_token, std::move(handler));
-            return { current_token };
-        }
-
-        void operator()(eil::event_token const& token) noexcept
-        {
-            auto it = std::find_if(handlers_.begin(), handlers_.end(),
-                [&](const auto& pair) { return pair.first == token.value; });
-
-            if (it != handlers_.end())
-            {
-                if (it != handlers_.end() - 1)
-                {
-                    *it = std::move(handlers_.back());
-                }
-                handlers_.pop_back();
-            }
-        }
-
-        template<typename... TArgs>
-        auto invoke(TArgs&&... args) -> std::invoke_result_t<T, TArgs...>
-        {
-            using return_t = std::invoke_result_t<T, TArgs...>;
-
-            if constexpr (std::is_void_v<return_t>)
-            {
-                for (auto& pair : handlers_)
-                {
-                    pair.second(args...);
-                }
-            }
-            else
-            {
-                if (handlers_.empty())
-                {
-                    return return_t{};
-                }
-                for (size_t i = 0; i < handlers_.size() - 1; ++i)
-                {
-                    handlers_[i].second(args...);
-                }
-                return handlers_.back().second(args...);
-            }
-        }
-
-    private:
-		int64_t next_token_{ 1 };
+#else
 		std::vector<std::pair<int64_t, T>> handlers_;
+#endif
     };
 
+#ifdef  ABSL_FUNCTIONAL_ANY_INVOCABLE_H_
     template<typename... TArgs>
-	using action_t = std::function<void(TArgs...)>;
+    using action_t = absl::AnyInvocable<void(TArgs...)>;
+
+    template<typename TReturn, typename... TArgs>
+    using function_t = absl::AnyInvocable<TReturn(TArgs...)>;
+#else
+    template<typename... TArgs>
+    using action_t = std::function<void(TArgs...)>;
 
     template<typename TReturn, typename... TArgs>
     using function_t = std::function<TReturn(TArgs...)>;
-
-    template<typename... TArgs>
-    using faction_t = absl::AnyInvocable<void(TArgs...)>;
-
-    template<typename TReturn, typename... TArgs>
-    using ffunction_t = absl::AnyInvocable<TReturn(TArgs...)>;
+#endif 
 }

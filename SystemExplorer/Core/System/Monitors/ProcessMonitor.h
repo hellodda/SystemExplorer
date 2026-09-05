@@ -1,9 +1,10 @@
 #pragma once
 #include "MonitorBase.h"
-#include <Core/Eil/event.h>
-#include <absl/container/flat_hash_map.h>
-#include <absl/container/flat_hash_set.h>
-#include <span>
+
+#include <core/eil/event.h>
+#include <core/diagnostics/ITelemetryCollectionSupport.h>
+
+#include "../sysx.h"
 #include "../Sources/IProcessDataSource.h"
 
 namespace winrt::SystemExplorer::Core::System::Monitors
@@ -13,8 +14,8 @@ namespace winrt::SystemExplorer::Core::System::Monitors
         explicit ProcessMonitor(MonitorOptions const& options)
             : MonitorBase(options) {}
 
-        eil::fast_event<
-            eil::faction_t<std::span<PSYSX_PROCESS_ITEM>>
+        eil::event<
+            eil::action_t<std::span<PSYSX_PROCESS_ITEM>>
         > OnDataCollected;
 
         [[nodiscard]] HRESULT DataSource(std::unique_ptr<Sources::IProcessDataSource> dataSource) noexcept;

@@ -1,13 +1,7 @@
-﻿#ifdef __INTELLISENSE__
-#include <wil/cppwinrt_authoring.h>
-#include <winrt/SystemExplorer.Core.Data.Enums.h>
-#endif
+﻿#pragma once
 #include "event.h"
 
-#include <absl/container/flat_hash_map.h>
-#include <absl/container/flat_hash_set.h>
-
-namespace eil
+namespace eil // explorer implementation library
 {
 	namespace details
 	{
@@ -240,7 +234,7 @@ namespace eil
 						propertySet_.Remove(key);
 					}
 				}
-				catch (winrt::hresult_error const&) { /* Пропускаем сбойные ключи */ }
+				catch (winrt::hresult_error const&) {  }
 				CATCH_LOG()
 			}
 			dirtyKeys_.clear();

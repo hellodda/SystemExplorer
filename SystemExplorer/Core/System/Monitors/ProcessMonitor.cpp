@@ -1,6 +1,8 @@
 ﻿#include "pch.h"
 #include "ProcessMonitor.h"
 
+#include <core/eil/delta.h>
+
 namespace winrt::SystemExplorer::Core::System::Monitors
 {
     HRESULT ProcessMonitor::DataSource(std::unique_ptr<Sources::IProcessDataSource> dataSource) noexcept
@@ -29,9 +31,12 @@ namespace winrt::SystemExplorer::Core::System::Monitors
         if (!dataSource_) return;
 
         uint64_t currentSystemTime{ 0 };
-        if (FAILED(dataSource_->Enum(rawSnapshotBuffer_, currentSystemTime)))
+
+        auto hr = dataSource_->Enum(rawSnapshotBuffer_, currentSystemTime);
+
+        if (FAILED(hr))
         {
-            return;
+
         }
 
         uint64_t sysDelta = (lastSystemTime_ > 0) ? (currentSystemTime - lastSystemTime_) : 0;
@@ -48,18 +53,15 @@ namespace winrt::SystemExplorer::Core::System::Monitors
             {
                 auto& cached = it->second;
 
-                cached.CpuKernelDelta.Update(raw.KernelTime.QuadPart);
-                cached.CpuUserDelta.Update(raw.UserTime.QuadPart);
-
-                cached.IoReadDelta.Update(raw.IoReadDelta.Value);
-                cached.IoWriteDelta.Update(raw.IoWriteDelta.Value);
-                cached.IoOtherDelta.Update(raw.IoOtherDelta.Value);
-
-                cached.IoReadCountDelta.Update(raw.IoReadCountDelta.Value);
-                cached.IoWriteCountDelta.Update(raw.IoWriteCountDelta.Value);
-                cached.IoOtherCountDelta.Update(raw.IoOtherCountDelta.Value);
-
-                cached.PageFaultsDelta.Update(raw.PageFaultsDelta.Value);
+                eil::update_native_delta(&cached.CpuKernelDelta, raw.KernelTime.QuadPart);
+				eil::update_native_delta(&cached.CpuUserDelta, raw.UserTime.QuadPart);
+				eil::update_native_delta(&cached.IoReadDelta, raw.IoReadDelta.Value);
+				eil::update_native_delta(&cached.IoWriteDelta, raw.IoWriteDelta.Value);
+				eil::update_native_delta(&cached.IoOtherDelta, raw.IoOtherDelta.Value);
+				eil::update_native_delta(&cached.IoReadCountDelta, raw.IoReadCountDelta.Value);
+				eil::update_native_delta(&cached.IoWriteCountDelta, raw.IoWriteCountDelta.Value);
+				eil::update_native_delta(&cached.IoOtherCountDelta, raw.IoOtherCountDelta.Value);
+				eil::update_native_delta(&cached.PageFaultsDelta, raw.PageFaultsDelta.Value);
 
                 if (sysDelta > 0)
                 {

@@ -18,7 +18,7 @@ namespace winrt::SystemExplorer::Core::System::Sources
 		uint64_t& outSystemTime
 	)
 	{
-		outSystemTime = eil::nt::get_current_system_time();
+		outSystemTime = eil::get_current_system_time();
 
 		if (!buffer_)
 		{
@@ -80,7 +80,7 @@ namespace winrt::SystemExplorer::Core::System::Sources
 		if (auto status = SeOpenProcess(&item->QueryHandle, PROCESS_QUERY_INFORMATION, item->ProcessId); status > 0)
 		{
 			LOG_IF_FAILED(SeGetProcessImageFileNameWin32(item->QueryHandle, &item->FileName));
-			item->SmallIconIndex = Helpers::Win32::ShellHelper::GetIconIndex(eil::nt::to_wstring_view(item->FileName).data());
+			item->SmallIconIndex = Helpers::Win32::ShellHelper::GetIconIndex(eil::to_wstring_view(item->FileName).data());
 		}
 		else
 		{

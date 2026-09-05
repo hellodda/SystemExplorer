@@ -1,8 +1,8 @@
 #pragma once
-#include "delta.h"
+#ifndef SYSX_Process_H
+#define SYSX_Process_H
 
-#define SX_WTS_PROCESS 0x001
-#define SX_ECO_PROCESS 0x002
+#include "delta.h"
 
 typedef struct _SYSX_PROCESS_RECORD* PSYSX_PROCESS_RECORD;
 
@@ -115,17 +115,17 @@ typedef struct _SYSX_PROCESS_ITEM
 	FLOAT CpuUserUsage;
 	FLOAT CpuAverageUsage;
 
-	SYSX_DELTA<UINT64> CpuKernelDelta{};
-	SYSX_DELTA<UINT64> CpuUserDelta{};
+	SYSX_UINT64_DELTA CpuKernelDelta{};
+	SYSX_UINT64_DELTA CpuUserDelta{};
 
-	SYSX_DELTA<UINT64> IoReadDelta{};
-	SYSX_DELTA<UINT64> IoWriteDelta{};
-	SYSX_DELTA<UINT64> IoOtherDelta{};
-	SYSX_DELTA<UINT64> IoReadCountDelta{};
-	SYSX_DELTA<UINT64> IoWriteCountDelta{};
-	SYSX_DELTA<UINT64> IoOtherCountDelta{};
+	SYSX_UINT64_DELTA IoReadDelta{};
+	SYSX_UINT64_DELTA IoWriteDelta{};
+	SYSX_UINT64_DELTA IoOtherDelta{};
+	SYSX_UINT64_DELTA IoReadCountDelta{};
+	SYSX_UINT64_DELTA IoWriteCountDelta{};
+	SYSX_UINT64_DELTA IoOtherCountDelta{};
 
-	SYSX_DELTA<UINT64> PageFaultsDelta{};
+	SYSX_UINT64_DELTA PageFaultsDelta{};
 
 	VM_COUNTERS_EX VmCounters;
 	IO_COUNTERS IoCounters;
@@ -181,3 +181,5 @@ NTSTATUS SeTerminateProcess(
 	_In_ HANDLE ProcessHanlde,
 	_In_ NTSTATUS ExitStatus
 );
+
+#endif

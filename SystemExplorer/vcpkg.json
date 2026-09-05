@@ -1,9 +1,10 @@
 {
-  "dependencies": [
-    "abseil",
-    "mimalloc",
-    "ms-gsl",
-    "rapidfuzz",
-    "phnt"
-  ]
+    "dependencies":  [
+                         "abseil",
+                         "mimalloc",
+                         "ms-gsl",
+                         "rapidfuzz",
+                         "phnt",
+                         "1ds-cpp-sdk"
+                     ]
 }

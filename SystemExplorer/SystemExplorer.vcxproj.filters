@@ -153,9 +153,6 @@
     <ClCompile Include="Core\Data\Factories\AppThemeResourceFactory.cpp">
       <Filter>Core\Data\Factories</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Diagnostics\AsyncFileLogger.cpp">
-      <Filter>Core\Diagnostics</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Services\AppLanguageService.cpp">
       <Filter>Core\Services</Filter>
     </ClCompile>
@@ -208,7 +205,6 @@
     <ClCompile Include="Helpers\ProcessPropertiesHelper.cpp" />
     <ClCompile Include="Helpers\UI\DesktopNotification.cpp" />
     <ClCompile Include="Controls\PerformanceGraph.cpp" />
-    <ClCompile Include="Core\Settings\SharedSettings.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Activities\ProcessesViewModel.Properties.cpp" />
     <ClCompile Include="Xaml\Mvvm\AsyncRelayCommand.cpp" />
@@ -232,9 +228,6 @@
     <ClCompile Include="Core\System\Controllers\WTSProcessController.cpp" />
     <ClCompile Include="Core\Services\RemoteDevicesService.cpp" />
     <ClCompile Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.cpp" />
-    <ClCompile Include="Core\Ems\EmsHost.cpp" />
-    <ClCompile Include="Core\Ems\EmsProcessService.cpp" />
-    <ClCompile Include="Core\Ems\EmsServiceProvider.cpp" />
     <ClCompile Include="Core\Kse\KernelDriver.cpp" />
     <ClCompile Include="ViewModels\Settings\AdvancedViewModel.Commands.cpp" />
     <ClCompile Include="ViewModels\Settings\GeneralViewModel.Properties.cpp" />
@@ -252,12 +245,6 @@
     </ClInclude>
     <ClInclude Include="Core\Data\Factories\AppThemeResourceFactory.h">
       <Filter>Core\Data\Factories</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Diagnostics\Diagnostics.h">
-      <Filter>Core\Diagnostics</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Diagnostics\AsyncFileLogger.h">
-      <Filter>Core\Diagnostics</Filter>
     </ClInclude>
     <ClInclude Include="Core\Services\AppLanguageService.h">
       <Filter>Core\Services</Filter>
@@ -326,7 +313,6 @@
     <ClInclude Include="Controls\DataTable.h" />
     <ClInclude Include="Controls\PerformanceGraph.h" />
     <ClInclude Include="Core\AI\Tools\ProcessDescriptionGenerator.h" />
-    <ClInclude Include="Core\Settings\SharedSettings.h" />
     <ClInclude Include="Core\Settings\Settings.h" />
     <ClInclude Include="wil_cppwinrt_module.h" />
     <ClInclude Include="winrt_module_imports.h" />
@@ -358,11 +344,12 @@
     <ClInclude Include="Core\Services\RemoteDevicesService.h" />
     <ClInclude Include="Core\Messaging.h" />
     <ClInclude Include="Xaml\Styles\StoreNavigationViewStyle\StoreNavigationViewItemAttach.h" />
-    <ClInclude Include="Core\Ems\EmsHost.h" />
-    <ClInclude Include="Core\Ems\EmsProcessService.h" />
-    <ClInclude Include="Core\Ems\EmsServiceProvider.h" />
     <ClInclude Include="Core\Kse\KernelDriver.h" />
     <ClInclude Include="winrt_override.h" />
+    <ClInclude Include="Core\Eil\delta.h" />
+    <ClInclude Include="Core\Eil\unicode_string.h" />
+    <ClInclude Include="Core\Diagnostics\ITelemetryCollectionSupport.h" />
+    <ClInclude Include="Core\System\sysx.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

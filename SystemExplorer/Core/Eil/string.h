@@ -1,11 +1,16 @@
 #pragma once
-#include <vector>
-#include <string>
 
-namespace eil
+#ifndef EIL_ASSERT
+#include <cassert>
+#define EIL_ASSERT(expression) assert(expression)
+#endif
+
+namespace eil // explorer implementation library
 {
     inline std::vector<std::wstring> split_path(std::wstring_view path)
     {
+		EIL_ASSERT(!path.empty());
+
         std::vector<std::wstring> result;
 
         std::wstring_view view{ path };
@@ -35,6 +40,8 @@ namespace eil
     template <size_t N>
     consteval std::string_view get_function_name(const char(&str)[N])
     {
+		EIL_ASSERT(N > 0);
+
         std::string_view s{ str, N - 1 };
 
         const auto pos = s.rfind("::");
@@ -48,6 +55,8 @@ namespace eil
     template <size_t N>
     consteval std::wstring_view get_function_namew(const wchar_t(&str)[N])
     {
+		EIL_ASSERT(N > 0);
+
         std::wstring_view s{ str, N - 1 };
 
         const auto pos = s.rfind(L"::");

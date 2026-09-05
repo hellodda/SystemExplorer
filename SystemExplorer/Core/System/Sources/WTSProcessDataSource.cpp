@@ -45,7 +45,6 @@ namespace winrt::SystemExplorer::Core::System::Sources
 				item.VmCounters.WorkingSetSize = process[i].WorkingSetSize;
 				item.VmCounters.PeakWorkingSetSize = process[i].PeakWorkingSetSize;
 				item.WorkingSetPrivateSize = 0;
-				item.State = SX_WTS_PROCESS;
 
 				source.push_back(item);
 			}

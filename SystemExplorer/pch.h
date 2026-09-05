@@ -37,16 +37,11 @@
 #include <memory>
 #include <cassert>
 #include <functional>
-#include <map>
-#include <mutex>
 #include <regex>
 
 #undef min
 #undef max
 #include <rapidfuzz/fuzz.hpp>
-
-
-#include <ppl.h>
 
 #include <winrt/base.h>
 #include <winrt/Windows.Foundation.h>
@@ -55,17 +50,15 @@
 #include "winrt_override.h"
 
 #include <gsl/gsl>
-#include <wil/win32_helpers.h>
 #include <wil/wistd_type_traits.h>
 #include <wil/cppwinrt_authoring.h>
-//#include <wil/stl.h>
-//#include <wil/result.h>
-//#include <wil/win32_helpers.h>
-//#include <wil/cppwinrt.h>
-//#include <wil/cppwinrt_helpers.h>
-//#include <wil/wistd_type_traits.h>
-//#include <wil/cppwinrt_authoring.h>
-//#include <wil/resource.h>
+#include <wil/cppwinrt.h>
+#include <wil/cppwinrt_helpers.h>
+
+#include <absl/container/flat_hash_map.h>
+#include <absl/container/flat_hash_set.h>
+#include <absl/container/inlined_vector.h>
+#include <absl/functional/any_invocable.h>
 
 #include <winrt/SystemExplorer.Xaml.h>
 #include <winrt/SystemExplorer.h>
