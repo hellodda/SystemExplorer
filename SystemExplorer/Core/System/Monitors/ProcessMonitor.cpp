@@ -39,6 +39,9 @@ namespace winrt::SystemExplorer::Core::System::Monitors
 
         }
 
+        LOG_HR_MSG(S_OK, "xz,xz,xz");
+        LOG_IF_NTSTATUS_FAILED_MSG(STATUS_FAILED_DRIVER_ENTRY, "oh nooo");
+
         uint64_t sysDelta = (lastSystemTime_ > 0) ? (currentSystemTime - lastSystemTime_) : 0;
 
         currentPids_.clear();

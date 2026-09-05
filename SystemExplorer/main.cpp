@@ -5,6 +5,7 @@
 #include <winrt/Microsoft.UI.Xaml.Settings.h>
 
 #include <core/services/AppMemoryManager.h>
+#include <core/diagnostics/tracelogging.h>
 
 #pragma comment(linker,"\"/manifestdependency:type='win32' \
 name='Microsoft.Windows.Common-Controls' version='6.0.0.0' \
@@ -25,6 +26,13 @@ INT APIENTRY wWinMain(
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
     UNREFERENCED_PARAMETER(nCmdShow);
+
+    Diagnostics::TraceLogging::TraceLoggingInitializer::Initialize();
+    try
+    {
+
+    }
+    CATCH_LOG()
 
     XamlOptionalChanges::EnableChange(XamlChangeId::DefaultStyleOptimizations);
     XamlOptionalChanges::EnableChange(XamlChangeId::DeferContextFlyoutInit);

@@ -234,6 +234,8 @@
     <ClCompile Include="ViewModels\Settings\AppearanceViewModel.Properties.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Callbacks.cpp" />
     <ClCompile Include="Xaml\Controls\SettingsGroup\SettingsGroup\SettingsGroup.Properties.cpp" />
+    <ClCompile Include="Core\Diagnostics\TraceLogging.cpp" />
+    <ClCompile Include="Core\Diagnostics\Telemetry.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -348,8 +350,10 @@
     <ClInclude Include="winrt_override.h" />
     <ClInclude Include="Core\Eil\delta.h" />
     <ClInclude Include="Core\Eil\unicode_string.h" />
-    <ClInclude Include="Core\Diagnostics\ITelemetryCollectionSupport.h" />
     <ClInclude Include="Core\System\sysx.h" />
+    <ClInclude Include="Core\Diagnostics\TraceLogging.h" />
+    <ClInclude Include="Core\Diagnostics\Telemetry.h" />
+    <ClInclude Include="Core\Eil\wil.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\Wide310x150Logo.scale-200.png">

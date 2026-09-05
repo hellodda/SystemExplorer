@@ -59,6 +59,12 @@ namespace winrt::SystemExplorer::Core::Settings
         eil::single_threaded_rw_setting<bool, L"UseDirectCalls"> UseDirectCalls{ false };
     };
 
+
+    struct DeveloperSettings : eil::settings_base
+    {
+        static inline eil::single_threaded_rw_setting<bool, L"TraceLoggingEnabled"> TraceLoggingEnabled{ false };
+    };
+
     struct UserSettings
     {
         static inline wil::single_threaded_property<AdvancedSettings> AdvancedSettings;
@@ -66,6 +72,7 @@ namespace winrt::SystemExplorer::Core::Settings
         static inline wil::single_threaded_property<GeneralSettings> GeneralSettings;
         static inline wil::single_threaded_property<ApplicationGlobalSettings> ApplicationGlobalSettings;
         static inline wil::single_threaded_property<EmsHostSettings> EmsHostSettings;
+        static inline wil::single_threaded_property<DeveloperSettings> DeveloperSettings;
     };
 
     struct InternalSettings : eil::settings_base
@@ -83,5 +90,4 @@ namespace winrt::SystemExplorer::Core::Settings
 
     };
 
-   
 }

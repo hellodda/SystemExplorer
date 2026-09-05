@@ -211,10 +211,12 @@
       <DependentUpon>Core\Data\Items\ObjectPairItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClInclude>
-    <ClInclude Include="Core\Diagnostics\ITelemetryCollectionSupport.h" />
+    <ClInclude Include="Core\Diagnostics\Telemetry.h" />
+    <ClInclude Include="Core\Diagnostics\TraceLogging.h" />
     <ClInclude Include="Core\Eil\delta.h" />
     <ClInclude Include="Core\Eil\nt.h" />
     <ClInclude Include="Core\Eil\unicode_string.h" />
+    <ClInclude Include="Core\Eil\wil.h" />
     <ClInclude Include="Core\Messaging.h" />
     <ClInclude Include="Core\Services\AppMemoryManager.h" />
     <ClInclude Include="Converters\Native\HiconToBitmapSourceConverter.h" />
@@ -691,6 +693,8 @@
       <DependentUpon>Core\Data\Items\ObjectPairItem.idl</DependentUpon>
       <SubType>Code</SubType>
     </ClCompile>
+    <ClCompile Include="Core\Diagnostics\Telemetry.cpp" />
+    <ClCompile Include="Core\Diagnostics\TraceLogging.cpp" />
     <ClCompile Include="Core\Services\AppMemoryManager.cpp" />
     <ClCompile Include="Converters\Native\HiconToBitmapSourceConverter.cpp" />
     <ClCompile Include="Core\Data\Items\NavigationBreadcrumbBarItem.cpp">

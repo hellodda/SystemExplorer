@@ -61,7 +61,7 @@ namespace winrt::SystemExplorer::Core::System::Sources
 				if (head->NextEntryOffset == 0) break;
 				head = reinterpret_cast<PSYSTEM_PROCESS_INFORMATION>(
 					reinterpret_cast<std::byte*>(head) + head->NextEntryOffset
-					);
+				);
 			}
 
 			return S_OK;

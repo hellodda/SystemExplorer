@@ -17,8 +17,7 @@ namespace winrt::SystemExplorer::Core::System::Sources
 			lastBuffer_ = nullptr;
 		}
 
-		if (WTSEnumerateProcessesExW(server_, &level, WTS_ANY_SESSION, (LPWSTR*)&process, &count))
-		{
+		if (WTSEnumerateProcessesExW(server_, &level, WTS_ANY_SESSION, (LPWSTR*)&process, &count))		{
 			// Сохраняем буфер, чтобы указатели ProcessName оставались валидными!
 			lastBuffer_ = process;
 			lastCount_ = count;

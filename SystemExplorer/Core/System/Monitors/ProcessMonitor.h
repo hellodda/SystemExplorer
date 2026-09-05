@@ -2,7 +2,6 @@
 #include "MonitorBase.h"
 
 #include <core/eil/event.h>
-#include <core/diagnostics/ITelemetryCollectionSupport.h>
 
 #include "../sysx.h"
 #include "../Sources/IProcessDataSource.h"
