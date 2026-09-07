@@ -6,8 +6,8 @@
     <Platform Name="x86" />
   </Configurations>
   <Folder Name="/Modules/">
-    <Project Path="ManagedModule/ManagedModule.csproj" Id="dbfe6e02-359c-44f2-a5df-9cbf6251f680" />
-    <Project Path="NativeModule/NativeModule.vcxproj" Id="87596b43-735d-4f77-a50b-cc250dab7d50">
+    <Project Path="Modules/ManagedModule/ManagedModule.csproj" />
+    <Project Path="Modules/NativeModule/NativeModule.vcxproj" Id="87596b43-735d-4f77-a50b-cc250dab7d50">
       <Platform Solution="*|ARM64" Project="x64" />
     </Project>
   </Folder>
