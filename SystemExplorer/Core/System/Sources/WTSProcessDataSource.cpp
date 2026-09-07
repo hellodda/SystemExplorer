@@ -9,16 +9,15 @@ namespace winrt::SystemExplorer::Core::System::Sources
 		PWTS_PROCESS_INFO_EXW process{ nullptr };
 		DWORD count{ 0 };
 		DWORD level{ 1 };
-
-		// Освобождаем буфер от ПРЕДЫДУЩЕГО тика
+		
 		if (lastBuffer_)
 		{
 			WTSFreeMemoryExW(WTSTypeProcessInfoLevel1, lastBuffer_, lastCount_);
 			lastBuffer_ = nullptr;
 		}
 
-		if (WTSEnumerateProcessesExW(server_, &level, WTS_ANY_SESSION, (LPWSTR*)&process, &count))		{
-			// Сохраняем буфер, чтобы указатели ProcessName оставались валидными!
+		if (WTSEnumerateProcessesExW(server_, &level, WTS_ANY_SESSION, (LPWSTR*)&process, &count))	
+		{  
 			lastBuffer_ = process;
 			lastCount_ = count;
 
