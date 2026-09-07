@@ -12,6 +12,7 @@
                        }
                    ],
     "overlay-ports":  [
-                          "./custom-ports/1ds-cpp-sdk"
+                          "./custom-ports/1ds-cpp-sdk",
+                          "./vcpkg-custom-ports/1ds-cpp-sdk"
                       ]
 }

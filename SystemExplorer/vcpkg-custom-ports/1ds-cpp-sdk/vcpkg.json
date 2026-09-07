@@ -1,0 +1,14 @@
+{
+  "name": "1ds-cpp-sdk",
+  "version": "1.0.0",
+  "description": "Microsoft 1DS C++ Telemetry SDK",
+  "homepage": "https://github.com/microsoft/cpp_client_telemetry",
+  "dependencies": [
+    "zlib",
+    "sqlite3",
+    "curl",
+    "nlohmann-json",
+    "vcpkg-cmake",
+    "vcpkg-cmake-config"
+  ]
+}

@@ -5,11 +5,20 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
+  <Folder Name="/Modules/">
+    <Project Path="ManagedModule/ManagedModule.csproj" Id="dbfe6e02-359c-44f2-a5df-9cbf6251f680" />
+    <Project Path="NativeModule/NativeModule.vcxproj" Id="87596b43-735d-4f77-a50b-cc250dab7d50">
+      <Platform Solution="*|ARM64" Project="x64" />
+    </Project>
+  </Folder>
   <Project Path="KernelExplorer/KernelExplorer.vcxproj">
     <Platform Solution="*|x86" Project="x64" />
     <Deploy Solution="*|ARM64" />
     <Deploy Solution="*|x64" />
     <Deploy Solution="*|x86" />
+  </Project>
+  <Project Path="ModularSystem/ModularSystem.vcxproj" Id="0a33d9bc-8f73-45cb-a448-1110d7ea340b">
+    <Platform Solution="*|ARM64" Project="x64" />
   </Project>
   <Project Path="SystemExplorer/SystemExplorer.vcxproj" Id="6cf68809-cd06-41cd-93b2-fa140f12a6d7">
     <Deploy />

@@ -25,7 +25,7 @@ namespace winrt::SystemExplorer::Core::Diagnostics::TraceLogging
 		_Inout_ wil::FailureInfo* pFailure,
 		_Inout_updates_opt_z_(cchDebugMessage) PWSTR pszDebugMessage,
 		_Pre_satisfies_(cchDebugMessage > 0) size_t cchDebugMessage
-	) noexcept;ым
+	) noexcept;
 
 	void __stdcall TraceLoggingTelemetryCallback(
 		_In_ bool alreadyReported,
